@@ -210,46 +210,55 @@
        {
       	 "level": 1,
       	 "number": 1,
-      	 "text": "",
-         "options": [],
-      	 "correctAnswer": [],
-      	 "explanation": ".",
+      	 "text": "Load the training and testing sets using the read.csv() function, and save them as variables with the names pisaTrain and pisaTest. How many students are there in the training set?",
+         "options": ["3663", "5233", "24", "1570"],
+      	 "correctAnswer": ["3663"],
+      	 "explanation": "The datasets can be loaded with: pisaTrain = read.csv(\"pisa2009train.csv\") pisaTest = read.csv(\"pisa2009test.csv\") We can then access the number of rows in the training set with str(pisaTrain) or nrow(pisaTrain).",
       	 "attemptsOverall": 1
        },
        {
       		"level": 1,
       		"number": 2,
-      		"text": "",
-      		"options": [],
-      		"correctAnswer": [],
-      		"explanation": "",
+      		"text": "Using tapply() on pisaTrain, what is the average reading test score of males? Of females?",
+      		"options": ["485.22, 509.19","482.34, 513.16","512.9406, 483.5325","483.5325, 512.9406"],
+      		"correctAnswer": ["483.5325, 512.9406"],
+      		"explanation": "The correct invocation of tapply() here is: tapply(pisaTrain$readingScore, pisaTrain$male, mean)",
       		"attemptsOverall": 2
       	},
         {
        		"level": 1,
        		"number": 3,
-       		"text": "",
-       		"options": [""],
-       		"correctAnswer": [""],
-       		"explanation": "",
-       		"attemptsOverall": 1
+       		"text": "Which variables are missing data in at least one observation in the training set? Select all that apply.",
+       		"options": ["grade", "male", "raceeth", "preschool", "expectBachelors", "motherHS", "motherBachelors", "motherWork", "fatherHS", "fatherBachelors", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "computerForSchoolwork", "read30MinsADay", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "publicSchool", "urban", "schoolSize", "readingScore"],
+       		"correctAnswer": ["raceeth", "preschool", "expectBachelors", "motherHS", "motherBachelors", "motherWork", "fatherHS", "fatherBachelors", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "computerForSchoolwork", "read30MinsADay", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "schoolSize"],
+       		"explanation": "We can read which variables have missing values from summary(pisaTrain). Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.",
+       		"attemptsOverall": 2
        	},
         {
        		"level": 1,
        		"number": 4,
-       		"text": "",
-       		"options": [""],
-       		"correctAnswer": [""],
-       		"explanation": "",
+       		"text": "How many missing values are there for minutesPerWeekEnglish? What is the average number of minutes that a student spends in English class? If all missing values were to be replaced with the maximum value, what would be the average number of minutes that a student spends in English class? What would it be if all the missing values were replaced with the minimum value?",
+       		"options": ["186, 266.2, 374.56, 252.69", "TODO"],
+       		"correctAnswer": ["186, 266.2, 374.56, 252.69"],
+       		"explanation": "TODO",
+       		"attemptsOverall": 3
+       	},
+        {
+       		"level": 1,
+       		"number": 5,
+       		"text": "Factor variables are variables that take on a discrete set of values, like the \"Region\" variable in the WHO dataset from the second lecture of Unit 1. This is an unordered factor because there isn't any natural ordering between the levels. An ordered factor has a natural ordering between the levels (an example would be the classifications \"large,\" \"medium,\" and \"small\"). Which of the following variables is an unordered factor with at least 3 levels? (Select all that apply.)",
+       		"options": ["grade", "male", "raceeth"],
+       		"correctAnswer": ["raceeth"],
+       		"explanation": "Male only has 2 levels (1 and 0). There is no natural ordering between the different values of raceeth, so it is an unordered factor",
        		"attemptsOverall": 1
        	},
         {
        		"level": 1,
        		"number": 5,
-       		"text": "",
-       		"options": [""],
-       		"correctAnswer": [""],
-       		"explanation": "",
+       		"text": "Which of the following variables is an ordered factor with at least 3 levels? (Select all that apply.)",
+       		"options": ["grade", "male", "raceeth"],
+       		"correctAnswer": ["grade"],
+       		"explanation": "We can order grades (8, 9, 10, 11, 12), so it is an ordered factor.",
        		"attemptsOverall": 1
        	}
       ]
@@ -260,46 +269,55 @@
        {
          "level": 2,
          "number": 1,
-         "text": "",
-         "options": [],
-         "correctAnswer": [],
-         "explanation": ".",
-         "attemptsOverall": 1
+         "text": "Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest: pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest) How many observations are now in the training set? How many observations are now in the testing set?",
+         "options": ["2414, 990", "3663, 1570", "24, 24", "2414, 1570"],
+         "correctAnswer": ["2414, 990"],
+         "explanation": "After running the provided commands we can use str(pisaTrain) and str(pisaTest), or nrow(pisaTrain) and nrow(pisaTest), to check the new number of rows in the datasets.",
+         "attemptsOverall": 2
        },
        {
           "level": 2,
           "number": 2,
-          "text": "",
-          "options": [],
-          "correctAnswer": [],
-          "explanation": "",
+          "text": "To include unordered factors in a linear regression model, we define one level as the \"reference level\" and add a binary variable for each of the remaining levels. In this way, a factor with n levels is replaced by n-1 binary variables. The reference level is typically selected to be the most frequently occurring level in the dataset. As an example, consider the unordered factor variable \"color\", with levels \"red\", \"green\", and \"blue\". If \"green\" were the reference level, then we would add binary variables \"colorred\" and \"colorblue\" to a linear regression problem. All red examples would have colorred=1 and colorblue=0. All blue examples would have colorred=0 and colorblue=1. All green examples would have colorred=0 and colorblue=0. Now, consider the variable \"raceeth\" in our problem, which has levels \"American Indian/Alaska Native\", \"Asian\", \"Black\", \"Hispanic\", \"More than one race\", \"Native Hawaiian/Other Pacific Islander\", and \"White\". Because it is the most common in our population, we will select White as the reference level. Which binary variables will be included in the regression model? (Select all that apply.)",
+          "options": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander", "raceethWhite"],
+          "correctAnswer": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "explanation": "We create a binary variable for each level except the reference level, so we would create all these variables except for raceethWhite.",
+          "attemptsOverall": 2
+        },
+        {
+          "level": 2,
+          "number": 3,
+          "text": "Consider again adding our unordered factor race to the regression model with reference level \"White\". For a student who is Asian, which binary variables would be set to 0? All remaining variables will be set to 1. (Select all that apply.)",
+          "options": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "correctAnswer": ["raceethAmerican Indian/Alaska Native", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "explanation": "An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0",
           "attemptsOverall": 1
         },
         {
           "level": 2,
           "number": 3,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
-          "attemptsOverall": 1
-        },
-        {
-          "level": 2,
-          "number": 4,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
+          "text": "Consider the addition of our unordered factor race to the regression model with reference level \"White\". For a student who is white, which binary variables would be set to 0? All remaining variables will be set to 1. (Select all that apply.)",
+          "options": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "correctAnswer": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "explanation": "An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0",
           "attemptsOverall": 1
         },
         {
           "level": 2,
           "number": 5,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
+          "text": "Check for outliers in the variable readingScore using the IQR method. How many outliers are there? Is linear regression sensitive to outliers?",
+          "options": ["0, No", "0, Yes", "0, Insuffient Information", "1, No", "1, Yes", "1, Insuffient Information","2, No", "2, Yes", "2, Insuffient Information","3, No", "3, Yes", "3, Insuffient Information"],
+          "correctAnswer": ["2, Yes"],
+          "explanation": "TODO",
+          "attemptsOverall": 2
+        },
+        {
+          "level": 2,
+          "number": 6,
+          "text": "There are x races. Instead of creating x-1 more variables, we could give each race a number 1-x and keep one variable that receives values 1-x. Why is this incorrect?",
+          "options": ["This would mean that each race has a different value and distances between races can be measured.", "We would have to keep a map of what race was mapped to which number.", "This would create a numeric column instead of a binary column."],
+          "correctAnswer": ["This would mean that each race has a different value and distances between races can be measured."],
+          "explanation": "TODO",
           "attemptsOverall": 1
         }
       ]
