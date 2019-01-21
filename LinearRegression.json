@@ -1,0 +1,611 @@
+{
+  "ClimateChange":
+  [
+    {
+      "level": 1,
+      "questions":[
+       {
+      	 "level": 1,
+      	 "number": 1,
+      	 "text": "We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. Then, split the data into a training set, consisting of all the observations up to and including 2006, and a testing set consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability. Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (Year and Month should NOT be used in the model). Use the training set to build the model. What is the model R-squared (the \"Multiple R-squared\" value):",
+         "options": ["1", "0.6", "0.73", "0.75", "0.7", "0", "0.5", "-1", "-0.2", "0.77", "0.8"],
+      	 "correctAnswer": ["0.75"],
+      	 "explanation": "First, read in the data and split it using the subset command: climate = read.csv(\"climate_change.csv\") train = subset(climate, Year <= 2006) test = subset(climate, Year > 2006) Then, you can create the model using the command: climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train) Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.",
+      	 "attemptsOverall": 2
+       },
+       {
+      		"level": 1,
+      		"number": 2,
+      		"text": "What is the RMSE of the model?",
+      		"options": ["0.05", "0.07", "0.08","0.09", "0.1", "0.11", "0.2"],
+      		"correctAnswer": ["0.09"],
+      		"explanation": "TODO",
+      		"attemptsOverall": 2
+      	},
+        {
+       		"level": 1,
+       		"number": 3,
+       		"text": "The data is split into training and test data so that we can measure the quality of the model on unseen data. How many observations are in the training set? What is the average CO2 level across all years in the training set? Which year had the highest level of MEI in the training set?",
+       		"options": ["284, 361.4, 1997", "284, 361.4, 1998", "284, 362.4, 1997", "24, 361.4, 1997", "24, 360.5, 1998"],
+       		"correctAnswer": [""],
+       		"explanation": "TODO",
+       		"attemptsOverall": 2
+       	},
+        {
+       		"level": 1,
+       		"number": 4,
+       		"text": "When is the log of the dependent variable used in the model instead of the dependent variable itself?",
+       		"options": ["When the model does not have a high RMSE.", "When the relationship between the dependent variable and the independent variables is non-linear.", "When the model has too many variables."],
+       		"correctAnswer": ["When the relationship between the dependent variable and the independent variables is non-linear."],
+       		"explanation": "TODO",
+       		"attemptsOverall": 1
+       	},
+        {
+       		"level": 1,
+       		"number": 5,
+       		"text": "What is the ”baseline” linear regression model?",
+       		"options": ["The mean of the test set dependent variables", "When the relationship between the dependent variable and the independent variables is non-linear", "The mean of the training set dependent variable", "A linear model build using one independent variable that is highly-correlated with the dependent variable"],
+       		"correctAnswer": ["The mean of the training set dependent variable"],
+       		"explanation": "TODO",
+       		"attemptsOverall": 1
+       	}
+      ]
+    },
+    {
+      "level": 2,
+      "questions":[
+       {
+         "level": 2,
+         "number": 1,
+         "text": "Which variables are significant in the model? We will consider a variable signficant only if the p-value is below 0.05. (Select all that apply.)",
+         "options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],
+         "correctAnswer": ["MEI", "CO2", "CFC.11", "CFC.12", "TSI", "Aerosols"],
+         "explanation": "If you look at the model we created in the previous problem using summary(climatelm), all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.",
+         "attemptsOverall": 2
+       },
+       {
+          "level": 2,
+          "number": 2,
+          "text": "Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth. However, the regression coefficients of both the N2O and CFC-11 variables are negative, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures. Which of the following is the simplest correct explanation for this contradiction?",
+          "options": ["Climate scientists are wrong that N2O and CFC-11 are greenhouse gases - this regression analysis constitutes part of a disproof.", "There is not enough data, so the regression coefficients being estimated are not accurate.", "All of the gas concentration variables reflect human development - N2O and CFC.11 are correlated with other variables in the data set."],
+          "correctAnswer": ["All of the gas concentration variables reflect human development - N2O and CFC.11 are correlated with other variables in the data set."],
+          "explanation": "The linear correlation of N2O and CFC.11 with other variables in the data set is quite large. The first explanation does not seem correct, as the warming effect of nitrous oxide and CFC-11 are well documented, and our regression analysis is not enough to disprove it. The second explanation is unlikely, as we have estimated eight coefficients and the intercept from 284 observations.",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 3,
+          "text": "Compute the correlations between all the variables in the training set. Which of the following independent variables is N2O highly correlated with (absolute correlation greater than 0.7)? Select all that apply.",
+          "options": ["MEI","CO2","CH4","CFC.11","CFC.12","Aerosols","TSI"],
+          "correctAnswer": ["CO2","CH4","CFC.12"],
+          "explanation": "You can calculate all correlations at once using cor(train) where train is the name of the training data set.",
+          "attemptsOverall": 2
+        },
+        {
+          "level": 2,
+          "number": 4,
+          "text": "Which of the following independent variables is worth more or has a greater effect on the dependent variable?",
+          "options": ["MEI","CH4","CFC.11","Aerosols"],
+          "correctAnswer": ["Aerosols"],
+          "explanation": "TODO",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 5,
+          "text": "Which of the following independent variables is CFC.11 highly correlated with? Select all that apply.",
+          "options": ["MEI","CO2","CH4","N2O","CFC.12","Aerosols","TSI"],
+          "correctAnswer": ["CH4","CFC.12"],
+          "explanation": "You can calculate all correlations at once using cor(train) where train is the name of the training data set.",
+          "attemptsOverall": 1
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "questions":[
+       {
+         "level": 3,
+         "number": 1,
+         "text": "Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables. Remember to use the training set to build the model. What is the coefficient of N2O in this reduced model? What the R-squared?",
+         "options": ["0.025, 0.748", "0.025, 0.767", "0.042, 0.726","0.018, 0.726", "0.025, 0.726","0.02, 0.71","0.02, 0.725","0.025, 0.726"],
+         "correctAnswer": ["0.025, 0.726"],
+         "explanation": "We can create this simplified model with the command: LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train) You can get the coefficient for N2O and the model R-squared by typing summary(LinReg). We have observed that, for this problem, when we remove many variables the sign of N2O flips. The model has not lost a lot of explanatory power (the model R2 is 0.7261 compared to 0.7509 previously) despite removing many variables. As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other. In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.",
+         "attemptsOverall": 2
+       },
+       {
+          "level": 3,
+          "number": 2,
+          "text": "We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality. R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R2. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model. The step function has one argument - the name of the initial model. It returns a simplified model. Use the step function in R to derive a new model, with the full model as the initial model (HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM). Be sure to save your new model to a variable name so that you can look at the summary. For more information about the step function, type ?step in your R console.) Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply." ,
+          "options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],
+          "correctAnswer": ["CH4"],
+          "explanation": "You can create a model using the step function by typing: StepModel = step(climateLM) where \"climateLM\" is the name of the full model. If you look at the summary of the model with summary(StepModel) and only CH4 was removed. It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R2 significantly. The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).",
+          "attemptsOverall": 3
+        },
+        {
+          "level": 3,
+          "number": 3,
+          "text": "Enter the R-squared value of the model produced by the step function? Which independent variable is not statistically significant?",
+          "options": ["0.7, N2O","0.75, N2O","0.72, N2O","0.77, N2O","0.7, CO2","0.72, CO2","0.75, CO2","0.77, CO2","0.7, CFC.12","0.72, CFC.12","0.75, CFC.12"],
+          "correctAnswer": ["0.75, N2O"],
+          "explanation": "From the model created by the step function, you can see that the R-squared value is 0.75 and that N2O has a high p-value.",
+          "attemptsOverall": 2
+        },
+        {
+          "level": 3,
+          "number": 4,
+          "text": "From the model produced by the step function, which variables are highly correlated? Select all that apply.",
+          "options": ["CO2, N2O", "CO2, Aerosols", "CO2, CFC.12", "TSI, MEI", "CFC.12, N2O", "CFC.11, CFC.12"],
+          "correctAnswer": ["CO2, N2O", "CO2, CFC.12", "CFC.12, N2O", "CFC.11, CFC.12"],
+          "explanation": "TODO",
+          "attemptsOverall": 3
+        },
+        {
+          "level": 3,
+          "number": 5,
+          "text": "From the model produced by the step function, remove highly correlated variables. What is the the R-squared of the new model?",
+          "options": ["0.616","0.6","0.625","0.64","0.654","0.665","0.676","0.685"],
+          "correctAnswer": ["0.625"],
+          "explanation": "TODO",
+          "attemptsOverall": 2
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "questions":[
+       {
+         "level": 4,
+         "number": 1,
+         "text": "We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data? Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function. What is the test set R-squared:",
+         "options": ["0.651","0.6139","0.6478","0.629","0.371","0.369","0.381"],
+         "correctAnswer": ["0.629"],
+         "explanation": "The R code to calculate the R-squared can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R2 = 1 - SSE/SST",
+         "attemptsOverall": 2
+       },
+       {
+          "level": 4,
+          "number": 2,
+          "text": "Are the following statements True or False: 1. The out of sample R2 will increase as the model includes more independent variables. 2. The out of sample R2 can be negative.",
+          "options": ["True, True","True, False","False, True","False, False"],
+          "correctAnswer": ["False, True"],
+          "explanation": "TODO",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 3,
+          "text": "How high does the out of sample R2 have to be to consider the model acceptable?",
+          "options": ["Higher than 0.7", "Higher than all of the other out of sample R2 received in the linear regression models trained on the data set", "Varies since it depends on the applied field and the other models that exist", "Higher than 0.5"],
+          "correctAnswer": ["Varies since it depends on the applied field and the other models that exist"],
+          "explanation": "TODO",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 4,
+          "text": "Does the original model produced from the step function overfit?",
+          "options": ["Yes", "No", "It depends on how the train and test sets are created", "The is insufficient information to answer this question."],
+          "correctAnswer": ["Yes"],
+          "explanation": "TODO",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 5,
+          "text": "How would you interpret the coefficient of Aerosols in the original model produced from the step function?",
+          "options": ["All else being equal, an increase in one unit of Aerosols is associated with a 1.54 increase in Temp", "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp", "A change in the value of Aerosols does not affect Temp."],
+          "correctAnswer": ["All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp"],
+          "explanation": "TODO",
+          "attemptsOverall": 1
+        }
+      ]
+    }
+  ],
+  "ReadingTestScores":
+  [
+    {
+      "level": 1,
+      "questions":[
+       {
+      	 "level": 1,
+      	 "number": 1,
+      	 "text": "",
+         "options": [],
+      	 "correctAnswer": [],
+      	 "explanation": ".",
+      	 "attemptsOverall": 1
+       },
+       {
+      		"level": 1,
+      		"number": 2,
+      		"text": "",
+      		"options": [],
+      		"correctAnswer": [],
+      		"explanation": "",
+      		"attemptsOverall": 2
+      	},
+        {
+       		"level": 1,
+       		"number": 3,
+       		"text": "",
+       		"options": [""],
+       		"correctAnswer": [""],
+       		"explanation": "",
+       		"attemptsOverall": 1
+       	},
+        {
+       		"level": 1,
+       		"number": 4,
+       		"text": "",
+       		"options": [""],
+       		"correctAnswer": [""],
+       		"explanation": "",
+       		"attemptsOverall": 1
+       	},
+        {
+       		"level": 1,
+       		"number": 5,
+       		"text": "",
+       		"options": [""],
+       		"correctAnswer": [""],
+       		"explanation": "",
+       		"attemptsOverall": 1
+       	}
+      ]
+    },
+    {
+      "level": 2,
+      "questions":[
+       {
+         "level": 2,
+         "number": 1,
+         "text": "",
+         "options": [],
+         "correctAnswer": [],
+         "explanation": ".",
+         "attemptsOverall": 1
+       },
+       {
+          "level": 2,
+          "number": 2,
+          "text": "",
+          "options": [],
+          "correctAnswer": [],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 3,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 4,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 5,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "questions":[
+       {
+         "level": 3,
+         "number": 1,
+         "text": "",
+         "options": [],
+         "correctAnswer": [],
+         "explanation": ".",
+         "attemptsOverall": 1
+       },
+       {
+          "level": 3,
+          "number": 2,
+          "text": "",
+          "options": [],
+          "correctAnswer": [],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 3,
+          "number": 3,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 3,
+          "number": 4,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 3,
+          "number": 5,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "questions":[
+       {
+         "level": 4,
+         "number": 1,
+         "text": "",
+         "options": [],
+         "correctAnswer": [],
+         "explanation": ".",
+         "attemptsOverall": 1
+       },
+       {
+          "level": 4,
+          "number": 2,
+          "text": "",
+          "options": [],
+          "correctAnswer": [],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 3,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 4,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 5,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        }
+      ]
+    }
+  ],
+  "DetectingFluEpedemics":
+  [
+    {
+      "level": 1,
+      "questions":[
+       {
+      	 "level": 1,
+      	 "number": 1,
+      	 "text": "What does it mean when an independent variable has a high p-value?",
+         "options": ["It is a variable that should be kept in the model.", "The variable’s coefficient is not statistically different than zero.", "The coefficient can be changed to improve the variable’s p-value.", "The absolute value of the estimate of the variable’s coefficient divided by the standard error is large."],
+      	 "correctAnswer": ["The variable’s coefficient is not statistically different than zero."],
+      	 "explanation": "The variable’s coefficient is not statistically different than zero.",
+      	 "attemptsOverall": 1
+       },
+       {
+      		"level": 1,
+      		"number": 2,
+      		"text": "",
+      		"options": [],
+      		"correctAnswer": [],
+      		"explanation": "",
+      		"attemptsOverall": 2
+      	},
+        {
+       		"level": 1,
+       		"number": 3,
+       		"text": "",
+       		"options": [""],
+       		"correctAnswer": [""],
+       		"explanation": "",
+       		"attemptsOverall": 1
+       	},
+        {
+       		"level": 1,
+       		"number": 4,
+       		"text": "Which of the following are advantages of having fewer independent variables in the model?",
+       		"options": ["The model is more interpretable", "The simplest model is always the best model.","It can prevent overfitting.","The AIC is lower."],
+       		"correctAnswer": ["The model is more interpretable", "It can prevent overfitting."],
+       		"explanation": "",
+       		"attemptsOverall": 1
+       	},
+        {
+       		"level": 1,
+       		"number": 5,
+       		"text": "",
+       		"options": [""],
+       		"correctAnswer": [""],
+       		"explanation": "",
+       		"attemptsOverall": 1
+       	}
+      ]
+    },
+    {
+      "level": 2,
+      "questions":[
+       {
+         "level": 2,
+         "number": 1,
+         "text": "",
+         "options": [],
+         "correctAnswer": [],
+         "explanation": ".",
+         "attemptsOverall": 1
+       },
+       {
+          "level": 2,
+          "number": 2,
+          "text": "",
+          "options": [],
+          "correctAnswer": [],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 3,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 4,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 2,
+          "number": 5,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "questions":[
+       {
+         "level": 3,
+         "number": 1,
+         "text": "",
+         "options": [],
+         "correctAnswer": [],
+         "explanation": ".",
+         "attemptsOverall": 1
+       },
+       {
+          "level": 3,
+          "number": 2,
+          "text": "",
+          "options": [],
+          "correctAnswer": [],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 3,
+          "number": 3,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 3,
+          "number": 4,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 3,
+          "number": 5,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "questions":[
+       {
+         "level": 4,
+         "number": 1,
+         "text": "",
+         "options": [],
+         "correctAnswer": [],
+         "explanation": ".",
+         "attemptsOverall": 1
+       },
+       {
+          "level": 4,
+          "number": 2,
+          "text": "",
+          "options": [],
+          "correctAnswer": [],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 3,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 4,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        },
+        {
+          "level": 4,
+          "number": 5,
+          "text": "",
+          "options": [""],
+          "correctAnswer": [""],
+          "explanation": "",
+          "attemptsOverall": 1
+        }
+      ]
+    }
+  ]
+}
