@@ -110,16 +110,16 @@
          "text": "Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables. Remember to use the training set to build the model. What is the coefficient of N2O in this reduced model? What the R-squared?",
          "options": ["0.025, 0.748", "0.025, 0.767", "0.042, 0.726","0.018, 0.726", "0.025, 0.726","0.02, 0.71","0.02, 0.725","0.025, 0.726"],
          "correctAnswer": ["0.025, 0.726"],
-         "explanation": "We can create this simplified model with the command: LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train) You can get the coefficient for N2O and the model R-squared by typing summary(LinReg). We have observed that, for this problem, when we remove many variables the sign of N2O flips. The model has not lost a lot of explanatory power (the model R2 is 0.7261 compared to 0.7509 previously) despite removing many variables. As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other. In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.",
+         "explanation": "We can create this simplified model with the command: LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train) You can get the coefficient for N2O and the model R-squared by typing summary(LinReg). We have observed that, for this problem, when we remove many variables the sign of N2O flips. The model has not lost a lot of explanatory power (the model R-squared is 0.7261 compared to 0.7509 previously) despite removing many variables. As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other. In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.",
          "attemptsOverall": 2
        },
        {
           "level": 3,
           "number": 2,
-          "text": "We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality. R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R2. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model. The step function has one argument - the name of the initial model. It returns a simplified model. Use the step function in R to derive a new model, with the full model as the initial model (HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM). Be sure to save your new model to a variable name so that you can look at the summary. For more information about the step function, type ?step in your R console.) Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply." ,
+          "text": "We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality. R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R-squared. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model. The step function has one argument - the name of the initial model. It returns a simplified model. Use the step function in R to derive a new model, with the full model as the initial model (HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM). Be sure to save your new model to a variable name so that you can look at the summary. For more information about the step function, type ?step in your R console.) Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply." ,
           "options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],
           "correctAnswer": ["CH4"],
-          "explanation": "You can create a model using the step function by typing: StepModel = step(climateLM) where \"climateLM\" is the name of the full model. If you look at the summary of the model with summary(StepModel) and only CH4 was removed. It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R2 significantly. The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).",
+          "explanation": "You can create a model using the step function by typing: StepModel = step(climateLM) where \"climateLM\" is the name of the full model. If you look at the summary of the model with summary(StepModel) and only CH4 was removed. It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R-squared significantly. The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).",
           "attemptsOverall": 3
         },
         {
@@ -160,13 +160,13 @@
          "text": "We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data? Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function. What is the test set R-squared:",
          "options": ["0.651","0.6139","0.6478","0.629","0.371","0.369","0.381"],
          "correctAnswer": ["0.629"],
-         "explanation": "The R code to calculate the R-squared can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R2 = 1 - SSE/SST",
+         "explanation": "The R code to calculate the R-squared can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R-squared = 1 - SSE/SST",
          "attemptsOverall": 2
        },
        {
           "level": 4,
           "number": 2,
-          "text": "Are the following statements True or False: 1. The out of sample R2 will increase as the model includes more independent variables. 2. The out of sample R2 can be negative.",
+          "text": "Are the following statements True or False: 1. The out of sample R-squared will increase as the model includes more independent variables. 2. The out of sample R-squared can be negative.",
           "options": ["True, True","True, False","False, True","False, False"],
           "correctAnswer": ["False, True"],
           "explanation": "TODO",
@@ -175,8 +175,8 @@
         {
           "level": 4,
           "number": 3,
-          "text": "How high does the out of sample R2 have to be to consider the model acceptable?",
-          "options": ["Higher than 0.7", "Higher than all of the other out of sample R2 received in the linear regression models trained on the data set", "Varies since it depends on the applied field and the other models that exist", "Higher than 0.5"],
+          "text": "How high does the out of sample R-squared have to be to consider the model acceptable?",
+          "options": ["Higher than 0.7", "Higher than all of the other out of sample R-squared received in the linear regression models trained on the data set", "Varies since it depends on the applied field and the other models that exist", "Higher than 0.5"],
           "correctAnswer": ["Varies since it depends on the applied field and the other models that exist"],
           "explanation": "TODO",
           "attemptsOverall": 1
@@ -328,47 +328,56 @@
        {
          "level": 3,
          "number": 1,
-         "text": "",
-         "options": [],
-         "correctAnswer": [],
-         "explanation": ".",
-         "attemptsOverall": 1
+         "text": "Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\"). Set the reference level of the factor by typing the following two lines in your R console: pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\") pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\") Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables. It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables. As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation: LinReg = lm(Y ~ X1 + X2 + X3, data = Train) You would use the following command to build your model: LinReg = lm(Y ~ ., data = Train) What is the Multiple R-squared value of lmScore on the training set? Note that this R-squared is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).",
+         "options": ["0.675","0.315","0.32","0.68","0.325","0.331","0.665","0.5"],
+         "correctAnswer": ["0.325"],
+         "explanation": "We can train the model with: lmScore = lm(readingScore~., data=pisaTrain) We can then read the training set R^2 from the \"Multiple R-squared\" value of summary(lmScore).",
+         "attemptsOverall": 3
        },
        {
           "level": 3,
           "number": 2,
-          "text": "",
-          "options": [],
-          "correctAnswer": [],
-          "explanation": "",
-          "attemptsOverall": 1
+          "text": "What is the training-set root-mean squared error (RMSE) of lmScore?",
+          "options": ["5382.5","19716111.884","TODO","TODO","TODO","TODO","73","73.366"],
+          "correctAnswer": ["73.366"],
+          "explanation": "The training-set RMSE can be computed by first computing the SSE: SSE = sum(lmScore$residuals^2) and then dividing by the number of observations and taking the square root: RMSE = sqrt(SSE / nrow(pisaTrain)) An alternative way of getting this answer would be with the following command: sqrt(mean(lmScore$residuals^2)).",
+          "attemptsOverall": 2
         },
         {
           "level": 3,
           "number": 3,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
-          "attemptsOverall": 1
+          "text": "Consider two students A and B. They have all variable values the same, except that student A is in grade 11 and student B is in grade 9. What is the predicted reading score of student A minus the predicted reading score of student B?",
+          "options": ["-59.09", "-29.54", "0", "29.54", "59.09","The difference cannot be determined without more information about the two students"],
+          "correctAnswer": ["59.09"],
+          "explanation": "The coefficient 29.54 on grade is the difference in reading score between two students who are identical other than having a difference in grade of 1. Because A and B have a difference in grade of 2, the model predicts that student A has a reading score that is 2*29.54 larger.",
+          "attemptsOverall": 2
         },
         {
           "level": 3,
           "number": 4,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
+          "text": "What is the meaning of the coefficient associated with variable raceethAsian?",
+          "options": ["Predicted average reading score of an Asian student", "Difference between the average reading score of an Asian student and the average reading score of a white student", "Difference between the average reading score of an Asian student and the average reading score of all the students in the dataset", "Predicted difference in the reading score between an Asian student and a white student who is otherwise identical"],
+          "correctAnswer": ["Predicted difference in the reading score between an Asian student and a white student who is otherwise identical"],
+          "explanation": "The only difference between an Asian student and white student with otherwise identical variables is that the former has raceethAsian=1 and the latter has raceethAsian=0. The predicted reading score for these two students will differ by the coefficient on the variable raceethAsian.",
           "attemptsOverall": 1
         },
         {
           "level": 3,
           "number": 5,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
-          "attemptsOverall": 1
+          "text": "Based on the significance codes, which variables are candidates for removal from the model? Select all that apply. (We'll assume that the factor variable raceeth should only be removed if none of its levels are significant.)",
+          "options": ["grade", "male", "raceeth", "preschool", "expectBachelors", "motherHS", "motherBachelors", "motherWork", "fatherHS", "fatherBachelors", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "computerForSchoolwork", "read30MinsADay", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "publicSchool", "urban", "schoolSize"],
+          "correctAnswer": ["preschool", "motherHS", "motherWork", "fatherHS", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "urban"],
+          "explanation": "From summary(lmScore), we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.",
+          "attemptsOverall": 2
+        },
+        {
+          "level": 3,
+          "number": 6,
+          "text": "TODO",
+          "options": ["TODO"],
+          "correctAnswer": ["TODO"],
+          "explanation": "TODO",
+          "attemptsOverall": 2
         }
       ]
     },
@@ -378,47 +387,56 @@
        {
          "level": 4,
          "number": 1,
-         "text": "",
-         "options": [],
-         "correctAnswer": [],
-         "explanation": ".",
+         "text": "Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest. Call this vector of predictions \"predTest\". Do not change the variables in the model (for example, do not remove variables that we found were not significant in the previous part of this problem). Use the summary function to describe the test set predictions. What is the range between the maximum and minimum predicted reading score on the test set?",
+         "options": ["284.5", "637.7", "353.2", "285", "990.0", "-284.5"],
+         "correctAnswer": ["284.5"],
+         "explanation": "We can obtain the predictions with: predTest = predict(lmScore, newdata=pisaTest) From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.",
          "attemptsOverall": 1
        },
        {
           "level": 4,
           "number": 2,
-          "text": "",
+          "text": "What is the sum of squared errors (SSE) of lmScore on the testing set? What is the root-mean squared error (RMSE) of lmScore on the testing set?",
           "options": [],
           "correctAnswer": [],
-          "explanation": "",
-          "attemptsOverall": 1
+          "explanation": "SSE = sum((predTest-pisaTest$readingScore)^2), RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))",
+          "attemptsOverall": 2
         },
         {
           "level": 4,
           "number": 3,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
-          "attemptsOverall": 1
+          "text": "What is the predicted test score used in the baseline model? Remember to compute this value using the training set and not the test set. What is the sum of squared errors of the baseline model on the testing set? HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).",
+          "options": ["497.91, 7802354","517.96, 7802354", "520.205, 7802354","497.91, 14407628","517.96, 14407628", "520.205 ,8275884", "517.96 ,8275884"],
+          "correctAnswer": ["517.96, 7802354"],
+          "explanation": "This can be computed with baseline = mean(pisaTrain$readingScore) and sum((baseline-pisaTest$readingScore)^2).",
+          "attemptsOverall": 2
         },
         {
           "level": 4,
           "number": 4,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
+          "text": "TODO",
+          "options": ["TODO"],
+          "correctAnswer": ["TODO"],
+          "explanation": "TODO",
           "attemptsOverall": 1
         },
         {
           "level": 4,
           "number": 5,
-          "text": "",
-          "options": [""],
-          "correctAnswer": [""],
-          "explanation": "",
-          "attemptsOverall": 1
+          "text": "What is the test-set R-squared value of lmScore?",
+          "options": ["5762082", "-0.261", "1.354", "7802354", "0.261", "-1.354"],
+          "correctAnswer": ["0.261"],
+          "explanation": "The test-set R-squared is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model. For this model, the R-squared is then computed to be 1-5762082/7802354.",
+          "attemptsOverall": 2
+        },
+        {
+          "level": 4,
+          "number": 6,
+          "text": "How can the model be improved (Select all that apply)",
+          "options": ["Remove insignificant independent variables", "Set the reference level of the race factor variable to be the default", "Check for multicollinearity between independent variables and remove and high cor- related variables", "Consider alternative ways of dealing with missing values in the data"],
+          "correctAnswer": ["Remove insignificant independent variables", "Check for multicollinearity between independent variables and remove and high cor- related variables", "Consider alternative ways of dealing with missing values in the data"],
+          "explanation": "TODO",
+          "attemptsOverall": 2
         }
       ]
     }
