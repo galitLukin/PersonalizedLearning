@@ -26,7 +26,7 @@ def main():
     questionInstance = state[State.questionInstance.name]
     question = state[State.question.name]
     if status == Status.correct.name or status == Status.incorrectNoAttempts.name:
-        state[State.question.name] = helper.getNextQuestion()
+        state[State.question.name] = helper.getNextQuestion(question['Assignment'])
         state[State.questionInstance.name] = {
             QInst.status.name: Status.newQuestion.name,
             QInst.answer.name: [],
