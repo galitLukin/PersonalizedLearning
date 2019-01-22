@@ -9,12 +9,12 @@ def isCorrect(answer, correctAnswer):
 	else:
 		return True
 
-def getNextQuestion():
+def getNextQuestion(assignment):
     with open('LinearRegression.json') as f:
         questions = json.load(f)
     level = random.randint(0,3)
     q = random.randint(0,4)
-    return questions['ClimateChange'][level]['questions'][q]
+    return questions[assignment][level]['questions'][q]
     #first get history of user
 	# j = julia.Julia()
 	# pred = j.include("prediction.jl")
