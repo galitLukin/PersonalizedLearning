@@ -5,9 +5,9 @@ import helper
 import pprint
 
 class State(Enum):
-    question = 1
-    questionInstance = 2
-    user = 3
+    Question = 1
+    QuestionInstance = 2
+    User = 3
 
 class QInst(Enum):
     status = 1
@@ -15,43 +15,43 @@ class QInst(Enum):
     numAttempts = 3
 
 class Status(Enum):
-    correct = 1
-    incorrectNoAttempts = 2
-    incorrectWithAttempts = 3
-    incomplete = 4
-    newQuestion = 5
+    Correct = 1
+    IncorrectNoAttempts = 2
+    IncorrectWithAttempts = 3
+    Incomplete = 4
+    NewQuestion = 5
 
 def main():
     pp = pprint.PrettyPrinter(indent=4)
     state = json.loads(sys.argv[1])
-    pp.pprint(state) 
-    status = state[State.questionInstance.name][QInst.status.name]
-    questionInstance = state[State.questionInstance.name]
-    question = state[State.question.name]
-    if status == Status.correct.name or status == Status.incorrectNoAttempts.name:
-        state[State.question.name] = helper.getNextQuestion(question['Assignment'])
-        state[State.questionInstance.name] = {
-            QInst.status.name: Status.newQuestion.name,
+    pp.pprint(state)
+    status = state[State.QuestionInstance.name][QInst.status.name]
+    questionInstance = state[State.QuestionInstance.name]
+    question = state[State.Question.name]
+    if status == Status.Correct.name or status == Status.IncorrectNoAttempts.name:
+        state[State.Question.name] = helper.getNextQuestion(question['Assignment'])
+        state[State.QuestionInstance.name] = {
+            QInst.status.name: Status.NewQuestion.name,
             QInst.answer.name: [],
             QInst.numAttempts.name: 0
         }
     else:
         #user is in process of answering
         if questionInstance[QInst.answer.name]: #user answered question
-            state[State.questionInstance.name][QInst.numAttempts.name] += 1
+            state[State.QuestionInstance.name][QInst.numAttempts.name] += 1
             if helper.isCorrect(questionInstance[QInst.answer.name],question['correctAnswer']):
-                state[State.questionInstance.name][QInst.status.name] = Status.correct.name
+                state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
             elif questionInstance[QInst.numAttempts.name] < question['attemptsOverall']:
-                state[State.questionInstance.name][QInst.status.name] = Status.incorrectWithAttempts.name
+                state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
             else:
-                state[State.questionInstance.name][QInst.status.name] = Status.incorrectNoAttempts.name
+                state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
         else:
             #user did not answer question
-            state[State.questionInstance.name][QInst.status.name] = Status.incomplete.name
+            state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
     return json.dumps(state)
 
 if __name__ == "__main__":
     main()
 
 #example of json parameter that script recieves and returns
-#'{"question":{"Assignment": "ClimateChange","level": 1,"number": 2,"text": "Which variables are significant in the model? We will consider a variable signficant only if the p-value is below 0.05. (Select all that apply.)","options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],"correctAnswer": ["MEI", "CO2", "CFC.11", "CFC.12", "TSI", "Aerosols"],"explanation": "If you look at the model we created in the previous problem using summary(climatelm), all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.","attemptsOverall": 2, "weight": 0},"questionInstance":{"status": "newQuestion","answer": ["MEI", "CO2"],"numAttempts": 0},"user":{"username": "omer"}}'
+#'{"Question":{"Assignment": "ClimateChange","level": 1,"number": 2,"text": "Which variables are significant in the model? We will consider a variable signficant only if the p-value is below 0.05. (Select all that apply.)","options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],"correctAnswer": ["MEI", "CO2", "CFC.11", "CFC.12", "TSI", "Aerosols"],"explanation": "If you look at the model we created in the previous problem using summary(climatelm), all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.","attemptsOverall": 2, "Weight": 0},"QuestionInstance":{"status": "NewQuestion","answer": ["MEI", "CO2"],"numAttempts": 0},"User":{"Username": "omer"}}'
