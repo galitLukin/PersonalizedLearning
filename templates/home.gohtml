@@ -1,0 +1,18 @@
+{{define "title"}}Home{{end}}
+
+
+{{define "home"}}
+<div class="login-card">
+    <h1>Let's Learn Together! 🤓🤓</h1>
+
+    {{if .UserData.First}}
+        email name {{.UserData.UserName}}<br>
+        first name {{.UserData.First}}<br>
+        last name {{.UserData.Last}}<br>
+        password {{.UserData.Password}}<br>
+    {{end}}
+</div>
+
+{{/* {{ template "quiz" . }} */}}
+
+{{end}}

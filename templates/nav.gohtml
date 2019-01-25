@@ -1,0 +1,16 @@
+{{define "nav"}}
+<header class="header">
+  <h1 class="logo"><a href="#">Data Camp</a></h1>
+  <ul class="main-nav">
+    <li><a href="/home">Home</a></li>
+    <li><a href="/home">About</a></li>
+    {{if .UserData.First}}
+        <li><a href="/home">{{.UserData.First}}'s Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+    {{else}}
+        <li><a href="/login">Login</a></li>
+    {{end}}
+    <li><a href="/home">Contact</a></li>
+  </ul>
+</header>
+{{end}}
