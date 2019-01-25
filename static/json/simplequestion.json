@@ -1,5 +1,5 @@
 {
-    "question": {
+    "Question": {
         "Assignment": "ClimateChange",
         "level": 1,
         "question_number": 2,
@@ -23,14 +23,14 @@
         "attemptsOverall": 2,
         "weight": 0
     },
-    "questionInstance": {
+    "QuestionInstance": {
         "status": "newQuestion",
         "answer": [
             "0.73"
         ],
         "numAttempts": 0
     },
-    "user": {
+    "User": {
         "username": "omer"
     }
 }
