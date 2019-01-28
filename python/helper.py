@@ -1,5 +1,6 @@
 import json
 import random
+import julia
 
 def isCorrect(answer, correctAnswer):
 	if len(answer) is not len(correctAnswer):
