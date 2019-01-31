@@ -5,7 +5,7 @@ import cluster
 import pandas as pd
 import julia
 
-preprocess = 0
+preprocess = 1
 assignmentNames = ["ad","sd", "de"]
 levelQuesAD = [6,5,5,5]
 maxAttemptsAD = [3] * 6 + [1,3,2,2,2] + [1,1,5,3,3] + [2,3,3,2,2]
@@ -15,6 +15,10 @@ levelQuesDE = [5,5,6,4]
 maxAttemptsDE = [3,2,3,3,2] + [2,2,3,1,4] + [3,3,1,5,5,3] + [3,5,5,1]
 levelQuesCC = [2,3,2,2]
 maxAttemptsCC = [5,2,1,2,2,5,4,4,5]
+levelQuesRTS = [5,4,5,4]
+maxAttemptsRTS = [3,3,2,2,2] + [3,2,2,2] + [5,3,2,1,2] + [5] * 4
+levelQuesDFE = [6,4,5,6]
+maxAttemptsDFE = [2,2,1,1,2,5] + [1,3,3,3] + [3,1,3,3,1] + [3,1,1,3,5,1]
 assignmentLevels = [levelQuesAD, levelQuesSD, levelQuesDE]
 
 if preprocess:
@@ -42,6 +46,16 @@ if preprocess:
     cc2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ClimateChange/ClimateChange{}_{}.csv"
     cc2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ClimateChange/ClimateChange{}_{}.csv"
     climateChange = answers.parseAndGroup(levelQuesCC,[cc2018,cc2017],"cc")
+
+    #reading test scores
+    rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
+    rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
+    climateChange = answers.parseAndGroup(levelQuesRTS,[rts2018,rts2017],"rts")
+
+    #detecting flu epedemics
+    dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
+    dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
+    climateChange = answers.parseAndGroup(levelQuesDFE,[dfe2018,dfe2017],"dfe")
 
     #exam
     cols = ["username", "examScore", "courseYear"]
