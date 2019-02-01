@@ -25,31 +25,49 @@ class Status(Enum):
 
 
 def main():
-    state = json.loads(sys.argv[1])
-    status = state[State.QuestionInstance.name][QInst.status.name]
-    questionInstance = state[State.QuestionInstance.name]
-    question = state[State.Question.name]
-    if status == Status.Correct.name or status == Status.IncorrectNoAttempts.name:
-        state[State.Question.name] = helper.getNextQuestion(
-            question['Assignment'])
+    if sys.argv[1] is None:
+        state = {}
+        #instead of 'ClimateChange', Omer should be sending you the parameter of the url
+        with open('LinearRegression.json') as f:
+            questions = json.load(f)
+        state[State.Question.name] = questions['Climate Change'][0]['questions'][0]
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,
             QInst.answer.name: [],
             QInst.numAttempts.name: 0
         }
+        #maybe dont need this and if we do, then omer should send you this username too
+        state['User'] = {
+            'username': "omer"
+        }
     else:
-        # user is in process of answering
-        if questionInstance[QInst.answer.name]:  # user answered question
-            state[State.QuestionInstance.name][QInst.numAttempts.name] += 1
-            if helper.isCorrect(questionInstance[QInst.answer.name], question['correctAnswer']):
-                state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
-            elif questionInstance[QInst.numAttempts.name] < question['attemptsOverall']:
-                state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
-            else:
-                state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
+        state = json.loads(sys.argv[1])
+
+        status = state[State.QuestionInstance.name][QInst.status.name]
+        questionInstance = state[State.QuestionInstance.name]
+        question = state[State.Question.name]
+
+        if status == Status.Correct.name or status == Status.IncorrectNoAttempts.name:
+            state[State.Question.name] = helper.getNextQuestion(
+                question['Assignment'])
+            state[State.QuestionInstance.name] = {
+                QInst.status.name: Status.NewQuestion.name,
+                QInst.answer.name: [],
+                QInst.numAttempts.name: 0
+            }
         else:
-            # user did not answer question
-            state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
+            # user is in process of answering
+            if questionInstance[QInst.answer.name]:  # user answered question
+                state[State.QuestionInstance.name][QInst.numAttempts.name] = questionInstance[QInst.numAttempts.name] + 1
+                if helper.isCorrect(questionInstance[QInst.answer.name], question['correctAnswer']):
+                    state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
+                elif state[State.QuestionInstance.name][QInst.numAttempts.name] < question['attemptsOverall']:
+                    state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
+                else:
+                    state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
+            else:
+                # user did not answer question
+                state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
     print(json.dumps(state))
 
 
