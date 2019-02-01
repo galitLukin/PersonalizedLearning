@@ -6,10 +6,8 @@ using JLD2
 using GraphViz
 using Base.Test
 
-function splitData(level)
-  df1 = readtable("data/cc$level.csv", header=true, makefactors=true)
-  df2 = readtable("data/rts$level.csv", header=true, makefactors=true)
-  df3 = readtable("data/dfe$level.csv", header=true, makefactors=true)
+function splitData(level, asmt)
+  df1 = readtable("data/$asmt$level.csv", header=true, makefactors=true)
   df = [df1; df2; df3]
   X = df[4:end-3]
   Y = df[2]
@@ -25,7 +23,7 @@ function splitData(level)
   return stratifiedobs((X, outcomes, Y, T), p=0.75)
 end
 
-function trainTree(X, Y, T, level, depth, meu)
+function trainTree(X, Y, T, level, depth, meu, asmt)
   lnr = OptimalTrees.OptimalTreePrescriptionMinimizer(
     ls_num_tree_restarts=100,
     treatment_minbucket=50,
@@ -75,10 +73,10 @@ function trainTree(X, Y, T, level, depth, meu)
   lnr = grid.best_lnr
   @show lnr
 
-  plotname = "$level/model2/tree.dot"
+  plotname = "$level/model3/$asmt/tree.dot"
   OptimalTrees.writedot(plotname, lnr)
-  @save "$level/model2/mytree.jld2" lnr
-  OptimalTrees.writejson("$level/model2/tree.json", lnr)
+  @save "$level/model3/$asmt/mytree.jld2" lnr
+  OptimalTrees.writejson("$level/model3/$asmt/tree.json", lnr)
   run(`dot -Tpng $plotname -o $(replace(plotname, ".dot", ".png"))`)
   return lnr
 end
@@ -158,15 +156,22 @@ end
 
 depth=[[4,5],[4,5],[5,6],[5,6]]
 meu=[0.55,0.55,0.55,0.55]
-for level in 4:4
-    (train_X, train_outcomes, train_Y, train_T), (test_X, test_outcomes, test_Y, test_T) = splitData(level)
-    lnr = trainTree(train_X, train_Y, train_T, level, depth[level], meu[level])
-    treatment_accuracy, r2, accuracy= evaluate(lnr, test_X, test_outcomes, level)
-    println(treatment_accuracy)
-    println(accuracy)
+for asmt in ["cc", "rts", "dfe"]
+    for level in 1:4
+        (train_X, train_outcomes, train_Y, train_T), (test_X, test_outcomes, test_Y, test_T) = splitData(level)
+        lnr = trainTree(train_X, train_Y, train_T, level, depth[level], meu[level], "Assignment$level")
+        treatment_accuracy, r2, accuracy= evaluate(lnr, test_X, test_outcomes, level)
+        println(treatment_accuracy)
+        println(accuracy)
+    end
 end
-
+#model1
 #0.878, -0.079
 #0.585, -0.15
 #0.702, -0.254
 #0.4368, -0.81
+#model2
+#0.834,-0.11
+#0.725, -0.217
+#0.758, -0.285
+#0.425, -0.58

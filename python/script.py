@@ -49,7 +49,7 @@ def main():
 
         if status == Status.Correct.name or status == Status.IncorrectNoAttempts.name:
             state[State.Question.name] = helper.getNextQuestion(
-                question['Assignment'])
+                question['Assignment'], question['level'], question['number'])
             state[State.QuestionInstance.name] = {
                 QInst.status.name: Status.NewQuestion.name,
                 QInst.answer.name: [],

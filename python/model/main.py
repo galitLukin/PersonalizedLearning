@@ -116,7 +116,7 @@ dataSets.append(pd.read_csv("data/preprocessed_cc.csv",header=0))
 dataSets.append(pd.read_csv("data/preprocessed_rts.csv",header=0))
 dataSets.append(pd.read_csv("data/preprocessed_dfe.csv",header=0))
 levelQues = [levelQuesCC, levelQuesRTS, levelQuesDFE]
-[6,4,5,6]
+
 # current position in each level
 positionsSet = [
              [[[2,1,1,1],[2,2,1,1],[2,3,1,1]],
@@ -135,7 +135,7 @@ positionsSet = [
 weight = [[1.9,1,0,0,0],
           [2.5,1.4,1,0,0],
           [0,1.4,1,1,0],
-          [0,0,1.4,1.2,1]]
+          [0,0,1.5,1.2,1]]
 i = 0
 for data in dataSets:
     positions = positionsSet[i]
