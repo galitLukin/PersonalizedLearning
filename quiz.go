@@ -60,25 +60,41 @@ func getQuestion() QuestionData {
 	return cq
 }
 
-func (q QuestionData) getNextQuizState() QuestionData {
+func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
+	if s == "" {
+		cmd := exec.Command(Python, PathToPythonScript)
+		outb, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Println(err)
+		}
+		err = json.Unmarshal(outb, &q)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else {
+		cmd := exec.Command(Python, PathToPythonScript, s)
+		outb, err := cmd.CombinedOutput()
+		err = json.Unmarshal(outb, &q)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+	logQuestionData(q)
+	return q
+}
+
+func getNextQuizState(q QuestionData) QuestionData {
+	if q.QuestionInstance.Answer == nil {
+		return getQuestionFromPythonScript(q, "")
+	}
 	j, err := json.Marshal(q)
 	if err != nil {
 		panic(err)
 	}
-	cmd := exec.Command(Python, PathToPythonScript, string(j))
-	outb, err := cmd.CombinedOutput()
-	var cq QuestionData
-	fmt.Println(string(outb))
-	fmt.Println("***********")
-	err = json.Unmarshal(outb, &cq)
-	cq.logQuestionData()
-	if err != nil {
-		fmt.Println(err)
-	}
-	return cq
+	return getQuestionFromPythonScript(q, string(j))
 }
 
-func (q QuestionData) logQuestionData() {
+func logQuestionData(q QuestionData) {
 	fmt.Println("Question - Assignment: " + q.Question.Assignment)
 	fmt.Println("Question - Level: " + strconv.Itoa(q.Question.Level))
 	fmt.Println("Question - QuestionNumber: " + strconv.Itoa(q.Question.QuestionNumber))
