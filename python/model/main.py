@@ -45,16 +45,30 @@ if preprocess:
     cc2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ClimateChange/ClimateChange{}_{}.csv"
     cc2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ClimateChange/ClimateChange{}_{}.csv"
     climateChange = answers.parseAndGroup(levelQuesCC,[cc2018,cc2017],"cc")
+    ccCols = list(climateChange)
 
     #reading test scores
     rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
     rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
     testScores = answers.parseAndGroup(levelQuesRTS,[rts2018,rts2017],"rts")
+    tsCols = list(testScores)
+
+    climateChange = pd.merge(climateChange, testScores, on=['username','courseYear'], how='left')
+    climateChange.loc[:,'rtsAvg'] = climateChange.apply(lambda row: [answers.calcScore(row, "rts", i, levelQuesRTS[i-1]) for i in range(1,5)],axis=1)
+    climateChange.loc[:,'rtsAvg'] = climateChange.rtsAvg.apply(lambda row: float(sum(row))/len(row) if row else 0)
+    climateChange.loc[:,'rtsAvg'] = climateChange.rtsAvg.apply(lambda row: row if row else 0)
+    climateChange = climateChange.loc[:, ccCols + ['rtsAvg']]
 
     #detecting flu epedemics
     dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
     dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
     fluEpedemics = answers.parseAndGroup(levelQuesDFE,[dfe2018,dfe2017],"dfe")
+
+    testScores = pd.merge(testScores, fluEpedemics, on=['username','courseYear'], how='left')
+    testScores.loc[:,'dfeAvg'] = testScores.apply(lambda row: [answers.calcScore(row, "dfe", i, levelQuesDFE[i-1]) for i in range(1,5)],axis=1)
+    testScores.loc[:,'dfeAvg'] = testScores.dfeAvg.apply(lambda row: float(sum(row))/len(row) if row else 0)
+    testScores.loc[:,'dfeAvg'] = testScores.dfeAvg.apply(lambda row: row if row else 0)
+    testScores = testScores.loc[:, tsCols + ['dfeAvg']]
 
     #exam
     cols = ["username", "examScore", "courseYear"]
@@ -62,14 +76,12 @@ if preprocess:
     exam2017 = "../../../../../Desktop/Fall2018/PL/2017Data/lrExam/{}.csv"
     exam2017 = answers.parseAndGroup(levelExam17,[exam2017],"exam2017")
     exam2017.loc[:,'examScore'] = exam2017.apply(lambda row: answers.calcScore(row, "exam2017", 1, 8),axis=1)
-    exam2017.to_csv("data/temp1.csv")
     exam2017 = exam2017[cols]
 
     levelExam18 = [4]
     exam2018 = "../../../../../Desktop/Fall2018/PL/2018Data/lrExam/{}.csv"
     exam2018 = answers.parseAndGroup(levelExam18,[exam2018],"exam2018")
     exam2018.loc[:,'examScore'] = exam2018.apply(lambda row: answers.calcScore(row, "exam2018", 1, 5),axis=1)
-    exam2018.to_csv("data/temp2.csv")
     exam2018 = exam2018[cols]
     exam = pd.concat([exam2017, exam2018])
 
@@ -123,7 +135,7 @@ positionsSet = [
 weight = [[1.9,1,0,0,0],
           [2.5,1.4,1,0,0],
           [0,1.4,1,1,0],
-          [0,0,1,1,1]]
+          [0,0,1.4,1.2,1]]
 i = 0
 for data in dataSets:
     positions = positionsSet[i]

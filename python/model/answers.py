@@ -151,7 +151,12 @@ def sortToPredict(data, levelQues, assignmentName, personalizedLevelQues, currLe
 		df.loc[:,'y1'] = data.apply(lambda row: -(currLevel - 1)*w[currLevel-2] * calcY(row, assignment, currLevel - 1, position[currLevel - 2]),axis=1)
 		df.loc[:,'y2'] = data.apply(lambda row: -(currLevel)*w[currLevel-1] * calcY(row, assignment, currLevel, position[currLevel - 1]),axis=1)
 		if currLevel == 4:
-			df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['examScore'],axis=1)
+			if assignment == "dfe":
+				df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['examScore'],axis=1)
+			elif assignment == "rts":
+				df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['dfeAvg'],axis=1)
+			elif assignment == "cc":
+				df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['rtsAvg'],axis=1)
 		else:
 			df.loc[:,'y3'] = data.apply(lambda row: -(currLevel + 1)*w[currLevel] * calcY(row, assignment, currLevel + 1, position[currLevel]),axis=1)
 		df.loc[:,'y'] = np.nan
