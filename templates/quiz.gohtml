@@ -6,6 +6,7 @@
     <div class="card">
         <h2>{{.QuestionData.Question.Assignment}}</h2>
         <h3>{{.QuestionData.Question.Text}}</h3>
+        <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
         <div id="quiz-must-select">Please select an answer before you submit.</div>
         <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
         <div id="quiz-right-answer">Great job!</div>
@@ -40,12 +41,11 @@
             // Iterate over all radio buttons and toggle data-selected value
             for (let i = 0; i < radioButtons.length; i++) {
                 if (e.target.id === radioButtons[i].id) {
-                    radioButtons[i].style.backgroundColor = "#4878f7";
-                    radioButtons[i].dataset.selected = true;
-                } else {
-                    radioButtons[i].style.backgroundColor = "#fff";
-                    radioButtons[i].dataset.selected = false;       
-                }             
+                    radioButtons[i].style.backgroundColor = 
+                        radioButtons[i].dataset.selected === "true" ? "#fff": "#4878f7";
+                    radioButtons[i].dataset.selected = 
+                        radioButtons[i].dataset.selected === "true" ? "false": "true";
+                }         
             }
         }
 
@@ -62,7 +62,7 @@
             form.setAttribute("method", method);
             form.setAttribute("action", path);
 
-            for(let key in params) {
+            for (let key in params) {
                 if(params.hasOwnProperty(key)) {
                     const hiddenField = document.createElement("input");
                     hiddenField.setAttribute("type", "hidden");
@@ -72,7 +72,6 @@
                 }
             }
             document.body.appendChild(form);
-            console.log("submitting form...")
             form.submit();
         }
 
@@ -80,39 +79,38 @@
             // Clear Previous Answer State
             clearStatus();
             
-
             // Fetch All Radio Buttons
             const radioButtons 
                 = document.getElementsByClassName("answer-choice-radio-btn");
 
             // Fetch Selected Answer
-            let selectedAnswer = undefined;
+            const selectedAnswersNodes = [];
             for (let i = 0; i < radioButtons.length; i++) {
                 const state = radioButtons[i].getAttribute("data-selected");
                 if (state === "true") {
-                    selectedAnswer = radioButtons[i];
+                    selectedAnswersNodes.push(radioButtons[i]);
                 } 
             }
 
             // Check Answer
-            if (selectedAnswer === undefined) {
+            if (selectedAnswersNodes.length === 0) {
                 document.getElementById("quiz-must-select").style.display = "block"; 
-                post('/quiz', {selectedAnswer: selectedAnswer.id})
                 return;
             }
 
-            for (let i = 0; i < radioButtons.length; i++) {
-                if (selectedAnswer.id === "MEI") {
+            const selectedAnswers = selectedAnswersNodes.map(el => el.id);
+            for (let i = 0; i < selectedAnswers.length; i++) {
+                if (selectedAnswers[i] === "MEI") { // TODO, check real answer
                     document.getElementById("quiz-right-answer").style.display = "block"; 
                     document.getElementById("quiz-submit-btn").innerHTML = "Next";
-                    post('/quiz', {selectedAnswer: selectedAnswer.id})
+                    post('/quiz', {selectedAnswers})
                     return;
                 }
             }
             document.getElementById("quiz-wrong-answer").style.display = "block"; 
 
             // POST Request to server
-            post('/quiz', {selectedAnswer: selectedAnswer.id})
+            post('/quiz', {selectedAnswers})
         }
     </script>
     {{end}}

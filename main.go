@@ -83,9 +83,9 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		for key, values := range req.PostForm {
-			if key == SelectedAnswer {
+			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
-				qd.getNextQuizState()
+				qd = qd.getNextQuizState()
 			}
 		}
 	}

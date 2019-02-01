@@ -3,7 +3,7 @@
         "Assignment": "ClimateChange",
         "level": 1,
         "question_number": 2,
-        "text": "We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. Then, split the data into a training set, consisting of all the observations up to and including 2006, and a testing set consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability. Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (Year and Month should NOT be used in the model). Use the training set to build the model. What is the model R-squared (the \"Multiple R-squared\" value):",
+        "text": "We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. Then, split the data into a training set, consisting of all the observations up to and including 2006, and a testing set consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability. Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (Year and Month should NOT be used in the model). Use the training set to build the model. What is the model R-squared (the Multiple R-squared value):",
         "options": [
             "1",
             "-1",
@@ -15,11 +15,12 @@
             "0.23",
             "-0.25",
             "0.77",
-            "0.2"],
+            "0.2"
+        ],
         "correctAnswer": [
             "0.75"
         ],
-        "explanation": "First, read in the data and split it using the subset command: climate = read.csv(\"climate_change.csv\") train = subset(climate, Year <= 2006) test = subset(climate, Year > 2006) Then, you can create the model using the command: climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train) Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.",
+        "explanation": "First, read in the data and split it using the subset command: climate = read.csv(climate_change.csv) train = subset(climate, Year <= 2006) test = subset(climate, Year > 2006) Then, you can create the model using the command: climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train) Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.",
         "attemptsOverall": 2,
         "weight": 0
     },

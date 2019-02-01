@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	SelectedAnswer     = "selectedAnswer"
+	SelectedAnswers    = "selectedAnswers"
 	Python             = "python3"
 	PathToPythonScript = "./python/script.py"
 )
@@ -49,7 +49,7 @@ type User struct {
 }
 
 func getQuestion() QuestionData {
-	jf, err := os.Open("static/json/question.json")
+	jf, err := os.Open("static/json/simplequestion.json")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -60,15 +60,23 @@ func getQuestion() QuestionData {
 	return cq
 }
 
-func (q QuestionData) getNextQuizState() {
+func (q QuestionData) getNextQuizState() QuestionData {
 	j, err := json.Marshal(q)
 	if err != nil {
 		panic(err)
 	}
 	cmd := exec.Command(Python, PathToPythonScript, string(j))
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
+	outb, err := cmd.CombinedOutput()
+	outbs := string(outb)
+	// var replacer = strings.NewReplacer("\\", "", "(", "", ")", "")
+	// outbs = replacer.Replace(outbs)
+	var cq QuestionData
+	err = json.Unmarshal([]byte(outbs), &cq)
+	cq.logQuestionData()
+	if err != nil {
+		fmt.Println(err)
+	}
+	return cq
 }
 
 func (q QuestionData) logQuestionData() {
