@@ -25,12 +25,12 @@ class Status(Enum):
 
 
 def main():
-    if sys.argv[1] is None:
+    if len(sys.argv) < 2:
         state = {}
         #instead of 'ClimateChange', Omer should be sending you the parameter of the url
         with open('LinearRegression.json') as f:
             questions = json.load(f)
-        state[State.Question.name] = questions['Climate Change'][0]['questions'][0]
+        state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,
             QInst.answer.name: [],
