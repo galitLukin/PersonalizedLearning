@@ -7,7 +7,10 @@ using GraphViz
 using Base.Test
 
 function splitData(level)
-  df = readtable("data/climateChange$level.csv", header=true, makefactors=true)
+  df1 = readtable("data/cc$level.csv", header=true, makefactors=true)
+  df2 = readtable("data/rts$level.csv", header=true, makefactors=true)
+  df3 = readtable("data/dfe$level.csv", header=true, makefactors=true)
+  df = [df1; df2; df3]
   X = df[4:end-3]
   Y = df[2]
   T = df[3]
@@ -72,10 +75,10 @@ function trainTree(X, Y, T, level, depth, meu)
   lnr = grid.best_lnr
   @show lnr
 
-  plotname = "$level/tree.dot"
+  plotname = "$level/model2/tree.dot"
   OptimalTrees.writedot(plotname, lnr)
-  @save "$level/mytree.jld2" lnr
-  OptimalTrees.writejson("$level/tree.json", lnr)
+  @save "$level/model2/mytree.jld2" lnr
+  OptimalTrees.writejson("$level/model2/tree.json", lnr)
   run(`dot -Tpng $plotname -o $(replace(plotname, ".dot", ".png"))`)
   return lnr
 end
@@ -138,11 +141,11 @@ end
 function evaluate(lnr, X, outcomes, level)
   best_treatment = map(i -> minOutcome(outcomes[i, :], level), 1:size(X, 1))
   #check best treatment
-  treatments = ["A","B","C"]
-  d=Dict([(i,count(x->x==i,best_treatment)) for i in treatments])
-  println((d["A"]/length(best_treatment)))
-  println((d["B"]/length(best_treatment)))
-  println((d["C"]/length(best_treatment)))
+  # treatments = ["A","B","C"]
+  # d=Dict([(i,count(x->x==i,best_treatment)) for i in treatments])
+  # println((d["A"]/length(best_treatment)))
+  # println((d["B"]/length(best_treatment)))
+  # println((d["C"]/length(best_treatment)))
   #####
   best_outcome = map(i -> minimum(vec(convert(Array, outcomes[i, :]))), 1:size(X, 1))
   treatment_predictions, outcome_predictions = OptimalTrees.predict(lnr, X)
@@ -154,8 +157,8 @@ function evaluate(lnr, X, outcomes, level)
 end
 
 depth=[[4,5],[4,5],[5,6],[5,6]]
-meu=[0.55,0.55,0.55,0.8]
-for level in 1:4
+meu=[0.55,0.55,0.55,0.55]
+for level in 4:4
     (train_X, train_outcomes, train_Y, train_T), (test_X, test_outcomes, test_Y, test_T) = splitData(level)
     lnr = trainTree(train_X, train_Y, train_T, level, depth[level], meu[level])
     treatment_accuracy, r2, accuracy= evaluate(lnr, test_X, test_outcomes, level)

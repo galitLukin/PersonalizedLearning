@@ -37,14 +37,39 @@ def ParseAndCombine(newCols,mapCols,levelQues,data,qtype):
 			df['qId'] = "{}{}.{}".format(qtype,i,j)
 			df['level'] = i
 			df['correctness'] = df.correctness.apply(lambda x: [1.0 if clause == "correct" else 0.0 for clause in x])
-			if qtype == "cc" and i == 3 and j == 2:
-				df['correctness'] = df.correctness.apply(lambda x: x[1])
-			elif qtype == "cc" and i == 4 and j == 1:
-				df['correctness'] = df.correctness.apply(lambda x: x[0])
-			elif qtype == "cc" and i == 2 and j == 2:
-				df['correctness'] = df.correctness.apply(lambda x: x[0])
-			elif qtype == "cc" and i == 2 and j == 3:
-				df['correctness'] = df.correctness.apply(lambda x: x[1])
+			if qtype == "cc":
+				if i == 3 and j == 2:
+					df['correctness'] = df.correctness.apply(lambda x: x[1])
+				elif i == 4 and j == 1:
+					df['correctness'] = df.correctness.apply(lambda x: x[0])
+				elif i == 2 and j == 2:
+					df['correctness'] = df.correctness.apply(lambda x: x[0])
+				elif i == 2 and j == 3:
+					df['correctness'] = df.correctness.apply(lambda x: x[1])
+				else:
+					df['correctness'] = df.correctness.apply(lambda x: sum(x)/float(len(x)))
+			elif qtype == "rts":
+				if i == 1 and j == 4:
+					df['correctness'] = df.correctness.apply(lambda x: x[1])
+				elif i == 1 and j == 5:
+					df['correctness'] = df.correctness.apply(lambda x: x[0])
+				elif i == 2 and j == 3:
+					df['correctness'] = df.correctness.apply(lambda x: x[0])
+				elif i == 2 and j == 4:
+					df['correctness'] = df.correctness.apply(lambda x: x[1])
+				else:
+					df['correctness'] = df.correctness.apply(lambda x: sum(x)/float(len(x)))
+			elif qtype == "dfe":
+				if i == 3 and j == 3:
+					df['correctness'] = df.correctness.apply(lambda x: x[1])
+				elif i == 3 and j == 4:
+					df['correctness'] = df.correctness.apply(lambda x: x[0])
+				elif i == 4 and j == 2:
+					df['correctness'] = df.correctness.apply(lambda x: x[1])
+				elif i == 4 and j == 3:
+					df['correctness'] = df.correctness.apply(lambda x: x[0])
+				else:
+					df['correctness'] = df.correctness.apply(lambda x: sum(x)/float(len(x)))
 			else:
 				df['correctness'] = df.correctness.apply(lambda x: sum(x)/float(len(x)))
 			cols = ["qId","level","username","attempts","correctness"]
@@ -100,7 +125,7 @@ def calcY(row, assignment, level, position):
 	attempts = row["{}{}.{}_attempts".format(assignment,level,position)]
 	return float(correct)/attempts if attempts > 0 else 0
 
-def sortToPredict(data, levelQues, assignmentName, levelQuesCC, currLevel, position, assignment, w, groups=3):
+def sortToPredict(data, levelQues, assignmentName, personalizedLevelQues, currLevel, position, assignment, w, groups=3):
 	cols = ['location', 'gender', 'level_of_education', 'enrollment_mode', 'Ygroup', 'ageCategory', 'examScore']
 	df = data.loc[:,cols]
 	for k in range(len(assignmentName)):
@@ -111,11 +136,11 @@ def sortToPredict(data, levelQues, assignmentName, levelQuesCC, currLevel, posit
 				df.loc[:,"{}{}".format(assignmentName[k],i)] = df.loc[:,"{}{}".format(assignmentName[k],i)] + df.loc[:,"{}{}.{}".format(assignmentName[k],i,j)]
 			df.loc[:,"{}{}".format(assignmentName[k],i)] = df.loc[:,"{}{}".format(assignmentName[k],i)].apply(lambda x: float(x)/levelQues[k][i-1])
 	correct,attempts = [],[]
-	for i in range(1,len(levelQuesCC) + 1):
+	for i in range(1,len(personalizedLevelQues) + 1):
 		c,a = [0]*len(df),[0]*len(df)
 		for j in range(1,position[i-1]):
-			c =  [x + y for x, y in zip(c, data["{}{}.{}_correct".format("cc",i,j)].tolist())]
-			a = [x + y for x, y in zip(a, data["{}{}.{}_attempts".format("cc",i,j)].tolist())]
+			c =  [x + y for x, y in zip(c, data["{}{}.{}_correct".format(assignment,i,j)].tolist())]
+			a = [x + y for x, y in zip(a, data["{}{}.{}_attempts".format(assignment,i,j)].tolist())]
 		correct.append(c)
 		attempts.append(a)
 	for i in range(1,5):
@@ -126,7 +151,12 @@ def sortToPredict(data, levelQues, assignmentName, levelQuesCC, currLevel, posit
 		df.loc[:,'y1'] = data.apply(lambda row: -(currLevel - 1)*w[currLevel-2] * calcY(row, assignment, currLevel - 1, position[currLevel - 2]),axis=1)
 		df.loc[:,'y2'] = data.apply(lambda row: -(currLevel)*w[currLevel-1] * calcY(row, assignment, currLevel, position[currLevel - 1]),axis=1)
 		if currLevel == 4:
-			df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['examScore'],axis=1)
+			if assignment == "dfe":
+				df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['examScore'],axis=1)
+			elif assignment == "rts":
+				df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['dfeAvg'],axis=1)
+			elif assignment == "cc":
+				df.loc[:,'y3'] = data.apply(lambda row: -5*w[currLevel]*row['rtsAvg'],axis=1)
 		else:
 			df.loc[:,'y3'] = data.apply(lambda row: -(currLevel + 1)*w[currLevel] * calcY(row, assignment, currLevel + 1, position[currLevel]),axis=1)
 		df.loc[:,'y'] = np.nan
