@@ -67,9 +67,10 @@ func (q QuestionData) getNextQuizState() QuestionData {
 	}
 	cmd := exec.Command(Python, PathToPythonScript, string(j))
 	outb, err := cmd.CombinedOutput()
-	outbs := string(outb)
 	var cq QuestionData
-	err = json.Unmarshal([]byte(outbs), &cq)
+	fmt.Println(string(outb))
+	fmt.Println("***********")
+	err = json.Unmarshal(outb, &cq)
 	cq.logQuestionData()
 	if err != nil {
 		fmt.Println(err)
