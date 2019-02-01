@@ -11,7 +11,7 @@ def isCorrect(answer, correctAnswer):
 		return True
 
 def getNextQuestion(assignment):
-    with open('LinearRegression.json') as f:
+    with open('./python/LinearRegression.json') as f:
         questions = json.load(f)
     level = random.randint(0,3)
     q = random.randint(0,4)

@@ -28,7 +28,7 @@ def main():
     if len(sys.argv) < 2:
         state = {}
         #instead of 'ClimateChange', Omer should be sending you the parameter of the url
-        with open('LinearRegression.json') as f:
+        with open('./python/LinearRegression.json') as f:
             questions = json.load(f)
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
         state[State.QuestionInstance.name] = {
