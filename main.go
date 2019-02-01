@@ -42,6 +42,7 @@ var tpl *template.Template
 var dbUsers = map[string]user{}       // user ID, user -> TODO: should be singular
 var dbSessions = map[string]session{} // session ID, session
 var dbSessionsCleaned time.Time
+var qd QuestionData
 
 const sessionLength int = 30
 
@@ -76,7 +77,6 @@ func index(w http.ResponseWriter, req *http.Request) {
 }
 
 func quiz(w http.ResponseWriter, req *http.Request) {
-	qd := getQuestion()
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
@@ -85,9 +85,12 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
-				qd = qd.getNextQuizState()
+				qd = getNextQuizState(qd)
 			}
 		}
+	} else {
+		qd.QuestionInstance.Answer = nil
+		qd = getNextQuizState(qd)
 	}
 
 	u := user{

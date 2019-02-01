@@ -148,13 +148,13 @@ a {
 #quiz-wrong-answer {
   font-size: 22px;
   color: #B00020;
-  display: none;
+  display: block;
 }
 
 #quiz-right-answer {
   font-size: 22px;
   color: #03DAC4;
-  display: none;
+  display: block;
 }
 
 

@@ -1,76 +1,136 @@
 {
-  "ClimateChange":
-  [
+  "ClimateChange": [
     {
       "level": 1,
-      "questions":[
-       {
-      	 "Assignment": "Climate Change",
-         "level": 1,
-      	 "number": 1,
-      	 "text": "We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. Then, split the data into a training set, consisting of all the observations up to and including 2006, and a testing set consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability. Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (Year and Month should NOT be used in the model). Use the training set to build the model. What is the model R-squared (the \"Multiple R-squared\" value):",
-         "options": ["1", "0.6", "0.73", "0.75", "0.7", "0", "0.5", "-1", "-0.2", "0.77", "0.8"],
-      	 "correctAnswer": ["0.75"],
-      	 "explanation": "First, read in the data and split it using the subset command: climate = read.csv(\"climate_change.csv\") train = subset(climate, Year <= 2006) test = subset(climate, Year > 2006) Then, you can create the model using the command: climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train) Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.",
-      	 "attemptsOverall": 2,
-         "weight": 2
-       },
-       {
-         "Assignment": "Climate Change",
-         "level": 1,
-         "number": 2,
-         "text": "Which variables are significant in the model? We will consider a variable signficant only if the p-value is below 0.05. (Select all that apply.)",
-         "options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],
-         "correctAnswer": ["MEI", "CO2", "CFC.11", "CFC.12", "TSI", "Aerosols"],
-         "explanation": "If you look at the model we created in the previous problem using summary(climatelm), all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.",
-         "attemptsOverall": 2,
-         "weight": 1
-       },
-       {
-          "Assignment": "Climate Change",
-          "level": 1,
-      		"number": 3,
-      		"text": "What is the RMSE of the model?",
-      		"options": ["0.05", "0.07", "0.08","0.09", "0.1", "0.11", "0.2"],
-      		"correctAnswer": ["0.09"],
-      		"explanation": "TODO",
-      		"attemptsOverall": 2,
-          "weight": 0
-      	},
+      "questions": [
         {
           "Assignment": "Climate Change",
           "level": 1,
-       		"number": 4,
-       		"text": "The data is split into training and test data so that we can measure the quality of the model on unseen data. How many observations are in the training set? What is the average CO2 level across all years in the training set? Which year had the highest level of MEI in the training set?",
-       		"options": ["284, 361.4, 1997", "284, 361.4, 1998", "284, 362.4, 1997", "24, 361.4, 1997", "24, 360.5, 1998"],
-       		"correctAnswer": ["284, 362.4, 1997"],
-       		"explanation": "TODO",
-       		"attemptsOverall": 2,
-          "weight": 0
-       	},
+          "number": 1,
+          "text": "We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. Then, split the data into a training set, consisting of all the observations up to and including 2006, and a testing set consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability. Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (Year and Month should NOT be used in the model). Use the training set to build the model. What is the model R-squared (the Multiple R-squared value):",
+          "options": [
+            "1",
+            "0.6",
+            "0.73",
+            "0.75",
+            "0.7",
+            "0",
+            "0.5",
+            "-1",
+            "-0.2",
+            "0.77",
+            "0.8"
+          ],
+          "correctAnswer": [
+            "0.75"
+          ],
+          "explanation": "First, read in the data and split it using the subset command: climate = read.csv(climate_change.csv) train = subset(climate, Year <= 2006) test = subset(climate, Year > 2006) Then, you can create the model using the command: climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train) Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.",
+          "attemptsOverall": 2,
+          "weight": 2
+        },
         {
           "Assignment": "Climate Change",
           "level": 1,
-       		"number": 5,
-       		"text": "What is the ”baseline” linear regression model?",
-       		"options": ["The mean of the test set dependent variables", "When the relationship between the dependent variable and the independent variables is non-linear", "The mean of the training set dependent variable", "A linear model build using one independent variable that is highly-correlated with the dependent variable"],
-       		"correctAnswer": ["The mean of the training set dependent variable"],
-       		"explanation": "TODO",
-       		"attemptsOverall": 1,
+          "number": 2,
+          "text": "Which variables are significant in the model? We will consider a variable signficant only if the p-value is below 0.05. (Select all that apply.)",
+          "options": [
+            "MEI",
+            "CO2",
+            "CH4",
+            "N20",
+            "CFC.11",
+            "CFC.12",
+            "TSI",
+            "Aerosols"
+          ],
+          "correctAnswer": [
+            "MEI",
+            "CO2",
+            "CFC.11",
+            "CFC.12",
+            "TSI",
+            "Aerosols"
+          ],
+          "explanation": "If you look at the model we created in the previous problem using summary(climatelm), all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.",
+          "attemptsOverall": 2,
+          "weight": 1
+        },
+        {
+          "Assignment": "Climate Change",
+          "level": 1,
+          "number": 3,
+          "text": "What is the RMSE of the model?",
+          "options": [
+            "0.05",
+            "0.07",
+            "0.08",
+            "0.09",
+            "0.1",
+            "0.11",
+            "0.2"
+          ],
+          "correctAnswer": [
+            "0.09"
+          ],
+          "explanation": "TODO",
+          "attemptsOverall": 2,
           "weight": 0
-       	}
+        },
+        {
+          "Assignment": "Climate Change",
+          "level": 1,
+          "number": 4,
+          "text": "The data is split into training and test data so that we can measure the quality of the model on unseen data. How many observations are in the training set? What is the average CO2 level across all years in the training set? Which year had the highest level of MEI in the training set?",
+          "options": [
+            "284, 361.4, 1997",
+            "284, 361.4, 1998",
+            "284, 362.4, 1997",
+            "24, 361.4, 1997",
+            "24, 360.5, 1998"
+          ],
+          "correctAnswer": [
+            "284, 362.4, 1997"
+          ],
+          "explanation": "TODO",
+          "attemptsOverall": 2,
+          "weight": 0
+        },
+        {
+          "Assignment": "Climate Change",
+          "level": 1,
+          "number": 5,
+          "text": "What is the ”baseline” linear regression model?",
+          "options": [
+            "The mean of the test set dependent variables",
+            "When the relationship between the dependent variable and the independent variables is non-linear",
+            "The mean of the training set dependent variable",
+            "A linear model build using one independent variable that is highly-correlated with the dependent variable"
+          ],
+          "correctAnswer": [
+            "The mean of the training set dependent variable"
+          ],
+          "explanation": "TODO",
+          "attemptsOverall": 1,
+          "weight": 0
+        }
       ]
     },
     {
       "level": 2,
-      "questions":[
-       {
+      "questions": [
+        {
           "Assignment": "Climate Change",
           "level": 2,
           "number": 1,
           "text": "Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth. However, the regression coefficients of both the N2O and CFC-11 variables are negative, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures. Which of the following is the simplest correct explanation for this contradiction?",
-          "options": ["Climate scientists are wrong that N2O and CFC-11 are greenhouse gases - this regression analysis constitutes part of a disproof.", "There is not enough data, so the regression coefficients being estimated are not accurate.", "All of the gas concentration variables reflect human development - N2O and CFC.11 are correlated with other variables in the data set."],
-          "correctAnswer": ["All of the gas concentration variables reflect human development - N2O and CFC.11 are correlated with other variables in the data set."],
+          "options": [
+            "Climate scientists are wrong that N2O and CFC-11 are greenhouse gases - this regression analysis constitutes part of a disproof.",
+            "There is not enough data, so the regression coefficients being estimated are not accurate.",
+            "All of the gas concentration variables reflect human development - N2O and CFC.11 are correlated with other variables in the data set."
+          ],
+          "correctAnswer": [
+            "All of the gas concentration variables reflect human development - N2O and CFC.11 are correlated with other variables in the data set."
+          ],
           "explanation": "The linear correlation of N2O and CFC.11 with other variables in the data set is quite large. The first explanation does not seem correct, as the warming effect of nitrous oxide and CFC-11 are well documented, and our regression analysis is not enough to disprove it. The second explanation is unlikely, as we have estimated eight coefficients and the intercept from 284 observations.",
           "attemptsOverall": 1,
           "weight": 1
@@ -80,8 +140,20 @@
           "level": 2,
           "number": 2,
           "text": "Compute the correlations between all the variables in the training set. Which of the following independent variables is N2O highly correlated with (absolute correlation greater than 0.7)? Select all that apply.",
-          "options": ["MEI","CO2","CH4","CFC.11","CFC.12","Aerosols","TSI"],
-          "correctAnswer": ["CO2","CH4","CFC.12"],
+          "options": [
+            "MEI",
+            "CO2",
+            "CH4",
+            "CFC.11",
+            "CFC.12",
+            "Aerosols",
+            "TSI"
+          ],
+          "correctAnswer": [
+            "CO2",
+            "CH4",
+            "CFC.12"
+          ],
           "explanation": "You can calculate all correlations at once using cor(train) where train is the name of the training data set.",
           "attemptsOverall": 2,
           "weight": 1
@@ -91,8 +163,19 @@
           "level": 2,
           "number": 3,
           "text": "Which of the following independent variables is CFC.11 highly correlated with? Select all that apply.",
-          "options": ["MEI","CO2","CH4","N2O","CFC.12","Aerosols","TSI"],
-          "correctAnswer": ["CH4","CFC.12"],
+          "options": [
+            "MEI",
+            "CO2",
+            "CH4",
+            "N2O",
+            "CFC.12",
+            "Aerosols",
+            "TSI"
+          ],
+          "correctAnswer": [
+            "CH4",
+            "CFC.12"
+          ],
           "explanation": "You can calculate all correlations at once using cor(train) where train is the name of the training data set.",
           "attemptsOverall": 1,
           "weight": 1
@@ -102,8 +185,15 @@
           "level": 2,
           "number": 4,
           "text": "Which of the following independent variables is worth more or has a greater effect on the dependent variable?",
-          "options": ["MEI","CH4","CFC.11","Aerosols"],
-          "correctAnswer": ["Aerosols"],
+          "options": [
+            "MEI",
+            "CH4",
+            "CFC.11",
+            "Aerosols"
+          ],
+          "correctAnswer": [
+            "Aerosols"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -111,37 +201,65 @@
         {
           "Assignment": "Climate Change",
           "level": 1,
-       		"number": 5,
-       		"text": "When is the log of the dependent variable used in the model instead of the dependent variable itself?",
-       		"options": ["When the model does not have a high RMSE.", "When the relationship between the dependent variable and the independent variables is non-linear.", "When the model has too many variables."],
-       		"correctAnswer": ["When the relationship between the dependent variable and the independent variables is non-linear."],
-       		"explanation": "TODO",
-       		"attemptsOverall": 1,
+          "number": 5,
+          "text": "When is the log of the dependent variable used in the model instead of the dependent variable itself?",
+          "options": [
+            "When the model does not have a high RMSE.",
+            "When the relationship between the dependent variable and the independent variables is non-linear.",
+            "When the model has too many variables."
+          ],
+          "correctAnswer": [
+            "When the relationship between the dependent variable and the independent variables is non-linear."
+          ],
+          "explanation": "TODO",
+          "attemptsOverall": 1,
           "weight": 0
-       	}
+        }
       ]
     },
     {
       "level": 3,
-      "questions":[
-       {
-         "Assignment": "Climate Change",
-         "level": 3,
-         "number": 1,
-         "text": "Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables. Remember to use the training set to build the model. What is the coefficient of N2O in this reduced model? What the R-squared?",
-         "options": ["0.025, 0.748", "0.025, 0.767", "0.042, 0.726","0.018, 0.726", "0.025, 0.726","0.02, 0.71","0.02, 0.725","0.025, 0.726"],
-         "correctAnswer": ["0.025, 0.726"],
-         "explanation": "We can create this simplified model with the command: LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train) You can get the coefficient for N2O and the model R-squared by typing summary(LinReg). We have observed that, for this problem, when we remove many variables the sign of N2O flips. The model has not lost a lot of explanatory power (the model R-squared is 0.7261 compared to 0.7509 previously) despite removing many variables. As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other. In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.",
-         "attemptsOverall": 2,
-         "weight": 2
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Climate Change",
+          "level": 3,
+          "number": 1,
+          "text": "Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables. Remember to use the training set to build the model. What is the coefficient of N2O in this reduced model? What the R-squared?",
+          "options": [
+            "0.025, 0.748",
+            "0.025, 0.767",
+            "0.042, 0.726",
+            "0.018, 0.726",
+            "0.025, 0.726",
+            "0.02, 0.71",
+            "0.02, 0.725",
+            "0.025, 0.726"
+          ],
+          "correctAnswer": [
+            "0.025, 0.726"
+          ],
+          "explanation": "We can create this simplified model with the command: LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train) You can get the coefficient for N2O and the model R-squared by typing summary(LinReg). We have observed that, for this problem, when we remove many variables the sign of N2O flips. The model has not lost a lot of explanatory power (the model R-squared is 0.7261 compared to 0.7509 previously) despite removing many variables. As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other. In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.",
+          "attemptsOverall": 2,
+          "weight": 2
+        },
+        {
           "Assignment": "Climate Change",
           "level": 3,
           "number": 2,
-          "text": "We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality. R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R-squared. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model. The step function has one argument - the name of the initial model. It returns a simplified model. Use the step function in R to derive a new model, with the full model as the initial model (HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM). Be sure to save your new model to a variable name so that you can look at the summary. For more information about the step function, type ?step in your R console.) Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply." ,
-          "options": ["MEI", "CO2", "CH4", "N20", "CFC.11", "CFC.12", "TSI", "Aerosols"],
-          "correctAnswer": ["CH4"],
+          "text": "We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality. R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R-squared. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model. The step function has one argument - the name of the initial model. It returns a simplified model. Use the step function in R to derive a new model, with the full model as the initial model (HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM). Be sure to save your new model to a variable name so that you can look at the summary. For more information about the step function, type ?step in your R console.) Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply.",
+          "options": [
+            "MEI",
+            "CO2",
+            "CH4",
+            "N20",
+            "CFC.11",
+            "CFC.12",
+            "TSI",
+            "Aerosols"
+          ],
+          "correctAnswer": [
+            "CH4"
+          ],
           "explanation": "You can create a model using the step function by typing: StepModel = step(climateLM) where \"climateLM\" is the name of the full model. If you look at the summary of the model with summary(StepModel) and only CH4 was removed. It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R-squared significantly. The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).",
           "attemptsOverall": 3,
           "weight": 2
@@ -151,8 +269,14 @@
           "level": 3,
           "number": 3,
           "text": "How would you interpret the coefficient of Aerosols in the original model produced from the step function?",
-          "options": ["All else being equal, an increase in one unit of Aerosols is associated with a 1.54 increase in Temp", "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp", "A change in the value of Aerosols does not affect Temp."],
-          "correctAnswer": ["All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp"],
+          "options": [
+            "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 increase in Temp",
+            "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp",
+            "A change in the value of Aerosols does not affect Temp."
+          ],
+          "correctAnswer": [
+            "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -162,8 +286,20 @@
           "level": 3,
           "number": 4,
           "text": "From the original model produced by the step function, which variables are highly correlated? Select all that apply.",
-          "options": ["CO2, N2O", "CO2, Aerosols", "CO2, CFC.12", "TSI, MEI", "CFC.12, N2O", "CFC.11, CFC.12"],
-          "correctAnswer": ["CO2, N2O", "CO2, CFC.12", "CFC.12, N2O", "CFC.11, CFC.12"],
+          "options": [
+            "CO2, N2O",
+            "CO2, Aerosols",
+            "CO2, CFC.12",
+            "TSI, MEI",
+            "CFC.12, N2O",
+            "CFC.11, CFC.12"
+          ],
+          "correctAnswer": [
+            "CO2, N2O",
+            "CO2, CFC.12",
+            "CFC.12, N2O",
+            "CFC.11, CFC.12"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 3,
           "weight": 0
@@ -173,8 +309,19 @@
           "level": 3,
           "number": 5,
           "text": "From the original model produced by the step function, remove highly correlated variables. What is the the R-squared of the new model?",
-          "options": ["0.616","0.6","0.625","0.64","0.654","0.665","0.676","0.685"],
-          "correctAnswer": ["0.625"],
+          "options": [
+            "0.616",
+            "0.6",
+            "0.625",
+            "0.64",
+            "0.654",
+            "0.665",
+            "0.676",
+            "0.685"
+          ],
+          "correctAnswer": [
+            "0.625"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 2,
           "weight": 0
@@ -183,36 +330,67 @@
     },
     {
       "level": 4,
-      "questions":[
+      "questions": [
         {
           "Assignment": "Climate Change",
           "level": 4,
           "number": 1,
           "text": "Enter the R-squared value of the original model produced by the step function? Which independent variable is not statistically significant?",
-          "options": ["0.7, N2O","0.75, N2O","0.72, N2O","0.77, N2O","0.7, CO2","0.72, CO2","0.75, CO2","0.77, CO2","0.7, CFC.12","0.72, CFC.12","0.75, CFC.12"],
-          "correctAnswer": ["0.75, N2O"],
+          "options": [
+            "0.7, N2O",
+            "0.75, N2O",
+            "0.72, N2O",
+            "0.77, N2O",
+            "0.7, CO2",
+            "0.72, CO2",
+            "0.75, CO2",
+            "0.77, CO2",
+            "0.7, CFC.12",
+            "0.72, CFC.12",
+            "0.75, CFC.12"
+          ],
+          "correctAnswer": [
+            "0.75, N2O"
+          ],
           "explanation": "From the model created by the step function, you can see that the R-squared value is 0.75 and that N2O has a high p-value.",
           "attemptsOverall": 2,
           "weight": 3
         },
-       {
-         "Assignment": "Climate Change",
-         "level": 4,
-         "number": 2,
-         "text": "We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data? Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function. What is the test set R-squared:",
-         "options": ["0.651","0.6139","0.6478","0.629","0.371","0.369","0.381"],
-         "correctAnswer": ["0.629"],
-         "explanation": "The R code to calculate the R-squared can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R-squared = 1 - SSE/SST",
-         "attemptsOverall": 2,
-         "weight": 2
-       },
-       {
+        {
+          "Assignment": "Climate Change",
+          "level": 4,
+          "number": 2,
+          "text": "We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data? Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function. What is the test set R-squared:",
+          "options": [
+            "0.651",
+            "0.6139",
+            "0.6478",
+            "0.629",
+            "0.371",
+            "0.369",
+            "0.381"
+          ],
+          "correctAnswer": [
+            "0.629"
+          ],
+          "explanation": "The R code to calculate the R-squared can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R-squared = 1 - SSE/SST",
+          "attemptsOverall": 2,
+          "weight": 2
+        },
+        {
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
           "text": "Are the following statements True or False: 1. The out of sample R-squared will increase as the model includes more independent variables. 2. The out of sample R-squared can be negative.",
-          "options": ["True, True","True, False","False, True","False, False"],
-          "correctAnswer": ["False, True"],
+          "options": [
+            "True, True",
+            "True, False",
+            "False, True",
+            "False, False"
+          ],
+          "correctAnswer": [
+            "False, True"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -222,8 +400,15 @@
           "level": 4,
           "number": 3,
           "text": "How high does the out of sample R-squared have to be to consider the model acceptable?",
-          "options": ["Higher than 0.7", "Higher than all of the other out of sample R-squared received in the linear regression models trained on the data set", "Varies since it depends on the applied field and the other models that exist", "Higher than 0.5"],
-          "correctAnswer": ["Varies since it depends on the applied field and the other models that exist"],
+          "options": [
+            "Higher than 0.7",
+            "Higher than all of the other out of sample R-squared received in the linear regression models trained on the data set",
+            "Varies since it depends on the applied field and the other models that exist",
+            "Higher than 0.5"
+          ],
+          "correctAnswer": [
+            "Varies since it depends on the applied field and the other models that exist"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -233,8 +418,15 @@
           "level": 4,
           "number": 4,
           "text": "Does the original model produced from the step function overfit?",
-          "options": ["Yes", "No", "It depends on how the train and test sets are created", "The is insufficient information to answer this question."],
-          "correctAnswer": ["Yes"],
+          "options": [
+            "Yes",
+            "No",
+            "It depends on how the train and test sets are created",
+            "The is insufficient information to answer this question."
+          ],
+          "correctAnswer": [
+            "Yes"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -242,100 +434,197 @@
       ]
     }
   ],
-  "ReadingTestScores":
-  [
+  "ReadingTestScores": [
     {
       "level": 1,
-      "questions":[
-       {
-         "Assignment": "Reading Test Scores",
-         "level": 1,
-      	 "number": 1,
-      	 "text": "Load the training and testing sets using the read.csv() function, and save them as variables with the names pisaTrain and pisaTest. How many students are there in the training set?",
-         "options": ["3663", "5233", "24", "1570"],
-      	 "correctAnswer": ["3663"],
-      	 "explanation": "The datasets can be loaded with: pisaTrain = read.csv(\"pisa2009train.csv\") pisaTest = read.csv(\"pisa2009test.csv\") We can then access the number of rows in the training set with str(pisaTrain) or nrow(pisaTrain).",
-      	 "attemptsOverall": 1,
-         "weight": 1
-       },
-       {
-         "Assignment": "Reading Test Scores",
-         "level": 1,
-      		"number": 2,
-      		"text": "Using tapply() on pisaTrain, what is the average reading test score of males? Of females?",
-      		"options": ["485.22, 509.19","482.34, 513.16","512.9406, 483.5325","483.5325, 512.9406"],
-      		"correctAnswer": ["483.5325, 512.9406"],
-      		"explanation": "The correct invocation of tapply() here is: tapply(pisaTrain$readingScore, pisaTrain$male, mean)",
-      		"attemptsOverall": 2,
+      "questions": [
+        {
+          "Assignment": "Reading Test Scores",
+          "level": 1,
+          "number": 1,
+          "text": "Load the training and testing sets using the read.csv() function, and save them as variables with the names pisaTrain and pisaTest. How many students are there in the training set?",
+          "options": [
+            "3663",
+            "5233",
+            "24",
+            "1570"
+          ],
+          "correctAnswer": [
+            "3663"
+          ],
+          "explanation": "The datasets can be loaded with: pisaTrain = read.csv(\"pisa2009train.csv\") pisaTest = read.csv(\"pisa2009test.csv\") We can then access the number of rows in the training set with str(pisaTrain) or nrow(pisaTrain).",
+          "attemptsOverall": 1,
+          "weight": 1
+        },
+        {
+          "Assignment": "Reading Test Scores",
+          "level": 1,
+          "number": 2,
+          "text": "Using tapply() on pisaTrain, what is the average reading test score of males? Of females?",
+          "options": [
+            "485.22, 509.19",
+            "482.34, 513.16",
+            "512.9406, 483.5325",
+            "483.5325, 512.9406"
+          ],
+          "correctAnswer": [
+            "483.5325, 512.9406"
+          ],
+          "explanation": "The correct invocation of tapply() here is: tapply(pisaTrain$readingScore, pisaTrain$male, mean)",
+          "attemptsOverall": 2,
           "weight": 2
-      	},
+        },
         {
           "Assignment": "Reading Test Scores",
           "level": 1,
-       		"number": 3,
-       		"text": "Which variables are missing data in at least one observation in the training set? Select all that apply.",
-       		"options": ["grade", "male", "raceeth", "preschool", "expectBachelors", "motherHS", "motherBachelors", "motherWork", "fatherHS", "fatherBachelors", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "computerForSchoolwork", "read30MinsADay", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "publicSchool", "urban", "schoolSize", "readingScore"],
-       		"correctAnswer": ["raceeth", "preschool", "expectBachelors", "motherHS", "motherBachelors", "motherWork", "fatherHS", "fatherBachelors", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "computerForSchoolwork", "read30MinsADay", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "schoolSize"],
-       		"explanation": "We can read which variables have missing values from summary(pisaTrain). Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.",
-       		"attemptsOverall": 2,
+          "number": 3,
+          "text": "Which variables are missing data in at least one observation in the training set? Select all that apply.",
+          "options": [
+            "grade",
+            "male",
+            "raceeth",
+            "preschool",
+            "expectBachelors",
+            "motherHS",
+            "motherBachelors",
+            "motherWork",
+            "fatherHS",
+            "fatherBachelors",
+            "fatherWork",
+            "selfBornUS",
+            "motherBornUS",
+            "fatherBornUS",
+            "englishAtHome",
+            "computerForSchoolwork",
+            "read30MinsADay",
+            "minutesPerWeekEnglish",
+            "studentsInEnglish",
+            "schoolHasLibrary",
+            "publicSchool",
+            "urban",
+            "schoolSize",
+            "readingScore"
+          ],
+          "correctAnswer": [
+            "raceeth",
+            "preschool",
+            "expectBachelors",
+            "motherHS",
+            "motherBachelors",
+            "motherWork",
+            "fatherHS",
+            "fatherBachelors",
+            "fatherWork",
+            "selfBornUS",
+            "motherBornUS",
+            "fatherBornUS",
+            "englishAtHome",
+            "computerForSchoolwork",
+            "read30MinsADay",
+            "minutesPerWeekEnglish",
+            "studentsInEnglish",
+            "schoolHasLibrary",
+            "schoolSize"
+          ],
+          "explanation": "We can read which variables have missing values from summary(pisaTrain). Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.",
+          "attemptsOverall": 2,
           "weight": 1
-       	},
+        },
         {
           "Assignment": "Reading Test Scores",
           "level": 1,
-       		"number": 4,
-       		"text": "Factor variables are variables that take on a discrete set of values, like the \"Region\" variable in the WHO dataset from the second lecture of Unit 1. This is an unordered factor because there isn't any natural ordering between the levels. An ordered factor has a natural ordering between the levels (an example would be the classifications \"large,\" \"medium,\" and \"small\"). Which of the following variables is an unordered factor with at least 3 levels? (Select all that apply.)",
-       		"options": ["grade", "male", "raceeth"],
-       		"correctAnswer": ["raceeth"],
-       		"explanation": "Male only has 2 levels (1 and 0). There is no natural ordering between the different values of raceeth, so it is an unordered factor",
-       		"attemptsOverall": 1,
+          "number": 4,
+          "text": "Factor variables are variables that take on a discrete set of values, like the \"Region\" variable in the WHO dataset from the second lecture of Unit 1. This is an unordered factor because there isn't any natural ordering between the levels. An ordered factor has a natural ordering between the levels (an example would be the classifications \"large,\" \"medium,\" and \"small\"). Which of the following variables is an unordered factor with at least 3 levels? (Select all that apply.)",
+          "options": [
+            "grade",
+            "male",
+            "raceeth"
+          ],
+          "correctAnswer": [
+            "raceeth"
+          ],
+          "explanation": "Male only has 2 levels (1 and 0). There is no natural ordering between the different values of raceeth, so it is an unordered factor",
+          "attemptsOverall": 1,
           "weight": 1
-       	},
+        },
         {
           "Assignment": "Reading Test Scores",
           "level": 1,
-       		"number": 5,
-       		"text": "Which of the following variables is an ordered factor with at least 3 levels? (Select all that apply.)",
-       		"options": ["grade", "male", "raceeth"],
-       		"correctAnswer": ["grade"],
-       		"explanation": "We can order grades (8, 9, 10, 11, 12), so it is an ordered factor.",
-       		"attemptsOverall": 1,
+          "number": 5,
+          "text": "Which of the following variables is an ordered factor with at least 3 levels? (Select all that apply.)",
+          "options": [
+            "grade",
+            "male",
+            "raceeth"
+          ],
+          "correctAnswer": [
+            "grade"
+          ],
+          "explanation": "We can order grades (8, 9, 10, 11, 12), so it is an ordered factor.",
+          "attemptsOverall": 1,
           "weight": 1
-       	},
+        },
         {
           "Assignment": "Reading Test Scores",
           "level": 1,
-       		"number": 6,
-       		"text": "How many missing values are there for minutesPerWeekEnglish? What is the average number of minutes that a student spends in English class? If all missing values were to be replaced with the maximum value, what would be the average number of minutes that a student spends in English class? What would it be if all the missing values were replaced with the minimum value?",
-       		"options": ["186, 266.2, 374.56, 252.69", "TODO"],
-       		"correctAnswer": ["186, 266.2, 374.56, 252.69"],
-       		"explanation": "TODO",
-       		"attemptsOverall": 3,
+          "number": 6,
+          "text": "How many missing values are there for minutesPerWeekEnglish? What is the average number of minutes that a student spends in English class? If all missing values were to be replaced with the maximum value, what would be the average number of minutes that a student spends in English class? What would it be if all the missing values were replaced with the minimum value?",
+          "options": [
+            "186, 266.2, 374.56, 252.69",
+            "TODO"
+          ],
+          "correctAnswer": [
+            "186, 266.2, 374.56, 252.69"
+          ],
+          "explanation": "TODO",
+          "attemptsOverall": 3,
           "weight": 0
-       	}
+        }
       ]
     },
     {
       "level": 2,
-      "questions":[
-       {
-         "Assignment": "Reading Test Scores",
-         "level": 2,
-         "number": 1,
-         "text": "Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest: pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest) How many observations are now in the training set? How many observations are now in the testing set?",
-         "options": ["2414, 990", "3663, 1570", "24, 24", "2414, 1570"],
-         "correctAnswer": ["2414, 990"],
-         "explanation": "After running the provided commands we can use str(pisaTrain) and str(pisaTest), or nrow(pisaTrain) and nrow(pisaTest), to check the new number of rows in the datasets.",
-         "attemptsOverall": 2,
-         "weight": 2
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Reading Test Scores",
+          "level": 2,
+          "number": 1,
+          "text": "Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest: pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest) How many observations are now in the training set? How many observations are now in the testing set?",
+          "options": [
+            "2414, 990",
+            "3663, 1570",
+            "24, 24",
+            "2414, 1570"
+          ],
+          "correctAnswer": [
+            "2414, 990"
+          ],
+          "explanation": "After running the provided commands we can use str(pisaTrain) and str(pisaTest), or nrow(pisaTrain) and nrow(pisaTest), to check the new number of rows in the datasets.",
+          "attemptsOverall": 2,
+          "weight": 2
+        },
+        {
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 2,
           "text": "To include unordered factors in a linear regression model, we define one level as the \"reference level\" and add a binary variable for each of the remaining levels. In this way, a factor with n levels is replaced by n-1 binary variables. The reference level is typically selected to be the most frequently occurring level in the dataset. As an example, consider the unordered factor variable \"color\", with levels \"red\", \"green\", and \"blue\". If \"green\" were the reference level, then we would add binary variables \"colorred\" and \"colorblue\" to a linear regression problem. All red examples would have colorred=1 and colorblue=0. All blue examples would have colorred=0 and colorblue=1. All green examples would have colorred=0 and colorblue=0. Now, consider the variable \"raceeth\" in our problem, which has levels \"American Indian/Alaska Native\", \"Asian\", \"Black\", \"Hispanic\", \"More than one race\", \"Native Hawaiian/Other Pacific Islander\", and \"White\". Because it is the most common in our population, we will select White as the reference level. Which binary variables will be included in the regression model? (Select all that apply.)",
-          "options": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander", "raceethWhite"],
-          "correctAnswer": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "options": [
+            "raceethAmerican Indian/Alaska Native",
+            "raceethAsian",
+            "raceethBlack",
+            "raceethHispanic",
+            "raceethMore than one race",
+            "raceethNative Hawaiian/Other Pacific Islander",
+            "raceethWhite"
+          ],
+          "correctAnswer": [
+            "raceethAmerican Indian/Alaska Native",
+            "raceethAsian",
+            "raceethBlack",
+            "raceethHispanic",
+            "raceethMore than one race",
+            "raceethNative Hawaiian/Other Pacific Islander"
+          ],
           "explanation": "We create a binary variable for each level except the reference level, so we would create all these variables except for raceethWhite.",
           "attemptsOverall": 2,
           "weight": 1
@@ -345,8 +634,21 @@
           "level": 2,
           "number": 3,
           "text": "Consider again adding our unordered factor race to the regression model with reference level \"White\". For a student who is Asian, which binary variables would be set to 0? All remaining variables will be set to 1. (Select all that apply.)",
-          "options": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
-          "correctAnswer": ["raceethAmerican Indian/Alaska Native", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "options": [
+            "raceethAmerican Indian/Alaska Native",
+            "raceethAsian",
+            "raceethBlack",
+            "raceethHispanic",
+            "raceethMore than one race",
+            "raceethNative Hawaiian/Other Pacific Islander"
+          ],
+          "correctAnswer": [
+            "raceethAmerican Indian/Alaska Native",
+            "raceethBlack",
+            "raceethHispanic",
+            "raceethMore than one race",
+            "raceethNative Hawaiian/Other Pacific Islander"
+          ],
           "explanation": "An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0",
           "attemptsOverall": 1,
           "weight": 1
@@ -356,8 +658,22 @@
           "level": 2,
           "number": 4,
           "text": "Consider the addition of our unordered factor race to the regression model with reference level \"White\". For a student who is white, which binary variables would be set to 0? All remaining variables will be set to 1. (Select all that apply.)",
-          "options": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
-          "correctAnswer": ["raceethAmerican Indian/Alaska Native", "raceethAsian", "raceethBlack", "raceethHispanic", "raceethMore than one race", "raceethNative Hawaiian/Other Pacific Islander"],
+          "options": [
+            "raceethAmerican Indian/Alaska Native",
+            "raceethAsian",
+            "raceethBlack",
+            "raceethHispanic",
+            "raceethMore than one race",
+            "raceethNative Hawaiian/Other Pacific Islander"
+          ],
+          "correctAnswer": [
+            "raceethAmerican Indian/Alaska Native",
+            "raceethAsian",
+            "raceethBlack",
+            "raceethHispanic",
+            "raceethMore than one race",
+            "raceethNative Hawaiian/Other Pacific Islander"
+          ],
           "explanation": "An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0",
           "attemptsOverall": 1,
           "weight": 1
@@ -367,8 +683,23 @@
           "level": 2,
           "number": 5,
           "text": "Check for outliers in the variable readingScore using the IQR method. How many outliers are there? Is linear regression sensitive to outliers?",
-          "options": ["0, No", "0, Yes", "0, Insuffient Information", "1, No", "1, Yes", "1, Insuffient Information","2, No", "2, Yes", "2, Insuffient Information","3, No", "3, Yes", "3, Insuffient Information"],
-          "correctAnswer": ["2, Yes"],
+          "options": [
+            "0, No",
+            "0, Yes",
+            "0, Insuffient Information",
+            "1, No",
+            "1, Yes",
+            "1, Insuffient Information",
+            "2, No",
+            "2, Yes",
+            "2, Insuffient Information",
+            "3, No",
+            "3, Yes",
+            "3, Insuffient Information"
+          ],
+          "correctAnswer": [
+            "2, Yes"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 2,
           "weight": 0
@@ -378,8 +709,14 @@
           "level": 2,
           "number": 6,
           "text": "There are x races. Instead of creating x-1 more variables, we could give each race a number 1-x and keep one variable that receives values 1-x. Why is this incorrect?",
-          "options": ["This would mean that each race has a different value and distances between races can be measured.", "We would have to keep a map of what race was mapped to which number.", "This would create a numeric column instead of a binary column."],
-          "correctAnswer": ["This would mean that each race has a different value and distances between races can be measured."],
+          "options": [
+            "This would mean that each race has a different value and distances between races can be measured.",
+            "We would have to keep a map of what race was mapped to which number.",
+            "This would create a numeric column instead of a binary column."
+          ],
+          "correctAnswer": [
+            "This would mean that each race has a different value and distances between races can be measured."
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -388,25 +725,47 @@
     },
     {
       "level": 3,
-      "questions":[
-       {
-         "Assignment": "Reading Test Scores",
-         "level": 3,
-         "number": 1,
-         "text": "Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\"). Set the reference level of the factor by typing the following two lines in your R console: pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\") pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\") Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables. It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables. As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation: LinReg = lm(Y ~ X1 + X2 + X3, data = Train) You would use the following command to build your model: LinReg = lm(Y ~ ., data = Train) What is the Multiple R-squared value of lmScore on the training set? Note that this R-squared is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).",
-         "options": ["0.675","0.315","0.32","0.68","0.325","0.331","0.665","0.5"],
-         "correctAnswer": ["0.325"],
-         "explanation": "We can train the model with: lmScore = lm(readingScore~., data=pisaTrain) We can then read the training set R^2 from the \"Multiple R-squared\" value of summary(lmScore).",
-         "attemptsOverall": 3,
-         "weight": 2
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Reading Test Scores",
+          "level": 3,
+          "number": 1,
+          "text": "Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\"). Set the reference level of the factor by typing the following two lines in your R console: pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\") pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\") Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables. It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables. As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation: LinReg = lm(Y ~ X1 + X2 + X3, data = Train) You would use the following command to build your model: LinReg = lm(Y ~ ., data = Train) What is the Multiple R-squared value of lmScore on the training set? Note that this R-squared is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).",
+          "options": [
+            "0.675",
+            "0.315",
+            "0.32",
+            "0.68",
+            "0.325",
+            "0.331",
+            "0.665",
+            "0.5"
+          ],
+          "correctAnswer": [
+            "0.325"
+          ],
+          "explanation": "We can train the model with: lmScore = lm(readingScore~., data=pisaTrain) We can then read the training set R^2 from the \"Multiple R-squared\" value of summary(lmScore).",
+          "attemptsOverall": 3,
+          "weight": 2
+        },
+        {
           "Assignment": "Reading Test Scores",
           "level": 3,
           "number": 2,
           "text": "What is the training-set root-mean squared error (RMSE) of lmScore?",
-          "options": ["5382.5","19716111.884","TODO","TODO","TODO","TODO","73","73.366"],
-          "correctAnswer": ["73.366"],
+          "options": [
+            "5382.5",
+            "19716111.884",
+            "TODO",
+            "TODO",
+            "TODO",
+            "TODO",
+            "73",
+            "73.366"
+          ],
+          "correctAnswer": [
+            "73.366"
+          ],
           "explanation": "The training-set RMSE can be computed by first computing the SSE: SSE = sum(lmScore$residuals^2) and then dividing by the number of observations and taking the square root: RMSE = sqrt(SSE / nrow(pisaTrain)) An alternative way of getting this answer would be with the following command: sqrt(mean(lmScore$residuals^2)).",
           "attemptsOverall": 2,
           "weight": 1
@@ -416,8 +775,17 @@
           "level": 3,
           "number": 3,
           "text": "Consider two students A and B. They have all variable values the same, except that student A is in grade 11 and student B is in grade 9. What is the predicted reading score of student A minus the predicted reading score of student B?",
-          "options": ["-59.09", "-29.54", "0", "29.54", "59.09","The difference cannot be determined without more information about the two students"],
-          "correctAnswer": ["59.09"],
+          "options": [
+            "-59.09",
+            "-29.54",
+            "0",
+            "29.54",
+            "59.09",
+            "The difference cannot be determined without more information about the two students"
+          ],
+          "correctAnswer": [
+            "59.09"
+          ],
           "explanation": "The coefficient 29.54 on grade is the difference in reading score between two students who are identical other than having a difference in grade of 1. Because A and B have a difference in grade of 2, the model predicts that student A has a reading score that is 2*29.54 larger.",
           "attemptsOverall": 2,
           "weight": 1
@@ -427,8 +795,15 @@
           "level": 3,
           "number": 4,
           "text": "What is the meaning of the coefficient associated with variable raceethAsian?",
-          "options": ["Predicted average reading score of an Asian student", "Difference between the average reading score of an Asian student and the average reading score of a white student", "Difference between the average reading score of an Asian student and the average reading score of all the students in the dataset", "Predicted difference in the reading score between an Asian student and a white student who is otherwise identical"],
-          "correctAnswer": ["Predicted difference in the reading score between an Asian student and a white student who is otherwise identical"],
+          "options": [
+            "Predicted average reading score of an Asian student",
+            "Difference between the average reading score of an Asian student and the average reading score of a white student",
+            "Difference between the average reading score of an Asian student and the average reading score of all the students in the dataset",
+            "Predicted difference in the reading score between an Asian student and a white student who is otherwise identical"
+          ],
+          "correctAnswer": [
+            "Predicted difference in the reading score between an Asian student and a white student who is otherwise identical"
+          ],
           "explanation": "The only difference between an Asian student and white student with otherwise identical variables is that the former has raceethAsian=1 and the latter has raceethAsian=0. The predicted reading score for these two students will differ by the coefficient on the variable raceethAsian.",
           "attemptsOverall": 1,
           "weight": 1
@@ -438,8 +813,46 @@
           "level": 3,
           "number": 5,
           "text": "Based on the significance codes, which variables are candidates for removal from the model? Select all that apply. (We'll assume that the factor variable raceeth should only be removed if none of its levels are significant.)",
-          "options": ["grade", "male", "raceeth", "preschool", "expectBachelors", "motherHS", "motherBachelors", "motherWork", "fatherHS", "fatherBachelors", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "computerForSchoolwork", "read30MinsADay", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "publicSchool", "urban", "schoolSize"],
-          "correctAnswer": ["preschool", "motherHS", "motherWork", "fatherHS", "fatherWork", "selfBornUS", "motherBornUS", "fatherBornUS", "englishAtHome", "minutesPerWeekEnglish", "studentsInEnglish", "schoolHasLibrary", "urban"],
+          "options": [
+            "grade",
+            "male",
+            "raceeth",
+            "preschool",
+            "expectBachelors",
+            "motherHS",
+            "motherBachelors",
+            "motherWork",
+            "fatherHS",
+            "fatherBachelors",
+            "fatherWork",
+            "selfBornUS",
+            "motherBornUS",
+            "fatherBornUS",
+            "englishAtHome",
+            "computerForSchoolwork",
+            "read30MinsADay",
+            "minutesPerWeekEnglish",
+            "studentsInEnglish",
+            "schoolHasLibrary",
+            "publicSchool",
+            "urban",
+            "schoolSize"
+          ],
+          "correctAnswer": [
+            "preschool",
+            "motherHS",
+            "motherWork",
+            "fatherHS",
+            "fatherWork",
+            "selfBornUS",
+            "motherBornUS",
+            "fatherBornUS",
+            "englishAtHome",
+            "minutesPerWeekEnglish",
+            "studentsInEnglish",
+            "schoolHasLibrary",
+            "urban"
+          ],
           "explanation": "From summary(lmScore), we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.",
           "attemptsOverall": 2,
           "weight": 1
@@ -449,8 +862,12 @@
           "level": 3,
           "number": 6,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 2,
           "weight": 0
@@ -459,25 +876,38 @@
     },
     {
       "level": 4,
-      "questions":[
-       {
-         "Assignment": "Reading Test Scores",
-         "level": 4,
-         "number": 1,
-         "text": "Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest. Call this vector of predictions \"predTest\". Do not change the variables in the model (for example, do not remove variables that we found were not significant in the previous part of this problem). Use the summary function to describe the test set predictions. What is the range between the maximum and minimum predicted reading score on the test set?",
-         "options": ["284.5", "637.7", "353.2", "285", "990.0", "-284.5"],
-         "correctAnswer": ["284.5"],
-         "explanation": "We can obtain the predictions with: predTest = predict(lmScore, newdata=pisaTest) From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.",
-         "attemptsOverall": 1,
-         "weight": 2
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Reading Test Scores",
+          "level": 4,
+          "number": 1,
+          "text": "Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest. Call this vector of predictions \"predTest\". Do not change the variables in the model (for example, do not remove variables that we found were not significant in the previous part of this problem). Use the summary function to describe the test set predictions. What is the range between the maximum and minimum predicted reading score on the test set?",
+          "options": [
+            "284.5",
+            "637.7",
+            "353.2",
+            "285",
+            "990.0",
+            "-284.5"
+          ],
+          "correctAnswer": [
+            "284.5"
+          ],
+          "explanation": "We can obtain the predictions with: predTest = predict(lmScore, newdata=pisaTest) From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.",
+          "attemptsOverall": 1,
+          "weight": 2
+        },
+        {
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 2,
           "text": "What is the sum of squared errors (SSE) of lmScore on the testing set? What is the root-mean squared error (RMSE) of lmScore on the testing set?",
-          "options": ["TODO"],
-          "correctAnswer": ["5762082, 76.29"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "5762082, 76.29"
+          ],
           "explanation": "SSE = sum((predTest-pisaTest$readingScore)^2), RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))",
           "attemptsOverall": 2,
           "weight": 2
@@ -487,8 +917,18 @@
           "level": 4,
           "number": 3,
           "text": "What is the predicted test score used in the baseline model? Remember to compute this value using the training set and not the test set. What is the sum of squared errors of the baseline model on the testing set? HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).",
-          "options": ["497.91, 7802354","517.96, 7802354", "520.205, 7802354","497.91, 14407628","517.96, 14407628", "520.205 ,8275884", "517.96 ,8275884"],
-          "correctAnswer": ["517.96, 7802354"],
+          "options": [
+            "497.91, 7802354",
+            "517.96, 7802354",
+            "520.205, 7802354",
+            "497.91, 14407628",
+            "517.96, 14407628",
+            "520.205 ,8275884",
+            "517.96 ,8275884"
+          ],
+          "correctAnswer": [
+            "517.96, 7802354"
+          ],
           "explanation": "This can be computed with baseline = mean(pisaTrain$readingScore) and sum((baseline-pisaTest$readingScore)^2).",
           "attemptsOverall": 2,
           "weight": 2
@@ -498,8 +938,17 @@
           "level": 4,
           "number": 4,
           "text": "What is the test-set R-squared value of lmScore?",
-          "options": ["5762082", "-0.261", "1.354", "7802354", "0.261", "-1.354"],
-          "correctAnswer": ["0.261"],
+          "options": [
+            "5762082",
+            "-0.261",
+            "1.354",
+            "7802354",
+            "0.261",
+            "-1.354"
+          ],
+          "correctAnswer": [
+            "0.261"
+          ],
           "explanation": "The test-set R-squared is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model. For this model, the R-squared is then computed to be 1-5762082/7802354.",
           "attemptsOverall": 2,
           "weight": 1
@@ -509,8 +958,12 @@
           "level": 4,
           "number": 5,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -520,8 +973,17 @@
           "level": 4,
           "number": 6,
           "text": "How can the model be improved (Select all that apply)",
-          "options": ["Remove insignificant independent variables", "Set the reference level of the race factor variable to be the default", "Check for multicollinearity between independent variables and remove and high cor- related variables", "Consider alternative ways of dealing with missing values in the data"],
-          "correctAnswer": ["Remove insignificant independent variables", "Check for multicollinearity between independent variables and remove and high cor- related variables", "Consider alternative ways of dealing with missing values in the data"],
+          "options": [
+            "Remove insignificant independent variables",
+            "Set the reference level of the race factor variable to be the default",
+            "Check for multicollinearity between independent variables and remove and high cor- related variables",
+            "Consider alternative ways of dealing with missing values in the data"
+          ],
+          "correctAnswer": [
+            "Remove insignificant independent variables",
+            "Check for multicollinearity between independent variables and remove and high cor- related variables",
+            "Consider alternative ways of dealing with missing values in the data"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 2,
           "weight": 0
@@ -529,84 +991,126 @@
       ]
     }
   ],
-  "DetectingFluEpedemics":
-  [
+  "DetectingFluEpedemics": [
     {
       "level": 1,
-      "questions":[
-       {
-         "Assignment": "Detecting Flu Epedemics",
-         "level": 1,
-      	 "number": 1,
-      	 "text": "PROBLEM",
-         "options": ["TODO"],
-      	 "correctAnswer": ["October 18th, 2009"],
-      	 "explanation": "We can limit FluTrain to the observations that obtain the maximum ILI value with subset(FluTrain, ILI == max(ILI)). From here, we can read information about the week at which the maximum was obtained. Alternatively, you can use which.max(FluTrain$ILI) to find the row number corresponding to the observation with the maximum value of ILI, which is 303. Then, you can output the corresponding week using FluTrain$Week[303].",
-      	 "attemptsOverall": 1,
-         "weight": 3
-       },
-       {
+      "questions": [
+        {
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
-      		"number": 2,
-      		"text": "Which week corresponds to the highest percentage of ILI-related query fraction?",
-      		"options": ["TODO"],
-      		"correctAnswer": ["October 18th, 2009"],
-      		"explanation": "We can limit FluTrain to the observations that obtain the maximum ILI value with subset(FluTrain, Queries == max(Queries)). From here, we can read information about the week at which the maximum was obtained. Alternatively, you can use which.max(FluTrain$Queries) to find the row number corresponding to the observation with the maximum value of Queries, which is 303. Then, you can output the corresponding week using FluTrain$Week[303].",
-      		"attemptsOverall": 1,
+          "number": 1,
+          "text": "PROBLEM",
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "October 18th, 2009"
+          ],
+          "explanation": "We can limit FluTrain to the observations that obtain the maximum ILI value with subset(FluTrain, ILI == max(ILI)). From here, we can read information about the week at which the maximum was obtained. Alternatively, you can use which.max(FluTrain$ILI) to find the row number corresponding to the observation with the maximum value of ILI, which is 303. Then, you can output the corresponding week using FluTrain$Week[303].",
+          "attemptsOverall": 1,
           "weight": 3
-      	},
+        },
         {
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
-       		"number": 3,
-       		"text": "Let us now understand the data at an aggregate level. Plot the histogram of the dependent variable, ILI. What best describes the distribution of values of ILI?",
-       		"options": ["Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called \"skew right\").", "The ILI values are balanced, with equal numbers of unusually large and unusually small values.", "Most of the ILI values are large, with a relatively small number of much smaller values (in statistics, this sort of data is called \"skew left\")."],
-       		"correctAnswer": ["Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called \"skew right\")."],
-       		"explanation": "The histogram of ILI can be obtained with hist(FluTrain$ILI). Visually, the data is skew right.",
-       		"attemptsOverall": 1,
+          "number": 2,
+          "text": "Which week corresponds to the highest percentage of ILI-related query fraction?",
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "October 18th, 2009"
+          ],
+          "explanation": "We can limit FluTrain to the observations that obtain the maximum ILI value with subset(FluTrain, Queries == max(Queries)). From here, we can read information about the week at which the maximum was obtained. Alternatively, you can use which.max(FluTrain$Queries) to find the row number corresponding to the observation with the maximum value of Queries, which is 303. Then, you can output the corresponding week using FluTrain$Week[303].",
+          "attemptsOverall": 1,
+          "weight": 3
+        },
+        {
+          "Assignment": "Detecting Flu Epedemics",
+          "level": 1,
+          "number": 3,
+          "text": "Let us now understand the data at an aggregate level. Plot the histogram of the dependent variable, ILI. What best describes the distribution of values of ILI?",
+          "options": [
+            "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called \"skew right\").",
+            "The ILI values are balanced, with equal numbers of unusually large and unusually small values.",
+            "Most of the ILI values are large, with a relatively small number of much smaller values (in statistics, this sort of data is called \"skew left\")."
+          ],
+          "correctAnswer": [
+            "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called \"skew right\")."
+          ],
+          "explanation": "The histogram of ILI can be obtained with hist(FluTrain$ILI). Visually, the data is skew right.",
+          "attemptsOverall": 1,
           "weight": 1
-       	},
+        },
         {
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
-       		"number": 4,
-       		"text": "When handling a skewed dependent variable, it is often useful to predict the logarithm of the dependent variable instead of the dependent variable itself -- this prevents the small number of unusually large or small observations from having an undue influence on the sum of squared errors of predictive models. In this problem, we will predict the natural log of the ILI variable, which can be computed in R using the log() function. Plot the natural logarithm of ILI versus Queries. What does the plot suggest?.",
-       		"options": ["There is a negative, linear relationship between log(ILI) and Queries.","There is no apparent linear relationship between log(ILI) and Queries.","There is a positive, linear relationship between log(ILI) and Queries."],
-       		"correctAnswer": ["There is a positive, linear relationship between log(ILI) and Queries."],
-       		"explanation": "The plot can be obtained with plot(FluTrain$Queries, log(FluTrain$ILI)). Visually, there is a positive, linear relationship between log(ILI) and Queries.",
-       		"attemptsOverall": 1,
+          "number": 4,
+          "text": "When handling a skewed dependent variable, it is often useful to predict the logarithm of the dependent variable instead of the dependent variable itself -- this prevents the small number of unusually large or small observations from having an undue influence on the sum of squared errors of predictive models. In this problem, we will predict the natural log of the ILI variable, which can be computed in R using the log() function. Plot the natural logarithm of ILI versus Queries. What does the plot suggest?.",
+          "options": [
+            "There is a negative, linear relationship between log(ILI) and Queries.",
+            "There is no apparent linear relationship between log(ILI) and Queries.",
+            "There is a positive, linear relationship between log(ILI) and Queries."
+          ],
+          "correctAnswer": [
+            "There is a positive, linear relationship between log(ILI) and Queries."
+          ],
+          "explanation": "The plot can be obtained with plot(FluTrain$Queries, log(FluTrain$ILI)). Visually, there is a positive, linear relationship between log(ILI) and Queries.",
+          "attemptsOverall": 1,
           "weight": 1
-       	},
+        },
         {
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
-       		"number": 5,
-       		"text": "Based on the plot we just made, it seems that a linear regression model could be a good modeling choice. Based on our understanding of the data from the previous subproblem, which model best describes our estimation problem? Let's call this regression model FluTrend1 and run it in R. You might need this for a future question so please save this model! Hint: to take the logarithm of a variable Var in a regression equation, you simply use log(Var) when specifying the formula to the lm() function.",
-       		"options": ["ILI = intercept + coefficient x Queries, where the coefficient is negative","Queries = intercept + coefficient x ILI, where the coefficient is negative","ILI = intercept + coefficient x Queries, where the coefficient is positive","Queries = intercept + coefficient x ILI, where the coefficient is positive","log(ILI) = intercept + coefficient x Queries, where the coefficient is negative","Queries = intercept + coefficient x log(ILI), where the coefficient is negative","log(ILI) = intercept + coefficient x Queries, where the coefficient is positive","Queries = intercept + coefficient x log(ILI), where the coeffcient is positive"],
-       		"correctAnswer": ["log(ILI) = intercept + coefficient x Queries, where the coefficient is positive"],
-       		"explanation": "From the previous subproblem, we are predicting log(ILI) using the Queries variable. From the plot in the previous subproblem, we expect the coefficient on Queries to be positive.",
-       		"attemptsOverall": 2,
+          "number": 5,
+          "text": "Based on the plot we just made, it seems that a linear regression model could be a good modeling choice. Based on our understanding of the data from the previous subproblem, which model best describes our estimation problem? Let's call this regression model FluTrend1 and run it in R. You might need this for a future question so please save this model! Hint: to take the logarithm of a variable Var in a regression equation, you simply use log(Var) when specifying the formula to the lm() function.",
+          "options": [
+            "ILI = intercept + coefficient x Queries, where the coefficient is negative",
+            "Queries = intercept + coefficient x ILI, where the coefficient is negative",
+            "ILI = intercept + coefficient x Queries, where the coefficient is positive",
+            "Queries = intercept + coefficient x ILI, where the coefficient is positive",
+            "log(ILI) = intercept + coefficient x Queries, where the coefficient is negative",
+            "Queries = intercept + coefficient x log(ILI), where the coefficient is negative",
+            "log(ILI) = intercept + coefficient x Queries, where the coefficient is positive",
+            "Queries = intercept + coefficient x log(ILI), where the coeffcient is positive"
+          ],
+          "correctAnswer": [
+            "log(ILI) = intercept + coefficient x Queries, where the coefficient is positive"
+          ],
+          "explanation": "From the previous subproblem, we are predicting log(ILI) using the Queries variable. From the plot in the previous subproblem, we expect the coefficient on Queries to be positive.",
+          "attemptsOverall": 2,
           "weight": 1
-       	},
+        },
         {
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
-       		"number": 6,
-       		"text": "Recall the model FluTrend1. What is the training set R-squared value for FluTrend1 model (the \"Multiple R-squared\")?",
-       		"options": ["TODO"],
-       		"correctAnswer": ["0.709"],
-       		"explanation": "The model can be trained with: FluTrend1 = lm(log(ILI)~Queries, data=FluTrain) From summary(FluTrend1), we read that the R-squared value is 0.709.",
-       		"attemptsOverall": 2,
+          "number": 6,
+          "text": "Recall the model FluTrend1. What is the training set R-squared value for FluTrend1 model (the \"Multiple R-squared\")?",
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "0.709"
+          ],
+          "explanation": "The model can be trained with: FluTrend1 = lm(log(ILI)~Queries, data=FluTrain) From summary(FluTrend1), we read that the R-squared value is 0.709.",
+          "attemptsOverall": 2,
           "weight": 2
-       	},
+        },
         {
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
           "number": 7,
           "text": "Which of the following are advantages of having fewer independent variables in the model?",
-          "options": ["The model is more interpretable", "The simplest model is always the best model.","It can prevent overfitting.","The AIC is lower."],
-          "correctAnswer": ["The model is more interpretable", "It can prevent overfitting."],
+          "options": [
+            "The model is more interpretable",
+            "The simplest model is always the best model.",
+            "It can prevent overfitting.",
+            "The AIC is lower."
+          ],
+          "correctAnswer": [
+            "The model is more interpretable",
+            "It can prevent overfitting."
+          ],
           "explanation": "",
           "attemptsOverall": 1,
           "weight": 1
@@ -615,36 +1119,50 @@
     },
     {
       "level": 2,
-      "questions":[
-      {
-         "Assignment": "Detecting Flu Epedemics",
-         "level": 2,
-         "number": 1,
-         "text": "For a single variable linear regression model, there is a direct relationship between the R-squared and the correlation between the independent and the dependent variables. What is the relationship we infer from our problem? (Don't forget that you can use the cor function to compute the correlation between two variables.)",
-         "options": ["R-squared = Correlation^2","R-squared = log(1/Correlation)","R-squared = exp(-0.5*Correlation)"],
-         "correctAnswer": ["R-squared = Correlation^2"],
-         "explanation": "To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)). This can be done with Correlation = cor(FluTrain$Queries, log(FluTrain$ILI)) The values of the three expressions are then: Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792. It appears that Correlation^2 is equal to the R-squared value. It can be proved that this  is always the case. Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function exp().",
-         "attemptsOverall": 1,
-         "weight": 1
-       },
-       {
-         "Assignment": "Detecting Flu Epedemics",
-         "level": 2,
-         "number": 2,
-         "text": "The csv file FluTest.csv provides the 2012 weekly data of the ILI-related search queries and the observed weekly percentage of ILI-related physician visits. Load this data into a data frame called FluTest. Normally, we would obtain test-set predictions from the model FluTrend1 using the code PredTest1 = predict(FluTrend1, newdata=FluTest) However, the dependent variable in our model is log(ILI), so PredTest1 would contain predictions of the log(ILI) value. We are instead interested in obtaining predictions of the ILI value. We can convert from predictions of log(ILI) to predictions of ILI via exponentiation, or the exp() function. The new code, which predicts the ILI value, is PredTest1 = exp(predict(FluTrend1, newdata=FluTest)) What is our estimate for the percentage of ILI-related physician visits for the week of March 11, 2012? (HINT: You can either just output FluTest$Week to find which element corresponds to March 11, 2012, or you can use the \"which\" function in R. To learn more about the which function, type ?which in your R console.)",
-         "options": ["TODO"],
-         "correctAnswer": ["2.187"],
-         "explanation": "To obtain the predictions, we need can run PredTest1 = exp(predict(FluTrend1, newdata=FluTest)) Next, we need to determine which element in the test set is for March 11, 2012. We can determine this with: which(FluTest$Week == \"2012-03-11 - 2012-03-17\") Now we know we are looking for prediction number 11. This can be accessed with: PredTest1[11]",
-         "attemptsOverall": 2,
-         "weight": 1
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Detecting Flu Epedemics",
+          "level": 2,
+          "number": 1,
+          "text": "For a single variable linear regression model, there is a direct relationship between the R-squared and the correlation between the independent and the dependent variables. What is the relationship we infer from our problem? (Don't forget that you can use the cor function to compute the correlation between two variables.)",
+          "options": [
+            "R-squared = Correlation^2",
+            "R-squared = log(1/Correlation)",
+            "R-squared = exp(-0.5*Correlation)"
+          ],
+          "correctAnswer": [
+            "R-squared = Correlation^2"
+          ],
+          "explanation": "To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)). This can be done with Correlation = cor(FluTrain$Queries, log(FluTrain$ILI)) The values of the three expressions are then: Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792. It appears that Correlation^2 is equal to the R-squared value. It can be proved that this  is always the case. Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function exp().",
+          "attemptsOverall": 1,
+          "weight": 1
+        },
+        {
+          "Assignment": "Detecting Flu Epedemics",
+          "level": 2,
+          "number": 2,
+          "text": "The csv file FluTest.csv provides the 2012 weekly data of the ILI-related search queries and the observed weekly percentage of ILI-related physician visits. Load this data into a data frame called FluTest. Normally, we would obtain test-set predictions from the model FluTrend1 using the code PredTest1 = predict(FluTrend1, newdata=FluTest) However, the dependent variable in our model is log(ILI), so PredTest1 would contain predictions of the log(ILI) value. We are instead interested in obtaining predictions of the ILI value. We can convert from predictions of log(ILI) to predictions of ILI via exponentiation, or the exp() function. The new code, which predicts the ILI value, is PredTest1 = exp(predict(FluTrend1, newdata=FluTest)) What is our estimate for the percentage of ILI-related physician visits for the week of March 11, 2012? (HINT: You can either just output FluTest$Week to find which element corresponds to March 11, 2012, or you can use the \"which\" function in R. To learn more about the which function, type ?which in your R console.)",
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "2.187"
+          ],
+          "explanation": "To obtain the predictions, we need can run PredTest1 = exp(predict(FluTrend1, newdata=FluTest)) Next, we need to determine which element in the test set is for March 11, 2012. We can determine this with: which(FluTest$Week == \"2012-03-11 - 2012-03-17\") Now we know we are looking for prediction number 11. This can be accessed with: PredTest1[11]",
+          "attemptsOverall": 2,
+          "weight": 1
+        },
+        {
           "Assignment": "Detecting Flu Epedemics",
           "level": 2,
           "number": 3,
           "text": "What is the relative error betweeen the estimate for the percentage of ILI-related physician visits for the week of March 11, 2012 (our prediction) and the observed value for the week of March 11, 2012? Note that the relative error is calculated as (Observed ILI - Estimated ILI)/Observed ILI",
-          "options": ["TODO"],
-          "correctAnswer": ["0.046"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "0.046"
+          ],
           "explanation": "From a previous problem, we know the predicted value is 2.187378. The actual value is the 11th testing set ILI value or FluTest$ILI[11], which has value 2.293422. Finally we compute the relative error to be (2.293422 - 2.187378)/2.293422.",
           "attemptsOverall": 2,
           "weight": 1
@@ -654,8 +1172,12 @@
           "level": 2,
           "number": 4,
           "text": "What is the Root Mean Square Error (RMSE) between our estimates and the actual observations for the percentage of ILI-related physician visits, on the test set?",
-          "options": ["TODO"],
-          "correctAnswer": ["0.749"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "0.749"
+          ],
           "explanation": "The RMSE can be calculated by first computing the SSE: SSE = sum((PredTest1-FluTest$ILI)^2) and then dividing by the number of observations and taking the square root: RMSE = sqrt(SSE / nrow(FluTest)) Alternatively, you could use the following command: sqrt(mean((PredTest1-FluTest$ILI)^2)).",
           "attemptsOverall": 2,
           "weight": 1
@@ -665,8 +1187,12 @@
           "level": 2,
           "number": 5,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -676,8 +1202,12 @@
           "level": 2,
           "number": 6,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -687,8 +1217,15 @@
           "level": 2,
           "number": 7,
           "text": "What does it mean when an independent variable has a high p-value?",
-          "options": ["It is a variable that should be kept in the model.", "The variable’s coefficient is not statistically different than zero.", "The coefficient can be changed to improve the variable’s p-value.", "The absolute value of the estimate of the variable’s coefficient divided by the standard error is large."],
-          "correctAnswer": ["The variable’s coefficient is not statistically different than zero."],
+          "options": [
+            "It is a variable that should be kept in the model.",
+            "The variable’s coefficient is not statistically different than zero.",
+            "The coefficient can be changed to improve the variable’s p-value.",
+            "The absolute value of the estimate of the variable’s coefficient divided by the standard error is large."
+          ],
+          "correctAnswer": [
+            "The variable’s coefficient is not statistically different than zero."
+          ],
           "explanation": "The variable’s coefficient is not statistically different than zero.",
           "attemptsOverall": 1,
           "weight": 0
@@ -697,25 +1234,35 @@
     },
     {
       "level": 3,
-      "questions":[
-       {
-         "Assignment": "Detecting Flu Epedemics",
-         "level": 3,
-         "number": 1,
-         "text": "PROBLEM ",
-         "options": ["2"],
-         "correctAnswer": ["2"],
-         "explanation": "This can be read from the output of summary(FluTrain$ILILag2).",
-         "attemptsOverall": 2,
-         "weight": 1
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Detecting Flu Epedemics",
+          "level": 3,
+          "number": 1,
+          "text": "PROBLEM ",
+          "options": [
+            "2"
+          ],
+          "correctAnswer": [
+            "2"
+          ],
+          "explanation": "This can be read from the output of summary(FluTrain$ILILag2).",
+          "attemptsOverall": 2,
+          "weight": 1
+        },
+        {
           "Assignment": "Detecting Flu Epedemics",
           "level": 3,
           "number": 2,
           "text": "Use the plot() function to plot the log of ILILag2 against the log of ILI. Which best describes the relationship between these two variables?",
-          "options": ["There is a strong negative relationship between log(ILILag2) and log(ILI).", "This is a weak or no relationship between log(ILILag2) and log(ILI)","There is a strong positive relationship between log(ILILag2) and log(ILI)."],
-          "correctAnswer": ["There is a strong positive relationship between log(ILILag2) and log(ILI)."],
+          "options": [
+            "There is a strong negative relationship between log(ILILag2) and log(ILI).",
+            "This is a weak or no relationship between log(ILILag2) and log(ILI)",
+            "There is a strong positive relationship between log(ILILag2) and log(ILI)."
+          ],
+          "correctAnswer": [
+            "There is a strong positive relationship between log(ILILag2) and log(ILI)."
+          ],
           "explanation": "From plot(log(FluTrain$ILILag2), log(FluTrain$ILI)), we observe a strong positive relationship.",
           "attemptsOverall": 1,
           "weight": 1
@@ -725,8 +1272,16 @@
           "level": 3,
           "number": 3,
           "text": "Train a linear regression model on the FluTrain dataset to predict the log of the ILI variable using the Queries variable as well as the log of the ILILag2 variable. Call this model FluTrend2 (This model may be used for future questions). Which coefficients are significant at the p=0.05 level in this regression model? (Select all that apply.)",
-          "options": ["Intercept","Queries","log(ILILag2)"],
-          "correctAnswer": ["Intercept","Queries","log(ILILag2)"],
+          "options": [
+            "Intercept",
+            "Queries",
+            "log(ILILag2)"
+          ],
+          "correctAnswer": [
+            "Intercept",
+            "Queries",
+            "log(ILILag2)"
+          ],
           "explanation": "The following code builds and summarizes the FluTrend2 model: FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain) summary(FluTrend2) As can be seen, all three coefficients are highly significant",
           "attemptsOverall": 1,
           "weight": 1
@@ -736,8 +1291,12 @@
           "level": 3,
           "number": 4,
           "text": "What is the R^2 value of the FluTrend2 model?",
-          "options": ["TODO"],
-          "correctAnswer": ["0.9063"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "0.9063"
+          ],
           "explanation": "The following code builds and summarizes the FluTrend2 model: FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain) summary(FluTrend2) As can be seen, the R^2 value is 0.9063.",
           "attemptsOverall": 1,
           "weight": 1
@@ -747,8 +1306,14 @@
           "level": 3,
           "number": 5,
           "text": "On the basis of R-squared value and significance of coefficients, which statement is the most accurate?",
-          "options": ["Due to overfitting, FluTrend2 is a weaker model then FluTrend1 on the training set.","FluTrend2 is about the same quality as FluTrend1 on the training set.","FluTrend2 is a stronger model than FluTrend1 on the training set."],
-          "correctAnswer": ["FluTrend2 is a stronger model than FluTrend1 on the training set."],
+          "options": [
+            "Due to overfitting, FluTrend2 is a weaker model then FluTrend1 on the training set.",
+            "FluTrend2 is about the same quality as FluTrend1 on the training set.",
+            "FluTrend2 is a stronger model than FluTrend1 on the training set."
+          ],
+          "correctAnswer": [
+            "FluTrend2 is a stronger model than FluTrend1 on the training set."
+          ],
           "explanation": "Moving from FluTrend1 to FluTrend2, in-sample R^2 improved from 0.709 to 0.9063, and the new variable is highly significant. As a result, there is no sign of overfitting, and FluTrend2 is superior to FluTrend1 on the training set.",
           "attemptsOverall": 1,
           "weight": 1
@@ -758,8 +1323,12 @@
           "level": 3,
           "number": 6,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -769,8 +1338,12 @@
           "level": 3,
           "number": 7,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0
@@ -779,25 +1352,36 @@
     },
     {
       "level": 4,
-      "questions":[
-       {
-         "Assignment": "Detecting Flu Epedemics",
-         "level": 4,
-         "number": 1,
-         "text": "So far, we have only added the ILILag2 variable to the FluTrain data frame. To make predictions with our FluTrend2 model, we will also need to add ILILag2 to the FluTest data frame (note that adding variables before splitting into a training and testing set can prevent this duplication of effort). Modify the code from the previous problem to add an ILILag2 variable to the FluTest data frame. How many missing values are there in this new variable?",
-         "options": ["2"],
-         "correctAnswer": ["2"],
-         "explanation": "We can add the new variable with: ILILag2 = lag(zoo(FluTest$ILI), -2, na.pad=TRUE) FluTest$ILILag2 = coredata(ILILag2) From summary(FluTest$ILILag2), we can see that we're missing two values of the new variable.",
-         "attemptsOverall": 2,
-         "weight": 1
-       },
-       {
+      "questions": [
+        {
+          "Assignment": "Detecting Flu Epedemics",
+          "level": 4,
+          "number": 1,
+          "text": "So far, we have only added the ILILag2 variable to the FluTrain data frame. To make predictions with our FluTrend2 model, we will also need to add ILILag2 to the FluTest data frame (note that adding variables before splitting into a training and testing set can prevent this duplication of effort). Modify the code from the previous problem to add an ILILag2 variable to the FluTest data frame. How many missing values are there in this new variable?",
+          "options": [
+            "2"
+          ],
+          "correctAnswer": [
+            "2"
+          ],
+          "explanation": "We can add the new variable with: ILILag2 = lag(zoo(FluTest$ILI), -2, na.pad=TRUE) FluTest$ILILag2 = coredata(ILILag2) From summary(FluTest$ILILag2), we can see that we're missing two values of the new variable.",
+          "attemptsOverall": 2,
+          "weight": 1
+        },
+        {
           "Assignment": "Detecting Flu Epedemics",
           "level": 4,
           "number": 2,
           "text": "In this problem, the training and testing sets are split sequentially -- the training set contains all observations from 2004-2011 and the testing set contains all observations from 2012. There is no time gap between the two datasets, meaning the first observation in FluTest was recorded one week after the last observation in FluTrain. From this, we can identify how to fill in the missing values for the ILILag2 variable in FluTest. Which value should be used to fill in the ILILag2 variable for the first observation in FluTest?",
-          "options": ["The ILI value of the second-to-last observation in the FluTrain data frame.","The ILI value of the last observation in the FluTrain data frame.","The ILI value of the first observation in the FluTest data frame.","The ILI value of the second observation in the FluTest data frame."],
-          "correctAnswer": ["The ILI value of the second-to-last observation in the FluTrain data frame."],
+          "options": [
+            "The ILI value of the second-to-last observation in the FluTrain data frame.",
+            "The ILI value of the last observation in the FluTrain data frame.",
+            "The ILI value of the first observation in the FluTest data frame.",
+            "The ILI value of the second observation in the FluTest data frame."
+          ],
+          "correctAnswer": [
+            "The ILI value of the second-to-last observation in the FluTrain data frame."
+          ],
           "explanation": "The time two weeks before the first week of 2012 is the second-to-last week of 2011. This corresponds to the second-to-last observation in FluTrain.",
           "attemptsOverall": 1,
           "weight": 1
@@ -807,8 +1391,15 @@
           "level": 4,
           "number": 3,
           "text": "Which value should be used to fill in the ILILag2 variable for the second observation in FluTest?",
-          "options": ["The ILI value of the second-to-last observation in the FluTrain data frame.","The ILI value of the last observation in the FluTrain data frame.","The ILI value of the first observation in the FluTest data frame.","The ILI value of the second observation in the FluTest data frame."],
-          "correctAnswer": ["The ILI value of the last observation in the FluTrain data frame."],
+          "options": [
+            "The ILI value of the second-to-last observation in the FluTrain data frame.",
+            "The ILI value of the last observation in the FluTrain data frame.",
+            "The ILI value of the first observation in the FluTest data frame.",
+            "The ILI value of the second observation in the FluTest data frame."
+          ],
+          "correctAnswer": [
+            "The ILI value of the last observation in the FluTrain data frame."
+          ],
           "explanation": "The time two weeks before the second week of 2012 is the last week of 2011. This corresponds to the last observation in FluTrain.",
           "attemptsOverall": 1,
           "weight": 1
@@ -818,8 +1409,12 @@
           "level": 4,
           "number": 4,
           "text": "Fill in the missing values for ILILag2 in FluTest. In terms of syntax, you could set the value of ILILag2 in row \"x\" of the FluTest data frame to the value of ILI in row \"y\" of the FluTrain data frame with \"FluTest$ILILag2[x] = FluTrain$ILI[y]\". Use the answer to the previous questions to determine the appropriate values of \"x\" and \"y\". It may be helpful to check the total number of rows in FluTrain using str(FluTrain) or nrow(FluTrain). What is the new value of the ILILag2 variable in the first row of FluTest?",
-          "options": ["1.853, 2.124"],
-          "correctAnswer": ["1.853, 2.124"],
+          "options": [
+            "1.853, 2.124"
+          ],
+          "correctAnswer": [
+            "1.853, 2.124"
+          ],
           "explanation": "This can be read from FluTest$ILILag2[1], FluTest$ILILag2[2].",
           "attemptsOverall": 1,
           "weight": 2
@@ -829,8 +1424,12 @@
           "level": 4,
           "number": 5,
           "text": "Obtain test set predictions of the ILI variable from the FluTrend2 model, again remembering to call the exp() function on the result of the predict() function to obtain predictions for ILI instead of log(ILI). What is the test-set RMSE of the FluTrend2 model?",
-          "options": ["0.294"],
-          "correctAnswer": ["0.294"],
+          "options": [
+            "0.294"
+          ],
+          "correctAnswer": [
+            "0.294"
+          ],
           "explanation": "We can obtain the test-set predictions with: PredTest2 = exp(predict(FluTrend2, newdata=FluTest)) And then we can compute the RMSE with the following commands: SSE = sum((PredTest2-FluTest$ILI)^2) RMSE = sqrt(SSE / nrow(FluTest)) Alternatively, you could use the following command to compute the RMSE: sqrt(mean((PredTest2-FluTest$ILI)^2)). The test-set RMSE of FluTrend2 is 0.294",
           "attemptsOverall": 2,
           "weight": 2
@@ -840,8 +1439,13 @@
           "level": 4,
           "number": 6,
           "text": "Which model obtained the best test-set RMSE? ",
-          "options": ["FluTrend1","FluTrend2"],
-          "correctAnswer": ["FluTrend2"],
+          "options": [
+            "FluTrend1",
+            "FluTrend2"
+          ],
+          "correctAnswer": [
+            "FluTrend2"
+          ],
           "explanation": "The test-set RMSE of FluTrend2 is 0.294, as opposed to the 0.749 value obtained by the FluTrend1 model. In this problem, we used a simple time series model with a single lag term. ARIMA models are a more general form of the model we built, which can include multiple lag terms as well as more complicated combinations of previous values of the dependent variable. If you're interested in learning more, check out ?arima or the available online tutorials for these sorts of models.",
           "attemptsOverall": 1,
           "weight": 1
@@ -851,8 +1455,12 @@
           "level": 4,
           "number": 7,
           "text": "TODO",
-          "options": ["TODO"],
-          "correctAnswer": ["TODO"],
+          "options": [
+            "TODO"
+          ],
+          "correctAnswer": [
+            "TODO"
+          ],
           "explanation": "TODO",
           "attemptsOverall": 1,
           "weight": 0

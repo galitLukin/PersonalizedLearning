@@ -7,9 +7,14 @@
         <h2>{{.QuestionData.Question.Assignment}}</h2>
         <h3>{{.QuestionData.Question.Text}}</h3>
         <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
+        <h4>Weight: {{.QuestionData.Question.Weight}}</h4>
         <div id="quiz-must-select">Please select an answer before you submit.</div>
-        <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
-        <div id="quiz-right-answer">Great job!</div>
+        {{if eq .QuestionData.QuestionInstance.Status "IncorrectWithAttempts"}}
+            <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
+        {{end}}
+        {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
+            <div id="quiz-right-answer">Great job!</div>
+        {{end}}
         {{ range .QuestionData.Question.Options }}
             <div class="answer-choice-container">
                 <div class="answer-choice-radio-btn" 
@@ -77,7 +82,7 @@
 
         const onSubmit = (e) => {
             // Clear Previous Answer State
-            clearStatus();
+            {{/* clearStatus(); */}}
             
             // Fetch All Radio Buttons
             const radioButtons 
@@ -99,7 +104,7 @@
             }
 
             const selectedAnswers = selectedAnswersNodes.map(el => el.id);
-            for (let i = 0; i < selectedAnswers.length; i++) {
+            {{/* for (let i = 0; i < selectedAnswers.length; i++) {
                 if (selectedAnswers[i] === "MEI") { // TODO, check real answer
                     document.getElementById("quiz-right-answer").style.display = "block"; 
                     document.getElementById("quiz-submit-btn").innerHTML = "Next";
@@ -107,7 +112,7 @@
                     return;
                 }
             }
-            document.getElementById("quiz-wrong-answer").style.display = "block"; 
+            document.getElementById("quiz-wrong-answer").style.display = "block";  */}}
 
             // POST Request to server
             post('/quiz', {selectedAnswers})
