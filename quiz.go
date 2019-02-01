@@ -68,8 +68,6 @@ func (q QuestionData) getNextQuizState() QuestionData {
 	cmd := exec.Command(Python, PathToPythonScript, string(j))
 	outb, err := cmd.CombinedOutput()
 	outbs := string(outb)
-	// var replacer = strings.NewReplacer("\\", "", "(", "", ")", "")
-	// outbs = replacer.Replace(outbs)
 	var cq QuestionData
 	err = json.Unmarshal([]byte(outbs), &cq)
 	cq.logQuestionData()
