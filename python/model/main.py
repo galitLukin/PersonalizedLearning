@@ -5,7 +5,7 @@ import cluster
 import pandas as pd
 import julia
 
-preprocess = 0
+preprocess = 1
 levelQuesAD = [6,5,5,5]
 maxAttemptsAD = [3] * 6 + [1,3,2,2,2] + [1,1,5,3,3] + [2,3,3,2,2]
 levelQuesSD = [8,3,4,3]
@@ -47,11 +47,23 @@ if preprocess:
     climateChange = answers.parseAndGroup(levelQuesCC,[cc2018,cc2017],"cc")
     ccCols = list(climateChange)
 
+    climateChangeGrades = climateChange.copy()
+    for i in range(1,5):
+        climateChangeGrades.loc[:,'cc{}'.format(i)] = climateChange.apply(lambda row: answers.calcScore(row, "cc", i, levelQuesCC[i-1]+1),axis=1)
+
+    climateChangeGrades = climateChangeGrades.loc[:,['username','courseYear','cc1','cc2','cc3','cc4']]
+
     #reading test scores
     rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
     rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
     testScores = answers.parseAndGroup(levelQuesRTS,[rts2018,rts2017],"rts")
     tsCols = list(testScores)
+
+    testScoresGrades = testScores.copy()
+    for i in range(1,5):
+        testScoresGrades.loc[:,'rts{}'.format(i)] = testScores.apply(lambda row: answers.calcScore(row, "rts", i, levelQuesRTS[i-1]+1),axis=1)
+
+    testScoresGrades = testScoresGrades.loc[:,['username','courseYear','rts1','rts2','rts3','rts4']]
 
     climateChange = pd.merge(climateChange, testScores, on=['username','courseYear'], how='left')
     climateChange.loc[:,'rtsAvg'] = climateChange.apply(lambda row: [answers.calcScore(row, "rts", i, levelQuesRTS[i-1]) for i in range(1,5)],axis=1)
@@ -89,6 +101,7 @@ if preprocess:
     personalizedAssignmentNames = ["cc", "rts", "dfe"]
     personalizedMaxAttempts = [maxAttemptsCC, maxAttemptsRTS, maxAttemptsDFE]
     personalizedLevelQues = [levelQuesCC, levelQuesRTS, levelQuesDFE]
+    previousAssignments = [climateChangeGrades,testScoresGrades]
 
     assignmentData = [anyticalDetective,stockDynamics,demographicsEmployment]
     assignmentNames = ["ad","sd", "de"]
@@ -99,6 +112,8 @@ if preprocess:
         data = pd.merge(userList, personalizedAssignmentData[i], on=['username','courseYear'], how='inner')
         for j in range(len(assignmentNames)):
             data = pd.merge(data, assignmentData[j], on=['username','courseYear'], how='left')
+        for k in range(i):
+            data = pd.merge(data, previousAssignments[k], on=['username','courseYear'], how='left')
         data = pd.merge(data, exam, on=['username','courseYear'], how='left')
         data = cleanData.fillMissingData(data, assignmentNames)
         for j in range(len(assignmentNames)):
@@ -166,5 +181,5 @@ for data in dataSets:
     final.to_csv("data/{}4.csv".format(personalizedAssignmentNames[i]))
     i += 1
 
-# j = julia.Julia()
-# x = j.include("PrescriptiveTree.jl")
+j = julia.Julia()
+x = j.include("PrescriptiveTree.jl")

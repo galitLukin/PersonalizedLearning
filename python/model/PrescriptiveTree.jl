@@ -1,14 +1,17 @@
 using DataFrames
 using MLDataUtils
-using OptimalTrees
+using Suppressor
+using Compat: @warn
+@suppress begin
+    @warn(using OptimalTrees)
+end
 using FileIO
 using JLD2
 using GraphViz
 using Base.Test
 
 function splitData(level, asmt)
-  df1 = readtable("data/$asmt$level.csv", header=true, makefactors=true)
-  df = [df1; df2; df3]
+  df = readtable("data/$asmt$level.csv", header=true, makefactors=true)
   X = df[4:end-3]
   Y = df[2]
   T = df[3]
@@ -17,9 +20,6 @@ function splitData(level, asmt)
   else
       outcomes = df[:, [:y1, :y2, :y3]]
   end
-  # if level == 4
-  #     X = delete!(X, :enrollment_mode)
-  # end
   return stratifiedobs((X, outcomes, Y, T), p=0.75)
 end
 
@@ -158,9 +158,11 @@ depth=[[4,5],[4,5],[5,6],[5,6]]
 meu=[0.55,0.55,0.55,0.55]
 for asmt in ["cc", "rts", "dfe"]
     for level in 1:4
-        (train_X, train_outcomes, train_Y, train_T), (test_X, test_outcomes, test_Y, test_T) = splitData(level)
-        lnr = trainTree(train_X, train_Y, train_T, level, depth[level], meu[level], "Assignment$level")
+        (train_X, train_outcomes, train_Y, train_T), (test_X, test_outcomes, test_Y, test_T) = splitData(level, asmt)
+        lnr = trainTree(train_X, train_Y, train_T, level, depth[level], meu[level], asmt)
         treatment_accuracy, r2, accuracy= evaluate(lnr, test_X, test_outcomes, level)
+        println(asmt)
+        println(level)
         println(treatment_accuracy)
         println(accuracy)
     end

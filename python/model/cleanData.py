@@ -10,6 +10,16 @@ def fillMissingData(df, assinmentNames):
 		for assignment in assinmentNames:
 			if assignment in c:
 				df[c].fillna(0, inplace=True)
+	if "cc1" in cols:
+		df['cc1'].fillna(0, inplace=True)
+		df['cc2'].fillna(0, inplace=True)
+		df['cc3'].fillna(0, inplace=True)
+		df['cc4'].fillna(0, inplace=True)
+		if "rts1" in cols:
+			df['rts1'].fillna(0, inplace=True)
+			df['rts2'].fillna(0, inplace=True)
+			df['rts3'].fillna(0, inplace=True)
+			df['rts4'].fillna(0, inplace=True)
 	df.location.replace(np.nan, "None", inplace=True)
 	df.loc[:,'location'] = df['location'].apply(lambda x: x.upper())
 	df.location.replace("BROOKLYN, NEW YORK", "US", inplace=True)
