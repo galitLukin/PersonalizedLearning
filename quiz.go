@@ -64,6 +64,7 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 	if s == "" {
 		cmd := exec.Command(Python, PathToPythonScript)
 		outb, err := cmd.CombinedOutput()
+		fmt.Println(string(outb))
 		if err != nil {
 			fmt.Println(err)
 		}
