@@ -11,7 +11,7 @@ def isCorrect(answer, correctAnswer):
 		return True
 
 def getNextQuestion(assignment, level, number):
-	with open('./python/LinearRegression.json') as f:
+	with open('./python/LinearRegression.json', encoding='utf-8') as f:
 	    questions = json.load(f)
 
 	#should recieve this from omer
