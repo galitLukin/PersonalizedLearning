@@ -45,5 +45,9 @@ create table scores(
     score3_attempts INT NOT NULL,
 	score4_correct INT NOT NULL,
     score4_attempts INT NOT NULL,
+	next1 FLOAT NOT NULL,
+	next2 FLOAT NOT NULL,
+    next3 FLOAT NOT NULL,
+    next4 FLOAT NOT NULL,
     PRIMARY KEY ( username )
 );
