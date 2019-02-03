@@ -2,13 +2,13 @@
 I will run this with the data from edx
 part of the value will be constant and others will need to be updated but no rows will be added
 TODO GALIT: write procedure to do this automatically from a csv*/
-INSERT INTO scores (username, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4, sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4, score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts, score4_correct, score4_attempts )
+INSERT INTO scores (username, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4, sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4, score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts, score4_correct, score4_attempts, next1, next2, next3, next4)
 VALUES ();
 
 /*run IF Question.level == 1 AND (QuestionInstance.status == "Correct" OR QuestionInstance.status == "IncorrectNoAttempts")
 TODO OMER: insert username and make sure I put in QuestionInstance.numAttemps and 
 QuestionInstance.status correctly*/
-UPDATE scores SET score1_attempts = score1_attempts + QuestionInstance.numAttemps, 
+UPDATE scores SET next1 = next1 + 1, score1_attempts = score1_attempts + QuestionInstance.numAttemps, 
 score1_correct = CASE
    WHEN QuestionInstance.status= "Correct" THEN score1_correct + 1
    ELSE score1_correct
@@ -17,7 +17,7 @@ WHERE username = "";
 
 /*run IF Question.level == 2 AND (QuestionInstance.status == "Correct" OR QuestionInstance.status == "IncorrectNoAttempts")
 This is the same as the previous query but with changing the values of level 2 so same TODO*/
-UPDATE scores SET score2_attempts = score2_attempts + QuestionInstance.numAttemps, 
+UPDATE scores SET next2 = next2 + 1, score2_attempts = score2_attempts + QuestionInstance.numAttemps, 
 score2_correct = CASE
    WHEN QuestionInstance.status= "Correct" THEN score2_correct + 1
    ELSE score2_correct
@@ -26,7 +26,7 @@ WHERE username = "";
 
 /*run IF Question.level == 3 AND (QuestionInstance.status == "Correct" OR QuestionInstance.status == "IncorrectNoAttempts")
 same for level 3*/
-UPDATE scores SET score3_attempts = score3_attempts + QuestionInstance.numAttemps, 
+UPDATE scores SET next3 = next3 + 1, score3_attempts = score3_attempts + QuestionInstance.numAttemps, 
 score3_correct = CASE
    WHEN QuestionInstance.status= "Correct" THEN score3_correct + 1
    ELSE score3_correct
@@ -35,7 +35,7 @@ WHERE username = "";
 
 /*run IF Question.level == 3 AND (QuestionInstance.status == "Correct" OR QuestionInstance.status == "IncorrectNoAttempts")
 same for level 4*/
-UPDATE scores SET score4_attempts = score4_attempts + QuestionInstance.numAttemps, 
+UPDATE scores SET next4 = next4 + 1, score4_attempts = score4_attempts + QuestionInstance.numAttemps, 
 score4_correct = CASE
    WHEN QuestionInstance.status= "Correct" THEN score4_correct + 1
    ELSE score4_correct
@@ -88,4 +88,5 @@ UPDATE scores SET
 score1_correct = 0, score1_attempts = 0,
 score2_correct = 0, score2_attempts = 0,
 score3_correct = 0, score3_attempts = 0,
-score4_correct = 0, score4_attempts = 0;
+score4_correct = 0, score4_attempts = 0,
+next1 = 1, next2 = 1, next3 = 1, next4 = 1;
