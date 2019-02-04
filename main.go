@@ -81,6 +81,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	// fmt.Println("Incoming request from edx...")
 	// d, _ := httputil.DumpRequest(req, true)
 	// fmt.Println(string(d))
+	fmt.Println("req is ->", req)
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
