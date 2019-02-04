@@ -48,6 +48,7 @@ type User struct {
 	Username string `json:"username"`
 }
 
+// Read Question from static JSON file
 func getQuestion() QuestionData {
 	jf, err := os.Open("static/json/simplequestion.json")
 	if err != nil {
@@ -67,6 +68,7 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 		if err != nil {
 			fmt.Println(err)
 		}
+		fmt.Println(string(outb))
 		err = json.Unmarshal(outb, &q)
 		if err != nil {
 			fmt.Println(err)

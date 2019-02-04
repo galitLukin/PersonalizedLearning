@@ -7,6 +7,7 @@ import (
 	"github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
+	"net/http/httputil"
 	"time"
 )
 
@@ -77,6 +78,10 @@ func index(w http.ResponseWriter, req *http.Request) {
 }
 
 func quiz(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("Incoming request from edx...")
+	fmt.Println(httputil.DumpRequest(req, true))
+	fmt.Println("Request body ->", req.Body)
+	fmt.Println("Request total ->", req)
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
