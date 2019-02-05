@@ -37,6 +37,10 @@ type session struct {
 	lastActivity time.Time
 }
 
+type post_req struct {
+	Body string
+}
+
 var db *sql.DB
 var err error
 var tpl *template.Template
