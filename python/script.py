@@ -3,7 +3,6 @@ import json
 from enum import Enum
 import helper
 
-
 class State(Enum):
     Question = 1
     QuestionInstance = 2
