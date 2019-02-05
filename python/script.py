@@ -26,7 +26,7 @@ class Status(Enum):
 def main():
     if len(sys.argv) < 2:
         state = {}
-        #instead of 'ClimateChange', Omer should be sending you the parameter of the url
+        # instead of 'ClimateChange', Omer should be sending you the parameter of the url
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
@@ -35,7 +35,7 @@ def main():
             QInst.answer.name: [],
             QInst.numAttempts.name: 0
         }
-        #maybe dont need this and if we do, then omer should send you this username too
+        # maybe dont need this and if we do, then omer should send you this username too
         state['User'] = {
             'username': "omer"
         }

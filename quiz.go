@@ -27,7 +27,7 @@ type QuestionData struct {
 type Question struct {
 	Assignment      string   `json:"Assignment"`
 	Level           int      `json:"level"`
-	QuestionNumber  int      `json:"question_number"`
+	Number          int      `json:"number"`
 	Text            string   `json:"text"`
 	Options         []string `json:"options"`
 	CorrectAnswer   []string `json:"correctAnswer"`
@@ -65,11 +65,10 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 	if s == "" {
 		cmd := exec.Command(Python, PathToPythonScript)
 		outb, err := cmd.CombinedOutput()
-		fmt.Println(string(outb))
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(string(outb))
+		// fmt.Println(string(outb))
 		err = json.Unmarshal(outb, &q)
 		if err != nil {
 			fmt.Println(err)
@@ -77,12 +76,12 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 	} else {
 		cmd := exec.Command(Python, PathToPythonScript, s)
 		outb, err := cmd.CombinedOutput()
+		// fmt.Println(string(outb))
 		err = json.Unmarshal(outb, &q)
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
-	logQuestionData(q)
 	return q
 }
 
@@ -100,7 +99,7 @@ func getNextQuizState(q QuestionData) QuestionData {
 func logQuestionData(q QuestionData) {
 	fmt.Println("Question - Assignment: " + q.Question.Assignment)
 	fmt.Println("Question - Level: " + strconv.Itoa(q.Question.Level))
-	fmt.Println("Question - QuestionNumber: " + strconv.Itoa(q.Question.QuestionNumber))
+	fmt.Println("Question - Number: " + strconv.Itoa(q.Question.Number))
 	fmt.Println("Question - Text: " + q.Question.Text)
 	fmt.Println("Question - Options: " + strings.Join(q.Question.Options, " "))
 	fmt.Println("Question - CorrectAnswer: " + strings.Join(q.Question.CorrectAnswer, " "))
