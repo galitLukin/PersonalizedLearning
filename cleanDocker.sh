@@ -4,7 +4,7 @@ fi
 docker rm $(docker ps -a -q)
 for id in $(docker images -q)
 do
-  if "$id" -ne "7e70d62cd078"
+  if "$id" -ne "7e70d62cd078"; then
     docker rmi $id
   fi
 done
