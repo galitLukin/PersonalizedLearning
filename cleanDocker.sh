@@ -8,4 +8,4 @@ do
     docker rmi $id -f;
   fi
 done
-docker build .
+docker build . -t  arieg419/quiz-app:latest

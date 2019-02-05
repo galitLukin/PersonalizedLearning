@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/satori/go.uuid"
@@ -87,7 +86,6 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	d, _ := httputil.DumpRequest(req, true)
 	fmt.Println(string(d))
 	fmt.Println("Request -> ", req)
-	logPostBody(req)
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
@@ -252,14 +250,4 @@ func getUsers(w http.ResponseWriter, req *http.Request) {
 func deleteUser(w http.ResponseWriter, req *http.Request) {
 	res := dbDeleteUser(db)
 	fmt.Fprintln(w, res)
-}
-
-func logPostBody(req *http.Request) {
-	decoder := json.NewDecoder(req.Body)
-	var p post_req
-	err := decoder.Decode(&p)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(p.Body)
 }
