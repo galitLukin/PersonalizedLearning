@@ -5,7 +5,7 @@ import cluster
 import pandas as pd
 import julia
 
-preprocess = 1
+preprocess = 0
 levelQuesAD = [6,5,5,5]
 maxAttemptsAD = [3] * 6 + [1,3,2,2,2] + [1,1,5,3,3] + [2,3,3,2,2]
 levelQuesSD = [8,3,4,3]
@@ -161,7 +161,12 @@ for data in dataSets:
         cleanData.convertTreatment(dataFilled)
         dataLev.append(dataFilled)
     final = pd.concat(dataLev)
-    final.to_csv("data/{}1.csv".format(personalizedAssignmentNames[i]))
+    prod = final.drop(columns=['score1','score2','score3','score4','y2','y3','Ygroup','y'])
+    prod.to_csv("data/{}1.csv".format(personalizedAssignmentNames[i]))
+    train = final.drop(columns=['next1','next2','next3','next4',\
+    'score1_correct','score2_correct','score3_correct','score4_correct',\
+    'score1_attempts','score2_attempts','score3_attempts','score4_attempts',])
+    train.to_csv("data/{}1-train.csv".format(personalizedAssignmentNames[i]))
     data2 = cluster.setYGroup(data,3)
     for currlevel in range(2,4):
         dataLev = []
@@ -170,7 +175,12 @@ for data in dataSets:
             cleanData.convertTreatment(dataFilled)
             dataLev.append(dataFilled)
         final = pd.concat(dataLev)
-        final.to_csv("data/{}{}.csv".format(personalizedAssignmentNames[i], currlevel))
+        prod = final.drop(columns=['score1','score2','score3','score4','y1','y2','y3','Ygroup','y'])
+        prod.to_csv("data/{}{}.csv".format(personalizedAssignmentNames[i], currlevel))
+        train = final.drop(columns=['next1','next2','next3','next4',\
+        'score1_correct','score2_correct','score3_correct','score4_correct',\
+        'score1_attempts','score2_attempts','score3_attempts','score4_attempts',])
+        train.to_csv("data/{}{}-train.csv".format(personalizedAssignmentNames[i], currlevel))
     # prediction of y3 is exam
     dataLev = []
     for p in positions[3]:
@@ -178,7 +188,12 @@ for data in dataSets:
         cleanData.convertTreatment(dataFilled)
         dataLev.append(dataFilled)
     final = pd.concat(dataLev)
-    final.to_csv("data/{}4.csv".format(personalizedAssignmentNames[i]))
+    prod = final.drop(columns=['score1','score2','score3','score4','y1','y2','y3','Ygroup','y'])
+    prod.to_csv("data/{}4.csv".format(personalizedAssignmentNames[i]))
+    train = final.drop(columns=['next1','next2','next3','next4',\
+    'score1_correct','score2_correct','score3_correct','score4_correct',\
+    'score1_attempts','score2_attempts','score3_attempts','score4_attempts',])
+    train.to_csv("data/{}4-train.csv".format(personalizedAssignmentNames[i]))
     i += 1
 
 j = julia.Julia()

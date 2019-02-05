@@ -43,12 +43,31 @@ def getNextQuestion(assignment, level, number):
 	    questions = json.load(f)
 
 	#should recieve this from omer
-	history = {"Gender" : "None", "level_of_education" : "None", "enrollment_mode" : "audit",\
-	"ageCategory" : "Null", "ad1" : 1, "ad2" : 1, "ad3" : 1, "ad4" : 1,\
-	"sd1" : 1, "sd2" : 1, "sd3" : 1, "sd4" : 1, \
-	"de1" : 1, "de2" : 1, "de3" : 0.8888888888888888, "de4" : 1,\
-	"score1" : 1, "score2" : 0, "score3" : 0, "score4" : 0,\
-	"next1": 2, "next2": 1, "next3": 1, "next4": 1}
+	historydb = ["None", "None", "audit", "Null", \
+	1, 1, 1, 1, \
+	1, 1, 1, 1, \
+	1, 1, 0.8888888888888888, 1,\
+	0, 0, 0, 0, \
+	0, 0, 0, 0, \
+	1, 0, 0, 0, \
+	1, 0, 0, 0, \
+	2, 1, 1, 1]
+
+	features = ["gender", "level_of_education", "enrollment_mode", "ageCategory", \
+	"ad1", "ad2", "ad3", "ad4", "sd1", "sd2", "sd3", "sd4", "de1", "de2", "de3", "de4",\
+	"cc1", "cc2", "cc3", "cc4", "rts1", "rts2", "rts3", "rts4",\
+	"score1_correct", "score2_correct", "score3_correct", "score4_correct", \
+	"score1_attempts", "score2_attempts", "score3_attempts", "score4_attempts",\
+  	"next1", "next2", "next3", "next4"]
+	history = dict(zip(features,historydb))
+
+	for l in range(1,5):
+		if history['score{}_attempts'.format(l)] > 0:
+			history['score{}'.format(l)] = float(history['score{}_correct'.format(l)])/history['score{}_attempts'.format(l)]
+		else:
+			history['score{}'.format(l)] = 0
+		del history['score{}_correct'.format(l)]
+		del history['score{}_attempts'.format(l)]
 
 	lnr = nx.nx_pydot.read_dot('./python/model/{}/{}/pytree.dot'.format(level,asmt))
 	treatment = '1'

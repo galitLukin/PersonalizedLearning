@@ -2,7 +2,7 @@ digraph {
     1 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> score4 &lt; 0.2929</B>
+      <B> cc4 &lt; 0.5833</B>
     </TD>
   </TR>
 
@@ -15,15 +15,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.291</TD>
+    <TD ALIGN="RIGHT">-3.275</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.625</TD>
+    <TD ALIGN="RIGHT">-3.666</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.702</TD>
+    <TD ALIGN="RIGHT">-3.737</TD>
   </TR>
 
     </TABLE>
@@ -33,32 +33,32 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     1 -> 2 [labeldistance=2.5, labelangle=45, headlabel="True",fontname="arial"];
-    1 -> 15 [labeldistance=2.5, labelangle=-45, headlabel="False",fontname="arial"];
+    1 -> 29 [labeldistance=2.5, labelangle=-45, headlabel="False",fontname="arial"];
     2 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> score2 &lt; 0.4083</B>
+      <B> score4 &lt; 0.2071</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>1266 samples</TD>
+      <TD>3031 samples</TD>
     </TR>
     <TR>
   <TD>
     <TABLE CELLSPACING="0">
       
-        <TR class="highlighted">
+        <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-1.926</TD>
+    <TD ALIGN="RIGHT">-2.715</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-1.049</TD>
+    <TD ALIGN="RIGHT">-2.949</TD>
   </TR>
-  <TR >
+  <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.661</TD>
+    <TD ALIGN="RIGHT">-3.222</TD>
   </TR>
 
     </TABLE>
@@ -68,16 +68,16 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     2 -> 3;
-    2 -> 6;
+    2 -> 10;
     3 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ageCategory in [1970-1985,1990-1995,&lt;=1970]</B>
+      <B> score3 &lt; 0.1056</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>349 samples</TD>
+      <TD>718 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -85,15 +85,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-0.7043</TD>
+    <TD ALIGN="RIGHT">-1.497</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.2852</TD>
+    <TD ALIGN="RIGHT">-0.6802</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-0.8262</TD>
+    <TD ALIGN="RIGHT">-1.565</TD>
   </TR>
 
     </TABLE>
@@ -112,7 +112,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>187 samples</TD>
+      <TD>209 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -120,15 +120,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-0.6923</TD>
+    <TD ALIGN="RIGHT">-0.1898</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.1006</TD>
+    <TD ALIGN="RIGHT">-0.12</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.086</TD>
+    <TD ALIGN="RIGHT">-0.9447</TD>
   </TR>
 
     </TABLE>
@@ -136,16 +136,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#619CFF6b",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#619CFF60",shape=box,fontname="bold arial",style="filled",color=black];
     5 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe A</B>
+      <B> ageCategory in [1985-1990,1990-1995]</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>162 samples</TD>
+      <TD>509 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -153,48 +153,15 @@ digraph {
       
         <TR class="highlighted">
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-0.72</TD>
+    <TD ALIGN="RIGHT">-2.155</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.4697</TD>
+    <TD ALIGN="RIGHT">-0.8839</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-0.514</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#F8766D60",shape=box,fontname="bold arial",style="filled",color=black];
-    6 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> ad3 &lt; 0.9667</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>917 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR class="highlighted">
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.371</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-1.351</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.98</TD>
+    <TD ALIGN="RIGHT">-1.794</TD>
   </TR>
 
     </TABLE>
@@ -203,17 +170,50 @@ digraph {
 
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    6 -> 7;
-    6 -> 14;
-    7 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+    5 -> 6;
+    5 -> 7;
+    6 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> cc3 &lt; 0.5833</B>
+      <B>Prescribe C</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>787 samples</TD>
+      <TD>179 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-1.536</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-0.6727</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-1.954</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFF80",shape=box,fontname="bold arial",style="filled",color=black];
+    7 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> ad2 &lt; 0.5333</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>330 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -221,15 +221,15 @@ digraph {
       
         <TR class="highlighted">
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.383</TD>
+    <TD ALIGN="RIGHT">-2.537</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-1.456</TD>
+    <TD ALIGN="RIGHT">-0.9588</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-2.046</TD>
+    <TD ALIGN="RIGHT">-1.674</TD>
   </TR>
 
     </TABLE>
@@ -243,12 +243,78 @@ digraph {
     8 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe C</B>
+      <B>Prescribe A</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>252 samples</TD>
+      <TD>141 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR class="highlighted">
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-2.293</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-0.9475</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-1.282</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#F8766D8c",shape=box,fontname="bold arial",style="filled",color=black];
+    9 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe A</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>189 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR class="highlighted">
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-2.79</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-0.9655</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-1.961</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#F8766D9c",shape=box,fontname="bold arial",style="filled",color=black];
+    10 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> de4 &lt; 0.6708</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>2313 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -256,83 +322,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-1.846</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-1.096</TD>
+    <TD ALIGN="RIGHT">-3.094</TD>
   </TR>
   <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-2.456</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFF98",shape=box,fontname="bold arial",style="filled",color=black];
-    9 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> score4 &lt; 0.1938</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>535 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR class="highlighted">
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.623</TD>
-  </TR>
-  <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-1.64</TD>
+    <TD ALIGN="RIGHT">-3.72</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.859</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    9 -> 10;
-    9 -> 13;
-    10 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> ageCategory in [1970-1985,1990-1995,&lt;=1970,&gt;1995]</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>369 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR class="highlighted">
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.654</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.9587</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.452</TD>
+    <TD ALIGN="RIGHT">-3.688</TD>
   </TR>
 
     </TABLE>
@@ -342,32 +340,32 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     10 -> 11;
-    10 -> 12;
+    10 -> 20;
     11 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe A</B>
+      <B> cc3 &lt; 0.5833</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>203 samples</TD>
+      <TD>1332 samples</TD>
     </TR>
     <TR>
   <TD>
     <TABLE CELLSPACING="0">
       
-        <TR class="highlighted">
+        <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.616</TD>
+    <TD ALIGN="RIGHT">-3.093</TD>
   </TR>
-  <TR >
+  <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.9723</TD>
+    <TD ALIGN="RIGHT">-3.718</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.523</TD>
+    <TD ALIGN="RIGHT">-3.481</TD>
   </TR>
 
     </TABLE>
@@ -375,41 +373,10 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#F8766Dbd",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    11 -> 12;
+    11 -> 13;
     12 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe A</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>166 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR class="highlighted">
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-1.77</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.9371</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.364</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#F8766D82",shape=box,fontname="bold arial",style="filled",color=black];
-    13 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
       <B>Prescribe B</B>
@@ -417,7 +384,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>166 samples</TD>
+      <TD>310 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -425,15 +392,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.56</TD>
+    <TD ALIGN="RIGHT">-2.909</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.336</TD>
+    <TD ALIGN="RIGHT">-3.445</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-2.753</TD>
+    <TD ALIGN="RIGHT">-2.857</TD>
   </TR>
 
     </TABLE>
@@ -441,32 +408,67 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38b4",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#00BA38b1",shape=box,fontname="bold arial",style="filled",color=black];
+    13 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> level_of_education in [None,a,el,hs,other]</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>1022 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.157</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-3.78</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-3.694</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    13 -> 14;
+    13 -> 17;
     14 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe A</B>
+      <B> gender in [None]</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>130 samples</TD>
+      <TD>360 samples</TD>
     </TR>
     <TR>
   <TD>
     <TABLE CELLSPACING="0">
       
-        <TR class="highlighted">
+        <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.323</TD>
+    <TD ALIGN="RIGHT">-3.252</TD>
   </TR>
-  <TR >
+  <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-0.7218</TD>
+    <TD ALIGN="RIGHT">-4.052</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-1.215</TD>
+    <TD ALIGN="RIGHT">-3.39</TD>
   </TR>
 
     </TABLE>
@@ -474,16 +476,18 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#F8766D93",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    14 -> 15;
+    14 -> 16;
     15 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> cc1 &lt; 0.8333</B>
+      <B>Prescribe B</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>8172 samples</TD>
+      <TD>156 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -491,15 +495,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.5</TD>
+    <TD ALIGN="RIGHT">-3.3</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.041</TD>
+    <TD ALIGN="RIGHT">-3.619</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.009</TD>
+    <TD ALIGN="RIGHT">-3.467</TD>
   </TR>
 
     </TABLE>
@@ -507,18 +511,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    15 -> 16;
-    15 -> 35;
+>,fillcolor="#00BA38b7",shape=box,fontname="bold arial",style="filled",color=black];
     16 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> sd2 &lt; 0.5833</B>
+      <B>Prescribe B</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>2522 samples</TD>
+      <TD>204 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -526,15 +528,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.399</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.868</TD>
+    <TD ALIGN="RIGHT">-3.214</TD>
   </TR>
   <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.465</TD>
+  </TR>
+  <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.873</TD>
+    <TD ALIGN="RIGHT">-3.344</TD>
   </TR>
 
     </TABLE>
@@ -542,18 +544,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    16 -> 17;
-    16 -> 24;
+>,fillcolor="#00BA38d2",shape=box,fontname="bold arial",style="filled",color=black];
     17 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> cc4 &lt; 0.3667</B>
+      <B> de3 &lt; 0.08333</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>1036 samples</TD>
+      <TD>662 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -561,15 +561,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.232</TD>
+    <TD ALIGN="RIGHT">-3.115</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.754</TD>
+    <TD ALIGN="RIGHT">-3.621</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.957</TD>
+    <TD ALIGN="RIGHT">-3.884</TD>
   </TR>
 
     </TABLE>
@@ -583,12 +583,45 @@ digraph {
     18 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
+      <B>Prescribe C</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>465 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.266</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-3.426</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-3.995</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFFc3",shape=box,fontname="bold arial",style="filled",color=black];
+    19 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
       <B>Prescribe B</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>213 samples</TD>
+      <TD>197 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -596,15 +629,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.583</TD>
+    <TD ALIGN="RIGHT">-2.875</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.736</TD>
+    <TD ALIGN="RIGHT">-4.242</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.145</TD>
+    <TD ALIGN="RIGHT">-3.57</TD>
   </TR>
 
     </TABLE>
@@ -612,51 +645,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38c1",shape=box,fontname="bold arial",style="filled",color=black];
-    19 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> ageCategory in [1985-1990,1990-1995,&lt;=1970,&gt;1995]</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>823 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.162</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.76</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.163</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    19 -> 20;
-    19 -> 23;
+>,fillcolor="#00BA38cb",shape=box,fontname="bold arial",style="filled",color=black];
     20 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> cc3 &lt; 0.8333</B>
+      <B> ad2 &lt; 0.7333</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>481 samples</TD>
+      <TD>981 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -664,15 +662,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.088</TD>
+    <TD ALIGN="RIGHT">-3.095</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.635</TD>
+    <TD ALIGN="RIGHT">-3.721</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.1</TD>
+    <TD ALIGN="RIGHT">-3.987</TD>
   </TR>
 
     </TABLE>
@@ -691,7 +689,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>156 samples</TD>
+      <TD>120 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -699,15 +697,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.625</TD>
+    <TD ALIGN="RIGHT">-3.13</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.799</TD>
+    <TD ALIGN="RIGHT">-3.637</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.286</TD>
+    <TD ALIGN="RIGHT">-3.651</TD>
   </TR>
 
     </TABLE>
@@ -715,16 +713,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#619CFFd3",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#619CFFb8",shape=box,fontname="bold arial",style="filled",color=black];
     22 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe C</B>
+      <B> ageCategory in [1985-1990,&lt;=1970,&gt;1995]</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>325 samples</TD>
+      <TD>861 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -732,15 +730,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.277</TD>
+    <TD ALIGN="RIGHT">-3.093</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.535</TD>
+    <TD ALIGN="RIGHT">-3.734</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.017</TD>
+    <TD ALIGN="RIGHT">-4.06</TD>
   </TR>
 
     </TABLE>
@@ -748,384 +746,13 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#619CFFca",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    22 -> 23;
+    22 -> 26;
     23 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe C</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>342 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.248</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.9</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.298</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFFd3",shape=box,fontname="bold arial",style="filled",color=black];
-    24 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> ageCategory in [1970-1985,&lt;=1970]</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>1486 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.508</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.948</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.812</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    24 -> 25;
-    24 -> 30;
-    25 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> sd4 &lt; 0.9167</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>487 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.785</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.65</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.823</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    25 -> 26;
-    25 -> 27;
-    26 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe A</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>165 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR class="highlighted">
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-4.05</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.308</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.065</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#F8766Dcb",shape=box,fontname="bold arial",style="filled",color=black];
-    27 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> score3 &lt; 0.9</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>322 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.653</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.851</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.143</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    27 -> 28;
-    27 -> 29;
-    28 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe B</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>153 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.881</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.952</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.69</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#00BA38c8",shape=box,fontname="bold arial",style="filled",color=black];
-    29 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe C</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>169 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.504</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.719</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.489</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFFd9",shape=box,fontname="bold arial",style="filled",color=black];
-    30 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> enrollment_mode in [audit]</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>999 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.385</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.146</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.808</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    30 -> 31;
-    30 -> 34;
-    31 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> sd1 &lt; 0.9688</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>705 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.348</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.053</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.716</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    31 -> 32;
-    31 -> 33;
-    32 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe C</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>239 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.273</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.752</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.018</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFFca",shape=box,fontname="bold arial",style="filled",color=black];
-    33 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe B</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>466 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.382</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.31</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.617</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#00BA38d3",shape=box,fontname="bold arial",style="filled",color=black];
-    34 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe B</B>
+      <B> de1 &lt; 0.8833</B>
     </TD>
   </TR>
 
@@ -1138,15 +765,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.484</TD>
+    <TD ALIGN="RIGHT">-3</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.4</TD>
+    <TD ALIGN="RIGHT">-3.938</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.989</TD>
+    <TD ALIGN="RIGHT">-3.581</TD>
   </TR>
 
     </TABLE>
@@ -1154,16 +781,18 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38d6",shape=box,fontname="bold arial",style="filled",color=black];
-    35 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    23 -> 24;
+    23 -> 25;
+    24 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ad4 &lt; 0.7167</B>
+      <B>Prescribe C</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>5650 samples</TD>
+      <TD>134 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1171,15 +800,386 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.541</TD>
+    <TD ALIGN="RIGHT">-3</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-3.425</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-3.782</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFFbc",shape=box,fontname="bold arial",style="filled",color=black];
+    25 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe B</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>160 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.124</TD>
+    <TD ALIGN="RIGHT">-4.217</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.07</TD>
+    <TD ALIGN="RIGHT">-3.32</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#00BA38ca",shape=box,fontname="bold arial",style="filled",color=black];
+    26 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> level_of_education in [None,hs]</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>567 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.136</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-3.635</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-4.37</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    26 -> 27;
+    26 -> 28;
+    27 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe C</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>185 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.76</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-3.683</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-4.08</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFFc6",shape=box,fontname="bold arial",style="filled",color=black];
+    28 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe C</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>382 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-2.828</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-3.616</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-4.541</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFFd5",shape=box,fontname="bold arial",style="filled",color=black];
+    29 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> score4 &lt; 0.3063</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>6407 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.549</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.001</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-3.976</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    29 -> 30;
+    29 -> 35;
+    30 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> score4 &lt; 0.06111</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>427 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR class="highlighted">
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-2.159</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-1.24</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-2.058</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    30 -> 31;
+    30 -> 32;
+    31 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe C</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>148 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-0.04592</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-0.02462</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-1.189</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFF68",shape=box,fontname="bold arial",style="filled",color=black];
+    32 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> score1 &lt; 0.7333</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>279 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR class="highlighted">
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.195</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-1.773</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-2.637</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    32 -> 33;
+    32 -> 34;
+    33 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe A</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>96 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR class="highlighted">
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-2.79</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-1.774</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-3.14</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#F8766D9c",shape=box,fontname="bold arial",style="filled",color=black];
+    34 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe A</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>183 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR class="highlighted">
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.6</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-1.772</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-2.464</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#F8766Db6",shape=box,fontname="bold arial",style="filled",color=black];
+    35 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> score1 &lt; 0.9</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>5980 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.653</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.175</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-4.122</TD>
   </TR>
 
     </TABLE>
@@ -1189,16 +1189,16 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     35 -> 36;
-    35 -> 49;
+    35 -> 47;
     36 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ad1 &lt; 0.4028</B>
+      <B> score4 &lt; 0.6458</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>2337 samples</TD>
+      <TD>2249 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1206,15 +1206,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.578</TD>
+    <TD ALIGN="RIGHT">-3.406</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.044</TD>
+    <TD ALIGN="RIGHT">-4.042</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.029</TD>
+    <TD ALIGN="RIGHT">-3.857</TD>
   </TR>
 
     </TABLE>
@@ -1224,16 +1224,16 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     36 -> 37;
-    36 -> 44;
+    36 -> 40;
     37 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> score2 &lt; 0.875</B>
+      <B> ageCategory in [1970-1985,1990-1995]</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>1764 samples</TD>
+      <TD>368 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1241,15 +1241,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.721</TD>
+    <TD ALIGN="RIGHT">-2.798</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.109</TD>
+    <TD ALIGN="RIGHT">-4.011</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.054</TD>
+    <TD ALIGN="RIGHT">-3.302</TD>
   </TR>
 
     </TABLE>
@@ -1259,16 +1259,16 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     37 -> 38;
-    37 -> 41;
+    37 -> 39;
     38 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> cc4 &lt; 0.8333</B>
+      <B>Prescribe B</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>389 samples</TD>
+      <TD>164 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1276,15 +1276,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.348</TD>
+    <TD ALIGN="RIGHT">-2.939</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.096</TD>
+    <TD ALIGN="RIGHT">-3.723</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.482</TD>
+    <TD ALIGN="RIGHT">-3.06</TD>
   </TR>
 
     </TABLE>
@@ -1292,9 +1292,7 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    38 -> 39;
-    38 -> 40;
+>,fillcolor="#00BA38ba",shape=box,fontname="bold arial",style="filled",color=black];
     39 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
@@ -1303,7 +1301,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>190 samples</TD>
+      <TD>204 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1311,15 +1309,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-2.784</TD>
+    <TD ALIGN="RIGHT">-2.7</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.921</TD>
+    <TD ALIGN="RIGHT">-4.332</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.102</TD>
+    <TD ALIGN="RIGHT">-3.468</TD>
   </TR>
 
     </TABLE>
@@ -1327,16 +1325,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38c7",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#00BA38ce",shape=box,fontname="bold arial",style="filled",color=black];
     40 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe B</B>
+      <B> score3 &lt; 0.6333</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>199 samples</TD>
+      <TD>1881 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1344,15 +1342,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.867</TD>
+    <TD ALIGN="RIGHT">-3.524</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.312</TD>
+    <TD ALIGN="RIGHT">-4.048</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.764</TD>
+    <TD ALIGN="RIGHT">-3.979</TD>
   </TR>
 
     </TABLE>
@@ -1360,16 +1358,18 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38d3",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    40 -> 41;
+    40 -> 44;
     41 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> level_of_education in [b,hs,jhs]</B>
+      <B> ad4 &lt; 0.6333</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>1375 samples</TD>
+      <TD>435 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1377,15 +1377,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.813</TD>
+    <TD ALIGN="RIGHT">-3.397</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.113</TD>
+    <TD ALIGN="RIGHT">-3.264</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.235</TD>
+    <TD ALIGN="RIGHT">-3.497</TD>
   </TR>
 
     </TABLE>
@@ -1399,28 +1399,28 @@ digraph {
     42 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe B</B>
+      <B>Prescribe A</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>593 samples</TD>
+      <TD>194 samples</TD>
     </TR>
     <TR>
   <TD>
     <TABLE CELLSPACING="0">
       
-        <TR >
+        <TR class="highlighted">
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.94</TD>
+    <TD ALIGN="RIGHT">-3.653</TD>
   </TR>
-  <TR class="highlighted">
+  <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.293</TD>
+    <TD ALIGN="RIGHT">-2.954</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.098</TD>
+    <TD ALIGN="RIGHT">-2.961</TD>
   </TR>
 
     </TABLE>
@@ -1428,7 +1428,7 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38d3",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#F8766Db8",shape=box,fontname="bold arial",style="filled",color=black];
     43 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
@@ -1437,7 +1437,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>782 samples</TD>
+      <TD>241 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1445,15 +1445,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.709</TD>
+    <TD ALIGN="RIGHT">-3.077</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.994</TD>
+    <TD ALIGN="RIGHT">-3.454</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.346</TD>
+    <TD ALIGN="RIGHT">-3.844</TD>
   </TR>
 
     </TABLE>
@@ -1461,16 +1461,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#619CFFd5",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#619CFFbe",shape=box,fontname="bold arial",style="filled",color=black];
     44 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ageCategory in [1970-1985,1985-1990,&gt;1995]</B>
+      <B> de4 &lt; 0.9583</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>573 samples</TD>
+      <TD>1446 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1478,15 +1478,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.134</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.837</TD>
+    <TD ALIGN="RIGHT">-3.567</TD>
   </TR>
   <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.289</TD>
+  </TR>
+  <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.958</TD>
+    <TD ALIGN="RIGHT">-4.106</TD>
   </TR>
 
     </TABLE>
@@ -1500,12 +1500,12 @@ digraph {
     45 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe C</B>
+      <B>Prescribe B</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>224 samples</TD>
+      <TD>1183 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1513,15 +1513,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.179</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.58</TD>
+    <TD ALIGN="RIGHT">-3.531</TD>
   </TR>
   <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.321</TD>
+  </TR>
+  <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.206</TD>
+    <TD ALIGN="RIGHT">-3.987</TD>
   </TR>
 
     </TABLE>
@@ -1529,8 +1529,41 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#619CFFd0",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#00BA38ce",shape=box,fontname="bold arial",style="filled",color=black];
     46 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B>Prescribe C</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>263 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.75</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.162</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-4.646</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#619CFFd8",shape=box,fontname="bold arial",style="filled",color=black];
+    47 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
       <B> sd2 &lt; 0.75</B>
@@ -1538,7 +1571,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>349 samples</TD>
+      <TD>3731 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1546,15 +1579,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.114</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.089</TD>
+    <TD ALIGN="RIGHT">-3.796</TD>
   </TR>
   <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.255</TD>
+  </TR>
+  <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.815</TD>
+    <TD ALIGN="RIGHT">-4.289</TD>
   </TR>
 
     </TABLE>
@@ -1563,9 +1596,44 @@ digraph {
 
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    46 -> 47;
-    46 -> 48;
-    47 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+    47 -> 48;
+    47 -> 53;
+    48 [label=<  <TABLE BORDER="0" CELLPADDING="0">
+      <TR>
+    <TD>
+      <B> gender in [f]</B>
+    </TD>
+  </TR>
+
+    <TR>
+      <TD>1858 samples</TD>
+    </TR>
+    <TR>
+  <TD>
+    <TABLE CELLSPACING="0">
+      
+        <TR >
+    <TD ALIGN="LEFT">A</TD>
+    <TD ALIGN="RIGHT">-3.716</TD>
+  </TR>
+  <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.136</TD>
+  </TR>
+  <TR class="highlighted">
+    <TD ALIGN="LEFT">C</TD>
+    <TD ALIGN="RIGHT">-4.326</TD>
+  </TR>
+
+    </TABLE>
+  </TD>
+</TR>
+
+  </TABLE>
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    48 -> 49;
+    48 -> 50;
+    49 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
       <B>Prescribe B</B>
@@ -1573,7 +1641,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>185 samples</TD>
+      <TD>305 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1581,15 +1649,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.021</TD>
+    <TD ALIGN="RIGHT">-3.9</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.214</TD>
+    <TD ALIGN="RIGHT">-4.432</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.466</TD>
+    <TD ALIGN="RIGHT">-4.012</TD>
   </TR>
 
     </TABLE>
@@ -1597,84 +1665,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38d0",shape=box,fontname="bold arial",style="filled",color=black];
-    48 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe C</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>164 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.219</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.956</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.231</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFFd1",shape=box,fontname="bold arial",style="filled",color=black];
-    49 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> sd3 &lt; 0.9375</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>3313 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.515</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.187</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.095</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    49 -> 50;
-    49 -> 57;
+>,fillcolor="#00BA38d1",shape=box,fontname="bold arial",style="filled",color=black];
     50 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ageCategory in [1970-1985,1990-1995,&lt;=1970,&gt;1995]</B>
+      <B> cc2 &lt; 0.8333</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>1493 samples</TD>
+      <TD>1553 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1682,15 +1682,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.36</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.118</TD>
+    <TD ALIGN="RIGHT">-3.686</TD>
   </TR>
   <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.067</TD>
+  </TR>
+  <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.019</TD>
+    <TD ALIGN="RIGHT">-4.386</TD>
   </TR>
 
     </TABLE>
@@ -1700,16 +1700,16 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     50 -> 51;
-    50 -> 54;
+    50 -> 52;
     51 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ad4 &lt; 0.95</B>
+      <B>Prescribe B</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>846 samples</TD>
+      <TD>200 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1717,15 +1717,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.375</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.905</TD>
+    <TD ALIGN="RIGHT">-3.587</TD>
   </TR>
   <TR class="highlighted">
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.154</TD>
+  </TR>
+  <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.309</TD>
+    <TD ALIGN="RIGHT">-3.968</TD>
   </TR>
 
     </TABLE>
@@ -1733,9 +1733,7 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    51 -> 52;
-    51 -> 53;
+>,fillcolor="#00BA38c8",shape=box,fontname="bold arial",style="filled",color=black];
     52 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
@@ -1744,7 +1742,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>594 samples</TD>
+      <TD>1353 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1752,15 +1750,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.288</TD>
+    <TD ALIGN="RIGHT">-3.7</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.691</TD>
+    <TD ALIGN="RIGHT">-4.055</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.293</TD>
+    <TD ALIGN="RIGHT">-4.454</TD>
   </TR>
 
     </TABLE>
@@ -1768,16 +1766,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#619CFFd3",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#619CFFd2",shape=box,fontname="bold arial",style="filled",color=black];
     53 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe B</B>
+      <B> ad4 &lt; 0.8833</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>252 samples</TD>
+      <TD>1873 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1785,15 +1783,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.605</TD>
+    <TD ALIGN="RIGHT">-3.874</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.431</TD>
+    <TD ALIGN="RIGHT">-4.361</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.34</TD>
+    <TD ALIGN="RIGHT">-4.249</TD>
   </TR>
 
     </TABLE>
@@ -1801,16 +1799,18 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38d7",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
+    53 -> 54;
+    53 -> 57;
     54 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> level_of_education in [None,b]</B>
+      <B> score3 &lt; 0.775</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>647 samples</TD>
+      <TD>587 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1818,15 +1818,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.34</TD>
+    <TD ALIGN="RIGHT">-3.633</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.411</TD>
+    <TD ALIGN="RIGHT">-4.192</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.667</TD>
+    <TD ALIGN="RIGHT">-4.092</TD>
   </TR>
 
     </TABLE>
@@ -1845,7 +1845,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>467 samples</TD>
+      <TD>252 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1853,15 +1853,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.415</TD>
+    <TD ALIGN="RIGHT">-3.219</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.314</TD>
+    <TD ALIGN="RIGHT">-4.251</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.074</TD>
+    <TD ALIGN="RIGHT">-3.588</TD>
   </TR>
 
     </TABLE>
@@ -1869,16 +1869,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38d4",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#00BA38cb",shape=box,fontname="bold arial",style="filled",color=black];
     56 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B>Prescribe B</B>
+      <B>Prescribe C</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>180 samples</TD>
+      <TD>335 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1886,15 +1886,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.118</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.673</TD>
+    <TD ALIGN="RIGHT">-3.881</TD>
   </TR>
   <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.144</TD>
+  </TR>
+  <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-2.761</TD>
+    <TD ALIGN="RIGHT">-4.525</TD>
   </TR>
 
     </TABLE>
@@ -1902,16 +1902,16 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38df",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#619CFFd4",shape=box,fontname="bold arial",style="filled",color=black];
     57 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> de4 &lt; 0.8229</B>
+      <B> gender in [f]</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>1820 samples</TD>
+      <TD>1286 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1919,15 +1919,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.642</TD>
+    <TD ALIGN="RIGHT">-3.98</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.245</TD>
+    <TD ALIGN="RIGHT">-4.451</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.158</TD>
+    <TD ALIGN="RIGHT">-4.311</TD>
   </TR>
 
     </TABLE>
@@ -1937,16 +1937,16 @@ digraph {
   </TABLE>
 >,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
     57 -> 58;
-    57 -> 61;
+    57 -> 59;
     58 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
-      <B> ageCategory in [1970-1985,1990-1995,&gt;1995]</B>
+      <B>Prescribe C</B>
     </TD>
   </TR>
 
     <TR>
-      <TD>595 samples</TD>
+      <TD>144 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1954,15 +1954,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.313</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.16</TD>
+    <TD ALIGN="RIGHT">-3.808</TD>
   </TR>
   <TR >
+    <TD ALIGN="LEFT">B</TD>
+    <TD ALIGN="RIGHT">-4.141</TD>
+  </TR>
+  <TR class="highlighted">
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.648</TD>
+    <TD ALIGN="RIGHT">-4.861</TD>
   </TR>
 
     </TABLE>
@@ -1970,9 +1970,7 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    58 -> 59;
-    58 -> 60;
+>,fillcolor="#619CFFdf",shape=box,fontname="bold arial",style="filled",color=black];
     59 [label=<  <TABLE BORDER="0" CELLPADDING="0">
       <TR>
     <TD>
@@ -1981,7 +1979,7 @@ digraph {
   </TR>
 
     <TR>
-      <TD>325 samples</TD>
+      <TD>1142 samples</TD>
     </TR>
     <TR>
   <TD>
@@ -1989,15 +1987,15 @@ digraph {
       
         <TR >
     <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.687</TD>
+    <TD ALIGN="RIGHT">-3.996</TD>
   </TR>
   <TR class="highlighted">
     <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.037</TD>
+    <TD ALIGN="RIGHT">-4.492</TD>
   </TR>
   <TR >
     <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.722</TD>
+    <TD ALIGN="RIGHT">-4.227</TD>
   </TR>
 
     </TABLE>
@@ -2005,139 +2003,5 @@ digraph {
 </TR>
 
   </TABLE>
->,fillcolor="#00BA38cb",shape=box,fontname="bold arial",style="filled",color=black];
-    60 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe B</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>270 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.408</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-3.569</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#00BA38d7",shape=box,fontname="bold arial",style="filled",color=black];
-    61 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B> de2 &lt; 0.8167</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>1225 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.771</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.288</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.453</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#EBEBEB",shape=box,fontname="bold arial",style="filled"];
-    61 -> 62;
-    61 -> 63;
-    62 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe C</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>252 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.016</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-3.942</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.158</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFFcf",shape=box,fontname="bold arial",style="filled",color=black];
-    63 [label=<  <TABLE BORDER="0" CELLPADDING="0">
-      <TR>
-    <TD>
-      <B>Prescribe C</B>
-    </TD>
-  </TR>
-
-    <TR>
-      <TD>973 samples</TD>
-    </TR>
-    <TR>
-  <TD>
-    <TABLE CELLSPACING="0">
-      
-        <TR >
-    <TD ALIGN="LEFT">A</TD>
-    <TD ALIGN="RIGHT">-3.963</TD>
-  </TR>
-  <TR >
-    <TD ALIGN="LEFT">B</TD>
-    <TD ALIGN="RIGHT">-4.352</TD>
-  </TR>
-  <TR class="highlighted">
-    <TD ALIGN="LEFT">C</TD>
-    <TD ALIGN="RIGHT">-4.554</TD>
-  </TR>
-
-    </TABLE>
-  </TD>
-</TR>
-
-  </TABLE>
->,fillcolor="#619CFFdb",shape=box,fontname="bold arial",style="filled",color=black];
+>,fillcolor="#00BA38d3",shape=box,fontname="bold arial",style="filled",color=black];
 }

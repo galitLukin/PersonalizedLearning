@@ -11,8 +11,12 @@ using GraphViz
 using Base.Test
 
 function splitData(level, asmt)
-  df = readtable("data/$asmt$level.csv", header=true, makefactors=true)
-  X = df[4:end-3]
+  df = readtable("data/$asmt$level-train.csv", header=true, makefactors=true)
+  if level == 1
+      X = df[4:end-2]
+  else
+      X = df[4:end-3]
+  end
   Y = df[2]
   T = df[3]
   if level == 1
@@ -73,10 +77,8 @@ function trainTree(X, Y, T, level, depth, meu, asmt)
   lnr = grid.best_lnr
   @show lnr
 
-  plotname = "$level/model3/$asmt/tree.dot"
+  plotname = "$level/$asmt/tree.dot"
   OptimalTrees.writedot(plotname, lnr)
-  @save "$level/model3/$asmt/mytree.jld2" lnr
-  OptimalTrees.writejson("$level/model3/$asmt/tree.json", lnr)
   run(`dot -Tpng $plotname -o $(replace(plotname, ".dot", ".png"))`)
   return lnr
 end

@@ -8,7 +8,7 @@ create table responses(
   score_possible INT NOT NULL,
 	answer VARCHAR(1000) NOT NULL,
   answer_timestamp TIMESTAMP,
-  PRIMARY KEY ( username, assignment, level, number, attempt)
+  PRIMARY KEY ( username, assignment, level, numb, attempt)
 );
 
 create table scores(

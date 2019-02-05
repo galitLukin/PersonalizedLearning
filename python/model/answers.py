@@ -120,6 +120,18 @@ def calcScore(row, assignment, level, position):
 		attempts = attempts + row["{}{}.{}_attempts".format(assignment,level,j)]
 	return float(correct)/attempts if attempts > 0 else 0
 
+def countCorrect(row, assignment, level, position):
+	correct = 0
+	for j in range(1, position):
+		correct = correct + row["{}{}.{}_correct".format(assignment,level,j)]
+	return correct
+
+def countAttempts(row, assignment, level, position):
+	attempts = 0
+	for j in range(1, position):
+		attempts = attempts + row["{}{}.{}_attempts".format(assignment,level,j)]
+	return attempts
+
 def calcY(row, assignment, level, position):
 	correct = row["{}{}.{}_correct".format(assignment,level,position)]
 	attempts = row["{}{}.{}_attempts".format(assignment,level,position)]
@@ -140,7 +152,11 @@ def sortToPredict(data, levelQues, assignmentName, personalizedLevelQues, currLe
 				df.loc[:,"{}{}".format(assignmentName[k],i)] = df.loc[:,"{}{}".format(assignmentName[k],i)] + df.loc[:,"{}{}.{}".format(assignmentName[k],i,j)]
 			df.loc[:,"{}{}".format(assignmentName[k],i)] = df.loc[:,"{}{}".format(assignmentName[k],i)].apply(lambda x: float(x)/levelQues[k][i-1])
 	for i in range(1,5):
+		df.loc[:,'score'+str(i)+'_correct'] = data.apply(lambda row: countCorrect(row, assignment, i, position[i-1]),axis=1)
+		df.loc[:,'score'+str(i)+'_attempts'] = data.apply(lambda row: countAttempts(row, assignment, i, position[i-1]),axis=1)
 		df.loc[:,'score'+str(i)] = data.apply(lambda row: calcScore(row, assignment, i, position[i-1]),axis=1)
+	for i in range(1,5):
+		df.loc[:,'next'+str(i)] = position[i-1]*len(df.index)
 	if groups == 3:
 		df.loc[:,'y1'] = data.apply(lambda row: -(currLevel - 1)*w[currLevel-2] * calcY(row, assignment, currLevel - 1, position[currLevel - 2]),axis=1)
 		df.loc[:,'y2'] = data.apply(lambda row: -(currLevel)*w[currLevel-1] * calcY(row, assignment, currLevel, position[currLevel - 1]),axis=1)
@@ -175,7 +191,11 @@ def sortToPredict(data, levelQues, assignmentName, personalizedLevelQues, currLe
 		if assignment == "dfe":
 			subcols = subcols + ["rts1","rts2","rts3","rts4"]
 	for i in range(1,5):
+		subcols.append('score'+str(i)+"_correct")
+		subcols.append('score'+str(i)+"_attempts")
 		subcols.append('score'+str(i))
+	for i in range(1,5):
+		subcols.append('next'+str(i))
 	if groups == 3:
 		subcols.append('y1')
 	subcols.append('y2')
