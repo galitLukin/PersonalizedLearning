@@ -1,0 +1,23 @@
+digraph "G" {
+1 [fillcolor="#EBEBEB", fontname="bold arial", label="score4 &lt; 0.75", shape=box, style="filled"];
+2 [fillcolor="#EBEBEB", fontname="bold arial", label="de3 &lt; 0.3472", shape=box, style="filled"];
+3 [color=black, fillcolor="#619CFF60", fontname="bold arial", label="Prescribe C", shape=box, style="filled"];
+4 [color=black, fillcolor="#619CFF99", fontname="bold arial", label="Prescribe C", shape=box, style="filled"];
+5 [fillcolor="#EBEBEB", fontname="bold arial", label="de4 &lt; 0.6979", shape=box, style="filled"];
+6 [color=black, fillcolor="#F8766Dd8", fontname="bold arial", label="Prescribe A", shape=box, style="filled"];
+7 [fillcolor="#EBEBEB", fontname="bold arial", label="ad4 &lt; 0.8333", shape=box, style="filled"];
+8 [color=black, fillcolor="#F8766Dd9", fontname="bold arial", label="Prescribe A", shape=box, style="filled"];
+9 [fillcolor="#EBEBEB", fontname="bold arial", label="de1 &lt; 0.95", shape=box, style="filled"];
+10 [color=black, fillcolor="#F8766Dd9", fontname="bold arial", label="Prescribe A", shape=box, style="filled"];
+11 [color=black, fillcolor="#619CFFdf", fontname="bold arial", label="Prescribe C", shape=box, style="filled"];
+1 -> 2  [fontname="arial", headlabel="True", key=0, labelangle=45, labeldistance="2.5"];
+1 -> 5  [fontname="arial", headlabel="False", key=0, labelangle="-45", labeldistance="2.5"];
+2 -> 3  [key=0];
+2 -> 4  [key=0];
+5 -> 6  [key=0];
+5 -> 7  [key=0];
+7 -> 8  [key=0];
+7 -> 9  [key=0];
+9 -> 10  [key=0];
+9 -> 11  [key=0];
+}
