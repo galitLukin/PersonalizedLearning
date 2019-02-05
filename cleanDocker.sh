@@ -1,4 +1,3 @@
-c="7e70d62cd078"
 if ! test -z "$(docker ps -q)"; then
   docker kill $(docker ps -q)
 fi
