@@ -2,6 +2,7 @@ if ! test -z "$(docker ps -q)"; then
   docker kill $(docker ps -q)
 fi
 docker rm $(docker ps -a -q)
+c="7e70d62cd078"
 for id in $(docker images -q);
 do
   if [ "$id" != "$c" ]; then
