@@ -156,7 +156,7 @@ def sortToPredict(data, levelQues, assignmentName, personalizedLevelQues, currLe
 		df.loc[:,'score'+str(i)+'_attempts'] = data.apply(lambda row: countAttempts(row, assignment, i, position[i-1]),axis=1)
 		df.loc[:,'score'+str(i)] = data.apply(lambda row: calcScore(row, assignment, i, position[i-1]),axis=1)
 	for i in range(1,5):
-		df.loc[:,'next'+str(i)] = position[i-1]*len(df.index)
+		df.loc[:,'next'+str(i)] = [position[i-1]]*len(df.index)
 	if groups == 3:
 		df.loc[:,'y1'] = data.apply(lambda row: -(currLevel - 1)*w[currLevel-2] * calcY(row, assignment, currLevel - 1, position[currLevel - 2]),axis=1)
 		df.loc[:,'y2'] = data.apply(lambda row: -(currLevel)*w[currLevel-1] * calcY(row, assignment, currLevel, position[currLevel - 1]),axis=1)

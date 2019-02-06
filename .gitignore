@@ -1,4 +1,7 @@
 .DS_Store
+
+python/model/data/sqlqueries.sql
+
 python/model/data/cc1-train.csv
 python/model/data/cc2-train.csv
 python/model/data/cc3-train.csv
