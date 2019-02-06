@@ -13,12 +13,12 @@ using Base.Test
 function splitData(level, asmt)
   df = readtable("data/$asmt$level-train.csv", header=true, makefactors=true)
   if level == 1
-      X = df[4:end-2]
+      X = df[3:end-2]
   else
-      X = df[4:end-3]
+      X = df[3:end-3]
   end
-  Y = df[2]
-  T = df[3]
+  Y = df[1]
+  T = df[2]
   if level == 1
       outcomes = df[:, [:y2, :y3]]
   else

@@ -94,3 +94,15 @@ def ageCategories(yob):
 def makeAgeCategorical(df):
 	df["ageCategory"] = np.nan
 	df.loc[:,'ageCategory'] = df['year_of_birth'].apply(lambda row: ageCategories(row))
+
+
+def addCols(data, asmt):
+	if asmt == "cc":
+		for i in range(1,5):
+			data.insert(15+i, "cc{}".format(i), [0]*len(data.index))
+		for i in range(1,5):
+			data.insert(19+i, "rts{}".format(i), [0]*len(data.index))
+	elif asmt == "rts":
+		for i in range(1,5):
+			data.insert(19+i, "rts{}".format(i), [0]*len(data.index))
+	return data

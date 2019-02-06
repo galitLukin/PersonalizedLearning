@@ -12,11 +12,11 @@ create table responses(
 );
 
 create table scores(
-	username VARCHAR(100) NOT NULL,
-	gender VARCHAR(100) NOT NULL,
-	level_of_education INT NOT NULL,
-	enrollment_mode INT NOT NULL,
-  ageCategory INT NOT NULL,
+	username VARCHAR(50) NOT NULL,
+	gender VARCHAR(20) NOT NULL,
+	level_of_education VARCHAR(20) NOT NULL,
+	enrollment_mode VARCHAR(45) NOT NULL,
+  ageCategory VARCHAR(45) NOT NULL,
 	ad1 FLOAT NOT NULL,
 	ad2 FLOAT NOT NULL,
   ad3 FLOAT NOT NULL,

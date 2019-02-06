@@ -18,27 +18,39 @@ python/__pycache__/helper.cpython-36.pyc
 
 python/model/1/cc/mytree.jld2
 python/model/1/cc/tree.dot
+python/model/1/cc/tree.png
 python/model/2/cc/mytree.jld2
 python/model/2/cc/tree.dot
+python/model/2/cc/tree.png
 python/model/3/cc/mytree.jld2
 python/model/3/cc/tree.dot
+python/model/3/cc/tree.png
 python/model/4/cc/mytree.jld2
 python/model/4/cc/tree.dot
+python/model/4/cc/tree.png
 
 python/model/1/rts/mytree.jld2
 python/model/1/rts/tree.dot
+python/model/1/rts/tree.png
 python/model/2/rts/mytree.jld2
 python/model/2/rts/tree.dot
+python/model/2/rts/tree.png
 python/model/3/rts/mytree.jld2
 python/model/3/rts/tree.dot
+python/model/3/rts/tree.png
 python/model/4/rts/mytree.jld2
 python/model/4/rts/tree.dot
+python/model/4/rts/tree.png
 
 python/model/1/dfe/mytree.jld2
 python/model/1/dfe/tree.dot
+python/model/1/dfe/tree.png
 python/model/2/dfe/mytree.jld2
 python/model/2/dfe/tree.dot
+python/model/2/dfe/tree.png
 python/model/3/dfe/mytree.jld2
 python/model/3/dfe/tree.dot
+python/model/3/dfe/tree.png
 python/model/4/dfe/mytree.jld2
 python/model/4/dfe/tree.dot
+python/model/4/dfe/tree.png
