@@ -7,7 +7,6 @@ import (
 	"github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
-	"net/http/httputil"
 	"time"
 )
 
