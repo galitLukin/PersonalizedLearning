@@ -1,7 +1,12 @@
 u := user{}
 q := QuestionData{}
 
-/////////////////BEFORE CALLING PYTHON SCRIPT//////////
+/////////////////BEGINNING OF ASSIGNMENT////////////////
+//check if user is in users list
+// if not, add him to users and to scores-with default values-what are the default values?
+
+
+/////////////////AFTER PRESSING SUBMIT AND BEFORE CALLING PYTHON SCRIPT//////////
 
 //run when user submits answer if q.QuestionInstance.answer is not empty
 t := time.Now()
@@ -95,7 +100,7 @@ rts4 = CASE
 END;`)
 
 //run when assignment ends and AFTER running previous three queries if they are relevant
-r6 := fmt.Sprintf(`update test02.scores SET
+r13 := fmt.Sprintf(`update test02.scores SET
 score1_correct = "%d", score1_attempts = "%d",
 score2_correct = "%d", score2_attempts = "%d",
 score3_correct = "%d", score3_attempts = "%d",

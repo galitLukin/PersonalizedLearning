@@ -1,6 +1,7 @@
 import json
 import networkx as nx
 import re
+import default
 
 def isCorrect(answer, correctAnswer):
 	if len(answer) is not len(correctAnswer):
@@ -41,7 +42,8 @@ def getNextNode(history,lnr,curr):
 	return
 
 def getNextQuestion(assignment, level, number):
-	map={"Climate Change": "cc", "Reading Test Scores": "rts", "Detecting Flu Epedemics": "dfe"}
+	assignment = assignment.replace(" ", "")
+	map={"ClimateChange": "cc", "ReadingTestScores": "rts", "DetectingFluEpedemics": "dfe"}
 	mapQues={"ClimateChange":5,"ReadingTestScores":6,"DetectingFluEpedemics":7}
 	asmt = map[assignment];
 	with open('./python/LinearRegression.json', encoding='utf-8') as f:
@@ -58,21 +60,29 @@ def getNextQuestion(assignment, level, number):
 	1, 0, 0, 0, \
 	2, 1, 1, 1]
 
+	historydb = []
+
 	features = ["gender", "level_of_education", "enrollment_mode", "ageCategory", \
 	"ad1", "ad2", "ad3", "ad4", "sd1", "sd2", "sd3", "sd4", "de1", "de2", "de3", "de4",\
 	"cc1", "cc2", "cc3", "cc4", "rts1", "rts2", "rts3", "rts4",\
 	"score1_correct", "score2_correct", "score3_correct", "score4_correct", \
 	"score1_attempts", "score2_attempts", "score3_attempts", "score4_attempts",\
   	"next1", "next2", "next3", "next4"]
-	history = dict(zip(features,historydb))
+	try:
+		history = dict(zip(features,historydb))
+		for l in range(1,5):
+			if history['score{}_attempts'.format(l)] > 0:
+				history['score{}'.format(l)] = float(history['score{}_correct'.format(l)])/history['score{}_attempts'.format(l)]
+			else:
+				history['score{}'.format(l)] = 0
+			#del history['score{}_correct'.format(l)]
+			#del history['score{}_attempts'.format(l)]
+	except:
+		level,q = default.path(assignment,history,level)
+		if level is not None and q is not None:
+			return questions[assignment][level]['questions'][q]
+		return
 
-	for l in range(1,5):
-		if history['score{}_attempts'.format(l)] > 0:
-			history['score{}'.format(l)] = float(history['score{}_correct'.format(l)])/history['score{}_attempts'.format(l)]
-		else:
-			history['score{}'.format(l)] = 0
-		#del history['score{}_correct'.format(l)]
-		#del history['score{}_attempts'.format(l)]
 
 	lnr = nx.nx_pydot.read_dot('./python/model/{}/{}/pytree.dot'.format(level,asmt))
 	treatment = '1'
@@ -83,15 +93,16 @@ def getNextQuestion(assignment, level, number):
 			treatment = getNextNode(history,lnr,treatment)
 			infLoop += 1
 			if infLoop > 10 or not treatment:
-				#TODO change to smart
-				treatment = "B"
-				break
+				level,q = default.path(assignment,history,level)
+				if level is not None and q is not None:
+					return questions[assignment][level]['questions'][q]
+				return
 		except:
-			#TODO change to smart
-			treatment = "B"
-			break
+			level,q = default.path(assignment,history,level)
+			if level is not None and q is not None:
+				return questions[assignment][level]['questions'][q]
+			return
 
-	assignment = assignment.replace(" ", "")
 	lastQues = mapQues[assignment]
 	prevLevelFull = False
 
@@ -106,13 +117,6 @@ def getNextQuestion(assignment, level, number):
 			return questions[assignment][level - 1]['questions'][q]
 		prevLevelFull = True
 	if treatment == "C" or prevLevelFull:
-		if level == 4:
-			return
-		if not prevLevelFull:
-			q = history["next{}".format(level + 1)] - 1
-			if q < lastQues:
-				return questions[assignment][level]['questions'][q]
-			level += 1
 		while level < 4:
 			q = history["next{}".format(level + 1)] - 1
 			if q < lastQues:
