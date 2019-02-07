@@ -2,15 +2,26 @@ u := user{}
 q := QuestionData{}
 
 /////////////////BEGINNING OF ASSIGNMENT////////////////
-//check if user is in users list
-// if not, add him to users and to scores-with default values-what are the default values?
+//check if user is in users list - user_id is what is received from LTI
+u, err0 := db.Query(`SELECT username FROM test02.scores WHERE username = "%s";`, user_id)
 
+//if u is empty
+r0 := fmt.Sprintf(`insert into test02.scores
+  (username, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4,
+  sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4,
+  score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts
+  score4_correct, score4_attempts, next1, next2, next3, next4)
+  values ("%s", "%s", "%s", "%s", "%s", "%f", "%f", "%f", "%f",
+     "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f",
+     "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d");`,
+   user_id, "None", "None", "audit", "None", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+   0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1)
 
 /////////////////AFTER PRESSING SUBMIT AND BEFORE CALLING PYTHON SCRIPT//////////
 
 //run when user submits answer if q.QuestionInstance.answer is not empty
 t := time.Now()
-tf = t.Format("20060102150405")
+tf := t.Format("20060102150405")
 r1 := fmt.Sprintf(`insert into test02.responses
   (username, assignment, level, numb, attempt, correctness, score_possible, answer, answer_timestamp)
   values ("%s", "%s", "%d", "%d", "%d", "%d", "%d", "%s", "%s");`,
