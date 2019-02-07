@@ -11,15 +11,18 @@ def isCorrect(answer, correctAnswer):
 		return True
 
 def getNextNode(history,lnr,curr):
+
 	root_exp = nx.get_node_attributes(lnr,'label')[curr]
 	root_exp = re.search('"(.*)"',root_exp).group(1)
-	#TODO: deal with if feature not in feature space - return rand or smthing smart
 	text = root_exp.split()
 	feature = text[0]
 	if feature == "Prescribe":
 		return text[1]
 	else:
-		val = history[feature]
+		try:
+			val = history[feature]
+		except:
+			return
 		comp = text[1]
 		threshold = text[2]
 		direction = "right"
@@ -35,9 +38,11 @@ def getNextNode(history,lnr,curr):
 		else:
 			children = list(map(int, list(lnr.successors(curr))))
 			return str(max(children))
+	return
 
 def getNextQuestion(assignment, level, number):
 	map={"Climate Change": "cc", "Reading Test Scores": "rts", "Detecting Flu Epedemics": "dfe"}
+	mapQues={"ClimateChange":5,"ReadingTestScores":6,"DetectingFluEpedemics":7}
 	asmt = map[assignment];
 	with open('./python/LinearRegression.json', encoding='utf-8') as f:
 	    questions = json.load(f)
@@ -66,28 +71,51 @@ def getNextQuestion(assignment, level, number):
 			history['score{}'.format(l)] = float(history['score{}_correct'.format(l)])/history['score{}_attempts'.format(l)]
 		else:
 			history['score{}'.format(l)] = 0
-		del history['score{}_correct'.format(l)]
-		del history['score{}_attempts'.format(l)]
+		#del history['score{}_correct'.format(l)]
+		#del history['score{}_attempts'.format(l)]
 
 	lnr = nx.nx_pydot.read_dot('./python/model/{}/{}/pytree.dot'.format(level,asmt))
 	treatment = '1'
 
-	#TODO deal with possible infinite loop
+	infLoop = 0
 	while treatment not in ["A","B","C"]:
-		treatment = getNextNode(history,lnr,treatment)
+		try:
+			treatment = getNextNode(history,lnr,treatment)
+			infLoop += 1
+			if infLoop > 10 or not treatment:
+				#TODO change to smart
+				treatment = "B"
+				break
+		except:
+			#TODO change to smart
+			treatment = "B"
+			break
 
 	assignment = assignment.replace(" ", "")
+	lastQues = mapQues[assignment]
+	prevLevelFull = False
+
 	if treatment == "A":
 		q = history["next{}".format(level - 1)] - 1
-		return questions[assignment][level - 2]['questions'][q]
-	elif treatment == "B":
+		if q < lastQues:
+			return questions[assignment][level - 2]['questions'][q]
+		prevLevelFull = True
+	if treatment == "B" or prevLevelFull:
 		q = history["next{}".format(level)] - 1
-		return questions[assignment][level - 1]['questions'][q]
-	else:
+		if q < lastQues:
+			return questions[assignment][level - 1]['questions'][q]
+		prevLevelFull = True
+	if treatment == "C" or prevLevelFull:
 		if level == 4:
-			#TODO: deal with finishing the assignment
-			q = history["next{}".format(level)]
-			return questions[assignment][level - 1]['questions'][q] - 1
-		else:
+			return
+		if not prevLevelFull:
 			q = history["next{}".format(level + 1)] - 1
-			return questions[assignment][level]['questions'][q]
+			if q < lastQues:
+				return questions[assignment][level]['questions'][q]
+			level += 1
+		while level < 4:
+			q = history["next{}".format(level + 1)] - 1
+			if q < lastQues:
+				return questions[assignment][level]['questions'][q]
+			level += 1
+		return
