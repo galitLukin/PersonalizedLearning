@@ -1,5 +1,12 @@
 import pandas as pd
+import numpy as np
+import math
 import json
+
+# download all of 2019 data in ./python/model/data/exp/ and replace with 2018 data1
+# do it for 3 assignments from unit 1 and for users enrolled and user userids
+# run script that output scores csv
+# use mysql bench to insert it into db
 
 def location(row):
 	if pd.notnull(row['country']):
@@ -20,24 +27,24 @@ def ageCategories(yob):
 	return ">{}".format(cutoffs[len(cutoffs) - 1])
 
 
-def cleanUserData(data):
-	cols = ["id","location","year_of_birth","gender","level_of_education","enrollment_mode","country"]
-	df = pd.read_csv(course,header=0)
-	df = df[cols]
+def cleanUserData(df):
+    cols = ["username","id","location","year_of_birth","gender","level_of_education","enrollment_mode","country"]
+    df = df.loc[:,cols]
     #need to normalize location if we decide to use it
-	df['location'] = df.apply(lambda x: location(x),axis=1)
-    df.gender.replace(0, "None", inplace=True)
+    df.loc[:,'location'] = df.apply(lambda x: location(x),axis=1)
+    df.gender.replace(np.nan, "None", inplace=True)
     df.level_of_education.replace(np.nan, "None", inplace=True)
     df.enrollment_mode.replace(np.nan, "None", inplace=True)
     df.year_of_birth.replace("None", np.nan, inplace=True)
-    #df["ageCategory"] = np.nan
+    #df.["ageCategory"] = np.nan
     df.loc[:,'ageCategory'] = df['year_of_birth'].apply(lambda row: ageCategories(row))
-	df = df[cols[0:7]]
-	return df
+    df = df.drop(['country', 'year_of_birth'], axis=1)
+    return df
 
 
 def insertAssignment(df):
-    df['assignment'] = ["Climate+Change", "Reading+Test+Scores", "Detecting+Flu+Epidemics+via+Search+Engine+Query+Data"]
+    #df["assignment"] = np.nan
+    df.at[:, 'assignment'] = pd.Series([["Climate+Change", "Reading+Test+Scores", "Detecting+Flu+Epidemics+via+Search+Engine+Query+Data"]] * len(df.index))
     s = df.apply(lambda x: pd.Series(x['assignment']), axis=1).stack().reset_index(level=1, drop=True)
     s.name = 'assignment'
     df = df.drop('assignment', axis=1).join(s)
@@ -115,51 +122,60 @@ def ParseAndCombine(newCols,mapCols,levelQues,data,qtype):
 					df['correctness'] = df.correctness.apply(lambda x: sum(x)/float(len(x)))
 			else:
 				df['correctness'] = df.correctness.apply(lambda x: sum(x)/float(len(x)))
-			cols = ["qId","level","user_id","attempts","correctness"]
+			cols = ["qId","level","username","attempts","correctness"]
 			final = pd.concat([final, df[cols]])
 	return final
 
 
+def calcScore(row, assignment, level, position):
+	correct = 0
+	attempts = 0
+	for j in range(1, position):
+		correct = correct + row["{}{}.{}_correct".format(assignment,level,j)]
+		attempts = attempts + row["{}{}.{}_attempts".format(assignment,level,j)]
+	return float(correct)/attempts if attempts > 0 else 0
+
+
 def groupPerUser(df, levelQues, qtype):
-	answers = df.groupby(['user_id']).agg(lambda x: list(x)).reset_index()
-	for i in range(1,len(levelQues) + 1):
-		for j in range(1,levelQues[i-1]+1):
-			answers["{}{}.{}_attempts".format(qtype,i,j)] = 0.0
-			answers["{}{}.{}_correct".format(qtype,i,j)] = 0.0
-	for index, row in answers.iterrows():
-		questions = row['qId']
-		level = row['level']
-		attempts = row['attempts']
-		correct = row['correctness']
-		for i in range(len(questions)):
-			a = questions[i] + "_attempts"
-			c = questions[i] + "_correct"
-			answers.at[index,a] = attempts[i]
-			answers.at[index,c] = correct[i]
-	answers = answers.drop(columns=['qId', 'level','attempts','correctness'])
-	return answers
+    answers = df.groupby(['username']).agg(lambda x: list(x)).reset_index()
+    for i in range(1,len(levelQues) + 1):
+        for j in range(1,levelQues[i-1]+1):
+            answers["{}{}.{}_attempts".format(qtype,i,j)] = 0.0
+            answers["{}{}.{}_correct".format(qtype,i,j)] = 0.0
+    for index, row in answers.iterrows():
+        questions = row['qId']
+        level = row['level']
+        attempts = row['attempts']
+        correct = row['correctness']
+        for i in range(len(questions)):
+            a = questions[i] + "_attempts"
+            c = questions[i] + "_correct"
+            answers.at[index,a] = attempts[i]
+            answers.at[index,c] = correct[i]
+    for level in range(1,5):
+        answers.loc[:,qtype+str(level)] = answers.apply(lambda row: calcScore(row, qtype, level, levelQues[level-1]+1),axis=1)
+    for c in answers.columns:
+        if "_attempts" in c or "_correct" in c:
+            answers = answers.drop(columns=c)
+    answers = answers.drop(columns=['qId', 'level','attempts','correctness'])
+    return answers
 
 
 def parseAndGroup(levelQues,data,qtype):
 	newCols = ["correct_map"," input_state","last_submission_time","attempts","score","done","student_answers","seed"]
 	mapCols = ["hint","hintmode","correctness","msg","answervariable","npoints","queuestate"]
 	dfs = []
-	df = ParseAndCombine(newCols, mapCols, levelQues, course, qtype)
+	df = ParseAndCombine(newCols, mapCols, levelQues, data, qtype)
 	return groupPerUser(df, levelQues, qtype)
 
 
 userIDs = pd.read_csv("./python/model/data/exp/users/userids.csv",header=0)
 userData = pd.read_csv("./python/model/data/exp/users/users.csv",header=0)
-#csv with one column of assignment with three rows for each assignment
-assignments = pd.read_csv("./python/model/data/exp/users/assignments.csv",header=0)
-df = pd.read_csv(course,header=0)
-df = pd.read_csv(course,header=0)
-df = pd.read_csv(course,header=0)
 userList = cleanUserData(userData)
 userIDs.columns = ['id', 'anonymized_id', 'user_id']
 userList = pd.merge(userList, userIDs, on='id', how='inner')
 userList = insertAssignment(userList)
-cols = ["user_id", "assignment", "gender","level_of_education","enrollment_mode","ageCategory"]
+cols = ["username", "user_id", "assignment", "gender","level_of_education","enrollment_mode","ageCategory"]
 users = userList[cols]
 
 levelQuesAD = [6,5,5,5]
@@ -182,9 +198,9 @@ stockDynamics = parseAndGroup(levelQuesSD,sd2019,"sd")
 de2019 = "./python/model/data/exp/DemographicsEmployment/DemographicsEmployment{}_{}.csv"
 demographicsEmployment = parseAndGroup(levelQuesDE,de2019,"de")
 
-data = pd.merge(users, ad2019, on='user_id', how='left')
-data = pd.merge(users, sd2019, on='user_id', how='left')
-data = pd.merge(users, de2019, on='user_id', how='left')
+data = pd.merge(users, anyticalDetective, on='username', how='left')
+data = pd.merge(data, stockDynamics, on='username', how='left')
+data = pd.merge(data, demographicsEmployment, on='username', how='left')
 cols = list(data.columns.values)
 for c in cols:
     data[c].fillna(0.0, inplace=True)
@@ -198,4 +214,5 @@ cols = ['next1','next2','next3','next4']
 for c in cols:
     data.loc[:,c] = [1]*len(data.index)
 
+data = data.drop('username', axis=1)
 data.to_csv("./python/model/data/exp/scores.csv", index=False)
