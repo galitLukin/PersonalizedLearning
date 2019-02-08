@@ -201,8 +201,6 @@ if err != nil {
 //don't need to do this previous query for the third assignment since it is the last
 
 //run when assignment ends to return the user's score - this is the user's score for the assignment
-//the following three queries are not final because they are not a good enough way to calculate the score
-//but it will be similar
 rows, err := db.Query(`SELECT username, assignment, level, numb,
     MAX(correctness) AS correctness, FIRST_VALUE(score_possible) AS score_possible
     FROM test02.responses WHERE username = "%s" AND assignment = "%s"
@@ -222,6 +220,15 @@ defer rows.Close()
 
 rows, err := db.Query(`SELECT prescore * weight AS score
     FROM rows INNER JOIN test02.weights ON rows2.assignment = test02.weights.assignment;`)
+if err != nil {
+  	log.Fatal(err)
+  }
+defer rows.Close()
+
+// the previous query will return one row will one column score
+// this will be the value to return if the user finished the assignment (the python script returned the finishing value)
+// IF the user leaves the page without finishing the assignment, we will penalize his score by running the following and returning that instead of the previous value
+rows, err := db.Query(`SELECT 0.5 * score FROM rows;`)
 if err != nil {
   	log.Fatal(err)
   }
