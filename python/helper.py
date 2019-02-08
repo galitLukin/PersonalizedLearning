@@ -117,4 +117,8 @@ def getNextQuestion(assignment, level, number):
 			if q < lastQues:
 				return questions[assignment][level]['questions'][q]
 			level += 1
+		#before finishing, make sure mandatory questions are done
+		level, q = default.mandQuesRemain(assignment, history)
+		if level is not None and q is not None:
+			return questions[assignment][level]['questions'][q]
 		return
