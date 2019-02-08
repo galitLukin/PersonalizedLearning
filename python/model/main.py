@@ -161,9 +161,9 @@ for data in dataSets:
         cleanData.convertTreatment(dataFilled)
         dataLev.append(dataFilled)
     final = pd.concat(dataLev)
-    prod = final.drop(columns=['score1','score2','score3','score4','y2','y3','Ygroup','y'])
-    prod = cleanData.addCols(prod, personalizedAssignmentNames[i])
-    prod.to_csv("data/{}1.csv".format(personalizedAssignmentNames[i]))
+    #prod = final.drop(columns=['score1','score2','score3','score4','y2','y3','Ygroup','y'])
+    #prod = cleanData.addCols(prod, personalizedAssignmentNames[i])
+    #prod.to_csv("data/{}1.csv".format(personalizedAssignmentNames[i]))
     train = final.drop(columns=['next1','next2','next3','next4',\
     'score1_correct','score2_correct','score3_correct','score4_correct',\
     'score1_attempts','score2_attempts','score3_attempts','score4_attempts',])
@@ -176,9 +176,9 @@ for data in dataSets:
             cleanData.convertTreatment(dataFilled)
             dataLev.append(dataFilled)
         final = pd.concat(dataLev)
-        prod = final.drop(columns=['score1','score2','score3','score4','y1','y2','y3','Ygroup','y'])
-        prod = cleanData.addCols(prod, personalizedAssignmentNames[i])
-        prod.to_csv("data/{}{}.csv".format(personalizedAssignmentNames[i], currlevel))
+        #prod = final.drop(columns=['score1','score2','score3','score4','y1','y2','y3','Ygroup','y'])
+        #prod = cleanData.addCols(prod, personalizedAssignmentNames[i])
+        #prod.to_csv("data/{}{}.csv".format(personalizedAssignmentNames[i], currlevel))
         train = final.drop(columns=['next1','next2','next3','next4',\
         'score1_correct','score2_correct','score3_correct','score4_correct',\
         'score1_attempts','score2_attempts','score3_attempts','score4_attempts',])
@@ -190,9 +190,9 @@ for data in dataSets:
         cleanData.convertTreatment(dataFilled)
         dataLev.append(dataFilled)
     final = pd.concat(dataLev)
-    prod = final.drop(columns=['score1','score2','score3','score4','y1','y2','y3','Ygroup','y'])
-    prod = cleanData.addCols(prod, personalizedAssignmentNames[i])
-    prod.to_csv("data/{}4.csv".format(personalizedAssignmentNames[i]))
+    #prod = final.drop(columns=['score1','score2','score3','score4','y1','y2','y3','Ygroup','y'])
+    #prod = cleanData.addCols(prod, personalizedAssignmentNames[i])
+    #prod.to_csv("data/{}4.csv".format(personalizedAssignmentNames[i]))
     train = final.drop(columns=['next1','next2','next3','next4',\
     'score1_correct','score2_correct','score3_correct','score4_correct',\
     'score1_attempts','score2_attempts','score3_attempts','score4_attempts',])

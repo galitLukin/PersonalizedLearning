@@ -17,7 +17,7 @@ def cleanUsers(data):
 		df[cols[0:7]]
 		if "18" in course:
 			df.loc[:,'courseYear'] = np.ones(df.shape[0]) * 18
-		else:
+		elif "17" in course:
 			df.loc[:,'courseYear'] = np.ones(df.shape[0]) * 17
 		dfs.append(df)
 	df = pd.concat(dfs)

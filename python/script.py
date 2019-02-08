@@ -26,17 +26,19 @@ class Status(Enum):
 def main():
     if len(sys.argv) < 2:
         state = {}
-        # instead of 'ClimateChange', Omer should be sending you the parameter of the url
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
-        # TODO:  this should be based on where the user is
+        # TODO:  this should be based on where the user is in which assignment
+        # ask omer to send you the history and assignment on the first call
+        # so first call to script should be with history+assignment+user_id
+        # all other calls to script should be with Json+history
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,
             QInst.answer.name: [],
             QInst.numAttempts.name: 0
         }
-        # maybe dont need this and if we do, then omer should send you this username too
+        #TODO: insert user_id that is received
         state['User'] = {
             'username': "omer"
         }
