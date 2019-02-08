@@ -1,6 +1,6 @@
 .DS_Store
 
-python/model/data/sqlqueries.sql
+python/model/data/exp/
 
 python/model/data/cc1-train.csv
 python/model/data/cc2-train.csv
@@ -15,6 +15,7 @@ python/model/data/rts2-train.csv
 python/model/data/rts3-train.csv
 python/model/data/rts4-train.csv
 
+python/model/__pycache__/users.cpython-36.pyc
 python/model/__pycache__/answers.cpython-36.pyc
 python/model/__pycache__/cleanData.cpython-36.pyc
 python/__pycache__/helper.cpython-36.pyc

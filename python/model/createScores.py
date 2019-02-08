@@ -148,10 +148,13 @@ def parseAndGroup(levelQues,data,qtype):
 	return groupPerUser(df, levelQues, qtype)
 
 
-userIDs = "./python/model/data/exp/users/userids.csv"
-userData = "./python/model/data/exp/users/users.csv"
+userIDs = pd.read_csv("./python/model/data/exp/users/userids.csv",header=0)
+userData = pd.read_csv("./python/model/data/exp/users/users.csv",header=0)
 #csv with one column of assignment with three rows for each assignment
-assignments = "./python/model/data/exp/users/assignments.csv"
+assignments = pd.read_csv("./python/model/data/exp/users/assignments.csv",header=0)
+df = pd.read_csv(course,header=0)
+df = pd.read_csv(course,header=0)
+df = pd.read_csv(course,header=0)
 userList = cleanUserData(userData)
 userIDs.columns = ['id', 'anonymized_id', 'user_id']
 userList = pd.merge(userList, userIDs, on='id', how='inner')
