@@ -29,6 +29,7 @@ def main():
         # instead of 'ClimateChange', Omer should be sending you the parameter of the url
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
+        # TODO:  this should be based on where the user is
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,

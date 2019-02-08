@@ -12,7 +12,6 @@ def isCorrect(answer, correctAnswer):
 		return True
 
 def getNextNode(history,lnr,curr):
-
 	root_exp = nx.get_node_attributes(lnr,'label')[curr]
 	root_exp = re.search('"(.*)"',root_exp).group(1)
 	text = root_exp.split()
@@ -60,14 +59,13 @@ def getNextQuestion(assignment, level, number):
 	1, 0, 0, 0, \
 	2, 1, 1, 1]
 
-	historydb = []
-
 	features = ["gender", "level_of_education", "enrollment_mode", "ageCategory", \
 	"ad1", "ad2", "ad3", "ad4", "sd1", "sd2", "sd3", "sd4", "de1", "de2", "de3", "de4",\
 	"cc1", "cc2", "cc3", "cc4", "rts1", "rts2", "rts3", "rts4",\
 	"score1_correct", "score2_correct", "score3_correct", "score4_correct", \
 	"score1_attempts", "score2_attempts", "score3_attempts", "score4_attempts",\
   	"next1", "next2", "next3", "next4"]
+
 	try:
 		history = dict(zip(features,historydb))
 		for l in range(1,5):
@@ -75,14 +73,11 @@ def getNextQuestion(assignment, level, number):
 				history['score{}'.format(l)] = float(history['score{}_correct'.format(l)])/history['score{}_attempts'.format(l)]
 			else:
 				history['score{}'.format(l)] = 0
-			#del history['score{}_correct'.format(l)]
-			#del history['score{}_attempts'.format(l)]
 	except:
-		level,q = default.path(assignment,history,level)
+		level,q = default.basicPath(assignment, level, number)
 		if level is not None and q is not None:
 			return questions[assignment][level]['questions'][q]
 		return
-
 
 	lnr = nx.nx_pydot.read_dot('./python/model/{}/{}/pytree.dot'.format(level,asmt))
 	treatment = '1'
