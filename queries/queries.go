@@ -26,9 +26,9 @@ for rows.Next(){
    i++
 }
 if i == 0 {
-  //if rows0 is empty - this should not occur but if it does, it means we dont have past data on the user
+  //if rows is empty - this should not occur but if it does, it means we dont have past data on the user
   //so insert it with these default values
-  r0 := fmt.Sprintf(`insert into test02.scores
+  r := fmt.Sprintf(`insert into test02.scores
     (username, assignment, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4,
     sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4,
     score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts
@@ -36,8 +36,8 @@ if i == 0 {
     values ("%s", "%s", "%s", "%s", "%s", "%s", "%f", "%f", "%f", "%f",
        "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f",
        "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d");`,
-     user_id, custom_component_display_name, "None", "None", "audit", "None", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1)
+     user_id, custom_component_display_name, "None", "None", "audit", "Null", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1)
 }
 
 ///////////////////////AFTER USER PRESSES SUBMIT AND BEFORE CALLING PYTHON SCRIPT//////////
@@ -49,10 +49,10 @@ tf := t.Format("20060102150405")
 r := fmt.Sprintf(`insert into test02.responses
   (username, assignment, level, numb, attempt, correctness, score_possible, answer, answer_timestamp)
   values ("%s", "%s", "%d", "%d", "%d", "%d", "%d", "%s", "%s");`,
-  u.UserName, q.Question.Assignment, q.Question.level, q.Question.number,
-  q.QuestionInstance.NumAttempts + 1, 0, q.Question.weight, q.QuestionInstance.answer, tf)
+  user_id, custom_component_display_name, q.Question.level, q.Question.number,
+  q.QuestionInstance.NumAttempts, 0, q.Question.weight, q.QuestionInstance.answer, tf)
 
-//run to get the user's row - this is the user's history that will be sent to python script
+//run to get the user's row - this returns one row and is the user's history that will be sent to python script
 rows, err := db.Query(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
   user_id, custom_component_display_name)
 if err != nil {
@@ -67,7 +67,7 @@ defer rows.Close()
 //if correct, this saves last response as the correct one
 r := fmt.Sprintf(`update test02.responses SET correctness = 1
   WHERE username="%s" AND assignment="%s" AND level="%d" AND numb="%d" AND attempt="%d";`,
-   u.UserName, q.Question.Assignment, q.Question.level, q.Question.number, q.QuestionInstance.NumAttempts)
+   user_id, custom_component_display_name, q.Question.level, q.Question.number, q.QuestionInstance.NumAttempts)
 
 //run IF Question.level == 1 AND q.QuestionInstance.status == "Correct"
 //update scores table when user is done with the question
@@ -116,9 +116,9 @@ r := fmt.Sprintf(`update test02.scores SET next4 = next4 + 1, score4_attempts = 
 
 /////////////////END OF ASSIGNMENT//////////////////
 // end of assignment happens when the user closes the tab or
-// when the python script returns a specific Json (we have to corrdinate which)
+// when the python script returns a specific Json (we have to coordinate which Json)
 
-//run when assignment ends IF q.Question.Assignment == "ClimateChange"
+//run when assignment ends IF custom_component_display_name == "Climate+Change"
 //save user's score in each level in all three of the user's rows (one row per assignment)
 r := fmt.Sprintf(`update test02.scores SET cc1 = CASE
 WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
@@ -136,17 +136,17 @@ cc4 = CASE
    WHEN score4_attempts > 0 THEN score4_correct/score4_attempts
    ELSE 0
 END
-WHERE username = "%s" AND assignment = "%s";`, user_id, "Climate+Change")
+WHERE username = "%s" AND assignment = "%s";`, user_id, custom_component_display_name)
 
 rows, err = db.Query(`SELECT cc1, cc2, cc3, cc4
-    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, user_id, "Climate+Change")
+    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, user_id, custom_component_display_name)
 if err != nil {
 	log.Fatal(err)
 }
 defer rows.Close()
 // the primary key of the table is username, assignment, so there will only be one row in row11
 for rows.Next() {
-	err := rows11.Scan(&cc1, &cc2, &cc3, &cc4)
+	err := rows.Scan(&cc1, &cc2, &cc3, &cc4)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -176,15 +176,15 @@ rts4 = CASE
    WHEN score4_attempts > 0 THEN score4_correct/score4_attempts
    ELSE 0
 END
-WHERE username = "%s" AND assignment = "%s";`, user_id, "Reading+Test+Scores")
+WHERE username = "%s" AND assignment = "%s";`, user_id, custom_component_display_name)
 
 row, err = db.Query(`SELECT rts1, rts2, rts3, rts4
-    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, user_id, "Reading+Test+Scores")
+    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, user_id, custom_component_display_name)
 if err != nil {
 	log.Fatal(err)
 }
 defer rows.Close()
-// the primary key of the table is username, assignment, so there will only be one row in rows12
+// the primary key of the table is username, assignment, so there will only be one row in rows
 for rows.Next() {
 	err := rows.Scan(&rts1, &rts2, &rts3, &rts4)
 	if err != nil {
@@ -204,13 +204,13 @@ if err != nil {
 rows, err := db.Query(`SELECT username, assignment, level, numb,
     MAX(correctness) AS correctness, FIRST_VALUE(score_possible) AS score_possible
     FROM test02.responses WHERE username = "%s" AND assignment = "%s"
-    GROUP BY username, assignment, level, numb;`, u.UserName, q.Question.Assignment)
+    GROUP BY username, assignment, level, numb;`, user_id, custom_component_display_name)
 if err != nil {
     	log.Fatal(err)
     }
 defer rows.Close()
 
-rows, err := db.Query(`SELECT assignment,
+rows, err := db.Query(`SELECT username, assignment,
     SUM(correctness*score_possible)/SUM(score_possible) AS prescore
     FROM rows GROUP BY username, assignment;`)
 if err != nil {
@@ -219,7 +219,7 @@ if err != nil {
 defer rows.Close()
 
 rows, err := db.Query(`SELECT prescore * weight AS score
-    FROM rows INNER JOIN test02.weights ON rows2.assignment = test02.weights.assignment;`)
+    FROM rows INNER JOIN test02.weights ON rows.assignment = test02.weights.assignment;`)
 if err != nil {
   	log.Fatal(err)
   }
