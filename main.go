@@ -85,9 +85,6 @@ func index(w http.ResponseWriter, req *http.Request) {
 func quiz(w http.ResponseWriter, req *http.Request) {
 	d, _ := httputil.DumpRequest(req, true)
 	fmt.Println(string(d))
-	fmt.Println("Request -> ", req)
-	logPostBody(req)
-	fmt.Println("Incoming request...")
 	if req.Method == http.MethodPost {
 		fmt.Println("Incoming POST req...")
 		if err := req.ParseForm(); err != nil {
