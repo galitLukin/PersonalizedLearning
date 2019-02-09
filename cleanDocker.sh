@@ -7,3 +7,4 @@ do
   docker rmi $id -f;
 done
 docker build . -t  arieg419/quiz-app:latest
+docker run -d -p 80:80 arieg419/quiz-app:latest
