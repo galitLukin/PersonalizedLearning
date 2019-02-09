@@ -7,6 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/satori/go.uuid"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
 	"time"
@@ -38,8 +39,21 @@ type session struct {
 	lastActivity time.Time
 }
 
-type post_req struct {
-	Body string
+type EdxPOSTBody struct {
+	CustomerComponentDisplayName int64  `json:"custom_component_display_name"`
+	LTIVersion                   string `json:"lti_version"`
+	OauthNonce                   string `json:"oauth_nonce"`
+	ResourceLinkId               string `json:"resource_link_id"`
+	ContextId                    string `json:"context_id"`
+	OauthSignatureMethod         string `json:"oauth_signature_method"`
+	OauthTimestamp               string `json:"oauth_timestamp"`
+	OauthVersion                 string `json:"oauth_version"`
+	OauthSignature               string `json:"oauth_signature"`
+	ContextTitle                 string `json:"context_title"`
+	LTIMessageType               string `json:"lti_message_type"`
+	UserID                       string `json:"user_id"`
+	OauthConsumerKey             string `json:"oauth_consumer_key"`
+	LISOutcomeServiceURL         string `json:"lis_outcome_service_url"`
 }
 
 var db *sql.DB
@@ -85,12 +99,15 @@ func index(w http.ResponseWriter, req *http.Request) {
 func quiz(w http.ResponseWriter, req *http.Request) {
 	d, _ := httputil.DumpRequest(req, true)
 	fmt.Println(string(d))
+
+	logPostBody(req)
+
 	if req.Method == http.MethodPost {
-		fmt.Println("Incoming POST req...")
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
 			return
 		}
+
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
@@ -102,7 +119,6 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		qd.QuestionInstance.Answer = nil
 		qd = getNextQuizState(qd)
 	}
-	// logQuestionData(qd)
 
 	u := user{
 		UserName: "arieg419@gmail.com",
@@ -254,11 +270,27 @@ func deleteUser(w http.ResponseWriter, req *http.Request) {
 }
 
 func logPostBody(req *http.Request) {
-	decoder := json.NewDecoder(req.Body)
-	var p post_req
-	err := decoder.Decode(&p)
+	// Read body
+	b, err := ioutil.ReadAll(req.Body)
+	defer req.Body.Close()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Error parsing edx req")
+		return
 	}
-	fmt.Println(p.Body)
+
+	// Unmarshal
+	var edx_body EdxPOSTBody
+	err = json.Unmarshal(b, &edx_body)
+	if err != nil {
+		fmt.Println("Error parsing edx req")
+		return
+	}
+
+	fmt.Println("Edx - CustomComponentDisplayName: " + string(edx_body.CustomerComponentDisplayName))
+	fmt.Println("Edx - LTI Version: " + edx_body.LTIVersion)
+	fmt.Println("Edx - Context ID: " + edx_body.ContextId)
+	fmt.Println("Edx - Context Title: " + edx_body.ContextTitle)
+	fmt.Println("Edx - LTI Message Type: " + edx_body.LTIMessageType)
+	fmt.Println("Edx - User ID: " + edx_body.UserID)
+	fmt.Println("Edx - LISOutcomeService URL: " + edx_body.LISOutcomeServiceURL)
 }
