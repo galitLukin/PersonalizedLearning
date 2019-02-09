@@ -11,6 +11,8 @@
   <div class="site-content">
     {{if eq .PageType "home"}}
       {{template "home" .}}
+    {{else if eq .PageType "getstarted"}}
+      {{template "getstarted" .}}
     {{else if eq .PageType "login"}}
       {{template "login" .}}
     {{else if eq .PageType "signup"}}

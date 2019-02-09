@@ -73,6 +73,7 @@ func init() {
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", index)
+	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
 	http.HandleFunc("/getUsers", getUsers)
 	http.HandleFunc("/deleteUser", deleteUser)
@@ -94,12 +95,27 @@ func index(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, "/login", http.StatusSeeOther)
 }
 
-func quiz(w http.ResponseWriter, req *http.Request) {
+func getStarted(w http.ResponseWriter, req *http.Request) {
 	d, _ := httputil.DumpRequest(req, true)
 	fmt.Println(string(d))
 
 	logPostBody(req)
 
+	u := user{
+		UserName: "arieg419@gmail.com",
+		Password: "Beatles",
+		First:    "Omer",
+		Last:     "Goldberg",
+	}
+	qpd := QuizPageData{
+		UserData:     u,
+		QuestionData: qd,
+		PageType:     "getstarted",
+	}
+	tpl.ExecuteTemplate(w, "layout", qpd)
+}
+
+func quiz(w http.ResponseWriter, req *http.Request) {
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")

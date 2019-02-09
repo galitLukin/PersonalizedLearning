@@ -14,6 +14,7 @@ const (
 	SelectedAnswers    = "selectedAnswers"
 	Python             = "python3"
 	PathToPythonScript = "./python/script.py"
+	QuizReferrer       = "http://3.16.157.40/quiz"
 )
 
 // Question Data
