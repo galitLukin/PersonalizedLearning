@@ -5,7 +5,7 @@
     {{if .QuestionData}}
     <div class="card">
         <h2>{{.QuestionData.Question.Assignment}}</h2>
-        <h3>{{.QuestionData.Question.Text}}</h3>
+        <h3>{{.HTMLContent}}</h3>
         <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
         <h4>Weight: {{.QuestionData.Question.Weight}}</h4>
         <div id="quiz-must-select">Please select an answer before you submit.</div>
@@ -14,25 +14,33 @@
         {{end}}
         {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
             <div id="quiz-right-answer">Great job!</div>
-        {{end}}
-        {{ range .QuestionData.Question.Options }}
-            <div class="answer-choice-container">
-                <div class="answer-choice-radio-btn" 
-                    id={{.}} 
-                    name={{.}}
-                    data-selected="false" 
-                    onclick="onRadioButtonClick(event)">
+        {{else if eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`}}
+            <div id="quiz-wrong-answer"> Wrong answer. Try another question. </div>
+        {{else }}
+            {{ range .QuestionData.Question.Options }}
+                <div class="answer-choice-container">
+                    <div class="answer-choice-radio-btn" 
+                        id={{.}} 
+                        name={{.}}
+                        data-selected="false" 
+                        onclick="onRadioButtonClick(event)">
+                    </div>
+                    <div class="answer-choice">
+                        {{.}}
+                    </div>
                 </div>
-                <div class="answer-choice">
-                    {{.}}
-                </div>
-        </div>
+            {{end}}
         {{end}}
+        
         <div class="quiz-submit-container">
             <button id="quiz-submit-btn" 
                     class="btn quiz-btn"  
                     onclick="onSubmit(event)">
+                {{if or (eq .QuestionData.QuestionInstance.Status `Correct`) (eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`)}}
+                Next
+                {{else }}
                 Submit
+                {{end}}
             </button>
         </div>
     </div>

@@ -20,6 +20,7 @@ type QuizPageData struct {
 	UserData     user
 	QuestionData QuestionData
 	PageType     string
+	HTMLContent  template.HTML
 }
 
 type user struct {
@@ -144,6 +145,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		UserData:     u,
 		QuestionData: qd,
 		PageType:     "quiz",
+		HTMLContent:  template.HTML(qd.Question.Text),
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
