@@ -59,7 +59,11 @@ def main():
             }
         else:
             # user is in process of answering
-            if questionInstance[QInst.answer.name]:  # user answered question
+            if not questionInstance[QInst.answer.name][0]:
+                # user did not answer question
+                state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
+            else:
+                # user answered question
                 state[State.QuestionInstance.name][QInst.numAttempts.name] = questionInstance[QInst.numAttempts.name] + 1
                 if helper.isCorrect(questionInstance[QInst.answer.name], question['correctAnswer']):
                     state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
@@ -67,9 +71,7 @@ def main():
                     state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
                 else:
                     state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
-            else:
-                # user did not answer question
-                state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
+
     print(json.dumps(state))
 
 
