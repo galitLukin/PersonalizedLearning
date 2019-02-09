@@ -8,7 +8,6 @@ import (
 	"github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
-	"net/http/httputil"
 	"time"
 )
 
@@ -83,12 +82,14 @@ func index(w http.ResponseWriter, req *http.Request) {
 }
 
 func quiz(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("Incoming request from edx...")
-	d, _ := httputil.DumpRequest(req, true)
-	fmt.Println(string(d))
+	// fmt.Println("Incoming request from edx...")
+	// d, _ := httputil.DumpRequest(req, true)
+	// fmt.Println(string(d))
 	// fmt.Println("Request -> ", req)
-	logPostBody(req)
+	// logPostBody(req)
+	fmt.Println("Incoming request...")
 	if req.Method == http.MethodPost {
+		fmt.Println("Incoming POST req...")
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
 			return
@@ -100,6 +101,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			}
 		}
 	} else {
+		fmt.Println("Initial question...")
 		qd.QuestionInstance.Answer = nil
 		qd = getNextQuizState(qd)
 	}
