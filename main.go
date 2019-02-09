@@ -2,12 +2,10 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/satori/go.uuid"
 	"html/template"
-	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
 	"time"
@@ -270,27 +268,16 @@ func deleteUser(w http.ResponseWriter, req *http.Request) {
 }
 
 func logPostBody(req *http.Request) {
-	// Read body
-	b, err := ioutil.ReadAll(req.Body)
-	defer req.Body.Close()
-	if err != nil {
-		fmt.Println("Error parsing edx req")
+	if err := req.ParseForm(); err != nil {
+		fmt.Println("Failed to parse form...")
 		return
 	}
 
-	// Unmarshal
-	var edx_body EdxPOSTBody
-	err = json.Unmarshal(b, &edx_body)
-	if err != nil {
-		fmt.Println("Error parsing edx req")
-		return
-	}
-
-	fmt.Println("Edx - CustomComponentDisplayName: " + string(edx_body.CustomerComponentDisplayName))
-	fmt.Println("Edx - LTI Version: " + edx_body.LTIVersion)
-	fmt.Println("Edx - Context ID: " + edx_body.ContextId)
-	fmt.Println("Edx - Context Title: " + edx_body.ContextTitle)
-	fmt.Println("Edx - LTI Message Type: " + edx_body.LTIMessageType)
-	fmt.Println("Edx - User ID: " + edx_body.UserID)
-	fmt.Println("Edx - LISOutcomeService URL: " + edx_body.LISOutcomeServiceURL)
+	fmt.Println("Edx - CustomComponentDisplayName: " + req.FormValue("custom_component_display_name"))
+	fmt.Println("Edx - LTI Version: " + req.FormValue("lti_version"))
+	fmt.Println("Edx - Context ID: " + req.FormValue("oauth_nonce"))
+	fmt.Println("Edx - Context Title: " + req.FormValue("context_title"))
+	fmt.Println("Edx - LTI Message Type: " + req.FormValue("lti_message_type"))
+	fmt.Println("Edx - User ID: " + req.FormValue("user_id"))
+	fmt.Println("Edx - LISOutcomeService URL: " + req.FormValue("lis_outcome_service_url"))
 }
