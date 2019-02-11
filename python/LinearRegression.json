@@ -7,24 +7,24 @@
           "Assignment": "Climate Change",
           "level": 1,
           "number": 1,
-          "text": "<p>We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. <br /> <br /> Then, split the data into a training set, consisting of all the observations up to and including 2006, and a testing set consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability.<br /> <br /> Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (Year and Month should NOT be used in the model). Use the training set to build the model.<br /> <br /> What is the model R-squared (the Multiple R-squared value):</p>",
+          "text": "<p>We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. <br /> <br /> Then, split the data into a <em>training set</em>, consisting of all the observations up to and including 2006, and a <em>testing set</em> consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability.<br /> <br /> Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (<em>Year</em> and <em>Month</em> should NOT be used in the model). Use the training set to build the model.<br /> <br /> What is the model R<sup>2</sup> (the Multiple R<sup>2</sup> value):</p>",
           "options": [
             "1",
-            "0.6",
-            "0.73",
+            "0.09",
+            "0.42",
+            "0.74",
             "0.75",
-            "0.7",
+            "103.6",
             "0",
-            "0.5",
             "-1",
-            "-0.2",
-            "0.77",
-            "0.8"
+            "-0.62",
+            "-0.75",
+            "-0.74"
           ],
           "correctAnswer": [
             "0.75"
           ],
-          "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br />climate = read.csv(climate_change.csv)<br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)<br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.</p>",
+          "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br />climate = read.csv(climate_change.csv)<br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)<br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R<sup>2</sup> value is 0.7509.</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -61,39 +61,46 @@
           "number": 3,
           "text": "<p>What is the RMSE of the model?</p>",
           "options": [
-            "0.05",
-            "0.07",
+            "0",
+            "0.9638",
             "0.08",
-            "0.09",
-            "0.1",
-            "0.11",
-            "0.2"
+            "0.0902",
+            "0.3104",
+            "2.313",
+            "1.5209"
           ],
           "correctAnswer": [
-            "0.09"
+            "0.0902"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br />SSE = sum(climatelm$residuals^2)<br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br />RMSE = sqrt(SSE / nrow(train))<br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br />sqrt(mean(climatelm$residuals^2)).</p>",
           "attemptsOverall": 2,
-          "weight": 0
+          "weight": 1
         },
         {
           "Assignment": "Climate Change",
           "level": 1,
           "number": 4,
-          "text": "<p>The data is split into training and test data so that we can measure the quality of the model on unseen data.<br /> <br />How many observations are in the training set?<br /> <br />What is the average CO2 level across all years in the training set?<br /> <br />Which year had the highest level of MEI in the training set?</p>",
+          "text": "<p>The data is split into training and testing sets so that we can measure the quality of the model on unseen data.<br /> <br />How many observations are in the training set?<br /> <br />What is the average CO2 level in the training set?<br /> <br />Which year had the highest level of MEI in the training set?</p>",
           "options": [
-            "284, 361.4, 1997",
+            "284, 102641.6, 1997",
             "284, 361.4, 1998",
-            "284, 362.4, 1997",
+            "284, 361.4, 1997",
+            "284, 363.2, 1998",
             "24, 361.4, 1997",
-            "24, 360.5, 1998"
+            "24, 102641.6, 1998",
+            "24, 361.4, 3",
+            "24, 361.4, 1998",
+            "308, 361.4, 1997",
+            "308, 102641.6, 3",
+            "308, 363.2, 1997",
+            "308, 360.5, 1998"
           ],
           "correctAnswer": [
-            "284, 362.4, 1997"
+            "284, 361.4, 1997"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The amount of observations in the trainging set can be calculated by running:<br /> <br />nrow(train)<br /> <br />The average CO2 level is calculated using:<br /> <br />mean(train$CO2)<br /> <br />The year with the highest level of MEI is calculated using:<br /> <br />train[which.max(train$MEI),]$Year</p>",
           "attemptsOverall": 2,
-          "weight": 0
+          "weight": 1
         },
         {
           "Assignment": "Climate Change",
@@ -109,9 +116,9 @@
           "correctAnswer": [
             "The mean of the training set dependent variable"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>In linear regression, the baseline prediction is the average value of the dependent variable.</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 1
         }
       ]
     },
@@ -122,7 +129,7 @@
           "Assignment": "Climate Change",
           "level": 2,
           "number": 1,
-          "text": "<p>Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth.<br /> <br />However, the regression coefficients of both the N2O and CFC-11 variables are negative, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures.<br /> <br />Which of the following is the simplest correct explanation for this contradiction?</p>",
+          "text": "<p>Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth.<br /> <br />However, the regression coefficients of both the N2O and CFC-11 variables are <strong>negative</strong>, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures.<br /> <br />Which of the following is the simplest correct explanation for this contradiction?</p>",
           "options": [
             "Climate scientists are wrong that N2O and CFC-11 are greenhouse gases - this regression analysis constitutes part of a disproof.",
             "There is not enough data, so the regression coefficients being estimated are not accurate.",
@@ -187,16 +194,19 @@
           "text": "<p>Which of the following independent variables is worth more or has a greater effect on the dependent variable?</p>",
           "options": [
             "MEI",
+            "CO2",
             "CH4",
-            "CFC.11",
-            "Aerosols"
+            "N2O",
+            "CFC.12",
+            "Aerosols",
+            "TSI"
           ],
           "correctAnswer": [
             "Aerosols"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The independent variable with the greatest effect on the dependent variable is that with the corresponding coefficient whose absolute value is the largest.<br /> <br />-1.538 is the coefficient with the largest absolute value.</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 1
         },
         {
           "Assignment": "Climate Change",
@@ -211,9 +221,9 @@
           "correctAnswer": [
             "When the relationship between the dependent variable and the independent variables is non-linear."
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>It is possible that the real relationship between the dependent and independent variables may not be linear. This means that one unit change in an independent varialbe does not leas to a constant unit change in the dependent variable.<br /> <br />It is possible that a unit change in an independent vaiable leads to a constant percent change in the dependent variable. Taking the log of the dependent variable allows to estimate this relationship instead.</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 1
         }
       ]
     },
@@ -224,21 +234,23 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 1,
-          "text": "<p>Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables.<br /> <br />Remember to use the training set to build the model.<br /> <br />What is the coefficient of N2O in this reduced model?<br /> <br />What the R-squared?</p>",
+          "text": "<p>Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables.<br /> <br />Remember to use the training set to build the model.<br /> <br />What is the coefficient of N2O in this reduced model?<br /> <br />What the R<sup>2</sup>?</p>",
           "options": [
-            "0.025, 0.748",
-            "0.025, 0.767",
-            "0.042, 0.726",
-            "0.018, 0.726",
+            "-0.001, 0.726",
+            "19.307, 0.726",
+            "0.001, 0.726",
             "0.025, 0.726",
-            "0.02, 0.71",
-            "0.02, 0.725",
-            "0.025, 0.726"
+            "0.025, 0.722",
+            "0.001, 0.722",
+            "19.307, 0.722",
+            "-0.057, 0.521",
+            "-1.328, 0.521",
+            "71.323, 0.521"
           ],
           "correctAnswer": [
             "0.025, 0.726"
           ],
-          "explanation": "<p>We can create this simplified model with the command:<br /> <br />LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train)<br /> <br />You can get the coefficient for N2O and the model R-squared by typing summary(LinReg).<br /> <br />We have observed that, for this problem, when we remove many variables,the sign of N2O flips.<br /> <br />The model has not lost a lot of explanatory power (the model R-squared is 0.7261 compared to 0.7509 previously) despite removing many variables.<br /> <br />As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other.<br /> <br />In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
+          "explanation": "<p>We can create this simplified model with the command:<br /> <br />LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train)<br /> <br />You can get the coefficient for N2O and the model R<sup>2</sup> by typing summary(LinReg).<br /> <br />We have observed that, for this problem, when we remove many variables,the sign of N2O flips.<br /> <br />The model has not lost a lot of explanatory power (the model R<sup>2</sup> is 0.7261 compared to 0.7509 previously) despite removing many variables.<br /> <br />As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other.<br /> <br />In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -246,7 +258,7 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 2,
-          "text": "<p>We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality.<br /> <br />R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R-squared. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model.<br /> <br />The step function has one argument - the name of the initial model. It returns a simplified model.<br /> <br />Use the step function in R to derive a new model, with the full model as the initial model<br /> <br />HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM).<br /> <br />Be sure to save your new model to a variable name so that you can look at the summary. <br /> <br />For more information about the step function, type ?step in your R console.<br /> <br />Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply.</p>",
+          "text": "<p>We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality.<br /> <br />R provides a function, <u><a href=\"http://stat.ethz.ch/R-manual/R-devel/library/stats/html/step.html\">step</a></u>, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R<sup>2</sup>. This trade-off is formalized by the <u><a href=\"http://en.wikipedia.org/wiki/Akaike_information_criterion\">Akaike information criterion</a></u> (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model.<br /> <br />The step function has one argument - the name of the initial model. It returns a simplified model.<br /> <br />Use the step function in R to derive a new model, with the full model as the initial model<br /> <br />HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM).<br /> <br />Be sure to save your new model to a variable name so that you can look at the summary. <br /> <br />For more information about the step function, type ?step in your R console.<br /> <br />Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply.</p>",
           "options": [
             "MEI",
             "CO2",
@@ -260,7 +272,7 @@
           "correctAnswer": [
             "CH4"
           ],
-          "explanation": "<p>You can create a model using the step function by typing:<br /> <br />StepModel = step(climateLM) where \"climateLM\" is the name of the full model.<br /> <br />If you look at the summary of the model with summary(StepModel), only CH4 was removed.<br /> <br />It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R-squared significantly.<br /> <br />The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).</p>",
+          "explanation": "<p>You can create a model using the step function by typing:<br /> <br />StepModel = step(climateLM) where \"climateLM\" is the name of the full model.<br /> <br />If you look at the summary of the model with summary(StepModel), only CH4 was removed.<br /> <br />It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R<sup>2</sup> significantly.<br /> <br />The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).</p>",
           "attemptsOverall": 3,
           "weight": 2
         },
@@ -277,9 +289,9 @@
           "correctAnswer": [
             "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The coefficient corresponding to Aerosols is -1.54. Thus, one unit change in Aerosols, affects Temp by 1.54 units. Since the coefficient is negative, the affect is opposite. Therefore, if Aerosols increases, Temp decreases.</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
@@ -302,13 +314,13 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 3,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
           "level": 3,
           "number": 5,
-          "text": "<p>From the original model produced by the step function, remove highly correlated variables.<br /> <br />What is the the R-squared of the new model?</p>",
+          "text": "<p>From the original model produced by the step function, remove highly correlated variables.<br /> <br />What is the the R<sup>2</sup> of the new model?</p>",
           "options": [
             "0.616",
             "0.6",
@@ -335,24 +347,24 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 1,
-          "text": "<p>Enter the R-squared value of the original model produced by the step function?<br /> <br />Which independent variable is not statistically significant?</p>",
+          "text": "<p>Enter the R<sup>2</sup> value of the original model produced by the step function?<br /> <br />Which independent variable is not statistically significant?</p>",
           "options": [
-            "0.7, N2O",
-            "0.75, N2O",
-            "0.72, N2O",
-            "0.77, N2O",
-            "0.7, CO2",
-            "0.72, CO2",
-            "0.75, CO2",
-            "0.77, CO2",
-            "0.7, CFC.12",
-            "0.72, CFC.12",
-            "0.75, CFC.12"
+            "0.745, N2O",
+            "0.751, N2O",
+            "-0.002, N2O",
+            "0.055, N2O",
+            "0.745, CO2",
+            "0.751, CO2",
+            "0.055, CO2",
+            "0.005, CO2",
+            "0.745, CFC.12",
+            "0.751, CFC.12",
+            "0, CFC.12"
           ],
           "correctAnswer": [
-            "0.75, N2O"
+            "0.751, N2O"
           ],
-          "explanation": "<p>From the model created by the step function, you can see that the R-squared value is 0.75 and that N2O has a high p-value.</p>",
+          "explanation": "<p>From the model created by the step function, you can see that the R<sup>2</sup> value is 0.75 and that N2O has a high p-value.</p>",
           "attemptsOverall": 2,
           "weight": 3
         },
@@ -360,20 +372,20 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R-squared:</p>",
+          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R<sup>2</sup>:</p>",
           "options": [
-            "0.651",
-            "0.6139",
-            "0.6478",
+            "0.172",
+            "1.1751",
+            "1.079",
             "0.629",
-            "0.371",
-            "0.369",
-            "0.381"
+            "-23.0125",
+            "0.751",
+            "0.249"
           ],
           "correctAnswer": [
             "0.629"
           ],
-          "explanation": "<p>The R code to calculate the R-squared can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R-squared = 1 - SSE/SST</p>",
+          "explanation": "<p>The R code to calculate the R<sup>2</sup> can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R<sup>2</sup> = 1 - SSE/SST</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -381,7 +393,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>Are the following statements True or False:<br /> <br />1. The out of sample R-squared will increase as the model includes more independent variables.<br /> <br />2. The out of sample R-squared can be negative.</p>",
+          "text": "<p>Are the following statements True or False?<br /> <br />1. The out of sample R<sup>2</sup> will increase as the model includes more independent variables.<br /> <br />2. The out of sample R<sup>2</sup> can be negative.</p>",
           "options": [
             "True, True",
             "True, False",
@@ -393,25 +405,25 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
           "level": 4,
           "number": 3,
-          "text": "<p>How high does the out of sample R-squared have to be to consider the model acceptable?</p>",
+          "text": "<p>How high does the out of sample R<sup>2</sup> have to be to consider the model acceptable?</p>",
           "options": [
             "Higher than 0.7",
-            "Higher than all of the other out of sample R-squared received in the linear regression models trained on the data set",
+            "Higher than all of the other out of sample R<sup>2</sup> received in the linear regression models trained on the data set",
             "Varies since it depends on the applied field and the other models that exist",
             "Higher than 0.5"
           ],
           "correctAnswer": [
             "Varies since it depends on the applied field and the other models that exist"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>Some fields, such as medicine, require more accuracy than other fields, such as marketing.</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
@@ -427,9 +439,9 @@
           "correctAnswer": [
             "Yes"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The R<sup>2</sup> from the training set is much higher than the out of sample R<sup>2</sup>. </p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         }
       ]
     }
@@ -730,7 +742,7 @@
           "Assignment": "Reading Test Scores",
           "level": 3,
           "number": 1,
-          "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\"). Set the reference level of the factor by typing the following two lines in your R console: pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\") pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\") Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables. It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables. As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation: LinReg = lm(Y ~ X1 + X2 + X3, data = Train) You would use the following command to build your model: LinReg = lm(Y ~ ., data = Train) What is the Multiple R-squared value of lmScore on the training set? Note that this R-squared is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
+          "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\"). Set the reference level of the factor by typing the following two lines in your R console: pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\") pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\") Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables. It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables. As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation: LinReg = lm(Y ~ X1 + X2 + X3, data = Train) You would use the following command to build your model: LinReg = lm(Y ~ ., data = Train) What is the Multiple R<sup>2</sup> value of lmScore on the training set? Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
           "options": [
             "0.675",
             "0.315",
@@ -744,7 +756,7 @@
           "correctAnswer": [
             "0.325"
           ],
-          "explanation": "<p>We can train the model with: lmScore = lm(readingScore~., data=pisaTrain) We can then read the training set R^2 from the \"Multiple R-squared\" value of summary(lmScore).</p>",
+          "explanation": "<p>We can train the model with: lmScore = lm(readingScore~., data=pisaTrain) We can then read the training set R^2 from the \"Multiple R<sup>2</sup>\" value of summary(lmScore).</p>",
           "attemptsOverall": 3,
           "weight": 2
         },
@@ -766,7 +778,7 @@
           "correctAnswer": [
             "73.366"
           ],
-          "explanation": "<p>The training-set RMSE can be computed by first computing the SSE: SSE = sum(lmScore$residuals^2) and then dividing by the number of observations and taking the square root: RMSE = sqrt(SSE / nrow(pisaTrain)) An alternative way of getting this answer would be with the following command: sqrt(mean(lmScore$residuals^2)).</p>",
+          "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br />SSE = sum(lmScore$residuals^2)<br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br />RMSE = sqrt(SSE / nrow(pisaTrain))<br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br />sqrt(mean(lmScore$residuals^2)).</p>",
           "attemptsOverall": 2,
           "weight": 1
         },
@@ -937,7 +949,7 @@
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 4,
-          "text": "<p>What is the test-set R-squared value of lmScore?</p>",
+          "text": "<p>What is the test-set R<sup>2</sup> value of lmScore?</p>",
           "options": [
             "5762082",
             "-0.261",
@@ -949,7 +961,7 @@
           "correctAnswer": [
             "0.261"
           ],
-          "explanation": "<p>The test-set R-squared is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model. For this model, the R-squared is then computed to be 1-5762082/7802354.</p>",
+          "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model. For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
           "attemptsOverall": 2,
           "weight": 1
         },
@@ -1085,14 +1097,14 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
           "number": 6,
-          "text": "<p>Recall the model FluTrend1. What is the training set R-squared value for FluTrend1 model (the \"Multiple R-squared\")?</p>",
+          "text": "<p>Recall the model FluTrend1. What is the training set R<sup>2</sup> value for FluTrend1 model (the \"Multiple R<sup>2</sup>\")?</p>",
           "options": [
             "TODO"
           ],
           "correctAnswer": [
             "0.709"
           ],
-          "explanation": "<p>The model can be trained with: FluTrend1 = lm(log(ILI)~Queries, data=FluTrain) From summary(FluTrend1), we read that the R-squared value is 0.709.</p>",
+          "explanation": "<p>The model can be trained with: FluTrend1 = lm(log(ILI)~Queries, data=FluTrain) From summary(FluTrend1), we read that the R<sup>2</sup> value is 0.709.</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -1124,16 +1136,16 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 2,
           "number": 1,
-          "text": "<p>For a single variable linear regression model, there is a direct relationship between the R-squared and the correlation between the independent and the dependent variables. What is the relationship we infer from our problem? (Don't forget that you can use the cor function to compute the correlation between two variables.)</p>",
+          "text": "<p>For a single variable linear regression model, there is a direct relationship between the R<sup>2</sup> and the correlation between the independent and the dependent variables. What is the relationship we infer from our problem? (Don't forget that you can use the cor function to compute the correlation between two variables.)</p>",
           "options": [
-            "R-squared = Correlation^2",
-            "R-squared = log(1/Correlation)",
-            "R-squared = exp(-0.5*Correlation)"
+            "R<sup>2</sup> = Correlation^2",
+            "R<sup>2</sup> = log(1/Correlation)",
+            "R<sup>2</sup> = exp(-0.5*Correlation)"
           ],
           "correctAnswer": [
-            "R-squared = Correlation^2"
+            "R<sup>2</sup> = Correlation^2"
           ],
-          "explanation": "<p>To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)). This can be done with Correlation = cor(FluTrain$Queries, log(FluTrain$ILI)) The values of the three expressions are then: Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792. It appears that Correlation^2 is equal to the R-squared value. It can be proved that this  is always the case. Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function exp().</p>",
+          "explanation": "<p>To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)). This can be done with Correlation = cor(FluTrain$Queries, log(FluTrain$ILI)) The values of the three expressions are then: Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792. It appears that Correlation^2 is equal to the R<sup>2</sup> value. It can be proved that this  is always the case. Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function exp().</p>",
           "attemptsOverall": 1,
           "weight": 1
         },
@@ -1305,7 +1317,7 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 3,
           "number": 5,
-          "text": "<p>On the basis of R-squared value and significance of coefficients, which statement is the most accurate?</p>",
+          "text": "<p>On the basis of R<sup>2</sup> value and significance of coefficients, which statement is the most accurate?</p>",
           "options": [
             "Due to overfitting, FluTrend2 is a weaker model then FluTrend1 on the training set.",
             "FluTrend2 is about the same quality as FluTrend1 on the training set.",
