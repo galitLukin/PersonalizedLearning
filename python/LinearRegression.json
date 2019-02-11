@@ -24,8 +24,7 @@
           "correctAnswer": [
             "0.75"
           ],
-          "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br />climate = read.csv(climate_change.csv)
-          <br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)<br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.</p>",
+          "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br />climate = read.csv(climate_change.csv)<br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)<br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -81,7 +80,7 @@
           "Assignment": "Climate Change",
           "level": 1,
           "number": 4,
-          "text": "<p>The data is split into training and test data so that we can measure the quality of the model on unseen data. How many observations are in the training set? What is the average CO2 level across all years in the training set? Which year had the highest level of MEI in the training set?</p>",
+          "text": "<p>The data is split into training and test data so that we can measure the quality of the model on unseen data.<br /> <br />How many observations are in the training set?<br /> <br />What is the average CO2 level across all years in the training set?<br /> <br />Which year had the highest level of MEI in the training set?</p>",
           "options": [
             "284, 361.4, 1997",
             "284, 361.4, 1998",
@@ -123,7 +122,7 @@
           "Assignment": "Climate Change",
           "level": 2,
           "number": 1,
-          "text": "<p>Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth. However, the regression coefficients of both the N2O and CFC-11 variables are negative, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures. Which of the following is the simplest correct explanation for this contradiction?</p>",
+          "text": "<p>Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth.<br /> <br />However, the regression coefficients of both the N2O and CFC-11 variables are negative, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures.<br /> <br />Which of the following is the simplest correct explanation for this contradiction?</p>",
           "options": [
             "Climate scientists are wrong that N2O and CFC-11 are greenhouse gases - this regression analysis constitutes part of a disproof.",
             "There is not enough data, so the regression coefficients being estimated are not accurate.",
@@ -140,7 +139,7 @@
           "Assignment": "Climate Change",
           "level": 2,
           "number": 2,
-          "text": "<p>Compute the correlations between all the variables in the training set. Which of the following independent variables is N2O highly correlated with (absolute correlation greater than 0.7)? Select all that apply.</p>",
+          "text": "<p>Compute the correlations between all the variables in the training set.<br /> <br />Which of the following independent variables is N2O highly correlated with (absolute correlation greater than 0.7)? Select all that apply.</p>",
           "options": [
             "MEI",
             "CO2",
@@ -225,7 +224,7 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 1,
-          "text": "<p>Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables. Remember to use the training set to build the model. What is the coefficient of N2O in this reduced model? What the R-squared?</p>",
+          "text": "<p>Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables.<br /> <br />Remember to use the training set to build the model.<br /> <br />What is the coefficient of N2O in this reduced model?<br /> <br />What the R-squared?</p>",
           "options": [
             "0.025, 0.748",
             "0.025, 0.767",
@@ -239,7 +238,7 @@
           "correctAnswer": [
             "0.025, 0.726"
           ],
-          "explanation": "<p>We can create this simplified model with the command: LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train) You can get the coefficient for N2O and the model R-squared by typing summary(LinReg). We have observed that, for this problem, when we remove many variables the sign of N2O flips. The model has not lost a lot of explanatory power (the model R-squared is 0.7261 compared to 0.7509 previously) despite removing many variables. As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other. In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
+          "explanation": "<p>We can create this simplified model with the command:<br /> <br />LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train)<br /> <br />You can get the coefficient for N2O and the model R-squared by typing summary(LinReg).<br /> <br />We have observed that, for this problem, when we remove many variables,the sign of N2O flips.<br /> <br />The model has not lost a lot of explanatory power (the model R-squared is 0.7261 compared to 0.7509 previously) despite removing many variables.<br /> <br />As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other.<br /> <br />In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -247,7 +246,7 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 2,
-          "text": "<p>We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality. R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R-squared. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model. The step function has one argument - the name of the initial model. It returns a simplified model. Use the step function in R to derive a new model, with the full model as the initial model (HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM). Be sure to save your new model to a variable name so that you can look at the summary. For more information about the step function, type ?step in your R console.) Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply.</p>",
+          "text": "<p>We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality.<br /> <br />R provides a function, step, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R-squared. This trade-off is formalized by the Akaike information criterion (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model.<br /> <br />The step function has one argument - the name of the initial model. It returns a simplified model.<br /> <br />Use the step function in R to derive a new model, with the full model as the initial model<br /> <br />HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing step(climateLM).<br /> <br />Be sure to save your new model to a variable name so that you can look at the summary. <br /> <br />For more information about the step function, type ?step in your R console.<br /> <br />Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply.</p>",
           "options": [
             "MEI",
             "CO2",
@@ -261,7 +260,7 @@
           "correctAnswer": [
             "CH4"
           ],
-          "explanation": "<p>You can create a model using the step function by typing: StepModel = step(climateLM) where \"climateLM\" is the name of the full model. If you look at the summary of the model with summary(StepModel) and only CH4 was removed. It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R-squared significantly. The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).</p>",
+          "explanation": "<p>You can create a model using the step function by typing:<br /> <br />StepModel = step(climateLM) where \"climateLM\" is the name of the full model.<br /> <br />If you look at the summary of the model with summary(StepModel), only CH4 was removed.<br /> <br />It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R-squared significantly.<br /> <br />The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).</p>",
           "attemptsOverall": 3,
           "weight": 2
         },
@@ -309,7 +308,7 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 5,
-          "text": "<p>From the original model produced by the step function, remove highly correlated variables. What is the the R-squared of the new model?</p>",
+          "text": "<p>From the original model produced by the step function, remove highly correlated variables.<br /> <br />What is the the R-squared of the new model?</p>",
           "options": [
             "0.616",
             "0.6",
@@ -336,7 +335,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 1,
-          "text": "<p>Enter the R-squared value of the original model produced by the step function? Which independent variable is not statistically significant?</p>",
+          "text": "<p>Enter the R-squared value of the original model produced by the step function?<br /> <br />Which independent variable is not statistically significant?</p>",
           "options": [
             "0.7, N2O",
             "0.75, N2O",
@@ -361,7 +360,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data? Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function. What is the test set R-squared:</p>",
+          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R-squared:</p>",
           "options": [
             "0.651",
             "0.6139",
@@ -382,7 +381,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>Are the following statements True or False: 1. The out of sample R-squared will increase as the model includes more independent variables. 2. The out of sample R-squared can be negative.</p>",
+          "text": "<p>Are the following statements True or False:<br /> <br />1. The out of sample R-squared will increase as the model includes more independent variables.<br /> <br />2. The out of sample R-squared can be negative.</p>",
           "options": [
             "True, True",
             "True, False",
@@ -443,7 +442,7 @@
           "Assignment": "Reading Test Scores",
           "level": 1,
           "number": 1,
-          "text": "<p>Load the training and testing sets using the read.csv() function, and save them as variables with the names pisaTrain and pisaTest. How many students are there in the training set?</p>",
+          "text": "<p>Load the training and testing sets using the read.csv() function, and save them as variables with the names pisaTrain and pisaTest.<br /> <br />How many students are there in the training set?</p>",
           "options": [
             "3663",
             "5233",
