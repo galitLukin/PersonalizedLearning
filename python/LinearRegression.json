@@ -280,7 +280,7 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 3,
-          "text": "<p>How would you interpret the coefficient of Aerosols in the original model produced from the step function?</p>",
+          "text": "<p>How would you interpret the coefficient of Aerosols in the model produced from the step function?</p>",
           "options": [
             "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 increase in Temp",
             "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp",
@@ -289,7 +289,7 @@
           "correctAnswer": [
             "All else being equal, an increase in one unit of Aerosols is associated with a 1.54 decrease in Temp"
           ],
-          "explanation": "<p>The coefficient corresponding to Aerosols is -1.54. Thus, one unit change in Aerosols, affects Temp by 1.54 units. Since the coefficient is negative, the affect is opposite. Therefore, if Aerosols increases, Temp decreases.</p>",
+          "explanation": "<p>The coefficient corresponding to Aerosols is -1.54. Thus, one unit change in Aerosols, affects Temp by 1.54 units. Since the coefficient is negative, the effect is opposite. Therefore, if Aerosols increases, Temp decreases.</p>",
           "attemptsOverall": 1,
           "weight": 2
         },
@@ -297,44 +297,36 @@
           "Assignment": "Climate Change",
           "level": 3,
           "number": 4,
-          "text": "<p>From the original model produced by the step function, which variables are highly correlated? Select all that apply.</p>",
+          "text": "<p>How would you interpret the coefficient of TSI in the model produced from the step function?.</p>",
           "options": [
-            "CO2, N2O",
-            "CO2, Aerosols",
-            "CO2, CFC.12",
-            "TSI, MEI",
-            "CFC.12, N2O",
-            "CFC.11, CFC.12"
+            "All else being equal, an increase in one unit of TSI is associated with a 0.0093 increase in Temp",
+            "All else being equal, an increase in one unit of TSI is associated with a 0.0093 decrease in Temp",
+            "All else being equal, an increase in one unit of TSI is associated with a 0.093 increase in Temp",
+            "All else being equal, an increase in one unit of TSI is associated with a 0.093 decrease in Temp",
+            "A change in the value of TSI does not affect Temp."
           ],
           "correctAnswer": [
-            "CO2, N2O",
-            "CO2, CFC.12",
-            "CFC.12, N2O",
-            "CFC.11, CFC.12"
+            "All else being equal, an increase in one unit of TSI is associated with a 0.093 increase in Temp"
           ],
-          "explanation": "<p>TODO</p>",
-          "attemptsOverall": 3,
+          "explanation": "<p>The coefficient corresponding to TSI is 0.093. Thus, one unit change in TSI, affects Temp by 0.093 units. Since the coefficient is positive, if TSI increases, Temp increases.</p>",
+          "attemptsOverall": 1,
           "weight": 2
         },
         {
           "Assignment": "Climate Change",
           "level": 3,
           "number": 5,
-          "text": "<p>From the original model produced by the step function, remove highly correlated variables.<br /> <br />What is the the R<sup>2</sup> of the new model?</p>",
+          "text": "<p>How would you interpret the intercept of the model produced from the step function?</p>",
           "options": [
-            "0.616",
-            "0.6",
-            "0.625",
-            "0.64",
-            "0.654",
-            "0.665",
-            "0.676",
-            "0.685"
+            "All else being equal, an increase in one unit of CH4 is associated with a 0.012 decrease in Temp",
+            "The correlation between Temp and MEI is -0.012",
+            "When all of the indepenedant variables are equal to zero, the expected mean value of Temp is -0.012",
+            "The intercept has no valuable meaning",
           ],
           "correctAnswer": [
-            "0.625"
+            "When all of the indepenedant variables are equal to zero, the expected mean value of Temp is -0.012"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The constant is defined as the mean of the dependent variable when all of the independent variables in the model are set to zero.</p>",
           "attemptsOverall": 2,
           "weight": 0
         }
@@ -372,7 +364,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the original model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R<sup>2</sup>:</p>",
+          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R<sup>2</sup>:</p>",
           "options": [
             "0.172",
             "1.1751",
@@ -393,7 +385,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>Are the following statements True or False?<br /> <br />1. The out of sample R<sup>2</sup> will increase as the model includes more independent variables.<br /> <br />2. The out of sample R<sup>2</sup> can be negative.</p>",
+          "text": "<p>Are the following statements True or False?<br /> <br />1. The out of sample R<sup>2</sup> will increase as the model includes more independent variables.<br /> <br />2. R<sup>2</sup> can be negative.</p>",
           "options": [
             "True, True",
             "True, False",
@@ -403,7 +395,7 @@
           "correctAnswer": [
             "False, True"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The in-sample R<sup>2</sup> will improve, but not necessarily the out of sample R<sup>2</sup>.<br /> <br />R<sup>2</sup> is negative when the model fits the data worse than the horizontal line (the baseline model).</p>",
           "attemptsOverall": 1,
           "weight": 2
         },
@@ -429,7 +421,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 4,
-          "text": "<p>Does the original model produced from the step function overfit?</p>",
+          "text": "<p>Does the model produced from the step function overfit?</p>",
           "options": [
             "Yes",
             "No",
