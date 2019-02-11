@@ -39,17 +39,15 @@ def basicPath(assignment, level, number):
             return level, 0
 
 
-def mandQuesRemain(assignment, history):
-    #TODO: define up until which question in each level should be mandatory so nobody skips through everything
+def prequisiteSatisfied(assignment, level, number):
     mandatory = None
     if assignment == "ClimateChange":
-        mandatory = { 1:1, 2:1, 3:1, 4:1 }
+        mandatory = { 1:1, 2:2, 3:2, 4:2 }
     elif assignment == "ReadingTestScores":
         mandatory = { 1:1, 2:1 ,3:1, 4:1 }
     else:
         mandatory = { 1:1, 2:1, 3:1, 4:1 }
 
-    for level in range(1,5):
-        if history["next{}".format(level)] <= mandatory[level]:
-            return level - 1, history["next{}".format(level)] - 1
-    return
+    if number < mandatory[level]:
+        return False
+    return True

@@ -321,14 +321,14 @@
             "All else being equal, an increase in one unit of CH4 is associated with a 0.012 decrease in Temp",
             "The correlation between Temp and MEI is -0.012",
             "When all of the indepenedant variables are equal to zero, the expected mean value of Temp is -0.012",
-            "The intercept has no valuable meaning",
+            "The intercept has no valuable meaning"
           ],
           "correctAnswer": [
             "When all of the indepenedant variables are equal to zero, the expected mean value of Temp is -0.012"
           ],
           "explanation": "<p>The constant is defined as the mean of the dependent variable when all of the independent variables in the model are set to zero.</p>",
           "attemptsOverall": 2,
-          "weight": 0
+          "weight": 2
         }
       ]
     },
@@ -339,7 +339,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 1,
-          "text": "<p>Enter the R<sup>2</sup> value of the original model produced by the step function?<br /> <br />Which independent variable is not statistically significant?</p>",
+          "text": "<p>Enter the R<sup>2</sup> value of the model produced from the step function?<br /> <br />Which independent variable is not statistically significant?</p>",
           "options": [
             "0.745, N2O",
             "0.751, N2O",
