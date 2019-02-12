@@ -44,7 +44,7 @@ def prequisiteSatisfied(assignment, level, number):
     if assignment == "ClimateChange":
         mandatory = { 1:1, 2:2, 3:2, 4:2 }
     elif assignment == "ReadingTestScores":
-        mandatory = { 1:1, 2:1 ,3:1, 4:1 }
+        mandatory = { 1:4, 2:2 ,3:1, 4:1 }
     else:
         mandatory = { 1:1, 2:1, 3:1, 4:1 }
 

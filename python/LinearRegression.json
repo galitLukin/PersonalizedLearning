@@ -456,7 +456,7 @@
           "correctAnswer": [
             "3663"
           ],
-          "explanation": "<p>The datasets can be loaded with: pisaTrain = read.csv(\"pisa2009train.csv\") pisaTest = read.csv(\"pisa2009test.csv\") We can then access the number of rows in the training set with str(pisaTrain) or nrow(pisaTrain).</p>",
+          "explanation": "<p>The datasets can be loaded with:<br /> <br />pisaTrain = read.csv(\"pisa2009train.csv\")<br /> <br />pisaTest = read.csv(\"pisa2009test.csv\")<br /> <br />We can then access the number of rows in the training set with str(pisaTrain) or nrow(pisaTrain).</p>",
           "attemptsOverall": 1,
           "weight": 1
         },
@@ -474,7 +474,7 @@
           "correctAnswer": [
             "483.5325, 512.9406"
           ],
-          "explanation": "<p>The correct invocation of tapply() here is: tapply(pisaTrain$readingScore, pisaTrain$male, mean)</p>",
+          "explanation": "<p>The correct invocation of tapply() here is:<br /> <br />tapply(pisaTrain$readingScore, pisaTrain$male, mean)</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -538,7 +538,7 @@
           "Assignment": "Reading Test Scores",
           "level": 1,
           "number": 4,
-          "text": "<p>Factor variables are variables that take on a discrete set of values, like the \"Region\" variable in the WHO dataset from the second lecture of Unit 1. This is an unordered factor because there isn't any natural ordering between the levels. An ordered factor has a natural ordering between the levels (an example would be the classifications \"large,\" \"medium,\" and \"small\"). Which of the following variables is an unordered factor with at least 3 levels? (Select all that apply.)</p>",
+          "text": "<p>Factor variables are variables that take on a discrete set of values, like the \"Region\" variable in the WHO dataset from the second lecture of Unit 1.<br /> <br />This is an unordered factor because there isn't any natural ordering between the levels.<br /> <br />An ordered factor has a natural ordering between the levels (an example would be the classifications \"large,\" \"medium,\" and \"small\").<br /> <br />Which of the following variables is an unordered factor with at least 3 levels? (Select all that apply.)</p>",
           "options": [
             "grade",
             "male",
@@ -572,17 +572,26 @@
           "Assignment": "Reading Test Scores",
           "level": 1,
           "number": 6,
-          "text": "<p>How many missing values are there for minutesPerWeekEnglish? What is the average number of minutes that a student spends in English class? If all missing values were to be replaced with the maximum value, what would be the average number of minutes that a student spends in English class? What would it be if all the missing values were replaced with the minimum value?</p>",
+          "text": "<p>How many missing values are there in the training set for minutesPerWeekEnglish?<br /> <br />What is the average number of minutes that a student spends in English class?<br /> <br />If all missing values were to be replaced with the maximum value, what would be the average number of minutes that a student spends in English class?<br /> <br />What would it be if all the missing values were replaced with the minimum value?</p>",
           "options": [
+            "3477, NA, 374.56, 252.69",
+            "3477, 266.2, 266.2, 266.2",
+            "3477, 266.2, 374.56, 252.69",
+            "186, 0.05, 374.56, 252.69",
+            "186, 266.2, 266.2, 266.2",
+            "186, 266.2, 374.56, 374.56",
             "186, 266.2, 374.56, 252.69",
-            "TODO"
+            "186, NA, 374.56, 252.69",
+            "34, 266.2, 374.56, 252.69",
+            "34, NA, 374.56, 252.69",
+            "34, 266.2, 374.56, 252.69"
           ],
           "correctAnswer": [
             "186, 266.2, 374.56, 252.69"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>Amount of missing values: sum(is.na(pisaTrain$minutesPerWeekEnglish))<br /> <br />Average number of minutes that a student spends in English class: mean(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />Replacing missing values with maximum value: pisaTrain$minutesPerWeekEnglish[is.na(pisaTrain$minutesPerWeekEnglish)] <- min(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />mean(pisaTrain$minutesPerWeekEnglish)</p><br /> <br />Notice that there are no longer missing values. To calculate the average when replacing NAs with the minimum value, the data pisaTrain must be read again from the beginning. Similarly, the version of the training set which includes missing values might be needed for future questions.",
           "attemptsOverall": 3,
-          "weight": 0
+          "weight": 2
         }
       ]
     },
@@ -593,7 +602,7 @@
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 1,
-          "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest: pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest) How many observations are now in the training set? How many observations are now in the testing set?</p>",
+          "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest:<br /> <br />pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest)<br /> <br />How many observations are now in the training set?<br /> <br />How many observations are now in the testing set?</p>",
           "options": [
             "2414, 990",
             "3663, 1570",
@@ -611,7 +620,7 @@
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 2,
-          "text": "<p>To include unordered factors in a linear regression model, we define one level as the \"reference level\" and add a binary variable for each of the remaining levels. In this way, a factor with n levels is replaced by n-1 binary variables. The reference level is typically selected to be the most frequently occurring level in the dataset. As an example, consider the unordered factor variable \"color\", with levels \"red\", \"green\", and \"blue\". If \"green\" were the reference level, then we would add binary variables \"colorred\" and \"colorblue\" to a linear regression problem. All red examples would have colorred=1 and colorblue=0. All blue examples would have colorred=0 and colorblue=1. All green examples would have colorred=0 and colorblue=0. Now, consider the variable \"raceeth\" in our problem, which has levels \"American Indian/Alaska Native\", \"Asian\", \"Black\", \"Hispanic\", \"More than one race\", \"Native Hawaiian/Other Pacific Islander\", and \"White\". Because it is the most common in our population, we will select White as the reference level. Which binary variables will be included in the regression model? (Select all that apply.)</p>",
+          "text": "<p>To include unordered factors in a linear regression model, we define one level as the \"reference level\" and add a binary variable for each of the remaining levels. In this way, a factor with n levels is replaced by n-1 binary variables. The reference level is typically selected to be the most frequently occurring level in the dataset.<br /> <br />As an example, consider the unordered factor variable \"color\", with levels \"red\", \"green\", and \"blue\". If \"green\" were the reference level, then we would add binary variables \"colorred\" and \"colorblue\" to a linear regression problem. All red examples would have colorred=1 and colorblue=0. All blue examples would have colorred=0 and colorblue=1. All green examples would have colorred=0 and colorblue=0.<br /> <br />Now, consider the variable \"raceeth\" in our problem, which has levels \"American Indian/Alaska Native\", \"Asian\", \"Black\", \"Hispanic\", \"More than one race\", \"Native Hawaiian/Other Pacific Islander\", and \"White\".<br /> <br />Because it is the most common in our population, we will select White as the reference level.<br /> <br />Which binary variables will be included in the regression model? (Select all that apply.)</p>",
           "options": [
             "raceethAmerican Indian/Alaska Native",
             "raceethAsian",
@@ -637,7 +646,7 @@
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 3,
-          "text": "<p>Consider again adding our unordered factor race to the regression model with reference level \"White\". For a student who is Asian, which binary variables would be set to 0? All remaining variables will be set to 1. (Select all that apply.)</p>",
+          "text": "<p>Consider again adding our unordered factor race to the regression model with reference level \"White\".<br /> <br />For a student who is Asian, which binary variables would be set to 0?<br /> <br />All remaining variables will be set to 1. (Select all that apply.)</p>",
           "options": [
             "raceethAmerican Indian/Alaska Native",
             "raceethAsian",
@@ -661,7 +670,7 @@
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 4,
-          "text": "<p>Consider the addition of our unordered factor race to the regression model with reference level \"White\". For a student who is white, which binary variables would be set to 0? All remaining variables will be set to 1. (Select all that apply.)</p>",
+          "text": "<p>Consider the addition of our unordered factor race to the regression model with reference level \"White\".<br /> <br />For a student who is white, which binary variables would be set to 0?<br /> <br />All remaining variables will be set to 1. (Select all that apply.)</p>",
           "options": [
             "raceethAmerican Indian/Alaska Native",
             "raceethAsian",
@@ -686,7 +695,7 @@
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 5,
-          "text": "<p>Check for outliers in the variable readingScore using the IQR method. How many outliers are there? Is linear regression sensitive to outliers?</p>",
+          "text": "<p>In the training set, check for outliers in the variable readingScore using the IQR method.<br /> <br />How many outliers are there?<br /> <br />Is linear regression sensitive to outliers?</p>",
           "options": [
             "0, No",
             "0, Yes",
@@ -704,15 +713,15 @@
           "correctAnswer": [
             "2, Yes"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>To identify outliers using the IQR method:<br /> <br />Q3 <- quantile(pisaTrain$readingScore, 0.75)<br />Q1 <- quantile(pisaTrain$readingScore, 0.25)<br />iqr = Q3 - Q1<br />upper = (iqr * 1.5) + Q3<br />lower = Q1 - (iqr * 1.5)<br />pisaTrain[ which(pisaTrain$readingScore > upper | pisaTrain$readingScore < lower), ]<br /> <br />Notice how removing outliers affects the model.</p>",
           "attemptsOverall": 2,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 6,
-          "text": "<p>There are x races. Instead of creating x-1 more variables, we could give each race a number 1-x and keep one variable that receives values 1-x. Why is this incorrect?</p>",
+          "text": "<p>There are x races. Instead of creating x-1 more variables, we could give each race a number 1-x and keep one variable that receives values 1-x.<br /> <br />Why is this incorrect?</p>",
           "options": [
             "This would mean that each race has a different value and distances between races can be measured.",
             "We would have to keep a map of what race was mapped to which number.",
@@ -723,7 +732,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         }
       ]
     },
@@ -734,7 +743,7 @@
           "Assignment": "Reading Test Scores",
           "level": 3,
           "number": 1,
-          "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\"). Set the reference level of the factor by typing the following two lines in your R console: pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\") pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\") Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables. It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables. As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation: LinReg = lm(Y ~ X1 + X2 + X3, data = Train) You would use the following command to build your model: LinReg = lm(Y ~ ., data = Train) What is the Multiple R<sup>2</sup> value of lmScore on the training set? Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
+          "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\").<br /> <br />Set the reference level of the factor by typing the following two lines in your R console:<br /> <br />pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\")<br />pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\")<br /> <br />Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables.<br /> <br />It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables.<br /> <br />As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation:<br /> <br /> LinReg = lm(Y ~ X1 + X2 + X3, data = Train)<br /> <br />You would use the following command to build your model:<br /> <br />LinReg = lm(Y ~ ., data = Train)<br /> <br />What is the Multiple R<sup>2</sup> value of lmScore on the training set?<br /> <br />Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
           "options": [
             "0.675",
             "0.315",
@@ -748,7 +757,7 @@
           "correctAnswer": [
             "0.325"
           ],
-          "explanation": "<p>We can train the model with: lmScore = lm(readingScore~., data=pisaTrain) We can then read the training set R^2 from the \"Multiple R<sup>2</sup>\" value of summary(lmScore).</p>",
+          "explanation": "<p>We can train the model with:<br /> <br />lmScore = lm(readingScore~., data=pisaTrain)<br /> <br />We can then read the training set R^2 from the \"Multiple R<sup>2</sup>\" value of summary(lmScore).</p>",
           "attemptsOverall": 3,
           "weight": 2
         },
@@ -778,7 +787,7 @@
           "Assignment": "Reading Test Scores",
           "level": 3,
           "number": 3,
-          "text": "<p>Consider two students A and B. They have all variable values the same, except that student A is in grade 11 and student B is in grade 9. What is the predicted reading score of student A minus the predicted reading score of student B?</p>",
+          "text": "<p>Consider two students A and B. They have all variable values the same, except that student A is in grade 11 and student B is in grade 9.<br /> <br />What is the predicted reading score of student A minus the predicted reading score of student B?</p>",
           "options": [
             "-59.09",
             "-29.54",
@@ -790,7 +799,7 @@
           "correctAnswer": [
             "59.09"
           ],
-          "explanation": "<p>The coefficient 29.54 on grade is the difference in reading score between two students who are identical other than having a difference in grade of 1. Because A and B have a difference in grade of 2, the model predicts that student A has a reading score that is 2*29.54 larger.</p>",
+          "explanation": "<p>The coefficient 29.54 on grade is the difference in reading score between two students who are identical other than having a difference in grade of 1.<br /> <br />Because A and B have a difference in grade of 2, the model predicts that student A has a reading score that is 2*29.54 larger.</p>",
           "attemptsOverall": 2,
           "weight": 1
         },
@@ -885,7 +894,7 @@
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 1,
-          "text": "<p>Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest. Call this vector of predictions \"predTest\". Do not change the variables in the model (for example, do not remove variables that we found were not significant in the previous part of this problem). Use the summary function to describe the test set predictions. What is the range between the maximum and minimum predicted reading score on the test set?</p>",
+          "text": "<p>Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest.<br /> <br />Call this vector of predictions \"predTest\".<br /> <br />Do not change the variables in the model (for example, do not remove variables that we found were not significant in a previous part of this problem).<br /> <br />Use the summary function to describe the test set predictions.<br /> <br />What is the range between the maximum and minimum predicted reading score on the test set?</p>",
           "options": [
             "284.5",
             "637.7",
@@ -897,7 +906,7 @@
           "correctAnswer": [
             "284.5"
           ],
-          "explanation": "<p>We can obtain the predictions with: predTest = predict(lmScore, newdata=pisaTest) From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.</p>",
+          "explanation": "<p>We can obtain the predictions with:<br /> <br />predTest = predict(lmScore, newdata=pisaTest)<br /> <br />From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.</p>",
           "attemptsOverall": 1,
           "weight": 2
         },
@@ -905,14 +914,14 @@
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 2,
-          "text": "<p>What is the sum of squared errors (SSE) of lmScore on the testing set? What is the root-mean squared error (RMSE) of lmScore on the testing set</p>?",
+          "text": "<p>What is the sum of squared errors (SSE) of lmScore on the testing set?<br /> <br />What is the root-mean squared error (RMSE) of lmScore on the testing set</p>?",
           "options": [
             "TODO"
           ],
           "correctAnswer": [
             "5762082, 76.29"
           ],
-          "explanation": "<p>SSE = sum((predTest-pisaTest$readingScore)^2), RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))</p>",
+          "explanation": "<p>SSE = sum((predTest-pisaTest$readingScore)^2)<br /> <br />RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -920,7 +929,7 @@
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 3,
-          "text": "<p>What is the predicted test score used in the baseline model? Remember to compute this value using the training set and not the test set. What is the sum of squared errors of the baseline model on the testing set? HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).</p>",
+          "text": "<p>What is the predicted test score used in the baseline model?<br /> <br />Remember to compute this value using the training set and not the test set.<br /> <br />What is the sum of squared errors of the baseline model on the testing set?<br /> <br />HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).</p>",
           "options": [
             "497.91, 7802354",
             "517.96, 7802354",
@@ -933,7 +942,7 @@
           "correctAnswer": [
             "517.96, 7802354"
           ],
-          "explanation": "<p>This can be computed with baseline = mean(pisaTrain$readingScore) and sum((baseline-pisaTest$readingScore)^2).</p>",
+          "explanation": "<p>This can be computed with:<br /> <br />baseline = mean(pisaTrain$readingScore)<br /> <br />sum((baseline-pisaTest$readingScore)^2).</p>",
           "attemptsOverall": 2,
           "weight": 2
         },
@@ -953,7 +962,7 @@
           "correctAnswer": [
             "0.261"
           ],
-          "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model. For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
+          "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model.<br /> <br />For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
           "attemptsOverall": 2,
           "weight": 1
         },
