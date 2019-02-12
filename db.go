@@ -106,7 +106,7 @@ func dbCreateUser(db *sql.DB, newUser user) string {
 }
 
 func dbDeleteUser(db *sql.DB) string {
-	stmt, err := db.Prepare(`DELETE FROM test02.users WHERE fName="Lauren";`)
+	stmt, err := db.Prepare(`DELETE FROM test02.users WHERE fName="Omer";`)
 	dbCheck(err)
 	defer stmt.Close()
 
