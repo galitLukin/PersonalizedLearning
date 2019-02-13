@@ -14,7 +14,7 @@ type userSchema struct {
 	Password string
 }
 
-type scoresSchema struct {
+type scores struct {
 	Username		string
 	Assignment		string
 	Gender		string
@@ -136,9 +136,9 @@ func dbCheck(err error) {
 	}
 }
 
-//check if user, assignment exists - otherwise, create a row with default values
+//get user data at the start of the assignment
 //beginning of assignment
-func dbAssureUserExists(db *sql.DB, user string, assignment string) string {
+func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	q := fmt.Sprintf(`SELECT username, assignment FROM test02.scores
 	  WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 	fmt.Println(q)
@@ -146,11 +146,12 @@ func dbAssureUserExists(db *sql.DB, user string, assignment string) string {
 	dbCheck(err)
 	defer rows.Close()
 
-	var s string
+	var st string
+	var s scores
 	i := 0
 	for rows.Next(){
 	   i++
- 		 s += fmt.Sprintf(`RETRIEVED USER: %s`, user)
+ 		 st += fmt.Sprintf(`RETRIEVED USER: %s`, user)
 	}
 	if i == 0 {
 	  //if rows is empty - this should not occur but if it does, it means we dont have past data on the user
@@ -176,8 +177,21 @@ func dbAssureUserExists(db *sql.DB, user string, assignment string) string {
 	 	n, err := r.RowsAffected()
 	 	dbCheck(err)
 
-	 	s += fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
+	 	st += fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
 	}
+
+	q = fmt.Sprintf(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
+		qd.User.Username, qd.Question.Assignment)
+	fmt.Println(q)
+	rows, err = db.Query(q)
+	dbCheck(err)
+	defer rows.Close()
+
+	for rows.Next() {
+		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
+		dbCheck(err)
+	}
+
 	return s
 }
 
@@ -214,8 +228,8 @@ func dbInsertResponse(db *sql.DB, qd QuestionData) string {
 //run to get the user's history
 //after user presses submit and before calling python script
 //returns history only when user is moving to next question - ow null
-func dbFetchUserInScores(db *sql.DB, qd QuestionData) scoresSchema {
-	var s scoresSchema
+func dbFetchUserInScores(db *sql.DB, qd QuestionData) scores {
+	var s scores
 	if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts"{
 		q := fmt.Sprintf(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
 		  qd.User.Username, qd.Question.Assignment)
@@ -317,10 +331,10 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) string {
 
 /////////////////END OF ASSIGNMENT//////////////////
 // end of assignment happens when the user closes the tab or finishes the assignment
-func dbCalculateScores(db *sql.DB, qd QuestionData) string{
+func dbCalculateScores(db *sql.DB, qd QuestionData) string {
 	//save user's score in each level in all three of the user's rows (one row per assignment)
 	var q, s string
-	var ss scoresSchema
+	var ss scores
 	if qd.Question.Assignment == "Climate Change"{
 			q = fmt.Sprintf(`update test02.scores SET cc1 = CASE
 			WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
@@ -436,7 +450,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) string{
 }
 
 //run when assignment ends to return the user's grade tp edX
-func dbCalculateGrade(db *sql.DB, qd QuestionData) float32{
+func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	var g grade
 	score := 0
 	scorePossible := 0

@@ -26,12 +26,14 @@ class Status(Enum):
 def main():
     if len(sys.argv) < 2:
         state = {}
+        # history = ???
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
         # TODO:  this should be based on where the user is in which assignment
-        # so first call to script should be with assignment+user_id
-        # all other calls to script should be with Json+history or just Json
+        # so first call to script should be with scores row
+        # all other calls to script should be with Json+scores row or just Json - ask omer about this
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
+        # state[State.Question.name] = helper.getFirstQuestion(questions, history)
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,
             QInst.answer.name: [],

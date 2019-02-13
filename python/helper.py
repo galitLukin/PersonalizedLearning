@@ -122,3 +122,14 @@ def getNextQuestion(assignment, level, number):
 		#finish prequisites on this level
 		else:
 			return questions[assignment][level-1]['questions'][number]
+
+def getFirstQuestion(questions,history):
+	next = [history['next1'], history['next2'], history['next3'], history['next4']]
+	if max(next) == 1:
+		return questions[history['Assignment'].replace(" ", "")][0]['questions'][0]
+	level = 3
+	while level >= 0:
+		if next[level] > 1:
+			return getNextQuestion(history['Assignment'], level + 1, next[level] - 1)
+		level = level - 1
+	return questions[history['Assignment'].replace(" ", "")][0]['questions'][0]
