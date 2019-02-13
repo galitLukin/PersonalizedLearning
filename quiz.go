@@ -23,7 +23,7 @@ type QuestionData struct {
 	QuestionInstance QuestionInstance
 	User             User
 	Score            scores
-	IsFirst          string
+	PrevLocation     response
 }
 
 // Question : Data for current question
@@ -65,27 +65,15 @@ func getQuestion() QuestionData {
 }
 
 func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
-	if q.IsFirst == "true" {
-		cmd := exec.Command(Python, PathToPythonScript, s)
-		outb, err := cmd.CombinedOutput()
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println("empty case...")
-		fmt.Println(string(outb))
-		err = json.Unmarshal(outb, &q)
-		if err != nil {
-			fmt.Println(err)
-		}
-	} else {
-		cmd := exec.Command(Python, PathToPythonScript, s)
-		outb, err := cmd.CombinedOutput()
-		fmt.Println("non empty case...")
-		fmt.Println(string(outb))
-		err = json.Unmarshal(outb, &q)
-		if err != nil {
-			fmt.Println(err)
-		}
+	cmd := exec.Command(Python, PathToPythonScript, s)
+	outb, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(outb))
+	err = json.Unmarshal(outb, &q)
+	if err != nil {
+		fmt.Println(err)
 	}
 	return q
 }

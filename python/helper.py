@@ -123,16 +123,16 @@ def getNextQuestion(assignment, level, number, score):
 		else:
 			return questions[assignment][level-1]['questions'][number]
 
-def getFirstQuestion(score):
+def getFirstQuestion(score, location):
+	assignment = score['Assignment'].replace(" ", "")
+	level = location['Level']
+	numb = location['Number']
 	with open('./python/LinearRegression.json', encoding='utf-8') as f:
 		questions = json.load(f)
-	next = [score['Next1'], score['Next2'], score['Next3'], score['Next4']]
-	assignment = score['Assignment'].replace(" ", "")
-	if max(next) == 1:
-		return questions[assignment][0]['questions'][0]
-	level = 3
-	while level >= 0:
-		if next[level] > 1:
-			return getNextQuestion(score['Assignment'], level + 1, next[level] - 1, score)
-		level = level - 1
-	return questions[assignment][0]['questions'][0]
+	if level == 0:
+		return questions[assignment][0]['questions'][0], 0
+	if location['Correctness'] == 1:
+		return getNextQuestion(assignment, level, score), 0
+	attemptsOverall = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
+	if location['Attempt'] < attemptsOverall:
+		return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt']

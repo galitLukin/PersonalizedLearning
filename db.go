@@ -55,6 +55,15 @@ type scores struct {
 	Next4              int
 }
 
+type response struct {
+	IsFirst				bool
+	Level         int
+	Number        int
+	Attempt   		int
+	Correctness   int
+	Timestamp     string
+}
+
 type grade struct {
 	Username      string
 	Assignment    string
@@ -78,10 +87,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	var st string
 	var s scores
 	fmt.Println("Getting user from scores  ...")
-	q := fmt.Sprintf(`SELECT username, assignment, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4,
-	sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4,
-	score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts,
-	score4_correct, score4_attempts, next1, next2, next3, next4 FROM test02.scores
+	q := fmt.Sprintf(`SELECT * FROM test02.scores
 	WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 	rows, err := db.Query(q)
 	dbCheck(err)
@@ -136,6 +142,27 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 func logUserData(s scores) {
 	fmt.Println("score is...", s)
 }
+
+// get data on user's last location - if there was a previous session
+func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
+	var r response
+	r.IsFirst = true
+	r.Level = 0
+	fmt.Println("Getting user location from responses  ...")
+	q := fmt.Sprintf(`SELECT ANY_VALUE(level) AS level,
+	ANY_VALUE(numb) AS numb, ANY_VALUE(attempt) AS attempt, ANY_VALUE(correctness) AS correctness,
+	MAX(answer_timestamp) AS answer_timestamp FROM test02.responses
+	WHERE username = "%s" AND assignment = "%s";`, qd.User.Username, qd.Question.Assignment)
+	rows, err := db.Query(q)
+	dbCheck(err)
+	defer rows.Close()
+	for rows.Next(){
+		 err = rows.Scan(&r.Level, &r.Number, &r.Attempt, &r.Correctness, &r.Timestamp)
+ 	   dbCheck(err)
+	}
+	return r
+}
+
 
 ///////////////////////AFTER USER PRESSES SUBMIT AND BEFORE CALLING PYTHON SCRIPT//////////
 
@@ -393,7 +420,7 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	score := 0
 	scorePossible := 0
 	q := fmt.Sprintf(`SELECT username, assignment, level, numb,
-	    MAX(correctness) AS correctness, FIRST_VALUE(score_possible) AS score_possible
+	    MAX(correctness) AS correctness, ANY_VALUE(score_possible) AS score_possible
 	    FROM test02.responses WHERE username = "%s" AND assignment = "%s"
 	    GROUP BY username, assignment, level, numb;`, qd.User.Username, qd.Question.Assignment)
 	rows, err := db.Query(q)

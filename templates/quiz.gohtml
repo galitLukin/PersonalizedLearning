@@ -8,9 +8,11 @@
         <h3>{{.HTMLContentText}}</h3>
         <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
         <h4>Weight: {{.QuestionData.Question.Weight}}</h4>
-        <div id="quiz-must-select">Please select an answer before you submit.</div>
         {{if eq .QuestionData.QuestionInstance.Status "IncorrectWithAttempts"}}
             <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
+        {{end}}
+        {{if eq .QuestionData.QuestionInstance.Status "Incomplete"}}
+            <div id="quiz-must-select">Please select an answer before you submit.</div>
         {{end}}
         {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
             <div id="quiz-right-answer">Great job!</div>

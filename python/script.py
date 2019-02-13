@@ -8,7 +8,7 @@ class State(Enum):
     QuestionInstance = 2
     User = 3
     Score = 4
-    IsFirst = 5
+    PrevLocation = 5
 
 class QInst(Enum):
     status = 1
@@ -27,13 +27,14 @@ class Status(Enum):
 
 def main():
     state = json.loads(sys.argv[1])
-    if state[State.IsFirst.name] == "true":
+    if state[State.PrevLocation.name]['IsFirst']:
         #state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
-        state[State.Question.name] = helper.getFirstQuestion(state[State.Score.name])
+        state[State.Question.name], attempts = \
+        helper.getFirstQuestion(state[State.Score.name],state[State.PrevLocation.name])
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,
             QInst.answer.name: [],
-            QInst.numAttempts.name: 0
+            QInst.numAttempts.name: attempts
         }
     else:
         status = state[State.QuestionInstance.name][QInst.status.name]

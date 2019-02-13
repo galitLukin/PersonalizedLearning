@@ -148,7 +148,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
-				qd.IsFirst = "false"
+				qd.PrevLocation.IsFirst = false
 				dbInsertResponse(db, qd)
 				if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
 					qd.Score = dbFetchUserInScores(db, qd)
@@ -161,10 +161,9 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	} else {
 		fmt.Println("Initial question...")
 		qd.User.Username = uid
-		qd.IsFirst = "true"
+		qd.Question.Assignment = an
+		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
 		qd = getNextQuizState(qd)
-		dbUpdateResponse(db, qd)
-		dbUpdateScores(db, qd)
 	}
 
 	u := user{
