@@ -65,6 +65,71 @@ type grade struct {
 	Grade         float32
 }
 
+func dbGetUsers(db *sql.DB) string {
+	rows, err := db.Query(`SELECT * FROM users;`)
+	dbCheck(err)
+	defer rows.Close()
+
+	var s string
+
+	// query
+	for rows.Next() {
+		u := user{}
+		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
+		dbCheck(err)
+		s += fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
+		s += "\n"
+	}
+	return s
+}
+
+func dbGetUser(db *sql.DB, email string) user {
+	q := fmt.Sprintf(`SELECT * FROM users WHERE email="%s";`, email)
+	fmt.Println(q)
+	rows, err := db.Query(q)
+	dbCheck(err)
+	defer rows.Close()
+
+	// data to be used in query
+	var u user
+	for rows.Next() {
+		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
+		dbCheck(err)
+		s := fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
+		fmt.Printf(`RETRIEVED USER: %#v`, s)
+	}
+	return u
+}
+
+func dbCreateUser(db *sql.DB, newUser user) string {
+	q := fmt.Sprintf(`insert into test02.users (fName, lName, email, password) values ("%s", "%s", "%s", "%s");`, newUser.First, newUser.Last, newUser.UserName, newUser.Password)
+	stmt, err := db.Prepare(q)
+	dbCheck(err)
+	defer stmt.Close()
+
+	r, err := stmt.Exec()
+	dbCheck(err)
+
+	n, err := r.RowsAffected()
+	dbCheck(err)
+
+	return fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
+}
+
+func dbDeleteUser(db *sql.DB) string {
+	stmt, err := db.Prepare(`DELETE FROM test02.users WHERE fName="Omer";`)
+	dbCheck(err)
+	defer stmt.Close()
+
+	r, err := stmt.Exec()
+	dbCheck(err)
+
+	n, err := r.RowsAffected()
+	dbCheck(err)
+
+	return fmt.Sprintf("%s%d", "DELETED RECORD ", n)
+}
+
 func dbCheck(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -81,14 +146,14 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	  WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 	fmt.Println(q)
 	rows, err := db.Query(q)
+	dbCheck(err)
 	defer rows.Close()
 	fmt.Println("User does not exist 1...")
-	for rows.Next() {
-		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
-		dbCheck(err)
+	i := 0
+	for rows.Next(){
+	   i++
 	}
-	logUserData(s)
-	if err != nil {
+	if i == 0 {
 		fmt.Println("User does not exist 2...")
 		//if rows is empty - this should not occur but if it does, it means we dont have past data on the user
 		//so insert it with these default values
@@ -121,6 +186,11 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 		rows, err := db.Query(q)
 		dbCheck(err)
 		defer rows.Close()
+	}
+
+	for rows.Next() {
+		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
+		dbCheck(err)
 	}
 	defer rows.Close()
 
