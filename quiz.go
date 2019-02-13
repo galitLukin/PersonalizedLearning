@@ -23,6 +23,7 @@ type QuestionData struct {
 	QuestionInstance QuestionInstance
 	User             User
 	Score            scores
+	IsFirst          string
 }
 
 // Question : Data for current question

@@ -149,6 +149,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
 				qd.Score = score
+				qd.IsFirst = "false"
 				dbInsertResponse(db, qd)
 				score = dbFetchUserInScores(db, qd)
 				qd = getNextQuizState(qd)
@@ -160,6 +161,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("Initial question...")
 		qd.QuestionInstance.Answer = nil
 		qd.Score = score
+		qd.IsFirst = "true"
 		qd = getNextQuizState(qd)
 	}
 
