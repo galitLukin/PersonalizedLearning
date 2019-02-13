@@ -22,6 +22,7 @@ type QuestionData struct {
 	Question         Question
 	QuestionInstance QuestionInstance
 	User             User
+	Score            scores
 }
 
 // Question : Data for current question

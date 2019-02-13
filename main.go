@@ -17,19 +17,23 @@ type PageData struct {
 }
 
 type QuizPageData struct {
-	UserData     user
-	QuestionData QuestionData
-	PageType     string
-	HTMLContentText  template.HTML
+	UserData               user
+	QuestionData           QuestionData
+	PageType               string
+	HTMLContentText        template.HTML
 	HTMLContentExplanation template.HTML
 }
 
 type user struct {
-	UserName string
-	Password string
-	First    string
-	Last     string
-	Role     string
+	UserName       string
+	Password       string
+	First          string
+	Last           string
+	Role           string
+	Uid            string
+	PostUrl        string
+	AssignmentName string
+	Score          scores
 }
 
 type session struct {
@@ -63,6 +67,10 @@ var dbUsers = map[string]user{}       // user ID, user -> TODO: should be singul
 var dbSessions = map[string]session{} // session ID, session
 var dbSessionsCleaned time.Time
 var qd QuestionData
+var uid string
+var purl string
+var an string
+var score scores
 
 const sessionLength int = 30
 
@@ -70,6 +78,10 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
+	// uid = "6987787dd79cf0aecabdca8ddae95b4a"
+	uid = "6987787dd79cf0aecabdca8ddae95b4az"
+	purl = "https://nba.com"
+	an = "Climate Change"
 }
 
 func main() {
@@ -102,12 +114,21 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	logPostBody(req)
+	// uid = req.FormValue("user_id")
+	// an = req.FormValue("custom_component_display_name")
+	// purl = req.FormValue("lis_outcome_service_url")
+
+	score = dbInitFetchUser(db, uid, an)
 
 	u := user{
-		UserName: "arieg419@gmail.com",
-		Password: "Beatles",
-		First:    "Omer",
-		Last:     "Goldberg",
+		UserName:       "arieg419@gmail.com",
+		Password:       "Beatles",
+		First:          "Omer",
+		Last:           "Goldberg",
+		Uid:            uid,
+		AssignmentName: an,
+		PostUrl:        purl,
+		Score:          score,
 	}
 	qpd := QuizPageData{
 		UserData:     u,
@@ -127,27 +148,37 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
+				qd.Score = score
+				dbInsertResponse(db, qd)
+				score = dbFetchUserInScores(db, qd)
 				qd = getNextQuizState(qd)
+				dbUpdateResponse(db, qd)
+				dbUpdateScores(db, qd)
 			}
 		}
 	} else {
 		fmt.Println("Initial question...")
 		qd.QuestionInstance.Answer = nil
+		qd.Score = score
 		qd = getNextQuizState(qd)
 	}
 
 	u := user{
-		UserName: "arieg419@gmail.com",
-		Password: "Beatles",
-		First:    "Omer",
-		Last:     "Goldberg",
+		UserName:       "arieg419@gmail.com",
+		Password:       "Beatles",
+		First:          "Omer",
+		Last:           "Goldberg",
+		Uid:            uid,
+		AssignmentName: an,
+		PostUrl:        purl,
+		Score:          score,
 	}
 	qpd := QuizPageData{
-		UserData:     u,
-		QuestionData: qd,
-		PageType:     "quiz",
-		HTMLContentText:  template.HTML(qd.Question.Text),
-		HTMLContentExplanation:  template.HTML(qd.Question.Explanation),
+		UserData:               u,
+		QuestionData:           qd,
+		PageType:               "quiz",
+		HTMLContentText:        template.HTML(qd.Question.Text),
+		HTMLContentExplanation: template.HTML(qd.Question.Explanation),
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
