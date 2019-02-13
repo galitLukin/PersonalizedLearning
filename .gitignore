@@ -21,6 +21,8 @@ python/model/__pycache__/cleanData.cpython-36.pyc
 python/__pycache__/helper.cpython-36.pyc
 python/__pycache__/default.cpython-36.pyc
 
+python/model/data/sqlqueries.sql
+
 python/model/1/cc/mytree.jld2
 python/model/1/cc/tree.dot
 python/model/1/cc/tree.png

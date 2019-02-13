@@ -7,7 +7,8 @@ class State(Enum):
     Question = 1
     QuestionInstance = 2
     User = 3
-
+    Score = 4
+    IsFirst = 5
 
 class QInst(Enum):
     status = 1
@@ -26,7 +27,6 @@ class Status(Enum):
 def main():
     if len(sys.argv) < 2:
         state = {}
-        # history = ???
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
         # TODO:  this should be based on where the user is in which assignment
@@ -42,7 +42,7 @@ def main():
         }
         #TODO: insert user_id that is received
         state['User'] = {
-            'username': "omer"
+            'username': "6987787dd79cf0aecabdca8ddae95b4a1"
         }
     else:
         state = json.loads(sys.argv[1])

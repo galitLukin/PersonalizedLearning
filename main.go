@@ -79,7 +79,7 @@ func init() {
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
 	// uid = "6987787dd79cf0aecabdca8ddae95b4a"
-	uid = "6987787dd79cf0aecabdca8ddae95b4az"
+	uid = "6987787dd79cf0aecabdca8ddae95b4a1"
 	purl = "https://nba.com"
 	an = "Climate Change"
 }
@@ -106,7 +106,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	// fmt.Fprintln(w, "ALL DB USERS\n", u)
-	http.Redirect(w, req, "/login", http.StatusSeeOther)
+	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
 }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
@@ -148,10 +148,9 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
-				qd.Score = score
 				qd.IsFirst = "false"
 				dbInsertResponse(db, qd)
-				score = dbFetchUserInScores(db, qd)
+				qd.Score = dbFetchUserInScores(db, qd)
 				qd = getNextQuizState(qd)
 				dbUpdateResponse(db, qd)
 				dbUpdateScores(db, qd)
