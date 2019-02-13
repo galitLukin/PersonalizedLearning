@@ -28,11 +28,10 @@ class Status(Enum):
 def main():
     state = json.loads(sys.argv[1])
     if state[State.PrevLocation.name]['IsFirst']:
-        #state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
         state[State.Question.name], attempts = \
         helper.getFirstQuestion(state[State.Score.name],state[State.PrevLocation.name])
         state[State.QuestionInstance.name] = {
-            QInst.status.name: Status.NewQuestion.name,
+            QInst.status.name: Status.NewQuestion.name if state[State.Question.name] else Status.Done.name,
             QInst.answer.name: [],
             QInst.numAttempts.name: attempts
         }
@@ -45,7 +44,7 @@ def main():
             state[State.Question.name] = helper.getNextQuestion(
                 question['Assignment'], question['level'], question['number'], state[State.Score.name])
             state[State.QuestionInstance.name] = {
-                QInst.status.name: Status.NewQuestion.name,
+                QInst.status.name: Status.NewQuestion.name if state[State.Question.name] else Status.Done.name,
                 QInst.answer.name: [],
                 QInst.numAttempts.name: 0
             }

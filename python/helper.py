@@ -47,27 +47,7 @@ def getNextQuestion(assignment, level, number, score):
 	asmt = map[assignment];
 	with open('./python/LinearRegression.json', encoding='utf-8') as f:
 	    questions = json.load(f)
-
-	#should recieve this from omer
-	# historydb = ["None", "None", "audit", "Null", \
-	# 1, 1, 1, 1, \
-	# 1, 1, 1, 1, \
-	# 1, 1, 0.8888888888888888, 1,\
-	# 0, 0, 0, 0, \
-	# 0, 0, 0, 0, \
-	# 1, 0, 0, 0, \
-	# 1, 0, 0, 0, \
-	# 2, 1, 1, 1]
-	#
-	# features = ["gender", "level_of_education", "enrollment_mode", "ageCategory", \
-	# "ad1", "ad2", "ad3", "ad4", "sd1", "sd2", "sd3", "sd4", "de1", "de2", "de3", "de4",\
-	# "cc1", "cc2", "cc3", "cc4", "rts1", "rts2", "rts3", "rts4",\
-	# "score1_correct", "score2_correct", "score3_correct", "score4_correct", \
-	# "score1_attempts", "score2_attempts", "score3_attempts", "score4_attempts",\
-  	# "next1", "next2", "next3", "next4"]
-
 	try:
-		#history = dict(zip(features,historydb))
 		for l in range(1,5):
 			if score['score{}_attempts'.format(l)] > 0:
 				score['score{}'.format(l)] = float(score['score{}_correct'.format(l)])/score['score{}_attempts'.format(l)]
