@@ -65,8 +65,8 @@ func getQuestion() QuestionData {
 }
 
 func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
-	if s == "" {
-		cmd := exec.Command(Python, PathToPythonScript)
+	if q.IsFirst == "true" {
+		cmd := exec.Command(Python, PathToPythonScript, s)
 		outb, err := cmd.CombinedOutput()
 		if err != nil {
 			fmt.Println(err)
@@ -91,9 +91,6 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 }
 
 func getNextQuizState(q QuestionData) QuestionData {
-	if q.QuestionInstance.Answer == nil {
-		return getQuestionFromPythonScript(q, "")
-	}
 	j, err := json.Marshal(q)
 	if err != nil {
 		panic(err)

@@ -118,7 +118,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	// an = req.FormValue("custom_component_display_name")
 	// purl = req.FormValue("lis_outcome_service_url")
 
-	score = dbInitFetchUser(db, uid, an)
+	qd.Score = dbInitFetchUser(db, uid, an)
 
 	u := user{
 		UserName:       "arieg419@gmail.com",
@@ -150,7 +150,9 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				qd.QuestionInstance.Answer = values
 				qd.IsFirst = "false"
 				dbInsertResponse(db, qd)
-				qd.Score = dbFetchUserInScores(db, qd)
+				if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
+					qd.Score = dbFetchUserInScores(db, qd)
+				}
 				qd = getNextQuizState(qd)
 				dbUpdateResponse(db, qd)
 				dbUpdateScores(db, qd)
@@ -158,10 +160,11 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		}
 	} else {
 		fmt.Println("Initial question...")
-		qd.QuestionInstance.Answer = nil
-		qd.Score = score
+		qd.User.Username = uid
 		qd.IsFirst = "true"
 		qd = getNextQuizState(qd)
+		dbUpdateResponse(db, qd)
+		dbUpdateScores(db, qd)
 	}
 
 	u := user{

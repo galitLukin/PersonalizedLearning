@@ -78,14 +78,19 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	var st string
 	var s scores
 	fmt.Println("Getting user from scores  ...")
-	q := fmt.Sprintf(`SELECT username, assignment FROM test02.scores
-	  WHERE username = "%s" AND assignment = "%s";`, user, assignment)
+	q := fmt.Sprintf(`SELECT username, assignment, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4,
+	sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4,
+	score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts,
+	score4_correct, score4_attempts, next1, next2, next3, next4 FROM test02.scores
+	WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
 	i := 0
 	for rows.Next(){
 	   i++
+		 err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
+ 	   dbCheck(err)
 	}
 	if i == 0 {
 		fmt.Println("User does not exist ...")
@@ -114,18 +119,17 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 
 		st += fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
 
-		q = fmt.Sprintf(`SELECT username, assignment FROM test02.scores
+		q = fmt.Sprintf(`SELECT * FROM test02.scores
 				WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 		rows, err := db.Query(q)
 		dbCheck(err)
 		defer rows.Close()
+		for rows.Next() {
+			err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
+			dbCheck(err)
+		}
 	}
 	fmt.Println("Received user from scores  ...")
-
-	for rows.Next() {
-		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
-		dbCheck(err)
-	}
 	return s
 }
 
@@ -168,17 +172,15 @@ func dbInsertResponse(db *sql.DB, qd QuestionData) {
 func dbFetchUserInScores(db *sql.DB, qd QuestionData) scores {
 	fmt.Println("Getting user from scores  ...")
 	var s scores
-	if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
-		q := fmt.Sprintf(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
-			qd.User.Username, qd.Question.Assignment)
-		rows, err := db.Query(q)
-		dbCheck(err)
-		defer rows.Close()
+	q := fmt.Sprintf(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
+		qd.User.Username, qd.Question.Assignment)
+	rows, err := db.Query(q)
+	dbCheck(err)
+	defer rows.Close()
 
-		for rows.Next() {
-			err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
-			dbCheck(err)
-		}
+	for rows.Next() {
+		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
+		dbCheck(err)
 	}
 	return s
 }
