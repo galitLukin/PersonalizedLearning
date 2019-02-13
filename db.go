@@ -65,70 +65,70 @@ type grade struct {
 	Grade		float32
 }
 
-func dbGetUsers(db *sql.DB) string {
-	rows, err := db.Query(`SELECT * FROM users;`)
-	dbCheck(err)
-	defer rows.Close()
-
-	var s string
-
-	// query
-	for rows.Next() {
-		u := user{}
-		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
-		dbCheck(err)
-		s += fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
-		s += "\n"
-	}
-	return s
-}
-
-func dbGetUser(db *sql.DB, email string) user {
-	q := fmt.Sprintf(`SELECT * FROM users WHERE email="%s";`, email)
-	fmt.Println(q)
-	rows, err := db.Query(q)
-	dbCheck(err)
-	defer rows.Close()
-
-	// data to be used in query
-	var u user
-	for rows.Next() {
-		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
-		dbCheck(err)
-		s := fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
-		fmt.Printf(`RETRIEVED USER: %#v`, s)
-	}
-	return u
-}
-
-func dbCreateUser(db *sql.DB, newUser user) string {
-	q := fmt.Sprintf(`insert into test02.users (fName, lName, email, password) values ("%s", "%s", "%s", "%s");`, newUser.First, newUser.Last, newUser.UserName, newUser.Password)
-	stmt, err := db.Prepare(q)
-	dbCheck(err)
-	defer stmt.Close()
-
-	r, err := stmt.Exec()
-	dbCheck(err)
-
-	n, err := r.RowsAffected()
-	dbCheck(err)
-
-	return fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
-}
-
-func dbDeleteUser(db *sql.DB) string {
-	stmt, err := db.Prepare(`DELETE FROM test02.users WHERE fName="Omer";`)
-	dbCheck(err)
-	defer stmt.Close()
-
-	r, err := stmt.Exec()
-	dbCheck(err)
-
-	n, err := r.RowsAffected()
-	dbCheck(err)
-
-	return fmt.Sprintf("%s%d", "DELETED RECORD ", n)
-}
+// func dbGetUsers(db *sql.DB) string {
+// 	rows, err := db.Query(`SELECT * FROM users;`)
+// 	dbCheck(err)
+// 	defer rows.Close()
+//
+// 	var s string
+//
+// 	// query
+// 	for rows.Next() {
+// 		u := user{}
+// 		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
+// 		dbCheck(err)
+// 		s += fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
+// 		s += "\n"
+// 	}
+// 	return s
+// }
+//
+// func dbGetUser(db *sql.DB, email string) user {
+// 	q := fmt.Sprintf(`SELECT * FROM users WHERE email="%s";`, email)
+// 	fmt.Println(q)
+// 	rows, err := db.Query(q)
+// 	dbCheck(err)
+// 	defer rows.Close()
+//
+// 	// data to be used in query
+// 	var u user
+// 	for rows.Next() {
+// 		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
+// 		dbCheck(err)
+// 		s := fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
+// 		fmt.Printf(`RETRIEVED USER: %#v`, s)
+// 	}
+// 	return u
+// }
+//
+// func dbCreateUser(db *sql.DB, newUser user) string {
+// 	q := fmt.Sprintf(`insert into test02.users (fName, lName, email, password) values ("%s", "%s", "%s", "%s");`, newUser.First, newUser.Last, newUser.UserName, newUser.Password)
+// 	stmt, err := db.Prepare(q)
+// 	dbCheck(err)
+// 	defer stmt.Close()
+//
+// 	r, err := stmt.Exec()
+// 	dbCheck(err)
+//
+// 	n, err := r.RowsAffected()
+// 	dbCheck(err)
+//
+// 	return fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
+// }
+//
+// func dbDeleteUser(db *sql.DB) string {
+// 	stmt, err := db.Prepare(`DELETE FROM test02.users WHERE fName="Omer";`)
+// 	dbCheck(err)
+// 	defer stmt.Close()
+//
+// 	r, err := stmt.Exec()
+// 	dbCheck(err)
+//
+// 	n, err := r.RowsAffected()
+// 	dbCheck(err)
+//
+// 	return fmt.Sprintf("%s%d", "DELETED RECORD ", n)
+// }
 
 func dbCheck(err error) {
 	if err != nil {
@@ -136,8 +136,9 @@ func dbCheck(err error) {
 	}
 }
 
+/////////////////BEGINNING OF ASSIGNMENT////////////////
+
 //get user data at the start of the assignment
-//beginning of assignment
 func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	q := fmt.Sprintf(`SELECT username, assignment FROM test02.scores
 	  WHERE username = "%s" AND assignment = "%s";`, user, assignment)
@@ -178,29 +179,28 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	 	dbCheck(err)
 
 	 	st += fmt.Sprintf("%s%d", "INSERTED RECORD ", n)
-	}
 
-	q = fmt.Sprintf(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
-		qd.User.Username, qd.Question.Assignment)
-	fmt.Println(q)
-	rows, err = db.Query(q)
-	dbCheck(err)
-	defer rows.Close()
+		q = fmt.Sprintf(`SELECT username, assignment FROM test02.scores
+			WHERE username = "%s" AND assignment = "%s";`, user, assignment)
+		fmt.Println(q)
+		rows, err := db.Query(q)
+		dbCheck(err)
+		defer rows.Close()
+	}
 
 	for rows.Next() {
 		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4)
 		dbCheck(err)
 	}
-
 	return s
 }
+
+///////////////////////AFTER USER PRESSES SUBMIT AND BEFORE CALLING PYTHON SCRIPT//////////
 
 //records response
 //after user presses submit and before calling python script
 //records only if user marked down an answer
 func dbInsertResponse(db *sql.DB, qd QuestionData) string {
-	//run when user submits answer if q.QuestionInstance.answer is not empty
-	//save response to responses
 	var s string
 	if qd.QuestionInstance.Status == "NewQuestion" || qd.QuestionInstance.Status == "IncorrectWithAttempts"{
 		t := time.Now()
@@ -330,6 +330,8 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) string {
 }
 
 /////////////////END OF ASSIGNMENT//////////////////
+
+
 // end of assignment happens when the user closes the tab or finishes the assignment
 func dbCalculateScores(db *sql.DB, qd QuestionData) string {
 	//save user's score in each level in all three of the user's rows (one row per assignment)

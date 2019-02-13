@@ -30,6 +30,7 @@ def main():
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
         # TODO:  this should be based on where the user is in which assignment
+        # scores row is only queired for first question an when status is corrent, incoreectnoattemtps
         # so first call to script should be with scores row
         # all other calls to script should be with Json+scores row or just Json - ask omer about this
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
