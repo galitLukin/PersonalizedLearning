@@ -152,10 +152,11 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				dbInsertResponse(db, qd)
 				if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
 					qd.Score = dbFetchUserInScores(db, qd)
+				}	else if qd.QuestionInstance.Status == "Done" {
+					//do all db queries for end
 				}
 				qd = getNextQuizState(qd)
-				dbUpdateResponse(db, qd)
-				dbUpdateScores(db, qd)
+				dbUpdateFinishedQuestion(db, qd)
 			}
 		}
 	} else {

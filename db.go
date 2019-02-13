@@ -149,17 +149,17 @@ func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 	r.IsFirst = true
 	r.Level = 0
 	fmt.Println("Getting user location from responses  ...")
-	q := fmt.Sprintf(`SELECT ANY_VALUE(level) AS level,
-	ANY_VALUE(numb) AS numb, ANY_VALUE(attempt) AS attempt, ANY_VALUE(correctness) AS correctness,
-	MAX(answer_timestamp) AS answer_timestamp FROM test02.responses
-	WHERE username = "%s" AND assignment = "%s";`, qd.User.Username, qd.Question.Assignment)
+	q := fmt.Sprintf(`SELECT level, numb, attempt, correctness FROM test02.responses
+   WHERE username = "%s" AND assignment = "%s" ORDER BY answer_timestamp DESC
+   LIMIT 1;`, qd.User.Username, qd.Question.Assignment)
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
 	for rows.Next(){
-		 err = rows.Scan(&r.Level, &r.Number, &r.Attempt, &r.Correctness, &r.Timestamp)
+		 err = rows.Scan(&r.Level, &r.Number, &r.Attempt, &r.Correctness)
  	   dbCheck(err)
 	}
+	fmt.Println("Received users past location: ", r)
 	return r
 }
 
@@ -294,6 +294,10 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) {
 	}
 }
 
+func dbUpdateFinishedQuestion(db *sql.DB, qd QuestionData){
+	dbUpdateResponse(db, qd)
+	dbUpdateScores(db, qd)
+}
 /////////////////END OF ASSIGNMENT//////////////////
 
 // end of assignment happens when the user closes the tab or finishes the assignment
