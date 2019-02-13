@@ -29,9 +29,8 @@ def main():
         with open('./python/LinearRegression.json', encoding='utf-8') as f:
             questions = json.load(f)
         # TODO:  this should be based on where the user is in which assignment
-        # so first call to script should be with history+assignment+user_id
-        # need history? or is it saved by lti?
-        # all other calls to script should be with Json+history or just json
+        # so first call to script should be with assignment+user_id
+        # all other calls to script should be with Json+history or just Json
         state[State.Question.name] = questions['ClimateChange'][0]['questions'][0]
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name,
@@ -42,36 +41,35 @@ def main():
         state['User'] = {
             'username': "omer"
         }
-    elif len(sys.argv) == 3:
-        # the status is correct or incorrectnoattempts
+    else:
         state = json.loads(sys.argv[1])
 
         status = state[State.QuestionInstance.name][QInst.status.name]
         questionInstance = state[State.QuestionInstance.name]
         question = state[State.Question.name]
 
-        state[State.Question.name] = helper.getNextQuestion(
-            question['Assignment'], question['level'], question['number'])
-        state[State.QuestionInstance.name] = {
-            QInst.status.name: Status.NewQuestion.name,
-            QInst.answer.name: [],
-            QInst.numAttempts.name: 0
-        }
-    else:
-        # user is in process of answering
-        state = json.loads(sys.argv[1])
-        if not questionInstance[QInst.answer.name][0]:
-            # user did not answer question
-            state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
+        if status == Status.Correct.name or status == Status.IncorrectNoAttempts.name:
+            state[State.Question.name] = helper.getNextQuestion(
+                question['Assignment'], question['level'], question['number'])
+            state[State.QuestionInstance.name] = {
+                QInst.status.name: Status.NewQuestion.name,
+                QInst.answer.name: [],
+                QInst.numAttempts.name: 0
+            }
         else:
-            # user answered question
-            state[State.QuestionInstance.name][QInst.numAttempts.name] = questionInstance[QInst.numAttempts.name] + 1
-            if helper.isCorrect(questionInstance[QInst.answer.name], question['correctAnswer']):
-                state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
-            elif state[State.QuestionInstance.name][QInst.numAttempts.name] < question['attemptsOverall']:
-                state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
+            # user is in process of answering
+            if not questionInstance[QInst.answer.name][0]:
+                # user did not answer question
+                state[State.QuestionInstance.name][QInst.status.name] = Status.Incomplete.name
             else:
-                state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
+                # user answered question
+                state[State.QuestionInstance.name][QInst.numAttempts.name] = questionInstance[QInst.numAttempts.name] + 1
+                if helper.isCorrect(questionInstance[QInst.answer.name], question['correctAnswer']):
+                    state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
+                elif state[State.QuestionInstance.name][QInst.numAttempts.name] < question['attemptsOverall']:
+                    state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
+                else:
+                    state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
 
     print(json.dumps(state))
 
