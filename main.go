@@ -164,6 +164,8 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		qd.User.Username = uid
 		qd.Question.Assignment = an
 		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
+		fmt.Println(qd.PrevLocation)
+		fmt.Println(qd.Score)
 		qd = getNextQuizState(qd)
 	}
 

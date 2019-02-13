@@ -131,8 +131,7 @@ def getFirstQuestion(score, location):
 		questions = json.load(f)
 	if level == 0:
 		return questions[assignment][0]['questions'][0], 0
-	if location['Correctness'] == 1:
-		return getNextQuestion(assignment, level, score), 0
 	attemptsOverall = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
-	if location['Attempt'] < attemptsOverall:
-		return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt']
+	if location['Correctness'] == 1 or location['Attempt'] >= attemptsOverall:
+		return getNextQuestion(assignment, level, numb, score), 0
+	return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt']
