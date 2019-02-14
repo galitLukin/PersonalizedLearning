@@ -43,14 +43,7 @@
             "TSI",
             "Aerosols"
           ],
-          "correctAnswer": [
-            "MEI",
-            "CO2",
-            "CFC.11",
-            "CFC.12",
-            "TSI",
-            "Aerosols"
-          ],
+          "correctAnswer": ["MEI,CO2,CFC.11,CFC.12,TSI,Aerosols"],
           "explanation": "<p>If you look at the model we created in the previous problem using summary(climatelm), all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.</p>",
           "attemptsOverall": 2,
           "weight": 1
@@ -157,9 +150,7 @@
             "TSI"
           ],
           "correctAnswer": [
-            "CO2",
-            "CH4",
-            "CFC.12"
+            "CO2,CH4,CFC.12"
           ],
           "explanation": "<p>You can calculate all correlations at once using cor(train) where train is the name of the training data set.</p>",
           "attemptsOverall": 2,
@@ -180,8 +171,7 @@
             "TSI"
           ],
           "correctAnswer": [
-            "CH4",
-            "CFC.12"
+            "CH4,CFC.12"
           ],
           "explanation": "<p>You can calculate all correlations at once using cor(train) where train is the name of the training data set.</p>",
           "attemptsOverall": 1,
@@ -631,12 +621,7 @@
             "raceethWhite"
           ],
           "correctAnswer": [
-            "raceethAmerican Indian/Alaska Native",
-            "raceethAsian",
-            "raceethBlack",
-            "raceethHispanic",
-            "raceethMore than one race",
-            "raceethNative Hawaiian/Other Pacific Islander"
+            "raceethAmerican Indian/Alaska Native,raceethAsian,raceethBlack,raceethHispanic,raceethMore than one race,raceethNative Hawaiian/Other Pacific Islander"
           ],
           "explanation": "<p>We create a binary variable for each level except the reference level, so we would create all these variables except for raceethWhite.</p>",
           "attemptsOverall": 2,
