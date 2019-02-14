@@ -45,6 +45,10 @@ def getNextQuestion(assignment, level, number, score):
 	map={"ClimateChange": "cc", "ReadingTestScores": "rts", "DetectingFluEpedemics": "dfe"}
 	mapQues={"ClimateChange":5,"ReadingTestScores":6,"DetectingFluEpedemics":7}
 	asmt = map[assignment];
+	lowerIt = lambda s: s[:1].lower() + s[1:] if s else ''
+	for key in score:
+		score[lowerIt(key)] = score.pop(key)
+
 	with open('./python/LinearRegression.json', encoding='utf-8') as f:
 	    questions = json.load(f)
 	try:
@@ -68,13 +72,13 @@ def getNextQuestion(assignment, level, number, score):
 			treatment = getNextNode(score,lnr,treatment)
 			infLoop += 1
 			if infLoop > 10 or not treatment:
-				level,q = default.path(assignment,history,level)
-				if level is not None and q is not None:
+				level,q = default.path(assignment,score,level)
+				if level is not -1:
 					return questions[assignment][level]['questions'][q]
 				return
 		except:
-			level,q = default.path(assignment,history,level)
-			if level is not None and q is not None:
+			level,q = default.path(assignment,score,level)
+			if level is not -1:
 				return questions[assignment][level]['questions'][q]
 			return
 
@@ -82,19 +86,19 @@ def getNextQuestion(assignment, level, number, score):
 	prevLevelFull = False
 
 	if treatment == "A":
-		q = history["next{}".format(level - 1)] - 1
+		q = score["next{}".format(level - 1)] - 1
 		if q < lastQues:
 			return questions[assignment][level - 2]['questions'][q]
 		prevLevelFull = True
 	if treatment == "B" or prevLevelFull:
-		q = history["next{}".format(level)] - 1
+		q = score["next{}".format(level)] - 1
 		if q < lastQues:
 			return questions[assignment][level - 1]['questions'][q]
 		prevLevelFull = True
 	if treatment == "C" or prevLevelFull:
 		if default.prequisiteSatisfied(assignment, level, number):
 			while level < 4:
-				q = history["next{}".format(level + 1)] - 1
+				q = score["next{}".format(level + 1)] - 1
 				if q < lastQues:
 					return questions[assignment][level]['questions'][q]
 				level += 1
@@ -111,7 +115,7 @@ def getFirstQuestion(score, location):
 		questions = json.load(f)
 	if level == 0:
 		return questions[assignment][0]['questions'][0], 0
-	attemptsOverall = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
+	q = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
 	if location['Correctness'] == 1 or location['Attempt'] >= attemptsOverall:
 		return getNextQuestion(assignment, level, numb, score), 0
 	return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt']

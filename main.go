@@ -159,8 +159,10 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
 				if qd.QuestionInstance.Status == "Done" {
+					fmt.Println("Quiz is done ...")
 					// This return a float which is the grade to return to edX
-					dbAssignmentDone(db, qd)
+					grade := dbAssignmentDone(db, qd)
+					fmt.Println("Users Grade Is: ", grade)
 					//put end template and send post request to edX
 				}
 			}

@@ -254,7 +254,7 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) {
 			  score3_correct = score3_correct + 1 WHERE username = "%s" AND assignment = "%s";`,
 				qd.QuestionInstance.NumAttempts, qd.User.Username, qd.Question.Assignment)
 		} else {
-			q = fmt.Sprintf(`update test02.scores SET next2 = next4 + 1, score4_attempts = score4_attempts + "%d",
+			q = fmt.Sprintf(`update test02.scores SET next4 = next4 + 1, score4_attempts = score4_attempts + "%d",
 			  score4_correct = score4_correct + 1 WHERE username = "%s" AND assignment = "%s";`,
 				qd.QuestionInstance.NumAttempts, qd.User.Username, qd.Question.Assignment)
 		}
