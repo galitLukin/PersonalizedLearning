@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	//"github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
 	"net/http/httputil"
@@ -33,8 +32,6 @@ type user struct {
 	Uid            string
 	PostUrl        string
 	AssignmentName string
-	Score          scores
-	Grade					 float32
 }
 
 type session struct {
@@ -71,7 +68,6 @@ var qd QuestionData
 var uid string
 var purl string
 var an string
-var score scores
 
 const sessionLength int = 30
 
@@ -129,8 +125,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		Uid:            uid,
 		AssignmentName: an,
 		PostUrl:        purl,
-		Score:          score,
-		Grade:          0.0,
 	}
 	qpd := QuizPageData{
 		UserData:     u,
@@ -140,7 +134,17 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
+func finishAssignment(db *sql.DB, qd QuestionData){
+	if qd.QuestionInstance.Status == "Done" {
+		fmt.Println("Quiz is done ...")
+		qd.Score.Grade = dbAssignmentDone(db, qd)
+		fmt.Println("Users Grade Is: ", qd.Score.Grade)
+		//send post request to edX with the value qd.Score.Grade
+	}
+}
+
 func quiz(w http.ResponseWriter, req *http.Request) {
+
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
@@ -157,13 +161,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				}
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
-				if qd.QuestionInstance.Status == "Done" {
-					fmt.Println("Quiz is done ...")
-					// This return a float which is the grade to return to edX
-					u.Grade = dbAssignmentDone(db, qd)
-					fmt.Println("Users Grade Is: ", u.Grade)
-					//put end template and send post request to edX
-				}
+				finishAssignment(db,qd)
 			}
 		}
 	} else {
@@ -172,6 +170,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		qd.Question.Assignment = an
 		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
 		qd = getNextQuizState(qd)
+		finishAssignment(db,qd)
 	}
 
 	u := user{
@@ -182,9 +181,8 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		Uid:            uid,
 		AssignmentName: an,
 		PostUrl:        purl,
-		Score:          score,
-		Grade:          0.0,
 	}
+
 	qpd := QuizPageData{
 		UserData:               u,
 		QuestionData:           qd,

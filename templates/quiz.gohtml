@@ -6,7 +6,7 @@
           {{if eq .QuestionData.QuestionInstance.Status "Done"}}
                 <div class="card">
                     <h1>You Have Completed Your Assignment!</h1>
-                    <h3>Your Grade is {{.UserData.Grade}}</h3>
+                    <h3>The Amount of Points You Have Received is {{.QuestionData.Score.Grade}}.</h3>
                 </div>
           {{else }}
                 <div class="card">
