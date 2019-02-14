@@ -76,7 +76,7 @@ func init() {
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
 
-	uid = "6987787dd79cf0aecabdca8ddae95b4a1"
+	uid = "6987787dd79cf0aecabdca8ddae95b4a3"
 	purl = "https://nba.com"
 	an = "Climate Change"
 }
@@ -134,13 +134,14 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
-func finishAssignment(db *sql.DB, qd QuestionData){
+func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 	if qd.QuestionInstance.Status == "Done" {
 		fmt.Println("Quiz is done ...")
 		qd.Score.Grade = dbAssignmentDone(db, qd)
 		fmt.Println("Users Grade Is: ", qd.Score.Grade)
-		//send post request to edX with the value qd.Score.Grade
+		return qd.Score.Grade
 	}
+	return 0.0
 }
 
 func quiz(w http.ResponseWriter, req *http.Request) {
@@ -161,7 +162,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				}
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
-				finishAssignment(db,qd)
+				qd.Score.Grade = finishAssignment(db,qd)
 			}
 		}
 	} else {
@@ -170,7 +171,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		qd.Question.Assignment = an
 		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
 		qd = getNextQuizState(qd)
-		finishAssignment(db,qd)
+		qd.Score.Grade = finishAssignment(db,qd)
 	}
 
 	u := user{
@@ -191,6 +192,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		HTMLContentExplanation: template.HTML(qd.Question.Explanation),
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
+	//send post request to edX with the value qd.Score.Grade
 }
 
 
