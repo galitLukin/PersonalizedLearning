@@ -34,6 +34,7 @@ type user struct {
 	PostUrl        string
 	AssignmentName string
 	Score          scores
+	Grade					 float32
 }
 
 type session struct {
@@ -95,6 +96,7 @@ func main() {
 	//http.HandleFunc("/signup", signup)
 	//http.HandleFunc("/login", login)
 	//http.HandleFunc("/logout", logout)
+	//http.HandleFunc("/end", end)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":80", nil)
 }
@@ -129,6 +131,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		AssignmentName: an,
 		PostUrl:        purl,
 		Score:          score,
+		Grade:          0.0,
 	}
 	qpd := QuizPageData{
 		UserData:     u,
@@ -156,9 +159,9 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
 				if qd.QuestionInstance.Status == "Done" {
-					// This is the grade (float) to return to edX
+					// This return a float which is the grade to return to edX
 					dbAssignmentDone(db, qd)
-					//put finished template and send post request to edX
+					//put end template and send post request to edX
 				}
 			}
 		}
@@ -179,6 +182,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		AssignmentName: an,
 		PostUrl:        purl,
 		Score:          score,
+		Grade:          0.0,
 	}
 	qpd := QuizPageData{
 		UserData:               u,
@@ -190,19 +194,39 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
-func home(w http.ResponseWriter, req *http.Request) {
-	u := getUser(w, req)
-	if !alreadyLoggedIn(w, req) {
-		http.Redirect(w, req, "/", http.StatusSeeOther)
-		return
+func end(w http.ResponseWriter, req *http.Request, g float32){
+	u := user{
+		UserName:       "arieg419@gmail.com",
+		Password:       "Beatles",
+		First:          "Omer",
+		Last:           "Goldberg",
+		Uid:            uid,
+		AssignmentName: an,
+		PostUrl:        purl,
+		Score:          score,
+		Grade:          g,
 	}
-	showSessions()
-	pd := PageData{
-		UserData: u,
-		PageType: "home",
+	qpd := QuizPageData{
+		UserData:     u,
+		QuestionData: qd,
+		PageType:     "getstarted",
 	}
-	tpl.ExecuteTemplate(w, "layout", pd)
+	tpl.ExecuteTemplate(w, "layout", qpd)
 }
+
+// func home(w http.ResponseWriter, req *http.Request) {
+// 	u := getUser(w, req)
+// 	if !alreadyLoggedIn(w, req) {
+// 		http.Redirect(w, req, "/", http.StatusSeeOther)
+// 		return
+// 	}
+// 	showSessions()
+// 	pd := PageData{
+// 		UserData: u,
+// 		PageType: "home",
+// 	}
+// 	tpl.ExecuteTemplate(w, "layout", pd)
+// }
 
 // func signup(w http.ResponseWriter, req *http.Request) {
 // 	if alreadyLoggedIn(w, req) {

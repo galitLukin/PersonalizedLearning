@@ -19,6 +19,8 @@
       {{template "signup" .}}
     {{else if eq .PageType "quiz"}}
       {{template "quiz" .}}
+    {{else if eq .PageType "end"}}
+      {{template "end" .}}
     {{end}}
   </div>
   {{template "footer" .}}
