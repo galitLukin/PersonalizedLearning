@@ -152,11 +152,14 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				dbInsertResponse(db, qd)
 				if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
 					qd.Score = dbFetchUserInScores(db, qd)
-				}	else if qd.QuestionInstance.Status == "Done" {
-					//do all db queries for end
 				}
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
+				if qd.QuestionInstance.Status == "Done" {
+					// This is the grade (float) to return to edX
+					dbAssignmentDone(db, qd)
+					//put finished template and send post request to edX
+				}
 			}
 		}
 	} else {
@@ -164,8 +167,6 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		qd.User.Username = uid
 		qd.Question.Assignment = an
 		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
-		fmt.Println(qd.PrevLocation)
-		fmt.Println(qd.Score)
 		qd = getNextQuizState(qd)
 	}
 
