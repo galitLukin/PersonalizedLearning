@@ -3,134 +3,141 @@
 
 {{define "quiz"}}
     {{if .QuestionData}}
-    <div class="card">
-        <h2>{{.QuestionData.Question.Assignment}}</h2>
-        <h3>{{.HTMLContentText}}</h3>
-        <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
-        <h4>Weight: {{.QuestionData.Question.Weight}}</h4>
-        {{if eq .QuestionData.QuestionInstance.Status "IncorrectWithAttempts"}}
-            <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
-        {{end}}
-        {{if eq .QuestionData.QuestionInstance.Status "Incomplete"}}
-            <div id="quiz-must-select">Please select an answer before you submit.</div>
-        {{end}}
-        {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
-            <div id="quiz-right-answer">Great job!</div>
-            <h4>Correct Answer: {{.QuestionData.Question.CorrectAnswer}} </h4>
-            <h4>Explanation: {{.HTMLContentExplanation}} </h4>
-        {{else if eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`}}
-            <div id="quiz-wrong-answer"> Wrong answer. Try another question. </div>
-            <h4>Correct Answer: {{.QuestionData.Question.CorrectAnswer}} </h4>
-            <h4>Explanation: {{.HTMLContentExplanation}} </h4>
-        {{else }}
-            {{ range .QuestionData.Question.Options }}
-                <div class="answer-choice-container">
-                    <div class="answer-choice-radio-btn"
-                        id={{.}}
-                        name={{.}}
-                        data-selected="false"
-                        onclick="onRadioButtonClick(event)">
-                    </div>
-                    <div class="answer-choice">
-                        {{.}}
+          {{if eq .QuestionData.QuestionInstance.Status "Done"}}
+                <div class="card">
+                    <h1>You Have Completed Your Assignment!</h1>
+                    <h3>Your Grade is {{.UserData.Grade}}</h3>
+                </div>
+          {{else }}
+                <div class="card">
+                    <h2>{{.QuestionData.Question.Assignment}}</h2>
+                    <h3>{{.HTMLContentText}}</h3>
+                    <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
+                    <h4>Weight: {{.QuestionData.Question.Weight}}</h4>
+                    {{if eq .QuestionData.QuestionInstance.Status "IncorrectWithAttempts"}}
+                        <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
+                    {{end}}
+                    {{if eq .QuestionData.QuestionInstance.Status "Incomplete"}}
+                        <div id="quiz-must-select">Please select an answer before you submit.</div>
+                    {{end}}
+                    {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
+                        <div id="quiz-right-answer">Great job!</div>
+                        <h4>Correct Answer: {{.QuestionData.Question.CorrectAnswer}} </h4>
+                        <h4>Explanation: {{.HTMLContentExplanation}} </h4>
+                    {{else if eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`}}
+                        <div id="quiz-wrong-answer"> Wrong answer. Try another question. </div>
+                        <h4>Correct Answer: {{.QuestionData.Question.CorrectAnswer}} </h4>
+                        <h4>Explanation: {{.HTMLContentExplanation}} </h4>
+                    {{else }}
+                        {{ range .QuestionData.Question.Options }}
+                            <div class="answer-choice-container">
+                                <div class="answer-choice-radio-btn"
+                                    id={{.}}
+                                    name={{.}}
+                                    data-selected="false"
+                                    onclick="onRadioButtonClick(event)">
+                                </div>
+                                <div class="answer-choice">
+                                    {{.}}
+                                </div>
+                            </div>
+                        {{end}}
+                    {{end}}
+
+                    <div class="quiz-submit-container">
+                        <button id="quiz-submit-btn"
+                                class="btn quiz-btn"
+                                onclick="onSubmit(event)">
+                            {{if or (eq .QuestionData.QuestionInstance.Status `Correct`) (eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`)}}
+                            Next
+                            {{else }}
+                            Submit
+                            {{end}}
+                        </button>
                     </div>
                 </div>
+
+                <script>
+                    const onRadioButtonClick = (e) => {
+                        // Fetch All Radio Buttons
+                        const radioButtons =
+                            document.getElementsByClassName("answer-choice-radio-btn");
+
+                        // Iterate over all radio buttons and toggle data-selected value
+                        for (let i = 0; i < radioButtons.length; i++) {
+                            if (e.target.id === radioButtons[i].id) {
+                                radioButtons[i].style.backgroundColor =
+                                    radioButtons[i].dataset.selected === "true" ? "#fff": "#4878f7";
+                                radioButtons[i].dataset.selected =
+                                    radioButtons[i].dataset.selected === "true" ? "false": "true";
+                            }
+                        }
+                    }
+
+                    const clearStatus = () => {
+                        document.getElementById("quiz-right-answer").style.display = "none";
+                        document.getElementById("quiz-wrong-answer").style.display = "none";
+                        document.getElementById("quiz-must-select").style.display = "none";
+                    }
+
+                    const post = (path, params, method) => {
+                        method = method || "post";
+
+                        const form = document.createElement("form");
+                        form.setAttribute("method", method);
+                        form.setAttribute("action", path);
+
+                        for (let key in params) {
+                            if(params.hasOwnProperty(key)) {
+                                const hiddenField = document.createElement("input");
+                                hiddenField.setAttribute("type", "hidden");
+                                hiddenField.setAttribute("name", key);
+                                hiddenField.setAttribute("value", params[key]);
+                                form.appendChild(hiddenField);
+                            }
+                        }
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+
+                    const onSubmit = (e) => {
+                        // Clear Previous Answer State
+                        {{/* clearStatus(); */}}
+
+                        // Fetch All Radio Buttons
+                        const radioButtons
+                            = document.getElementsByClassName("answer-choice-radio-btn");
+
+                        // Fetch Selected Answer
+                        const selectedAnswersNodes = [];
+                        for (let i = 0; i < radioButtons.length; i++) {
+                            const state = radioButtons[i].getAttribute("data-selected");
+                            if (state === "true") {
+                                selectedAnswersNodes.push(radioButtons[i]);
+                            }
+                        }
+
+                        // Check Answer
+                        {{/* if (selectedAnswersNodes.length === 0) {
+                            document.getElementById("quiz-must-select").style.display = "block";
+                            return;
+                        } */}}
+
+                        const selectedAnswers = selectedAnswersNodes.map(el => el.id);
+                        {{/* for (let i = 0; i < selectedAnswers.length; i++) {
+                            if (selectedAnswers[i] === "MEI") { // TODO, check real answer
+                                document.getElementById("quiz-right-answer").style.display = "block";
+                                document.getElementById("quiz-submit-btn").innerHTML = "Next";
+                                post('/quiz', {selectedAnswers})
+                                return;
+                            }
+                        }
+                        document.getElementById("quiz-wrong-answer").style.display = "block";  */}}
+
+                        // POST Request to server
+                        post('/quiz', {selectedAnswers})
+                    }
+                </script>
             {{end}}
-        {{end}}
-
-        <div class="quiz-submit-container">
-            <button id="quiz-submit-btn"
-                    class="btn quiz-btn"
-                    onclick="onSubmit(event)">
-                {{if or (eq .QuestionData.QuestionInstance.Status `Correct`) (eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`)}}
-                Next
-                {{else }}
-                Submit
-                {{end}}
-            </button>
-        </div>
-    </div>
-
-    <script>
-        const onRadioButtonClick = (e) => {
-            // Fetch All Radio Buttons
-            const radioButtons =
-                document.getElementsByClassName("answer-choice-radio-btn");
-
-            // Iterate over all radio buttons and toggle data-selected value
-            for (let i = 0; i < radioButtons.length; i++) {
-                if (e.target.id === radioButtons[i].id) {
-                    radioButtons[i].style.backgroundColor =
-                        radioButtons[i].dataset.selected === "true" ? "#fff": "#4878f7";
-                    radioButtons[i].dataset.selected =
-                        radioButtons[i].dataset.selected === "true" ? "false": "true";
-                }
-            }
-        }
-
-        const clearStatus = () => {
-            document.getElementById("quiz-right-answer").style.display = "none";
-            document.getElementById("quiz-wrong-answer").style.display = "none";
-            document.getElementById("quiz-must-select").style.display = "none";
-        }
-
-        const post = (path, params, method) => {
-            method = method || "post";
-
-            const form = document.createElement("form");
-            form.setAttribute("method", method);
-            form.setAttribute("action", path);
-
-            for (let key in params) {
-                if(params.hasOwnProperty(key)) {
-                    const hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", key);
-                    hiddenField.setAttribute("value", params[key]);
-                    form.appendChild(hiddenField);
-                }
-            }
-            document.body.appendChild(form);
-            form.submit();
-        }
-
-        const onSubmit = (e) => {
-            // Clear Previous Answer State
-            {{/* clearStatus(); */}}
-
-            // Fetch All Radio Buttons
-            const radioButtons
-                = document.getElementsByClassName("answer-choice-radio-btn");
-
-            // Fetch Selected Answer
-            const selectedAnswersNodes = [];
-            for (let i = 0; i < radioButtons.length; i++) {
-                const state = radioButtons[i].getAttribute("data-selected");
-                if (state === "true") {
-                    selectedAnswersNodes.push(radioButtons[i]);
-                }
-            }
-
-            // Check Answer
-            {{/* if (selectedAnswersNodes.length === 0) {
-                document.getElementById("quiz-must-select").style.display = "block";
-                return;
-            } */}}
-
-            const selectedAnswers = selectedAnswersNodes.map(el => el.id);
-            {{/* for (let i = 0; i < selectedAnswers.length; i++) {
-                if (selectedAnswers[i] === "MEI") { // TODO, check real answer
-                    document.getElementById("quiz-right-answer").style.display = "block";
-                    document.getElementById("quiz-submit-btn").innerHTML = "Next";
-                    post('/quiz', {selectedAnswers})
-                    return;
-                }
-            }
-            document.getElementById("quiz-wrong-answer").style.display = "block";  */}}
-
-            // POST Request to server
-            post('/quiz', {selectedAnswers})
-        }
-    </script>
-    {{end}}
+      {{end}}
 {{end}}

@@ -79,7 +79,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	// uid = "6987787dd79cf0aecabdca8ddae95b4a"
+
 	uid = "6987787dd79cf0aecabdca8ddae95b4a1"
 	purl = "https://nba.com"
 	an = "Climate Change"
@@ -96,7 +96,6 @@ func main() {
 	//http.HandleFunc("/signup", signup)
 	//http.HandleFunc("/login", login)
 	//http.HandleFunc("/logout", logout)
-	//http.HandleFunc("/end", end)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":80", nil)
 }
@@ -161,8 +160,8 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				if qd.QuestionInstance.Status == "Done" {
 					fmt.Println("Quiz is done ...")
 					// This return a float which is the grade to return to edX
-					grade := dbAssignmentDone(db, qd)
-					fmt.Println("Users Grade Is: ", grade)
+					u.Grade = dbAssignmentDone(db, qd)
+					fmt.Println("Users Grade Is: ", u.Grade)
 					//put end template and send post request to edX
 				}
 			}
@@ -196,25 +195,6 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
-func end(w http.ResponseWriter, req *http.Request, g float32){
-	u := user{
-		UserName:       "arieg419@gmail.com",
-		Password:       "Beatles",
-		First:          "Omer",
-		Last:           "Goldberg",
-		Uid:            uid,
-		AssignmentName: an,
-		PostUrl:        purl,
-		Score:          score,
-		Grade:          g,
-	}
-	qpd := QuizPageData{
-		UserData:     u,
-		QuestionData: qd,
-		PageType:     "getstarted",
-	}
-	tpl.ExecuteTemplate(w, "layout", qpd)
-}
 
 // func home(w http.ResponseWriter, req *http.Request) {
 // 	u := getUser(w, req)
