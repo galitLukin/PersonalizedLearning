@@ -80,9 +80,9 @@ func init() {
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
 	// uid = "6987787dd79cf0aecabdca8ddae95b4a"
-	uid = "6987787dd79cf0aecabdca8ddae95b4a1"
-	purl = "https://nba.com"
-	an = "Climate Change"
+	// uid = "6987787dd79cf0aecabdca8ddae95b4a1"
+	// purl = "https://nba.com"
+	// an = "Climate Change"
 }
 
 func main() {
@@ -116,9 +116,9 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	logPostBody(req)
-	// uid = req.FormValue("user_id")
-	// an = req.FormValue("custom_component_display_name")
-	// purl = req.FormValue("lis_outcome_service_url")
+	uid = req.FormValue("user_id")
+	an = req.FormValue("custom_component_display_name")
+	purl = req.FormValue("lis_outcome_service_url")
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
