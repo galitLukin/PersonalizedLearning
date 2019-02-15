@@ -87,6 +87,7 @@ func main() {
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
 	http.HandleFunc("/ping", ping)
+	http.HandleFunc("/instance", instance)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":80", nil)
 }
@@ -103,6 +104,19 @@ func index(w http.ResponseWriter, req *http.Request) {
 
 func ping(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "OK")
+}
+
+func instance(w http.ResponseWriter, req *http.Request) {
+	resp, err := http.Get("http://3.16.157.40/latest/meta-data/instance-id")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	bs := make([]byte, resp.ContentLength)
+	resp.Body.Read(bs)
+	resp.Body.Close()
+	io.WriteString(w, string(bs))
 }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
