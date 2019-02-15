@@ -93,7 +93,8 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
+	// http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
+	io.WriteString(w, "Hello from AWS.")
 }
 
 func ping(w http.ResponseWriter, req *http.Request) {
