@@ -93,12 +93,6 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	// u := dbGetUsers(db)
-	if alreadyLoggedIn(w, req) {
-		http.Redirect(w, req, "/home", http.StatusSeeOther)
-		return
-	}
-	// fmt.Fprintln(w, "ALL DB USERS\n", u)
 	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
 }
 
@@ -109,6 +103,7 @@ func ping(w http.ResponseWriter, req *http.Request) {
 func instance(w http.ResponseWriter, req *http.Request) {
 	resp, err := http.Get("http://3.16.157.40/latest/meta-data/instance-id")
 	if err != nil {
+		io.WriteString(w, "Couldn't fetch meta data "+err.Error())
 		fmt.Println(err)
 		return
 	}
