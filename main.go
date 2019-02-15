@@ -180,6 +180,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		qd.User.Username = uid
 		qd.Question.Assignment = an
 		qd.PrevLocation = dbGetUserPrevLocation(db, qd)
+		fmt.Println(qd.Question.Assignment)
 		qd = getNextQuizState(qd)
 		qd.Score.Grade = finishAssignment(db, qd)
 	}
