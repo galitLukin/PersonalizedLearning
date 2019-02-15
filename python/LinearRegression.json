@@ -441,7 +441,9 @@
             "3663",
             "5233",
             "24",
-            "1570"
+            "1570",
+            "0",
+            "2"
           ],
           "correctAnswer": [
             "3663"
@@ -457,15 +459,18 @@
           "text": "<p>Using tapply() on pisaTrain, what is the average reading test score of males? Of females?</p>",
           "options": [
             "485.22, 509.19",
+            "509.19, 485.22",
             "482.34, 513.16",
+            "513.16, 482.34",
             "512.9406, 483.5325",
-            "483.5325, 512.9406"
+            "483.5325, 512.9406",
+            "NA, NA"
           ],
           "correctAnswer": [
             "483.5325, 512.9406"
           ],
           "explanation": "<p>The correct invocation of tapply() here is:<br /> <br />tapply(pisaTrain$readingScore, pisaTrain$male, mean)</p>",
-          "attemptsOverall": 2,
+          "attemptsOverall": 1,
           "weight": 2
         },
         {
@@ -500,25 +505,7 @@
             "readingScore"
           ],
           "correctAnswer": [
-            "raceeth",
-            "preschool",
-            "expectBachelors",
-            "motherHS",
-            "motherBachelors",
-            "motherWork",
-            "fatherHS",
-            "fatherBachelors",
-            "fatherWork",
-            "selfBornUS",
-            "motherBornUS",
-            "fatherBornUS",
-            "englishAtHome",
-            "computerForSchoolwork",
-            "read30MinsADay",
-            "minutesPerWeekEnglish",
-            "studentsInEnglish",
-            "schoolHasLibrary",
-            "schoolSize"
+            "raceeth,preschool,expectBachelors,motherHS,motherBachelors,motherWork,fatherHS,fatherBachelors,fatherWork,selfBornUS,motherBornUS,fatherBornUS,englishAtHome,computerForSchoolwork,read30MinsADay,minutesPerWeekEnglish,studentsInEnglish,schoolHasLibrary,schoolSize"
           ],
           "explanation": "<p>We can read which variables have missing values from summary(pisaTrain). Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.</p>",
           "attemptsOverall": 2,
@@ -580,7 +567,7 @@
             "186, 266.2, 374.56, 252.69"
           ],
           "explanation": "<p>Amount of missing values: sum(is.na(pisaTrain$minutesPerWeekEnglish))<br /> <br />Average number of minutes that a student spends in English class: mean(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />Replacing missing values with maximum value: pisaTrain$minutesPerWeekEnglish[is.na(pisaTrain$minutesPerWeekEnglish)] <- min(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />mean(pisaTrain$minutesPerWeekEnglish)</p><br /> <br />Notice that there are no longer missing values. To calculate the average when replacing NAs with the minimum value, the data pisaTrain must be read again from the beginning. Similarly, the version of the training set which includes missing values might be needed for future questions.",
-          "attemptsOverall": 3,
+          "attemptsOverall": 2,
           "weight": 2
         }
       ]
@@ -641,11 +628,7 @@
             "raceethNative Hawaiian/Other Pacific Islander"
           ],
           "correctAnswer": [
-            "raceethAmerican Indian/Alaska Native",
-            "raceethBlack",
-            "raceethHispanic",
-            "raceethMore than one race",
-            "raceethNative Hawaiian/Other Pacific Islander"
+            "raceethAmerican Indian/Alaska Native,raceethBlack,raceethHispanic,raceethMore than one race,raceethNative Hawaiian/Other Pacific Islander"
           ],
           "explanation": "<p>An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0</p>",
           "attemptsOverall": 1,
@@ -665,12 +648,7 @@
             "raceethNative Hawaiian/Other Pacific Islander"
           ],
           "correctAnswer": [
-            "raceethAmerican Indian/Alaska Native",
-            "raceethAsian",
-            "raceethBlack",
-            "raceethHispanic",
-            "raceethMore than one race",
-            "raceethNative Hawaiian/Other Pacific Islander"
+            "raceethAmerican Indian/Alaska Native,raceethAsian,raceethBlack,raceethHispanic,raceethMore than one race,raceethNative Hawaiian/Other Pacific Islander"
           ],
           "explanation": "<p>An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0</p>",
           "attemptsOverall": 1,
@@ -837,19 +815,7 @@
             "schoolSize"
           ],
           "correctAnswer": [
-            "preschool",
-            "motherHS",
-            "motherWork",
-            "fatherHS",
-            "fatherWork",
-            "selfBornUS",
-            "motherBornUS",
-            "fatherBornUS",
-            "englishAtHome",
-            "minutesPerWeekEnglish",
-            "studentsInEnglish",
-            "schoolHasLibrary",
-            "urban"
+            "preschool,motherHS,motherWork,fatherHS,fatherWork,selfBornUS,motherBornUS,fatherBornUS,englishAtHome,minutesPerWeekEnglish,studentsInEnglish,schoolHasLibrary,urban"
           ],
           "explanation": "<p>From summary(lmScore), we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.</p>",
           "attemptsOverall": 2,
@@ -978,9 +944,7 @@
             "Consider alternative ways of dealing with missing values in the data"
           ],
           "correctAnswer": [
-            "Remove insignificant independent variables",
-            "Check for multicollinearity between independent variables and remove and high cor- related variables",
-            "Consider alternative ways of dealing with missing values in the data"
+            "Remove insignificant independent variables,Check for multicollinearity between independent variables and remove and high cor- related variables,Consider alternative ways of dealing with missing values in the data"
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 2,
@@ -1106,8 +1070,7 @@
             "The AIC is lower."
           ],
           "correctAnswer": [
-            "The model is more interpretable",
-            "It can prevent overfitting."
+            "The model is more interpretable,It can prevent overfitting."
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
@@ -1276,9 +1239,7 @@
             "log(ILILag2)"
           ],
           "correctAnswer": [
-            "Intercept",
-            "Queries",
-            "log(ILILag2)"
+            "Intercept,Queries,log(ILILag2)"
           ],
           "explanation": "<p>The following code builds and summarizes the FluTrend2 model: FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain) summary(FluTrend2) As can be seen, all three coefficients are highly significant</p>",
           "attemptsOverall": 1,
