@@ -213,6 +213,6 @@ for c in cols:
 cols = ['next1','next2','next3','next4']
 for c in cols:
     data.loc[:,c] = [1]*len(data.index)
-
+data.loc[:,'grade'] = ""*len(data.index)
 data = data.drop('username', axis=1)
 data.to_csv("./python/model/data/exp/scores.csv", index=False)

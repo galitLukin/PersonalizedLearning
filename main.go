@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	//"github.com/satori/go.uuid"
 	"html/template"
+	"io"
 	"net/http"
 	"net/http/httputil"
 	"time"
@@ -33,8 +33,6 @@ type user struct {
 	Uid            string
 	PostUrl        string
 	AssignmentName string
-	Score          scores
-	Grade					 float32
 }
 
 type session struct {
@@ -71,7 +69,6 @@ var qd QuestionData
 var uid string
 var purl string
 var an string
-var score scores
 
 const sessionLength int = 30
 
@@ -79,10 +76,9 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	// uid = "6987787dd79cf0aecabdca8ddae95b4a"
-	// uid = "6987787dd79cf0aecabdca8ddae95b4a1"
-	// purl = "https://nba.com"
-	// an = "Climate Change"
+	uid = "6987787dd79cf0aecabdca8ddae95b4a3"
+	purl = "https://nba.com"
+	an = "Climate Change"
 }
 
 func main() {
@@ -90,13 +86,13 @@ func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
+	http.HandleFunc("/ping", ping)
 	//http.HandleFunc("/getUsers", getUsers)
 	//http.HandleFunc("/deleteUser", deleteUser)
 	//http.HandleFunc("/home", home)
 	//http.HandleFunc("/signup", signup)
 	//http.HandleFunc("/login", login)
 	//http.HandleFunc("/logout", logout)
-	//http.HandleFunc("/end", end)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":80", nil)
 }
@@ -109,6 +105,10 @@ func index(w http.ResponseWriter, req *http.Request) {
 	}
 	// fmt.Fprintln(w, "ALL DB USERS\n", u)
 	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
+}
+
+func ping(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, "OK")
 }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
@@ -130,8 +130,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		Uid:            uid,
 		AssignmentName: an,
 		PostUrl:        purl,
-		Score:          score,
-		Grade:          0.0,
 	}
 	qpd := QuizPageData{
 		UserData:     u,
@@ -141,7 +139,18 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
+func finishAssignment(db *sql.DB, qd QuestionData) float32 {
+	if qd.QuestionInstance.Status == "Done" {
+		fmt.Println("Quiz is done ...")
+		qd.Score.Grade = dbAssignmentDone(db, qd)
+		fmt.Println("Users Grade Is: ", qd.Score.Grade)
+		return qd.Score.Grade
+	}
+	return 0.0
+}
+
 func quiz(w http.ResponseWriter, req *http.Request) {
+
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
@@ -158,21 +167,16 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				}
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
-				if qd.QuestionInstance.Status == "Done" {
-					fmt.Println("Quiz is done ...")
-					// This return a float which is the grade to return to edX
-					grade := dbAssignmentDone(db, qd)
-					fmt.Println("Users Grade Is: ", grade)
-					//put end template and send post request to edX
-				}
+				qd.Score.Grade = finishAssignment(db, qd)
 			}
 		}
 	} else {
 		fmt.Println("Initial question...")
 		qd.User.Username = uid
 		qd.Question.Assignment = an
-		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
+		qd.PrevLocation = dbGetUserPrevLocation(db, qd)
 		qd = getNextQuizState(qd)
+		qd.Score.Grade = finishAssignment(db, qd)
 	}
 
 	u := user{
@@ -183,9 +187,8 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		Uid:            uid,
 		AssignmentName: an,
 		PostUrl:        purl,
-		Score:          score,
-		Grade:          0.0,
 	}
+
 	qpd := QuizPageData{
 		UserData:               u,
 		QuestionData:           qd,
@@ -194,26 +197,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		HTMLContentExplanation: template.HTML(qd.Question.Explanation),
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
-}
-
-func end(w http.ResponseWriter, req *http.Request, g float32){
-	u := user{
-		UserName:       "arieg419@gmail.com",
-		Password:       "Beatles",
-		First:          "Omer",
-		Last:           "Goldberg",
-		Uid:            uid,
-		AssignmentName: an,
-		PostUrl:        purl,
-		Score:          score,
-		Grade:          g,
-	}
-	qpd := QuizPageData{
-		UserData:     u,
-		QuestionData: qd,
-		PageType:     "getstarted",
-	}
-	tpl.ExecuteTemplate(w, "layout", qpd)
+	//send post request to edX with the value qd.Score.Grade
 }
 
 // func home(w http.ResponseWriter, req *http.Request) {

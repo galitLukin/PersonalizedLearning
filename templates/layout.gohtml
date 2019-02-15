@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="/static/styles/main.css">
 </head>
-<body>
+<body onbeforeunload="ConfirmClose()" onunload="HandleOnClose()">
   {{ template "nav" .}}
   <div class="site-content">
     {{if eq .PageType "home"}}
@@ -19,11 +19,34 @@
       {{template "signup" .}}
     {{else if eq .PageType "quiz"}}
       {{template "quiz" .}}
-    {{else if eq .PageType "end"}}
-      {{template "end" .}}
     {{end}}
   </div>
   {{template "footer" .}}
 </body>
+<script>
+  let myclose = false;
+
+  const ConfirmClose = () => {
+      console.log("Confirm close -> aya")
+      alert("are you sure?");
+      if (event.clientY < 0)
+      {
+          event.returnValue = 'You have closed the browser. Do you want to logout from your application?';
+          setTimeout('myclose=false',10);
+          myclose=true;
+      }
+      return null;
+  }
+
+  const HandleOnClose = () => {
+      console.log("Handle close -> aya")
+      if (myclose==true) 
+      {
+          //the url of your logout page which invalidate session on logout 
+          location.replace('/getstarted') ;
+      }   
+      return null;
+  }
+</script>
 </html>
 {{end}}
