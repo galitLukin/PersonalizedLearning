@@ -85,7 +85,6 @@ func dbCheck(err error) {
 
 //get user data at the start of the assignment
 func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
-	var st string
 	var s scores
 	fmt.Println("Getting user from scores  ...")
 	q := fmt.Sprintf(`SELECT * FROM test02.scores
@@ -121,10 +120,8 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 		r, err := stmt.Exec()
 		dbCheck(err)
 
-		n, err := r.RowsAffected()
+		_, err = r.RowsAffected()
 		dbCheck(err)
-
-		st += fmt.Sprintf("INSERTED RECORD ", n)
 
 		q = fmt.Sprintf(`SELECT * FROM test02.scores
 				WHERE username = "%s" AND assignment = "%s";`, user, assignment)
