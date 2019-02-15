@@ -83,7 +83,7 @@ func init() {
 
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	// http.HandleFunc("/", index)
+	http.HandleFunc("/", index)
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
 	http.HandleFunc("/ping", ping)
@@ -93,8 +93,7 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	// http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
-	io.WriteString(w, "Hello from AWS.")
+	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
 }
 
 func ping(w http.ResponseWriter, req *http.Request) {
