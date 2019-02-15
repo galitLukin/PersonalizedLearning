@@ -18,7 +18,7 @@ def path(assignment, history, level):
             if history["next{}".format(level+1)] < defaultPath[level+1]:
                 return level, history["next{}".format(level+1)] - 1
             level += 1
-    return
+    return -1,0
 
 
 def basicPath(assignment, level, number):

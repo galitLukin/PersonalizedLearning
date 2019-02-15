@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	//"github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
 	"net/http/httputil"
@@ -33,7 +32,6 @@ type user struct {
 	Uid            string
 	PostUrl        string
 	AssignmentName string
-	Score          scores
 }
 
 type session struct {
@@ -70,7 +68,6 @@ var qd QuestionData
 var uid string
 var purl string
 var an string
-var score scores
 
 const sessionLength int = 30
 
@@ -78,8 +75,8 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	// uid = "6987787dd79cf0aecabdca8ddae95b4a"
-	uid = "6987787dd79cf0aecabdca8ddae95b4a1"
+
+	uid = "6987787dd79cf0aecabdca8ddae95b4a3"
 	purl = "https://nba.com"
 	an = "Climate Change"
 }
@@ -118,7 +115,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	// an = req.FormValue("custom_component_display_name")
 	// purl = req.FormValue("lis_outcome_service_url")
 
-	score = dbInitFetchUser(db, uid, an)
+	qd.Score = dbInitFetchUser(db, uid, an)
 
 	u := user{
 		UserName:       "arieg419@gmail.com",
@@ -128,7 +125,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		Uid:            uid,
 		AssignmentName: an,
 		PostUrl:        purl,
-		Score:          score,
 	}
 	qpd := QuizPageData{
 		UserData:     u,
@@ -138,7 +134,18 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
+func finishAssignment(db *sql.DB, qd QuestionData) float32 {
+	if qd.QuestionInstance.Status == "Done" {
+		fmt.Println("Quiz is done ...")
+		qd.Score.Grade = dbAssignmentDone(db, qd)
+		fmt.Println("Users Grade Is: ", qd.Score.Grade)
+		return qd.Score.Grade
+	}
+	return 0.0
+}
+
 func quiz(w http.ResponseWriter, req *http.Request) {
+
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
 			fmt.Println("Failed to parse form...")
@@ -148,20 +155,23 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
-				qd.IsFirst = "false"
+				qd.PrevLocation.IsFirst = false
 				dbInsertResponse(db, qd)
-				qd.Score = dbFetchUserInScores(db, qd)
+				if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
+					qd.Score = dbFetchUserInScores(db, qd)
+				}
 				qd = getNextQuizState(qd)
-				dbUpdateResponse(db, qd)
-				dbUpdateScores(db, qd)
+				dbUpdateFinishedQuestion(db, qd)
+				qd.Score.Grade = finishAssignment(db,qd)
 			}
 		}
 	} else {
 		fmt.Println("Initial question...")
-		qd.QuestionInstance.Answer = nil
-		qd.Score = score
-		qd.IsFirst = "true"
+		qd.User.Username = uid
+		qd.Question.Assignment = an
+		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
 		qd = getNextQuizState(qd)
+		qd.Score.Grade = finishAssignment(db,qd)
 	}
 
 	u := user{
@@ -172,8 +182,8 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		Uid:            uid,
 		AssignmentName: an,
 		PostUrl:        purl,
-		Score:          score,
 	}
+
 	qpd := QuizPageData{
 		UserData:               u,
 		QuestionData:           qd,
@@ -182,21 +192,23 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		HTMLContentExplanation: template.HTML(qd.Question.Explanation),
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
+	//send post request to edX with the value qd.Score.Grade
 }
 
-func home(w http.ResponseWriter, req *http.Request) {
-	u := getUser(w, req)
-	if !alreadyLoggedIn(w, req) {
-		http.Redirect(w, req, "/", http.StatusSeeOther)
-		return
-	}
-	showSessions()
-	pd := PageData{
-		UserData: u,
-		PageType: "home",
-	}
-	tpl.ExecuteTemplate(w, "layout", pd)
-}
+
+// func home(w http.ResponseWriter, req *http.Request) {
+// 	u := getUser(w, req)
+// 	if !alreadyLoggedIn(w, req) {
+// 		http.Redirect(w, req, "/", http.StatusSeeOther)
+// 		return
+// 	}
+// 	showSessions()
+// 	pd := PageData{
+// 		UserData: u,
+// 		PageType: "home",
+// 	}
+// 	tpl.ExecuteTemplate(w, "layout", pd)
+// }
 
 // func signup(w http.ResponseWriter, req *http.Request) {
 // 	if alreadyLoggedIn(w, req) {
