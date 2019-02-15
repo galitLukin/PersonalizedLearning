@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="/static/styles/main.css">
 </head>
-<body onbeforeunload="ConfirmClose()" onunload="HandleOnClose()">
+<body>
   {{ template "nav" .}}
   <div class="site-content">
     {{if eq .PageType "home"}}
@@ -24,6 +24,7 @@
   {{template "footer" .}}
 </body>
 <script>
+  {{/* onbeforeunload="ConfirmClose()" onunload="HandleOnClose()" */}}
   let myclose = false;
 
   const ConfirmClose = () => {
