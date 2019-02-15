@@ -121,9 +121,9 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	logPostBody(req)
-	//uid = req.FormValue("user_id")
-	//an = req.FormValue("custom_component_display_name")
-	//purl = req.FormValue("lis_outcome_service_url")
+	uid = req.FormValue("user_id")
+	an = req.FormValue("custom_component_display_name")
+	purl = req.FormValue("lis_outcome_service_url")
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
