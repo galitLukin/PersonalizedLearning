@@ -107,7 +107,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 			(username, assignment, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4,
 			sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4,
 			score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts,
-			score4_correct, score4_attempts, next1, next2, next3, next4)
+			score4_correct, score4_attempts, next1, next2, next3, next4, grade)
 			values ("%s", "%s", "%s", "%s", "%s", "%s", "%f", "%f", "%f", "%f",
 			   "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f",
 			   "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%f");`,
