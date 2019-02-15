@@ -110,9 +110,9 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 			score4_correct, score4_attempts, next1, next2, next3, next4)
 			values ("%s", "%s", "%s", "%s", "%s", "%s", "%f", "%f", "%f", "%f",
 			   "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f", "%f",
-			   "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d");`,
+			   "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d", "%f");`,
 			user, assignment, "None", "None", "audit", "Null", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-			0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1)
+			0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.0)
 
 		stmt, err := db.Prepare(q)
 		dbCheck(err)
