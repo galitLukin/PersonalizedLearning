@@ -147,6 +147,7 @@ func logUserData(s scores) {
 // get data on user's last location - if there was a previous session
 func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 	fmt.Println("Getting users past location... ")
+	fmt.Println(qd.Question.Assignment)
 	var r response
 	r.IsFirst = true
 	r.Level = 0
