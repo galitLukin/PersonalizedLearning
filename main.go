@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"html/template"
+	"io"
 	"net/http"
 	"net/http/httputil"
 	"time"
@@ -75,7 +76,6 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-
 	uid = "6987787dd79cf0aecabdca8ddae95b4a3"
 	purl = "https://nba.com"
 	an = "Climate Change"
@@ -86,6 +86,7 @@ func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
+	http.HandleFunc("/ping", ping)
 	//http.HandleFunc("/getUsers", getUsers)
 	//http.HandleFunc("/deleteUser", deleteUser)
 	//http.HandleFunc("/home", home)
@@ -104,6 +105,10 @@ func index(w http.ResponseWriter, req *http.Request) {
 	}
 	// fmt.Fprintln(w, "ALL DB USERS\n", u)
 	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
+}
+
+func ping(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, "OK")
 }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
@@ -162,16 +167,16 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 				}
 				qd = getNextQuizState(qd)
 				dbUpdateFinishedQuestion(db, qd)
-				qd.Score.Grade = finishAssignment(db,qd)
+				qd.Score.Grade = finishAssignment(db, qd)
 			}
 		}
 	} else {
 		fmt.Println("Initial question...")
 		qd.User.Username = uid
 		qd.Question.Assignment = an
-		qd.PrevLocation = dbGetUserPrevLocation(db,qd)
+		qd.PrevLocation = dbGetUserPrevLocation(db, qd)
 		qd = getNextQuizState(qd)
-		qd.Score.Grade = finishAssignment(db,qd)
+		qd.Score.Grade = finishAssignment(db, qd)
 	}
 
 	u := user{
@@ -194,7 +199,6 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "layout", qpd)
 	//send post request to edX with the value qd.Score.Grade
 }
-
 
 // func home(w http.ResponseWriter, req *http.Request) {
 // 	u := getUser(w, req)
