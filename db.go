@@ -53,16 +53,16 @@ type scores struct {
 	Next2              int
 	Next3              int
 	Next4              int
-	Grade							 float32
+	Grade              float32
 }
 
 type response struct {
-	IsFirst				bool
-	Level         int
-	Number        int
-	Attempt   		int
-	Correctness   int
-	Timestamp     string
+	IsFirst     bool
+	Level       int
+	Number      int
+	Attempt     int
+	Correctness int
+	Timestamp   string
 }
 
 type grade struct {
@@ -94,10 +94,10 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	dbCheck(err)
 	defer rows.Close()
 	i := 0
-	for rows.Next(){
-	   i++
-		 err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4, &s.Grade)
- 	   dbCheck(err)
+	for rows.Next() {
+		i++
+		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Ad1, &s.Ad2, &s.Ad3, &s.Ad4, &s.Sd1, &s.Sd2, &s.Sd3, &s.Sd4, &s.De1, &s.De2, &s.De3, &s.De4, &s.Cc1, &s.Cc2, &s.Cc3, &s.Cc4, &s.Rts1, &s.Rts2, &s.Rts3, &s.Rts4, &s.Score1_correct, &s.Score1_attempts, &s.Score2_correct, &s.Score2_attempts, &s.Score3_correct, &s.Score3_attempts, &s.Score4_correct, &s.Score4_attempts, &s.Next1, &s.Next2, &s.Next3, &s.Next4, &s.Grade)
+		dbCheck(err)
 	}
 	if i == 0 {
 		fmt.Println("User does not exist ...")
@@ -124,7 +124,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 		n, err := r.RowsAffected()
 		dbCheck(err)
 
-		st += fmt.Sprintf( "INSERTED RECORD ", n)
+		st += fmt.Sprintf("INSERTED RECORD ", n)
 
 		q = fmt.Sprintf(`SELECT * FROM test02.scores
 				WHERE username = "%s" AND assignment = "%s";`, user, assignment)
@@ -157,14 +157,13 @@ func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
-	for rows.Next(){
-		 err = rows.Scan(&r.Level, &r.Number, &r.Attempt, &r.Correctness)
- 	   dbCheck(err)
+	for rows.Next() {
+		err = rows.Scan(&r.Level, &r.Number, &r.Attempt, &r.Correctness)
+		dbCheck(err)
 	}
 	fmt.Println("Received users past location... ")
 	return r
 }
-
 
 ///////////////////////AFTER USER PRESSES SUBMIT AND BEFORE CALLING PYTHON SCRIPT//////////
 
@@ -180,7 +179,7 @@ func dbInsertResponse(db *sql.DB, qd QuestionData) {
 		  (username, assignment, level, numb, attempt, correctness, score_possible, answer, answer_timestamp)
 		  values ("%s", "%s", "%d", "%d", "%d", "%d", "%d", "%s", "%s");`,
 			qd.User.Username, qd.Question.Assignment, qd.Question.Level, qd.Question.Number,
-			qd.QuestionInstance.NumAttempts + 1, 0, qd.Question.Weight, qd.QuestionInstance.Answer, tf)
+			qd.QuestionInstance.NumAttempts+1, 0, qd.Question.Weight, qd.QuestionInstance.Answer, tf)
 		stmt, err := db.Prepare(q)
 		dbCheck(err)
 		defer stmt.Close()
@@ -298,11 +297,10 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) {
 
 // run when user after question is received from python script
 // updates only if the question is finished (complete/incorrectWithNoAttempts)
-func dbUpdateFinishedQuestion(db *sql.DB, qd QuestionData){
+func dbUpdateFinishedQuestion(db *sql.DB, qd QuestionData) {
 	dbUpdateResponse(db, qd)
 	dbUpdateScores(db, qd)
 }
-
 
 /////////////////END OF ASSIGNMENT//////////////////
 
@@ -496,14 +494,14 @@ func dbCalculateIncompleteGrade(db *sql.DB, qd QuestionData) float32 {
 		dbCheck(err)
 		score += g.Correctness * g.ScorePossible
 		scorePossible += g.ScorePossible
-		if g.Correctness == 1{
-			correctAnswerInLevel[g.Level - 1] = 1
+		if g.Correctness == 1 {
+			correctAnswerInLevel[g.Level-1] = 1
 		}
 	}
 
 	for level, isCorrect := range correctAnswerInLevel {
 		if isCorrect == 0 {
-			scorePossible =+ level + 1
+			scorePossible = +level + 1
 		}
 	}
 
@@ -551,68 +549,3 @@ func dbAssignmentPaused(db *sql.DB, qd QuestionData) float32 {
 	dbCalculateScores(db, qd)
 	return dbCalculateIncompleteGrade(db, qd)
 }
-
-// func dbGetUsers(db *sql.DB) string {
-// 	rows, err := db.Query(`SELECT * FROM users;`)
-// 	dbCheck(err)
-// 	defer rows.Close()
-//
-// 	var s string
-//
-// 	// query
-// 	for rows.Next() {
-// 		u := user{}
-// 		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
-// 		dbCheck(err)
-// 		s += fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
-// 		s += "\n"
-// 	}
-// 	return s
-// }
-//
-// func dbGetUser(db *sql.DB, email string) user {
-// 	q := fmt.Sprintf(`SELECT * FROM users WHERE email="%s";`, email)
-// 	fmt.Println(q)
-// 	rows, err := db.Query(q)
-// 	dbCheck(err)
-// 	defer rows.Close()
-//
-// 	// data to be used in query
-// 	var u user
-// 	for rows.Next() {
-// 		err = rows.Scan(&u.UserName, &u.First, &u.Last, &u.UserName, &u.Password)
-// 		dbCheck(err)
-// 		s := fmt.Sprintf(`email: "%s" firstName: "%s", lastName: "%s", passWord: "%s"`, u.UserName, u.First, u.Last, u.Password)
-// 		fmt.Printf(`RETRIEVED USER: %#v`, s)
-// 	}
-// 	return u
-// }
-//
-// func dbCreateUser(db *sql.DB, newUser user) string {
-// 	q := fmt.Sprintf(`insert into test02.users (fName, lName, email, password) values ("%s", "%s", "%s", "%s");`, newUser.First, newUser.Last, newUser.UserName, newUser.Password)
-// 	stmt, err := db.Prepare(q)
-// 	dbCheck(err)
-// 	defer stmt.Close()
-//
-// 	r, err := stmt.Exec()
-// 	dbCheck(err)
-//
-// 	n, err := r.RowsAffected()
-// 	dbCheck(err)
-//
-// 	return fmt.Sprintf( "INSERTED RECORD ", n)
-// }
-//
-// func dbDeleteUser(db *sql.DB) string {
-// 	stmt, err := db.Prepare(`DELETE FROM test02.users WHERE fName="Omer";`)
-// 	dbCheck(err)
-// 	defer stmt.Close()
-//
-// 	r, err := stmt.Exec()
-// 	dbCheck(err)
-//
-// 	n, err := r.RowsAffected()
-// 	dbCheck(err)
-//
-// 	return fmt.Sprintf( "DELETED RECORD ", n)
-// }
