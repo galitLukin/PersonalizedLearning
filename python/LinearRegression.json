@@ -582,6 +582,7 @@
           "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest:<br /> <br />pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest)<br /> <br />How many observations are now in the training set?<br /> <br />How many observations are now in the testing set?</p>",
           "options": [
             "2414, 990",
+            "2414, 1570",
             "3663, 1570",
             "24, 24",
             "2414, 1570"
