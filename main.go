@@ -202,6 +202,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		HTMLContentText:        template.HTML(qd.Question.Text),
 		HTMLContentExplanation: template.HTML(qd.Question.Explanation),
 	}
+
 	tpl.ExecuteTemplate(w, "layout", qpd)
 	//send post request to edX with the value qd.Score.Grade
 }
@@ -214,9 +215,24 @@ func logPostBody(req *http.Request) {
 
 	fmt.Println("Edx - CustomComponentDisplayName: " + req.FormValue("custom_component_display_name"))
 	fmt.Println("Edx - LTI Version: " + req.FormValue("lti_version"))
-	fmt.Println("Edx - Context ID: " + req.FormValue("oauth_nonce"))
+	fmt.Println("Edx - Oauth nonce: " + req.FormValue("oauth_nonce"))
+	fmt.Println("Edx - Resource link id: " + req.FormValue("resource_link_id"))
+	fmt.Println("Edx - Context ID: " + req.FormValue("context_id"))
+	fmt.Println("Edx -  Oauth signature method: " + req.FormValue("oauth_signature_method"))
+	fmt.Println("Edx -  Oauth timestamp: " + req.FormValue("oauth_timestamp"))
+	fmt.Println("Edx -  Oauth version: " + req.FormValue("oauth_version"))
+	fmt.Println("Edx -  Oauth signature: " + req.FormValue("oauth_signature"))
 	fmt.Println("Edx - Context Title: " + req.FormValue("context_title"))
 	fmt.Println("Edx - LTI Message Type: " + req.FormValue("lti_message_type"))
+	fmt.Println("Edx - Launch presentation return url: " + req.FormValue("launch_presentation_return_url"))
+	fmt.Println("Edx - Context label: " + req.FormValue("context_label"))
 	fmt.Println("Edx - User ID: " + req.FormValue("user_id"))
+	fmt.Println("Edx - Roles: " + req.FormValue("roles"))
+	fmt.Println("Edx - Custom component due date: " + req.FormValue("custom_component_due_date"))
+	fmt.Println("Edx - Oauth consumer key: " + req.FormValue("oauth_consumer_key"))
+	fmt.Println("Edx - LIS result sourcedid: " + req.FormValue("lis_result_sourcedid"))
+	fmt.Println("Edx - Launch Presentation locale: " + req.FormValue("launch_presentation_locale"))
 	fmt.Println("Edx - LISOutcomeService URL: " + req.FormValue("lis_outcome_service_url"))
+	fmt.Println("Edx -  Custom component grace period: " + req.FormValue("custom_component_graceperiod"))
+	fmt.Println("Edx - Oauth callback: " + req.FormValue("oauth_callback"))
 }
