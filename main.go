@@ -83,7 +83,7 @@ func init() {
 
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.HandleFunc("/", index)
+	// http.HandleFunc("/", index)
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
 	http.HandleFunc("/ping", ping)
@@ -102,6 +102,7 @@ func ping(w http.ResponseWriter, req *http.Request) {
 }
 
 func instance(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("instace route hit")
 	resp, err := http.Get("http://3.16.157.40/latest/meta-data/instance-id")
 	if err != nil {
 		io.WriteString(w, "Couldn't fetch meta data "+err.Error())
@@ -113,6 +114,7 @@ func instance(w http.ResponseWriter, req *http.Request) {
 	resp.Body.Read(bs)
 	resp.Body.Close()
 	io.WriteString(w, string(bs))
+	fmt.Println("instance end" + string(bs))
 }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
