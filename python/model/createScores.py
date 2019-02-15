@@ -187,7 +187,6 @@ maxAttemptsDE = [3,2,3,3,2] + [2,2,3,1,4] + [3,3,1,5,5,3] + [3,5,5,1]
 
 #analytical detective
 ad2019 = "./python/model/data/exp/AnalyticalDetective/AnalyticalDetective{}_{}.csv"
-#TODO: dont use answer - create new one here
 anyticalDetective = parseAndGroup(levelQuesAD,ad2019,"ad")
 
 #stock dynamics

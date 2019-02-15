@@ -4,6 +4,8 @@ import re
 import default
 
 def isCorrect(answer, correctAnswer):
+	#TODO: change this so it matches the new way answer is put- need to take first value of each vector
+	#because it only has one value and then seperate the answers with commas
 	if len(answer) is not len(correctAnswer):
 		return False
 	elif set(answer)^set(correctAnswer):
