@@ -4,11 +4,11 @@ import re
 import default
 
 def isCorrect(answer, correctAnswer):
-	#TODO: change this so it matches the new way answer is put- need to take first value of each vector
-	#because it only has one value and then seperate the answers with commas
 	if len(answer) is not len(correctAnswer):
 		return False
-	elif set(answer)^set(correctAnswer):
+	answer = answer.split(",")
+	correctAnswer = correctAnswer.split(",")
+	if set(answer)^set(correctAnswer):
 		return False
 	else:
 		return True
@@ -117,7 +117,7 @@ def getFirstQuestion(score, location):
 		questions = json.load(f)
 	if level == 0:
 		return questions[assignment][0]['questions'][0], 0
-	q = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
+	attemptsOverall = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
 	if location['Correctness'] == 1 or location['Attempt'] >= attemptsOverall:
 		return getNextQuestion(assignment, level, numb, score), 0
 	return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt']
