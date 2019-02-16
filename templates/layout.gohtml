@@ -9,14 +9,8 @@
 <body>
   {{ template "nav" .}}
   <div class="site-content">
-    {{if eq .PageType "home"}}
-      {{template "home" .}}
-    {{else if eq .PageType "getstarted"}}
+    {{if eq .PageType "getstarted"}}
       {{template "getstarted" .}}
-    {{else if eq .PageType "login"}}
-      {{template "login" .}}
-    {{else if eq .PageType "signup"}}
-      {{template "signup" .}}
     {{else if eq .PageType "quiz"}}
       {{template "quiz" .}}
     {{end}}
@@ -41,11 +35,11 @@
 
   const HandleOnClose = () => {
       console.log("Handle close -> aya")
-      if (myclose==true) 
+      if (myclose==true)
       {
-          //the url of your logout page which invalidate session on logout 
+          //the url of your logout page which invalidate session on logout
           location.replace('/getstarted') ;
-      }   
+      }
       return null;
   }
 </script>
