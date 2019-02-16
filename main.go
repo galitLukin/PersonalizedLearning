@@ -125,28 +125,31 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	// if reg.Method != "POST" {
-	// 	http.Error(w, "Only post", 500)
-	// 	return
-	// }
-	//
-	// p := lti.NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
-	// p.ConsumerKey = "oandg_key"
-	//
-	// ok, err := p.IsValid(r)
-	// if ok == false {
-	// 	fmt.Fprintf(w, "Invalid request...")
-	// }
-	// if err != nil {
-	// 	log.Printf("Invalid request %s", err)
-	// 	return
-	// }
-	//
-	// if ok == true {
-	// 	fmt.Fprintf(w, "Request Ok<br/>")
-	// 	data := fmt.Sprintf("User %s", p.Get("user_id"))
-	// 	fmt.Fprintf(w, data)
-	// }
+	if reg.Method != "POST" {
+		http.Error(w, "Only post", 500)
+		return
+	}
+	fmt.Fprintf("Creating new provider...")
+	p := lti.NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
+	p.ConsumerKey = "oandg_key"
+	fmt.Fprintf("succeeded creating new provider...")
+
+	ok, err := p.IsValid(r)
+	if ok == false {
+		fmt.Fprintf("1st false...")
+		fmt.Fprintf(w, "Invalid request...")
+	}
+	if err != nil {
+		log.Printf("Invalid request %s", err)
+		return
+	}
+
+	if ok == true {
+		fmt.Fprintf("Request ok!...")
+		fmt.Fprintf(w, "Request Ok<br/>")
+		data := fmt.Sprintf("User %s", p.Get("user_id"))
+		fmt.Fprintf(w, data)
+	}
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
