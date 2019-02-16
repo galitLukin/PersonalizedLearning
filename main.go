@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+	"github.com/dghubble/oauth1"
 )
 
 type PageData struct {
@@ -121,11 +122,25 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	logPostBody(req)
-	//uid = req.FormValue("user_id")
-	//an = req.FormValue("custom_component_display_name")
-	//purl = req.FormValue("lis_outcome_service_url")
+	uid = req.FormValue("user_id")
+	an = req.FormValue("custom_component_display_name")
+	purl = req.FormValue("lis_outcome_service_url")
+
+	config := oauth1.Config{
+    ConsumerKey:    "oandg_key",
+    ConsumerSecret: "oandg_secret",
+    //CallbackURL:    "http://localhost/getstarted",
+    //Endpoint:       twitter.AuthorizeEndpoint,
+	}
+	requestToken, requestSecret, err := config.RequestToken()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(requestToken,requestSecret)
 
 	qd.Score = dbInitFetchUser(db, uid, an)
+
 
 	u := user{
 		UserName:       "arieg419@gmail.com",
