@@ -129,23 +129,23 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, "Only post", 500)
 		return
 	}
-	fmt.Fprintf("Creating new provider...")
+	fmt.Println("Creating new provider...")
 	p := lti.NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
 	p.ConsumerKey = "oandg_key"
-	fmt.Fprintf("succeeded creating new provider...")
+	fmt.Println("succeeded creating new provider...")
 
 	ok, err := p.IsValid(r)
 	if ok == false {
-		fmt.Fprintf("1st false...")
+		fmt.Println("1st false...")
 		fmt.Fprintf(w, "Invalid request...")
 	}
 	if err != nil {
-		log.Printf("Invalid request %s", err)
+		log.Println("Invalid request %s", err)
 		return
 	}
 
 	if ok == true {
-		fmt.Fprintf("Request ok!...")
+		fmt.Println("Request ok!...")
 		fmt.Fprintf(w, "Request Ok<br/>")
 		data := fmt.Sprintf("User %s", p.Get("user_id"))
 		fmt.Fprintf(w, data)
