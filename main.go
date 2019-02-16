@@ -76,7 +76,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "6987787dd79cf0aecabdca8ddae95b4a4"
+	//uid = "1"
 	//purl = "https://nba.com"
 	//an = "Reading Test Scores"
 }
@@ -125,6 +125,29 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
+	if reg.Method != "POST" {
+		http.Error(w, "Only post", 500)
+		return
+	}
+
+	p := lti.NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
+	p.ConsumerKey = "oandg_key"
+
+	ok, err := p.IsValid(r)
+	if ok == false {
+		fmt.Fprintf(w, "Invalid request...")
+	}
+	if err != nil {
+		log.Printf("Invalid request %s", err)
+		return
+	}
+
+	if ok == true {
+		fmt.Fprintf(w, "Request Ok<br/>")
+		data := fmt.Sprintf("User %s", p.Get("user_id"))
+		fmt.Fprintf(w, data)
+	}
+
 	qd.Score = dbInitFetchUser(db, uid, an)
 
 	u := user{
@@ -143,6 +166,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
+
 
 func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 	if qd.QuestionInstance.Status == "Done" {
