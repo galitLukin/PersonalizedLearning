@@ -76,7 +76,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "1"
+	//uid = "2"
 	//purl = "https://nba.com"
 	//an = "Reading Test Scores"
 }
@@ -130,7 +130,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	fmt.Println("Creating new provider...")
-	p := lti.NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
+	p := lti.NewProvider("oandg_secret", "http://3.16.157.40")
 	p.ConsumerKey = "oandg_key"
 	fmt.Println("succeeded creating new provider...")
 
