@@ -125,7 +125,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	if reg.Method != "POST" {
+	if req.Method != "POST" {
 		http.Error(w, "Only post", 500)
 		return
 	}
