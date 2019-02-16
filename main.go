@@ -125,30 +125,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	if req.Method != "POST" {
-		http.Error(w, "Only post", 500)
-		return
-	}
-	fmt.Println("Creating new provider...")
-	p := lti.NewProvider("oandg_secret", "http://3.16.157.40")
-	p.ConsumerKey = "oandg_key"
-	fmt.Println("succeeded creating new provider...")
-
-	ok, err := p.IsValid(r)
-	if ok == false {
-		fmt.Println(w, "Invalid request...")
-	}
-	if err != nil {
-		log.Println("Invalid request %s", err)
-		return
-	}
-
-	if ok == true {
-		fmt.Println(w, "Request Ok<br/>")
-		data := fmt.Sprintf("User %s", p.Get("user_id"))
-		fmt.Println(w, data)
-	}
-
 	qd.Score = dbInitFetchUser(db, uid, an)
 
 	u := user{

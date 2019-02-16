@@ -73,9 +73,9 @@ function trainTree(X, Y, T, level, depth, meu, asmt)
 #   end
 
   OptimalTrees.fit!(grid, X, T, Y)#,sample_weight=sample_weight) #, validation_criterion=:prediction_accuracy)
-  @show grid.best_score, grid.best_params
+  #@show grid.best_score, grid.best_params
   lnr = grid.best_lnr
-  @show lnr
+  #@show lnr
 
   plotname = "$level/$asmt/tree.dot"
   OptimalTrees.writedot(plotname, lnr)
