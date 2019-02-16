@@ -62,8 +62,8 @@ type EdxPOSTBody struct {
 var db *sql.DB
 var err error
 var tpl *template.Template
-var dbUsers = map[string]user{}       // user ID, user -> TODO: should be singular
-var dbSessions = map[string]session{} // session ID, session
+//var dbUsers = map[string]user{}       // user ID, user -> TODO: should be singular
+//var dbSessions = map[string]session{} // session ID, session
 var dbSessionsCleaned time.Time
 var qd QuestionData
 var uid string
@@ -136,8 +136,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 
 	ok, err := p.IsValid(r)
 	if ok == false {
-		fmt.Println("1st false...")
-		fmt.Fprintf(w, "Invalid request...")
+		fmt.Println(w, "Invalid request...")
 	}
 	if err != nil {
 		log.Println("Invalid request %s", err)
@@ -145,10 +144,9 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	}
 
 	if ok == true {
-		fmt.Println("Request ok!...")
-		fmt.Fprintf(w, "Request Ok<br/>")
+		fmt.Println(w, "Request Ok<br/>")
 		data := fmt.Sprintf("User %s", p.Get("user_id"))
-		fmt.Fprintf(w, data)
+		fmt.Println(w, data)
 	}
 
 	qd.Score = dbInitFetchUser(db, uid, an)
