@@ -201,10 +201,10 @@ func Sign(form url.Values, u, method string, firm oauth.OauthSigner) (string, er
     }
   }
 
-	fmt.Println("My logging!!!!!")
+	fmt.Println("My logging1 ...")
 	fmt.Println(form, u, method, firm)
 	str, err := getBaseString(method, u, form)
-	fmt.Println("My logging2!!!!!")
+	fmt.Println("My logging2 ...")
 	if err != nil {
 		return "", err
 	}
