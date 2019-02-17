@@ -196,7 +196,7 @@ func (p *Provider) SetSigner(s oauth.OauthSigner) {
 // that in this case must be empty.
 func Sign(form url.Values, u, method string, firm oauth.OauthSigner) (string, error) {
   for k, _ := range form {
-    if !(strings.Contains(k, "oauth")){//} || strings.Contains(k, "user_id") || strings.Contains(k, "launch_presentation_return_url") || strings.Contains(k, "lti_message_type") || strings.Contains(k, "lti_version") || strings.Contains(k, "roles") || strings.Contains(k, "resource_link_id") || strings.Contains(k, "lis_result_sourcedid") || strings.Contains(k, "context_id") || strings.Contains(k, "lis_outcome_service_url")){
+    if !(strings.Contains(k, "oauth") || strings.Contains(k, "Content-Type")){//} || strings.Contains(k, "user_id") || strings.Contains(k, "launch_presentation_return_url") || strings.Contains(k, "lti_message_type") || strings.Contains(k, "lti_version") || strings.Contains(k, "roles") || strings.Contains(k, "resource_link_id") || strings.Contains(k, "lis_result_sourcedid") || strings.Contains(k, "context_id") || strings.Contains(k, "lis_outcome_service_url")){
       delete(form, k);
     }
   }
