@@ -1,16 +1,16 @@
 package main
 
 import (
+	"bytes"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
 	"time"
-	"bytes"
-	"io/ioutil"
 )
 
 type PageData struct {
@@ -64,6 +64,7 @@ type EdxPOSTBody struct {
 var db *sql.DB
 var err error
 var tpl *template.Template
+
 //var dbUsers = map[string]user{}       // user ID, user -> TODO: should be singular
 //var dbSessions = map[string]session{} // session ID, session
 var dbSessionsCleaned time.Time
@@ -132,7 +133,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	p := NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
+	// p := NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
+	p := NewProvider("oandg_secret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
 	p.ConsumerKey = "oandg_key"
 
 	ok, err := p.IsValid(req)
@@ -155,7 +157,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
-
 	u := user{
 		UserName:       "arieg419@gmail.com",
 		Password:       "Beatles",
@@ -172,7 +173,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	}
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
-
 
 func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 	if qd.QuestionInstance.Status == "Done" {
@@ -268,28 +268,27 @@ func logPostBody(req *http.Request) {
 	fmt.Println("Edx - Oauth callback: " + req.FormValue("oauth_callback"))
 }
 
-
 func returnRequest() {
 	fmt.Println("in retrun request")
 	url := "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler?oauth_consumer_key=oandg_key,oandg_key&oauth_signature_method=HMAC-SHA1,HMAC-SHA1&oauth_timestamp=1550345476,1550359813&oauth_nonce=gOuQhekicZM,A4fG0VZFHDR&oauth_version=1.0,1.0&oauth_signature=EhtqiKaT5VGCkS8WeW39XIUTn6Y=,AOYztkJYAMmy+mdLjQTdKzoEjco=&oauth_consumer_secret=oandg_secret"
 	mybody := "<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo> <imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>course-v1%3AMITx%2B15.071x%2B1T2019:courses.edx.org-a855518774854399b79abee373351e3c:6987787dd79cf0aecabdca8ddae95b4a</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>"
 
-	 client := &http.Client{}
-	 req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(mybody)))
-    if err != nil {
-        fmt.Println(err)
-    }
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded; charset=utf-8")
-		resp, err := client.Do(req)
-    if err != nil {
-        fmt.Println(err)
-    }
-		if resp.StatusCode == http.StatusOK {
-	    bodyBytes, err2 := ioutil.ReadAll(resp.Body)
-			if err2 != nil {
-	        fmt.Println(err)
-	    }
-	    bodyString := string(bodyBytes)
-			fmt.Println(bodyString)
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(mybody)))
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded; charset=utf-8")
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+	}
+	if resp.StatusCode == http.StatusOK {
+		bodyBytes, err2 := ioutil.ReadAll(resp.Body)
+		if err2 != nil {
+			fmt.Println(err)
 		}
+		bodyString := string(bodyBytes)
+		fmt.Println(bodyString)
+	}
 }
