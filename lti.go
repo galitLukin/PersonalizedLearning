@@ -59,7 +59,7 @@ type Provider struct {
 // NewProvider is a provider configured with sensible defaults
 // as a signer the HMACSigner is used... (seems that is the most used)
 func NewProvider(secret, urlSrv string) *Provider {
-	sig := oauth.GetHMACSigner(secret, "")
+	sig := oauth.GetHMACSigner(secret, urlSrv)
 	return &Provider{
 		Secret: secret,
 		Method: "POST",
