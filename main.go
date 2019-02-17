@@ -247,6 +247,7 @@ func logPostBody(req *http.Request) {
 func returnRequest() {
 	fmt.Println("in retrun request")
 	url := "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler?oauth_consumer_key=oandg_key,oandg_key&oauth_signature_method=HMAC-SHA1,HMAC-SHA1&oauth_timestamp=1550345476,1550359813&oauth_nonce=gOuQhekicZM,A4fG0VZFHDR&oauth_version=1.0,1.0&oauth_signature=EhtqiKaT5VGCkS8WeW39XIUTn6Y=,AOYztkJYAMmy+mdLjQTdKzoEjco=&oauth_consumer_secret=oandg_secret"
+	body := "<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>course-v1%3AMITx%2B15.071x%2B1T2019:courses.edx.org-a855518774854399b79abee373351e3c:6987787dd79cf0aecabdca8ddae95b4a</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>"
 
 	req, _ := http.NewRequest("POST", url, nil)
 	fmt.Println("after new request")
@@ -257,7 +258,7 @@ func returnRequest() {
 	res, _ := http.DefaultClient.Do(req)
 	fmt.Println("after default client")
 	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
+	body, _ := ioutil.ReadAll(body)
 
 	fmt.Println(res)
 	fmt.Println(string(body))
