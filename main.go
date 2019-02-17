@@ -11,7 +11,6 @@ import (
 	"time"
 	"bytes"
 	"io/ioutil"
-	"flag"
 )
 
 type PageData struct {
@@ -73,11 +72,6 @@ var uid string
 var purl string
 var an string
 
-var (
-	secret      = flag.String("secret", "", "oandg_secret")
-	consumer    = flag.String("consumer", "", "oandg_key")
-)
-
 const sessionLength int = 30
 
 func init() {
@@ -138,8 +132,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	p := NewProvider(*secret, "http://3.16.157.40/latest/meta-data/instance-id")
-	p.ConsumerKey = *consumer
+	p := NewProvider("oandg_secret", "http://3.16.157.40/latest/meta-data/instance-id")
+	p.ConsumerKey = "oandg_key"
 
 	ok, err := p.IsValid(req)
 	if ok == false {
