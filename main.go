@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+	"crypto/sha1"
+  "encoding/base64"
 )
 
 type PageData struct {
@@ -128,31 +130,47 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	//if req.Method != "POST" {
-	//	http.Error(w, "Only post", 500)
-	//	return
-	//}
+	if req.Method != "POST" {
+		http.Error(w, "Only post", 500)
+		return
+	}
 
-	// p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
-	// p := NewProvider("oandgsecret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
-	// p.ConsumerKey = "oandgkey"
-	//
-	// ok, err := p.IsValid(req)
-	// if ok == false {
-	// 	fmt.Println(w, "Invalid request...")
-	// }
-	// if err != nil {
-	// 	fmt.Println("Invalid request %s", err)
-	// 	return
-	// }
-	//
-	// if ok == true {
-	//
-	// 	fmt.Println(w, "Request Ok<br/>")
-	// 	data := fmt.Sprintf("User %s", p.Get("user_id"))
-	// 	fmt.Println(w, data)
-	//
-	// }
+	//p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
+	p := NewProvider("oandgsecret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
+	p.ConsumerKey = "oandgkey"
+
+	mybody := "<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>course-v1:MITx+15.071x+1T2019:courses.edx.org-a855518774854399b79abee373351e3c:6987787dd79cf0aecabdca8ddae95b4a</sourcedId></sourcedGUID><result><resultScore><language>en-us</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>"
+	req, err := http.NewRequest("POST", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler", bytes.NewBuffer([]byte(mybody)))
+	var body []byte
+	if req.Body != nil {
+		var err error
+		body, err = getBody(req)
+		if err != nil {
+			fmt.Println("Failed to get body of request ...")
+			return
+		}
+	}
+	hasher := sha1.New()
+  hasher.Write(body)
+	sha := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
+	p = p.Add("oauth_body_hash", sha)
+
+	ok, err := p.IsValid(req)
+	if ok == false {
+		fmt.Println(w, "Invalid request...")
+	}
+	if err != nil {
+		fmt.Println("Invalid request %s", err)
+		return
+	}
+
+	if ok == true {
+
+		fmt.Println(w, "Request Ok<br/>")
+		data := fmt.Sprintf("User %s", p.Get("user_id"))
+		fmt.Println(w, data)
+
+	}
 	//returnRequest()
 
 	qd.Score = dbInitFetchUser(db, uid, an)
@@ -291,4 +309,23 @@ func returnRequest() {
 		bodyString := string(bodyBytes)
 		fmt.Println(bodyString)
 	}
+}
+
+func getBody(request *http.Request) ([]byte, error) {
+	if request.Body == nil {
+		return nil, nil
+	}
+	defer request.Body.Close()
+	originalBody, err := ioutil.ReadAll(request.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	// We have to re-install the body (because we've ruined it by reading it).
+	if len(originalBody) > 0 {
+		request.Body = ioutil.NopCloser(bytes.NewReader(originalBody))
+	} else {
+		request.Body = nil
+	}
+	return originalBody, nil
 }
