@@ -172,6 +172,7 @@ func (p *Provider) SetSigner(s oauth.OauthSigner) {
 // and a secret. ts is a tokenSecret field from the oauth spec,
 // that in this case must be empty.
 func Sign(form url.Values, u, method string, firm oauth.OauthSigner) (string, error) {
+  fmt.Println(form, u, method, firm)
 	str, err := getBaseString(method, u, form)
 	if err != nil {
 		return "", err

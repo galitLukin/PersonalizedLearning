@@ -138,7 +138,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	p := NewProvider(*secret, purl)
+	p := NewProvider(*secret, "http://3.16.157.40/latest/meta-data/instance-id")
 	p.ConsumerKey = *consumer
 
 	ok, err := p.IsValid(req)
