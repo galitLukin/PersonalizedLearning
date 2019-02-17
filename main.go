@@ -130,21 +130,16 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	if req.Method != "POST" {
-		http.Error(w, "Only post", 500)
-		return
-	}
-
 	//p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
 	p := NewProvider("oandgsecret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
 	p.ConsumerKey = "oandgkey"
 
 	mybody := "<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>course-v1:MITx+15.071x+1T2019:courses.edx.org-a855518774854399b79abee373351e3c:6987787dd79cf0aecabdca8ddae95b4a</sourcedId></sourcedGUID><result><resultScore><language>en-us</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>"
-	req, err := http.NewRequest("POST", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler", bytes.NewBuffer([]byte(mybody)))
+	myreq, err := http.NewRequest("POST", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler", bytes.NewBuffer([]byte(mybody)))
 	var body []byte
-	if req.Body != nil {
+	if myreq.Body != nil {
 		var err error
-		body, err = getBody(req)
+		body, err = getBody(myreq)
 		if err != nil {
 			fmt.Println("Failed to get body of request ...")
 			return
