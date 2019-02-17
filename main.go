@@ -9,7 +9,9 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+	"bytes"
 	"io/ioutil"
+	"flag"
 )
 
 type PageData struct {
@@ -71,6 +73,11 @@ var uid string
 var purl string
 var an string
 
+var (
+	secret      = flag.String("secret", "", "oandg_secret")
+	consumer    = flag.String("consumer", "", "oandg_key")
+)
+
 const sessionLength int = 30
 
 func init() {
@@ -126,7 +133,31 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	returnRequest()
+	if req.Method != "POST" {
+		http.Error(w, "Only post", 500)
+		return
+	}
+
+	p := NewProvider(*secret, purl)
+	p.ConsumerKey = *consumer
+
+	ok, err := p.IsValid(req)
+	if ok == false {
+		fmt.Println(w, "Invalid request...")
+	}
+	if err != nil {
+		fmt.Println("Invalid request %s", err)
+		return
+	}
+
+	if ok == true {
+
+		fmt.Println(w, "Request Ok<br/>")
+		data := fmt.Sprintf("User %s", p.Get("user_id"))
+		fmt.Println(w, data)
+
+	}
+	//returnRequest()
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
@@ -259,20 +290,12 @@ func returnRequest() {
     if err != nil {
         fmt.Println(err)
     }
-    fmt.Println(resp)
-	// fmt.Println(mybody)
-	// req, _ := http.NewRequest("POST", url, nil)
-	// fmt.Println("after new request")
-	// req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	// //req.Header.Add("cache-control", "no-cache")
-	// //req.Header.Add("Postman-Token", "eb045596-eff0-412e-8b6c-cca04f6902fd")
-	//
-	// res, _ := http.DefaultClient.Do(req)
-	// fmt.Println("DefaultClient")
-	// defer res.Body.Close()
-	// body, _ := ioutil.ReadAll(res.Body)
-	//
-	// fmt.Println(res)
-	// fmt.Println(string(body))
-
+		if resp.StatusCode == http.StatusOK {
+	    bodyBytes, err2 := ioutil.ReadAll(resp.Body)
+			if err2 != nil {
+	        fmt.Println(err)
+	    }
+	    bodyString := string(bodyBytes)
+			fmt.Println(bodyString)
+		}
 }
