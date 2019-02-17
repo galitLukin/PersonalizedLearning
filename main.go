@@ -153,7 +153,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(w, data)
 
 	}
-	//returnRequest()
+	returnRequest()
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
