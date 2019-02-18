@@ -128,26 +128,26 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
 
-	p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
-	//p := NewProvider("oandgsecret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
-	p.ConsumerKey = "oandgkey"
-
-	ok, err := p.IsValid(req)
-	if ok == false {
-		fmt.Println(w, "Invalid request...")
-	}
-	if err != nil {
-		fmt.Println("Invalid request %s", err)
-		return
-	}
-
-	if ok == true {
-
-		fmt.Println(w, "Request Ok<br/>")
-		data := fmt.Sprintf("User %s", p.Get("user_id"))
-		fmt.Println(w, data)
-
-	}
+	//p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
+	// p := NewProvider("oandgsecret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
+	// p.ConsumerKey = "oandgkey"
+	//
+	// ok, err := p.IsValid(req)
+	// if ok == false {
+	// 	fmt.Println(w, "Invalid request...")
+	// }
+	// if err != nil {
+	// 	fmt.Println("Invalid request %s", err)
+	// 	return
+	// }
+	//
+	// if ok == true {
+	//
+	// 	fmt.Println(w, "Request Ok<br/>")
+	// 	data := fmt.Sprintf("User %s", p.Get("user_id"))
+	// 	fmt.Println(w, data)
+	//
+	// }
 	//returnRequest()
 
 	qd.Score = dbInitFetchUser(db, uid, an)
