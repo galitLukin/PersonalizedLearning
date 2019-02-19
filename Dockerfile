@@ -18,7 +18,6 @@ RUN pip3 install oauth==1.0.1
 RUN pip3 install oauth2==1.9.0.post1
 RUN pip3 install uWSGI==2.0.13
 RUN pip3 install urwid==1.2.1
-RUN pip3 install wsgiref==0.1.2
 RUN pip3 install Sphinx==1.2.3
 RUN pip3 install gunicorn>=19.5.0
 RUN pip3 install pylti>=0.1.3
