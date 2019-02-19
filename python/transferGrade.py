@@ -29,11 +29,12 @@ def post_grade(grade, lis_result_sourcedid, response_url):
     return False
 
 
+
 def main():
     response_url = "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler"
     lis_result_sourcedid = "course-v1%3AMITx%2B15.071x%2B1T2019:courses.edx.org-a855518774854399b79abee373351e3c:6987787dd79cf0aecabdca8ddae95b4a"
-    print(post_grade(0.5, lis_result_sourcedid, response_url))
-
+    is_success = post_grade(0.5, lis_result_sourcedid, response_url)
+    print(is_success)
 
 if __name__ == "__main__":
     main()
