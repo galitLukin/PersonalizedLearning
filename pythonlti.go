@@ -9,8 +9,8 @@ const (
 	PathToPythonRequest = "./python/transferGrade.py"
 )
 
-func sendRequest() {
-	cmd := exec.Command(Python, PathToPythonRequest)
+func sendRequest(url, sourcedId string) {
+	cmd := exec.Command(Python, PathToPythonRequest, url, sourcedId)
 	outb, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println(err)
