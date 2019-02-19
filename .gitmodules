@@ -1,0 +1,3 @@
+[submodule "python/pylti"]
+	path = python/pylti
+	url = https://github.com/mitodl/pylti.git

@@ -79,9 +79,9 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "2"
+	//uid = "3"
 	//purl = "https://nba.com"
-	//an = "Reading Test Scores"
+	//an = "Climate Change"
 }
 
 func main() {
