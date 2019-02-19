@@ -1,6 +1,7 @@
 FROM golang:1.8-onbuild
 RUN apt-get update && apt-get install -y python3 python3-pip
 RUN pip3 install --upgrade pip
+RUN pip3 install git+https://github.com/mitodl/pylti.git
 RUN pip3 install graphviz
 RUN pip3 install pydot
 RUN pip3 install networkx
