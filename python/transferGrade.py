@@ -1,6 +1,7 @@
-
-from pylti.pylti import common
-from pylti.pylti.common import LTIPostMessageException
+import pylti
+from pylti import common
+#from pylti.pylti import common
+#from pylti.pylti.common import LTIPostMessageException
 
 def post_grade(grade, lis_result_sourcedid, response_url):
     """
