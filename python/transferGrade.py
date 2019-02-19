@@ -1,7 +1,9 @@
 #import pylti
 #from pylti import common
-from ../pylti.pylti import common
-from pylti.pylti.common import LTIPostMessageException
+import sys
+sys.path.insert(0, 'python/pylti/pylti')
+import common
+sys.path.insert(0, '../..')
 
 def post_grade(grade, lis_result_sourcedid, response_url):
     """
@@ -25,7 +27,7 @@ def post_grade(grade, lis_result_sourcedid, response_url):
         xml = common.generate_request_xml(message_identifier_id, operation, lis_result_sourcedid, score)
         ret = common.post_message(_consumers, "oandgkey", response_url, xml)
         if not ret:
-            raise LTIPostMessageException("Post Message Failed")
+            raise common.LTIPostMessageException("Post Message Failed")
         return True
     return False
 
@@ -39,3 +41,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+#STATIC EXAMPLE: "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler"
+#"course-v1%253AMITx%252B15.071x%252B1T2019%3Acourses.edx.org-a855518774854399b79abee373351e3c%3A6987787dd79cf0aecabdca8ddae95b4a"
