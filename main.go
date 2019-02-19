@@ -127,6 +127,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	uid = req.FormValue("user_id")
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
+	sendRequest()
 
 	//p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
 	// p := NewProvider("oandgsecret", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler")
