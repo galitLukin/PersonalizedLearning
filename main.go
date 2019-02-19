@@ -127,7 +127,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	uid = req.FormValue("user_id")
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
-	sourcedId = req.FormValue("lis_result_sourcedid")
+	sourcedId := req.FormValue("lis_result_sourcedid")
 	sendRequest(purl, sourcedId)
 
 	//p := NewProvider("oandgsecret", "http://3.16.157.40/latest/meta-data/instance-id")
