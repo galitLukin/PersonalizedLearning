@@ -13,7 +13,6 @@ import (
 	"time"
 	"strconv"
 	"crypto/sha1"
-	"crypto/hmac"
 	"encoding/base64"
 )
 
@@ -135,7 +134,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	key := req.FormValue("oauth_consumer_key")
 	method := req.FormValue("oauth_signature_method")
 	version := req.FormValue("oauth_version")
-	signat := req.FormValue("oauth_signature")
+	//signat := req.FormValue("oauth_signature")
 
 	mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",sourcedId)
 	myr, err := http.NewRequest("POST", purl, bytes.NewBuffer([]byte(mybody)))
@@ -147,15 +146,24 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
     var err error
     body, err = getBody(myr)
     if err != nil {
-      fmt.Errorf("Failed to get body of request ...")
+			 fmt.Errorf("Failed to get body of request ...")
     }
   }
 	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	keybyte := []byte(key)
-	hasher := hmac.New(sha1.New, keybyte)
+	hasher := sha1.New()
 	hasher.Write(body)
 	bodyHash := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-	oauth_params := fmt.Sprintf("OAuth oauth_body_hash=%s,oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", bodyHash, key, nonce(), signat, method, strconv.FormatInt(time.Now().Unix(), 10), version)
+	p := NewProvider("oandgsecret", purl)
+	p.ConsumerKey = "oandgkey"
+	p.Add("oauth_body_hash", bodyHash)
+	p.Add("oauth_consumer_key", key)
+	p.Add("oauth_signature_method", method)
+	p.Add("oauth_version", version)
+	sig, err := Sign(p.values, p.URL, "POST", p.Signer)
+	if err != nil {
+		fmt.Println(err)
+	}
+	oauth_params := fmt.Sprintf("OAuth oauth_body_hash=%s,oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", bodyHash, key, nonce(), sig, method, strconv.FormatInt(time.Now().Unix(), 10), version)
 	myr.Header.Add("Authorization", oauth_params)
 	client := &http.Client{}
 	resp, err := client.Do(myr)
@@ -175,11 +183,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	// 	return
 	// }
 	// p := NewProvider("oandgsecret", "http://3.16.157.40/getstarted")
-	// p.ConsumerKey = "oandgkey"
-	// p.Add("oauth_consumer_key", key)
-	// p.Add("oauth_signature_method", method)
-	// p.Add("oauth_signature", signat)
-	// p.Add("oauth_version", version)
+
 	//
 	// ok, err := p.IsValid(myr)
 	// if ok == false {
