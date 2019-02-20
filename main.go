@@ -127,18 +127,24 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	uid = req.FormValue("user_id")
 	an = req.FormValue("custom_component_display_name")
 	purl = req.FormValue("lis_outcome_service_url")
-	//sourcedId := req.FormValue("lis_result_sourcedid")
+	sourcedId := req.FormValue("lis_result_sourcedid")
+	key := req.FormValue("oauth_consumer_key")
+	method := req.FormValue("oauth_signature_method")
+	signat := req.FormValue("oauth_signature")
 
-	// mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",sourcedId)
-	// myr, err := http.NewRequest("POST", purl, bytes.NewBuffer([]byte(mybody)))
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
+	mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",sourcedId)
+	myr, err := http.NewRequest("POST", purl, bytes.NewBuffer([]byte(mybody)))
+	if err != nil {
+		fmt.Println(err)
+	}
+	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
 	p := NewProvider("oandgsecret", purl)
 	p.ConsumerKey = "oandgkey"
+	p.Add("oauth_consumer_key", key)
+	p.Add("oauth_signature_method", method)
+	p.Add("oauth_signature", signat)
 
-	ok, err := p.IsValid(req)
+	ok, err := p.IsValid(myr)
 	if ok == false {
 		fmt.Println(w, "Invalid request...")
 	}

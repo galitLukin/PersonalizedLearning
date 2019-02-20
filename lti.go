@@ -142,8 +142,8 @@ func (p *Provider) Sign() (string, error) {
 // IsValid returns if lti request is valid, currently only checks
 // if signature is correct
 func (p *Provider) IsValid(r *http.Request) (bool, error) {
-	r.ParseForm()
-	p.values = r.Form
+	//r.ParseForm()
+	//p.values = r.Form
 
 	ckey := p.values.Get("oauth_consumer_key")
 	if ckey != p.ConsumerKey {
