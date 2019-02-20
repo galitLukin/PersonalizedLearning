@@ -139,7 +139,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 	}
 	//myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	if r.Method != "POST" {
+	if req.Method != "POST" {
 		http.Error(w, "Only post", 500)
 		return
 	}
