@@ -150,10 +150,10 @@ func (p *Provider) IsValid(r *http.Request) (bool, error) {
 		return false, fmt.Errorf("Invalid consumer key provided: ",ckey)
 	}
 
-  bodyHash := p.values.Get("oauth_body_hash")
-	if bodyHash == "" {
-		return false, fmt.Errorf("Does not have oauth_body_hash")
-	}
+  // bodyHash := p.values.Get("oauth_body_hash")
+	// if bodyHash == "" {
+	// 	return false, fmt.Errorf("Does not have oauth_body_hash")
+	// }
 
 	if p.values.Get("oauth_signature_method") != p.Signer.GetMethod() {
 		return false, fmt.Errorf("wrong signature method %s",
