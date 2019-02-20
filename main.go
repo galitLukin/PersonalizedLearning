@@ -11,9 +11,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
-	"strconv"
-	"crypto/sha1"
-	"encoding/base64"
 )
 
 type PageData struct {
