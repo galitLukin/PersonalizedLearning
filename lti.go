@@ -19,9 +19,9 @@ import (
 	"strings"
 	"sync/atomic"
 	"time"
-  "crypto/sha1"
-  "encoding/base64"
-  "bytes"
+  //"crypto/sha1"
+  //"encoding/base64"
+  //"bytes"
 
 	"github.com/jordic/lti/oauth"
 )
@@ -144,21 +144,6 @@ func (p *Provider) Sign() (string, error) {
 func (p *Provider) IsValid(r *http.Request) (bool, error) {
 	r.ParseForm()
 	p.values = r.Form
-  mybody := "<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>course-v1:MITx+15.071x+1T2019:courses.edx.org-a855518774854399b79abee373351e3c:6987787dd79cf0aecabdca8ddae95b4a</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>"
-  myreq, err := http.NewRequest("POST", "https://courses.edx.org/courses/course-v1:MITx+15.071x+1T2019/xblock/block-v1:MITx+15.071x+1T2019+type@lti_consumer+block@a855518774854399b79abee373351e3c/handler_noauth/outcome_service_handler", bytes.NewBuffer([]byte(mybody)))
-  var body []byte
-  if myreq.Body != nil {
-    var err error
-    body, err = getBody(myreq)
-    if err != nil {
-      return false, fmt.Errorf("Failed to get body of request ...")
-    }
-  }
-  hasher := sha1.New()
-  hasher.Write(body)
-  sha := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-  p = p.Add("oauth_body_hash", sha)
-  p = p.Add("Content-Type", "application/xml")
 
 	ckey := p.values.Get("oauth_consumer_key")
 	if ckey != p.ConsumerKey {
