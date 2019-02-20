@@ -132,13 +132,13 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	method := req.FormValue("oauth_signature_method")
 	signat := req.FormValue("oauth_signature")
 
-	mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",sourcedId)
+	mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",url.QueryEscape(sourcedId))
 	myr, err := http.NewRequest("POST", purl, bytes.NewBuffer([]byte(mybody)))
 	if err != nil {
 		fmt.Println(err)
 	}
 	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	p := NewProvider("oandgsecret", purl)
+	p := NewProvider("oandgsecret", purl.QueryEscape(url))
 	p.ConsumerKey = "oandgkey"
 	p.Add("oauth_consumer_key", key)
 	p.Add("oauth_signature_method", method)
