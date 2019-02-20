@@ -13,6 +13,7 @@ import (
 	"time"
 	"strconv"
 	"crypto/sha1"
+	"crypto/hmac"
 	"encoding/base64"
 )
 
@@ -150,7 +151,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
     }
   }
 	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	hasher := sha1.New()
+	keybyte := []byte(key)
+	hasher := hmac.New(sha1.New, keybyte)
 	hasher.Write(body)
 	bodyHash := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 	oauth_params := fmt.Sprintf("OAuth oauth_body_hash=%s,oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", bodyHash, key, nonce(), signat, method, strconv.FormatInt(time.Now().Unix(), 10), version)
