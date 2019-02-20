@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+	"net/url"
 )
 
 type PageData struct {
@@ -138,7 +139,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 	}
 	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	p := NewProvider("oandgsecret", purl.QueryEscape(url))
+	p := NewProvider("oandgsecret", url.QueryEscape(purl))
 	p.ConsumerKey = "oandgkey"
 	p.Add("oauth_consumer_key", key)
 	p.Add("oauth_signature_method", method)
