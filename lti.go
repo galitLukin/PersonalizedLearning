@@ -147,7 +147,7 @@ func (p *Provider) IsValid(r *http.Request) (bool, error) {
 
 	ckey := p.values.Get("oauth_consumer_key")
 	if ckey != p.ConsumerKey {
-		return false, fmt.Errorf("Invalid consumer key provided")
+		return false, fmt.Errorf("Invalid consumer key provided: ",ckey)
 	}
 
   bodyHash := p.values.Get("oauth_body_hash")
