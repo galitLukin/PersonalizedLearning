@@ -138,34 +138,48 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	if req.Method != "POST" {
-		http.Error(w, "Only post", 500)
-		return
-	}
-	p := NewProvider("oandgsecret", "http://3.16.157.40/getstarted")
-	p.ConsumerKey = "oandgkey"
-	p.Add("oauth_consumer_key", key)
-	p.Add("oauth_signature_method", method)
-	p.Add("oauth_signature", signat)
-	p.Add("oauth_version", version)
-
-	ok, err := p.IsValid(myr)
-	if ok == false {
-		fmt.Println(w, "Invalid request...")
-	}
+	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
+	oauth_params := fmt.Sprintf("OAuth oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", key, nonce(), signat, method, strconv.FormatInt(time.Now().Unix(), 10), version)
+	myr.Header.Add("Authorization", oauth_params)
+	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("Invalid request %s", err)
-		return
+		fmt.Println(err)
 	}
-
-	if ok == true {
-
-		fmt.Println(w, "Request Ok<br/>")
-		data := fmt.Sprintf("User %s", p.Get("user_id"))
-		fmt.Println(w, data)
-
+	if resp.StatusCode == http.StatusOK {
+		bodyBytes, err2 := ioutil.ReadAll(resp.Body)
+		if err2 != nil {
+			fmt.Println(err)
+		}
+		bodyString := string(bodyBytes)
+		fmt.Println(bodyString)
 	}
+	// if req.Method != "POST" {
+	// 	http.Error(w, "Only post", 500)
+	// 	return
+	// }
+	// p := NewProvider("oandgsecret", "http://3.16.157.40/getstarted")
+	// p.ConsumerKey = "oandgkey"
+	// p.Add("oauth_consumer_key", key)
+	// p.Add("oauth_signature_method", method)
+	// p.Add("oauth_signature", signat)
+	// p.Add("oauth_version", version)
+	//
+	// ok, err := p.IsValid(myr)
+	// if ok == false {
+	// 	fmt.Println(w, "Invalid request...")
+	// }
+	// if err != nil {
+	// 	fmt.Println("Invalid request %s", err)
+	// 	return
+	// }
+	//
+	// if ok == true {
+	//
+	// 	fmt.Println(w, "Request Ok<br/>")
+	// 	data := fmt.Sprintf("User %s", p.Get("user_id"))
+	// 	fmt.Println(w, data)
+	//
+	// }
 	//returnRequest()
 
 	qd.Score = dbInitFetchUser(db, uid, an)
