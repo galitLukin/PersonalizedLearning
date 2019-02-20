@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+	"strconv"
 )
 
 type PageData struct {
@@ -141,7 +142,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
 	oauth_params := fmt.Sprintf("OAuth oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", key, nonce(), signat, method, strconv.FormatInt(time.Now().Unix(), 10), version)
 	myr.Header.Add("Authorization", oauth_params)
-	resp, err := client.Do(req)
+	client := &http.Client{}
+	resp, err := client.Do(myr)
 	if err != nil {
 		fmt.Println(err)
 	}
