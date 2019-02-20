@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
-	"net/url"
 )
 
 type PageData struct {
@@ -131,19 +130,25 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	sourcedId := req.FormValue("lis_result_sourcedid")
 	key := req.FormValue("oauth_consumer_key")
 	method := req.FormValue("oauth_signature_method")
+	version := req.FormValue("oauth_version")
 	signat := req.FormValue("oauth_signature")
 
-	mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",url.QueryEscape(sourcedId))
+	mybody := fmt.Sprintf("<?xml version = \"1.0\" encoding = \"UTF-8\"?><imsx_POXEnvelopeRequest xmlns = \"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\"><imsx_POXHeader><imsx_POXRequestHeaderInfo><imsx_version>V1.0</imsx_version><imsx_messageIdentifier>999999123</imsx_messageIdentifier></imsx_POXRequestHeaderInfo></imsx_POXHeader><imsx_POXBody><replaceResultRequest><resultRecord><sourcedGUID><sourcedId>%s</sourcedId></sourcedGUID><result><resultScore><language>en</language><textString>0.92</textString></resultScore></result></resultRecord></replaceResultRequest></imsx_POXBody></imsx_POXEnvelopeRequest>",sourcedId)
 	myr, err := http.NewRequest("POST", purl, bytes.NewBuffer([]byte(mybody)))
 	if err != nil {
 		fmt.Println(err)
 	}
-	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	p := NewProvider("oandgsecret", url.QueryEscape(purl))
+	//myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
+	if r.Method != "POST" {
+		http.Error(w, "Only post", 500)
+		return
+	}
+	p := NewProvider("oandgsecret", "http://3.16.157.40/getstarted")
 	p.ConsumerKey = "oandgkey"
 	p.Add("oauth_consumer_key", key)
 	p.Add("oauth_signature_method", method)
 	p.Add("oauth_signature", signat)
+	p.Add("oauth_version", version)
 
 	ok, err := p.IsValid(myr)
 	if ok == false {
