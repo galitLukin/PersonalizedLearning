@@ -12,6 +12,8 @@ import (
 	"net/http/httputil"
 	"time"
 	"strconv"
+	"crypto/sha1"
+	"encoding/base64"
 )
 
 type PageData struct {
@@ -139,8 +141,19 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	var body []byte
+  if myr.Body != nil {
+    var err error
+    body, err = getBody(myr)
+    if err != nil {
+      fmt.Errorf("Failed to get body of request ...")
+    }
+  }
 	myr.Header.Add("Content-Type", "application/xml; charset=utf-8")
-	oauth_params := fmt.Sprintf("OAuth oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", key, nonce(), signat, method, strconv.FormatInt(time.Now().Unix(), 10), version)
+	hasher := sha1.New()
+	hasher.Write(body)
+	bodyHash := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
+	oauth_params := fmt.Sprintf("OAuth oauth_body_hash=%s,oauth_consumer_key=%s,oauth_nonce=%s,oauth_signature=%s,oauth_signature_method=%s,oauth_timestamp=%s,oauth_version=%s,", bodyHash, key, nonce(), signat, method, strconv.FormatInt(time.Now().Unix(), 10), version)
 	myr.Header.Add("Authorization", oauth_params)
 	client := &http.Client{}
 	resp, err := client.Do(myr)
@@ -322,21 +335,21 @@ func returnRequest() {
 	}
 }
 
-// func getBody(request *http.Request) ([]byte, error) {
-// 	if request.Body == nil {
-// 		return nil, nil
-// 	}
-// 	defer request.Body.Close()
-// 	originalBody, err := ioutil.ReadAll(request.Body)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	// We have to re-install the body (because we've ruined it by reading it).
-// 	if len(originalBody) > 0 {
-// 		request.Body = ioutil.NopCloser(bytes.NewReader(originalBody))
-// 	} else {
-// 		request.Body = nil
-// 	}
-// 	return originalBody, nil
-// }
+func getBody(request *http.Request) ([]byte, error) {
+	if request.Body == nil {
+		return nil, nil
+	}
+	defer request.Body.Close()
+	originalBody, err := ioutil.ReadAll(request.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	// We have to re-install the body (because we've ruined it by reading it).
+	if len(originalBody) > 0 {
+		request.Body = ioutil.NopCloser(bytes.NewReader(originalBody))
+	} else {
+		request.Body = nil
+	}
+	return originalBody, nil
+}
