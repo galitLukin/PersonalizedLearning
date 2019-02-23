@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
-	"math"
 )
 
 type userSchema struct {
@@ -446,7 +445,7 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	} else {
 		g.Grade = 0.0
 	}
-	g.Grade = math.Round(g.Grade*100)/100
+	g.Grade = float32(int(g.Grade * 100)) / 100
 
 	q = fmt.Sprintf(`update test02.scores SET grade = "%f"
 				WHERE username = "%s" AND assignment = "%s";`, g.Grade, qd.User.Username, qd.Question.Assignment)
