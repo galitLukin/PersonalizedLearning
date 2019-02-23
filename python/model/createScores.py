@@ -44,7 +44,7 @@ def cleanUserData(df):
 
 def insertAssignment(df):
     #df["assignment"] = np.nan
-    df.at[:, 'assignment'] = pd.Series([["Climate+Change", "Reading+Test+Scores", "Detecting+Flu+Epidemics+via+Search+Engine+Query+Data"]] * len(df.index))
+    df.at[:, 'assignment'] = pd.Series([["Climate Change", "Reading Test Scores", "Detecting Flu Epidemics"]] * len(df.index))
     s = df.apply(lambda x: pd.Series(x['assignment']), axis=1).stack().reset_index(level=1, drop=True)
     s.name = 'assignment'
     df = df.drop('assignment', axis=1).join(s)

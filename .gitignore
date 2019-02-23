@@ -15,6 +15,7 @@ python/model/data/rts2-train.csv
 python/model/data/rts3-train.csv
 python/model/data/rts4-train.csv
 
+python/__pycache__/transferGrade.cpython-36.pyc
 python/model/__pycache__/users.cpython-36.pyc
 python/model/__pycache__/answers.cpython-36.pyc
 python/model/__pycache__/cleanData.cpython-36.pyc
