@@ -446,17 +446,6 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 		g.Grade = 0.0
 	}
 
-	q = fmt.Sprintf(`SELECT "%f" * weight AS grade
-	    FROM test02.weights WHERE assignment = "%s";`, g.Grade, qd.Question.Assignment)
-	rows, err = db.Query(q)
-	dbCheck(err)
-	defer rows.Close()
-
-	for rows.Next() {
-		err := rows.Scan(&g.Grade)
-		dbCheck(err)
-	}
-
 	q = fmt.Sprintf(`update test02.scores SET grade = "%f"
 				WHERE username = "%s" AND assignment = "%s";`, g.Grade, qd.User.Username, qd.Question.Assignment)
 
@@ -470,69 +459,6 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	n, err := r.RowsAffected()
 	dbCheck(err)
 	fmt.Println("Score updated with grade. Updated rows: ", n)
-	return g.Grade
-}
-
-//runs when user finishes leaves assignment without finishing it - returns grade for edX
-func dbCalculateIncompleteGrade(db *sql.DB, qd QuestionData) float32 {
-	var g grade
-	correctAnswerInLevel := []int{0, 0, 0, 0, 0}
-	score := 0
-	scorePossible := 0
-	q := fmt.Sprintf(`SELECT username, assignment, level, numb,
-	    MAX(correctness) AS correctness, ANY_VALUE(score_possible) AS score_possible
-	    FROM test02.responses WHERE username = "%s" AND assignment = "%s"
-	    GROUP BY username, assignment, level, numb;`, qd.User.Username, qd.Question.Assignment)
-	rows, err := db.Query(q)
-	dbCheck(err)
-	defer rows.Close()
-
-	for rows.Next() {
-		err := rows.Scan(&g.Username, &g.Assignment, &g.Level, &g.Number, &g.Correctness, &g.ScorePossible)
-		dbCheck(err)
-		score += g.Correctness * g.ScorePossible
-		scorePossible += g.ScorePossible
-		if g.Correctness == 1 {
-			correctAnswerInLevel[g.Level-1] = 1
-		}
-	}
-
-	for level, isCorrect := range correctAnswerInLevel {
-		if isCorrect == 0 {
-			scorePossible = +level + 1
-		}
-	}
-
-	if scorePossible > 0 {
-		g.Grade = float32(score) / float32(scorePossible)
-	} else {
-		g.Grade = 0.0
-	}
-
-	q = fmt.Sprintf(`SELECT "%f" * weight AS grade
-	    FROM test02.weights WHERE assignment = "%s";`, g.Grade, qd.Question.Assignment)
-	rows, err = db.Query(q)
-	dbCheck(err)
-	defer rows.Close()
-
-	for rows.Next() {
-		err := rows.Scan(&g.Grade)
-		dbCheck(err)
-	}
-	q = fmt.Sprintf(`update test02.scores SET grade = "%f"
-				WHERE username = "%s" AND assignment = "%s";`, g.Grade, qd.User.Username, qd.Question.Assignment)
-
-	stmt, err := db.Prepare(q)
-	dbCheck(err)
-	defer stmt.Close()
-
-	r, err := stmt.Exec()
-	dbCheck(err)
-
-	n, err := r.RowsAffected()
-	dbCheck(err)
-	fmt.Println("Score updated with grade. Updated rows: ", n)
-
 	return g.Grade
 }
 
@@ -540,10 +466,4 @@ func dbCalculateIncompleteGrade(db *sql.DB, qd QuestionData) float32 {
 func dbAssignmentDone(db *sql.DB, qd QuestionData) float32 {
 	dbCalculateScores(db, qd)
 	return dbCalculateGrade(db, qd)
-}
-
-// run if user left assignment without completing it
-func dbAssignmentPaused(db *sql.DB, qd QuestionData) float32 {
-	dbCalculateScores(db, qd)
-	return dbCalculateIncompleteGrade(db, qd)
 }

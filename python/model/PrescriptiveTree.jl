@@ -160,7 +160,7 @@ function evaluate(lnr, X, outcomes, level)
 end
 
 depth=[[4,5],[4,5],[4,5],[4,6]]
-meu=[0.55,0.55,0.55,0.7]
+meu=[0.55,0.55,0.55,0.4]
 for asmt in ["dfe"]#, "rts", "dfe"]
     for level in 4:4
         (train_X, train_outcomes, train_Y, train_T), (test_X, test_outcomes, test_Y, test_T) = splitData(level, asmt)
