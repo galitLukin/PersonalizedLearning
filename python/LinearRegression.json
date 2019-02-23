@@ -26,7 +26,7 @@
           ],
           "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br />climate = read.csv(climate_change.csv)<br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)<br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R<sup>2</sup> value is 0.7509.</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 1
         },
         {
           "Assignment": "Climate Change",
@@ -133,7 +133,7 @@
           ],
           "explanation": "<p>The linear correlation of N2O and CFC.11 with other variables in the data set is quite large. The first explanation does not seem correct, as the warming effect of nitrous oxide and CFC-11 are well documented, and our regression analysis is not enough to disprove it. The second explanation is unlikely, as we have estimated eight coefficients and the intercept from 284 observations.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
@@ -175,7 +175,7 @@
           ],
           "explanation": "<p>You can calculate all correlations at once using cor(train) where train is the name of the training data set.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
@@ -196,7 +196,7 @@
           ],
           "explanation": "<p>The independent variable with the greatest effect on the dependent variable is that with the corresponding coefficient whose absolute value is the largest.<br /> <br />-1.538 is the coefficient with the largest absolute value.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
@@ -213,7 +213,7 @@
           ],
           "explanation": "<p>It is possible that the real relationship between the dependent and independent variables may not be linear. This means that one unit change in an independent varialbe does not leas to a constant unit change in the dependent variable.<br /> <br />It is possible that a unit change in an independent vaiable leads to a constant percent change in the dependent variable. Taking the log of the dependent variable allows to estimate this relationship instead.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         }
       ]
     },
@@ -242,7 +242,7 @@
           ],
           "explanation": "<p>We can create this simplified model with the command:<br /> <br />LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train)<br /> <br />You can get the coefficient for N2O and the model R<sup>2</sup> by typing summary(LinReg).<br /> <br />We have observed that, for this problem, when we remove many variables,the sign of N2O flips.<br /> <br />The model has not lost a lot of explanatory power (the model R<sup>2</sup> is 0.7261 compared to 0.7509 previously) despite removing many variables.<br /> <br />As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other.<br /> <br />In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 3
         },
         {
           "Assignment": "Climate Change",
@@ -264,7 +264,7 @@
           ],
           "explanation": "<p>You can create a model using the step function by typing:<br /> <br />StepModel = step(climateLM) where \"climateLM\" is the name of the full model.<br /> <br />If you look at the summary of the model with summary(StepModel), only CH4 was removed.<br /> <br />It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R<sup>2</sup> significantly.<br /> <br />The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).</p>",
           "attemptsOverall": 3,
-          "weight": 2
+          "weight": 3
         },
         {
           "Assignment": "Climate Change",
@@ -300,7 +300,7 @@
           ],
           "explanation": "<p>The coefficient corresponding to TSI is 0.093. Thus, one unit change in TSI, affects Temp by 0.093 units. Since the coefficient is positive, if TSI increases, Temp increases.</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 3
         },
         {
           "Assignment": "Climate Change",
@@ -318,7 +318,7 @@
           ],
           "explanation": "<p>The constant is defined as the mean of the dependent variable when all of the independent variables in the model are set to zero.</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 3
         }
       ]
     },
@@ -348,7 +348,7 @@
           ],
           "explanation": "<p>From the model created by the step function, you can see that the R<sup>2</sup> value is 0.75 and that N2O has a high p-value.</p>",
           "attemptsOverall": 2,
-          "weight": 3
+          "weight": 4
         },
         {
           "Assignment": "Climate Change",
@@ -369,7 +369,7 @@
           ],
           "explanation": "<p>The R code to calculate the R<sup>2</sup> can be written as follows (your variable names may be different): tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R<sup>2</sup> = 1 - SSE/SST</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Climate Change",
@@ -387,7 +387,7 @@
           ],
           "explanation": "<p>The in-sample R<sup>2</sup> will improve, but not necessarily the out of sample R<sup>2</sup>.<br /> <br />R<sup>2</sup> is negative when the model fits the data worse than the horizontal line (the baseline model).</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Climate Change",
@@ -405,7 +405,7 @@
           ],
           "explanation": "<p>Some fields, such as medicine, require more accuracy than other fields, such as marketing.</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Climate Change",
@@ -423,7 +423,7 @@
           ],
           "explanation": "<p>The R<sup>2</sup> from the training set is much higher than the out of sample R<sup>2</sup>. </p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 4
         }
       ]
     }
@@ -471,7 +471,7 @@
           ],
           "explanation": "<p>The correct invocation of tapply() here is:<br /> <br />tapply(pisaTrain$readingScore, pisaTrain$male, mean)</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 1
         },
         {
           "Assignment": "Reading Test Scores",
@@ -568,7 +568,7 @@
           ],
           "explanation": "<p>Amount of missing values: sum(is.na(pisaTrain$minutesPerWeekEnglish))<br /> <br />Average number of minutes that a student spends in English class: mean(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />Replacing missing values with maximum value: pisaTrain$minutesPerWeekEnglish[is.na(pisaTrain$minutesPerWeekEnglish)] <- min(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />mean(pisaTrain$minutesPerWeekEnglish)</p><br /> <br />Notice that there are no longer missing values. To calculate the average when replacing NAs with the minimum value, the data pisaTrain must be read again from the beginning. Similarly, the version of the training set which includes missing values might be needed for future questions.",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 1
         }
       ]
     },
@@ -579,19 +579,21 @@
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 1,
-          "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets. Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest:<br /> <br />pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest)<br /> <br />How many observations are now in the training set?<br /> <br />How many observations are now in the testing set?</p>",
+          "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets.<br /> <br />Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest:<br /> <br />pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest)<br /> <br />If you have replaced missing values in a previous question, return to the original data set that includes all missing values before running this command.<br /> <br />How many observations are now in the training set?<br /> <br />How many observations are now in the testing set?</p>",
           "options": [
             "2414, 990",
-            "2414, 1570",
+            "2475, 990",
             "3663, 1570",
             "24, 24",
-            "2414, 1570"
+            "2414, 1570",
+            "990, 2414",
+            "990, 2475",
           ],
           "correctAnswer": [
             "2414, 990"
           ],
           "explanation": "<p>After running the provided commands we can use str(pisaTrain) and str(pisaTest), or nrow(pisaTrain) and nrow(pisaTest), to check the new number of rows in the datasets.</p>",
-          "attemptsOverall": 2,
+          "attemptsOverall": 1,
           "weight": 2
         },
         {
@@ -613,7 +615,7 @@
           ],
           "explanation": "<p>We create a binary variable for each level except the reference level, so we would create all these variables except for raceethWhite.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Reading Test Scores",
@@ -633,7 +635,7 @@
           ],
           "explanation": "<p>An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Reading Test Scores",
@@ -653,12 +655,29 @@
           ],
           "explanation": "<p>An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Reading Test Scores",
           "level": 2,
           "number": 5,
+          "text": "<p>There are x races. Instead of creating x-1 more variables, we could give each race a number, 1 through x, and keep one variable that receives values 1 through x.<br /> <br />Why is this incorrect?</p>",
+          "options": [
+            "This would mean that each race has a different value and distances between races can be measured.",
+            "We would have to keep a map of what race was mapped to which number.",
+            "This would create a numeric column instead of a binary column."
+          ],
+          "correctAnswer": [
+            "This would mean that each race has a different value and distances between races can be measured."
+          ],
+          "explanation": "<p>The idea is to keep the variables categorical and not give them a numeric value.<br /> <br />Once numeric values are given to each race, the races can be mistakenly compared numericly.</p>",
+          "attemptsOverall": 1,
+          "weight": 2
+        },
+        {
+          "Assignment": "Reading Test Scores",
+          "level": 2,
+          "number": 6,
           "text": "<p>In the training set, check for outliers in the variable readingScore using the IQR method.<br /> <br />How many outliers are there?<br /> <br />Is linear regression sensitive to outliers?</p>",
           "options": [
             "0, No",
@@ -678,23 +697,6 @@
             "2, Yes"
           ],
           "explanation": "<p>To identify outliers using the IQR method:<br /> <br />Q3 <- quantile(pisaTrain$readingScore, 0.75)<br />Q1 <- quantile(pisaTrain$readingScore, 0.25)<br />iqr = Q3 - Q1<br />upper = (iqr * 1.5) + Q3<br />lower = Q1 - (iqr * 1.5)<br />pisaTrain[ which(pisaTrain$readingScore > upper | pisaTrain$readingScore < lower), ]<br /> <br />Notice how removing outliers affects the model.</p>",
-          "attemptsOverall": 2,
-          "weight": 2
-        },
-        {
-          "Assignment": "Reading Test Scores",
-          "level": 2,
-          "number": 6,
-          "text": "<p>There are x races. Instead of creating x-1 more variables, we could give each race a number 1-x and keep one variable that receives values 1-x.<br /> <br />Why is this incorrect?</p>",
-          "options": [
-            "This would mean that each race has a different value and distances between races can be measured.",
-            "We would have to keep a map of what race was mapped to which number.",
-            "This would create a numeric column instead of a binary column."
-          ],
-          "correctAnswer": [
-            "This would mean that each race has a different value and distances between races can be measured."
-          ],
-          "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
           "weight": 2
         }
@@ -710,20 +712,20 @@
           "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\").<br /> <br />Set the reference level of the factor by typing the following two lines in your R console:<br /> <br />pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\")<br />pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\")<br /> <br />Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables.<br /> <br />It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables.<br /> <br />As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation:<br /> <br /> LinReg = lm(Y ~ X1 + X2 + X3, data = Train)<br /> <br />You would use the following command to build your model:<br /> <br />LinReg = lm(Y ~ ., data = Train)<br /> <br />What is the Multiple R<sup>2</sup> value of lmScore on the training set?<br /> <br />Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
           "options": [
             "0.675",
-            "0.315",
-            "0.32",
-            "0.68",
+            "73.81",
+            "0.317",
+            "41.02",
             "0.325",
-            "0.331",
-            "0.665",
-            "0.5"
+            "1.86",
+            "0.292",
+            "75.82"
           ],
           "correctAnswer": [
             "0.325"
           ],
           "explanation": "<p>We can train the model with:<br /> <br />lmScore = lm(readingScore~., data=pisaTrain)<br /> <br />We can then read the training set R^2 from the \"Multiple R<sup>2</sup>\" value of summary(lmScore).</p>",
-          "attemptsOverall": 3,
-          "weight": 2
+          "attemptsOverall": 1,
+          "weight": 3
         },
         {
           "Assignment": "Reading Test Scores",
@@ -733,19 +735,19 @@
           "options": [
             "5382.5",
             "19716111.884",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "73",
+            "0",
+            "74.7",
+            "49.11",
+            "73.636",
+            "73.5",
             "73.366"
           ],
           "correctAnswer": [
             "73.366"
           ],
           "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br />SSE = sum(lmScore$residuals^2)<br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br />RMSE = sqrt(SSE / nrow(pisaTrain))<br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br />sqrt(mean(lmScore$residuals^2)).</p>",
-          "attemptsOverall": 2,
-          "weight": 1
+          "attemptsOverall": 1,
+          "weight": 3
         },
         {
           "Assignment": "Reading Test Scores",
@@ -765,7 +767,7 @@
           ],
           "explanation": "<p>The coefficient 29.54 on grade is the difference in reading score between two students who are identical other than having a difference in grade of 1.<br /> <br />Because A and B have a difference in grade of 2, the model predicts that student A has a reading score that is 2*29.54 larger.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Reading Test Scores",
@@ -783,7 +785,7 @@
           ],
           "explanation": "<p>The only difference between an Asian student and white student with otherwise identical variables is that the former has raceethAsian=1 and the latter has raceethAsian=0. The predicted reading score for these two students will differ by the coefficient on the variable raceethAsian.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Reading Test Scores",
@@ -820,7 +822,7 @@
           ],
           "explanation": "<p>From summary(lmScore), we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Reading Test Scores",
@@ -835,7 +837,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 2,
-          "weight": 0
+          "weight": 3
         }
       ]
     },
@@ -860,7 +862,7 @@
           ],
           "explanation": "<p>We can obtain the predictions with:<br /> <br />predTest = predict(lmScore, newdata=pisaTest)<br /> <br />From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
@@ -875,7 +877,7 @@
           ],
           "explanation": "<p>SSE = sum((predTest-pisaTest$readingScore)^2)<br /> <br />RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
@@ -896,7 +898,7 @@
           ],
           "explanation": "<p>This can be computed with:<br /> <br />baseline = mean(pisaTrain$readingScore)<br /> <br />sum((baseline-pisaTest$readingScore)^2).</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
@@ -916,7 +918,7 @@
           ],
           "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model.<br /> <br />For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
@@ -931,7 +933,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
@@ -941,15 +943,15 @@
           "options": [
             "Remove insignificant independent variables",
             "Set the reference level of the race factor variable to be the default",
-            "Check for multicollinearity between independent variables and remove and high cor- related variables",
+            "Check for multicollinearity between independent variables and remove and high correlated variables",
             "Consider alternative ways of dealing with missing values in the data"
           ],
           "correctAnswer": [
-            "Remove insignificant independent variables,Check for multicollinearity between independent variables and remove and high cor- related variables,Consider alternative ways of dealing with missing values in the data"
+            "Remove insignificant independent variables,Check for multicollinearity between independent variables and remove and high correlated variables,Consider alternative ways of dealing with missing values in the data"
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 2,
-          "weight": 0
+          "weight": 4
         }
       ]
     }
@@ -971,7 +973,7 @@
           ],
           "explanation": "<p>We can limit FluTrain to the observations that obtain the maximum ILI value with subset(FluTrain, ILI == max(ILI)). From here, we can read information about the week at which the maximum was obtained. Alternatively, you can use which.max(FluTrain$ILI) to find the row number corresponding to the observation with the maximum value of ILI, which is 303. Then, you can output the corresponding week using FluTrain$Week[303].</p>",
           "attemptsOverall": 1,
-          "weight": 3
+          "weight": 1
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -986,7 +988,7 @@
           ],
           "explanation": "<p>We can limit FluTrain to the observations that obtain the maximum ILI value with subset(FluTrain, Queries == max(Queries)). From here, we can read information about the week at which the maximum was obtained. Alternatively, you can use which.max(FluTrain$Queries) to find the row number corresponding to the observation with the maximum value of Queries, which is 303. Then, you can output the corresponding week using FluTrain$Week[303].</p>",
           "attemptsOverall": 1,
-          "weight": 3
+          "weight": 1
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1057,7 +1059,7 @@
           ],
           "explanation": "<p>The model can be trained with: FluTrend1 = lm(log(ILI)~Queries, data=FluTrain) From summary(FluTrend1), we read that the R<sup>2</sup> value is 0.709.</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 1
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1097,7 +1099,7 @@
           ],
           "explanation": "<p>To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)). This can be done with Correlation = cor(FluTrain$Queries, log(FluTrain$ILI)) The values of the three expressions are then: Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792. It appears that Correlation^2 is equal to the R<sup>2</sup> value. It can be proved that this  is always the case. Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function exp().</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1112,7 +1114,7 @@
           ],
           "explanation": "<p>To obtain the predictions, we need can run PredTest1 = exp(predict(FluTrend1, newdata=FluTest)) Next, we need to determine which element in the test set is for March 11, 2012. We can determine this with: which(FluTest$Week == \"2012-03-11 - 2012-03-17\") Now we know we are looking for prediction number 11. This can be accessed with: PredTest1[11]</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1127,7 +1129,7 @@
           ],
           "explanation": "<p>From a previous problem, we know the predicted value is 2.187378. The actual value is the 11th testing set ILI value or FluTest$ILI[11], which has value 2.293422. Finally we compute the relative error to be (2.293422 - 2.187378)/2.293422.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1142,7 +1144,7 @@
           ],
           "explanation": "<p>The RMSE can be calculated by first computing the SSE: SSE = sum((PredTest1-FluTest$ILI)^2) and then dividing by the number of observations and taking the square root: RMSE = sqrt(SSE / nrow(FluTest)) Alternatively, you could use the following command: sqrt(mean((PredTest1-FluTest$ILI)^2)).</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1157,7 +1159,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1172,7 +1174,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1190,7 +1192,7 @@
           ],
           "explanation": "<p>The variable’s coefficient is not statistically different than zero.</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 2
         }
       ]
     },
@@ -1210,7 +1212,7 @@
           ],
           "explanation": "<p>This can be read from the output of summary(FluTrain$ILILag2).</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1227,7 +1229,7 @@
           ],
           "explanation": "<p>From plot(log(FluTrain$ILILag2), log(FluTrain$ILI)), we observe a strong positive relationship.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1244,7 +1246,7 @@
           ],
           "explanation": "<p>The following code builds and summarizes the FluTrend2 model: FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain) summary(FluTrend2) As can be seen, all three coefficients are highly significant</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1259,7 +1261,7 @@
           ],
           "explanation": "<p>The following code builds and summarizes the FluTrend2 model: FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain) summary(FluTrend2) As can be seen, the R^2 value is 0.9063.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1276,7 +1278,7 @@
           ],
           "explanation": "<p>Moving from FluTrend1 to FluTrend2, in-sample R^2 improved from 0.709 to 0.9063, and the new variable is highly significant. As a result, there is no sign of overfitting, and FluTrend2 is superior to FluTrend1 on the training set.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 3
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1291,7 +1293,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 3
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1306,7 +1308,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 3
         }
       ]
     },
@@ -1326,7 +1328,7 @@
           ],
           "explanation": "<p>We can add the new variable with: ILILag2 = lag(zoo(FluTest$ILI), -2, na.pad=TRUE) FluTest$ILILag2 = coredata(ILILag2) From summary(FluTest$ILILag2), we can see that we're missing two values of the new variable.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 4
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1344,7 +1346,7 @@
           ],
           "explanation": "<p>The time two weeks before the first week of 2012 is the second-to-last week of 2011. This corresponds to the second-to-last observation in FluTrain.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 4
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1362,7 +1364,7 @@
           ],
           "explanation": "<p>The time two weeks before the second week of 2012 is the last week of 2011. This corresponds to the last observation in FluTrain.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 4
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1377,7 +1379,7 @@
           ],
           "explanation": "<p>This can be read from FluTest$ILILag2[1], FluTest$ILILag2[2].</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1392,7 +1394,7 @@
           ],
           "explanation": "<p>We can obtain the test-set predictions with: PredTest2 = exp(predict(FluTrend2, newdata=FluTest)) And then we can compute the RMSE with the following commands: SSE = sum((PredTest2-FluTest$ILI)^2) RMSE = sqrt(SSE / nrow(FluTest)) Alternatively, you could use the following command to compute the RMSE: sqrt(mean((PredTest2-FluTest$ILI)^2)). The test-set RMSE of FluTrend2 is 0.294</p>",
           "attemptsOverall": 2,
-          "weight": 2
+          "weight": 4
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1408,7 +1410,7 @@
           ],
           "explanation": "<p>The test-set RMSE of FluTrend2 is 0.294, as opposed to the 0.749 value obtained by the FluTrend1 model. In this problem, we used a simple time series model with a single lag term. ARIMA models are a more general form of the model we built, which can include multiple lag terms as well as more complicated combinations of previous values of the dependent variable. If you're interested in learning more, check out ?arima or the available online tutorials for these sorts of models.</p>",
           "attemptsOverall": 1,
-          "weight": 1
+          "weight": 4
         },
         {
           "Assignment": "Detecting Flu Epedemics",
@@ -1423,7 +1425,7 @@
           ],
           "explanation": "<p>TODO</p>",
           "attemptsOverall": 1,
-          "weight": 0
+          "weight": 4
         }
       ]
     }
