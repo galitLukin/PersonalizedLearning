@@ -828,15 +828,20 @@
           "Assignment": "Reading Test Scores",
           "level": 3,
           "number": 6,
-          "text": "<p>TODO</p>",
+          "text": "<p>There is a hypothesis that the number of students in a student's school has a large positive affect on the student's reading score.<br /> <br />What are your thoughts about this statement? </p>",
           "options": [
-            "TODO"
+            "The statement is true. The schoolSize variable is significant.",
+            "The statement is true. The schoolSize variable is significant and its corresponding coeffict is positive.",
+            "The statement is false. The schoolSize variable is not significant enough.",
+            "The statement is false. The schoolSize variable is significant, however the corresponding coefficient is small compared to other coefficients.",
+            "The statement is false. The literate has proven this statement to be false.",
+            "The given information is insuffient to determine if the statement is true or false."
           ],
           "correctAnswer": [
-            "TODO"
+            "The statement is false. The schoolSize variable is significant, however the corresponding coefficient is small compared to other coefficients."
           ],
-          "explanation": "<p>TODO</p>",
-          "attemptsOverall": 2,
+          "explanation": "<p>Due to the ow coefficient that the model has given to schoolSize, it can be learned from the model that schoolSize does not have a large affect on the variable being predicted. The effect is positive since the coefficient is positive, but not large.</p>",
+          "attemptsOverall": 1,
           "weight": 3
         }
       ]
@@ -848,14 +853,16 @@
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 1,
-          "text": "<p>Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest.<br /> <br />Call this vector of predictions \"predTest\".<br /> <br />Do not change the variables in the model (for example, do not remove variables that we found were not significant in a previous part of this problem).<br /> <br />Use the summary function to describe the test set predictions.<br /> <br />What is the range between the maximum and minimum predicted reading score on the test set?</p>",
+          "text": "<p>Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest.<br /> <br />Call this vector of predictions \"predTest\".<br /> <br />Do not change the variables in the model (for example, do not remove variables that we found were not significant in a previous part of this assignment).<br /> <br />Use the summary function to describe the test set predictions.<br /> <br />What is the range between the maximum and minimum predicted reading score on the test set?</p>",
           "options": [
             "284.5",
             "637.7",
             "353.2",
             "285",
             "990.0",
-            "-284.5"
+            "-284.5",
+            "-353.2",
+            "-285"
           ],
           "correctAnswer": [
             "284.5"
@@ -870,7 +877,19 @@
           "number": 2,
           "text": "<p>What is the sum of squared errors (SSE) of lmScore on the testing set?<br /> <br />What is the root-mean squared error (RMSE) of lmScore on the testing set</p>?",
           "options": [
-            "TODO"
+            "-3122.395, 76.29",
+            "-3122.395, NaN",
+            "-3122.395, 76.29",
+            "-3122.395, 527.386",
+            "5762082, 527.386",
+            "5762082, 519.321",
+            "5762082, 5820.285",
+            "5762082, 269694.4",
+            "5762082, 278136.4",
+            "5762082, 76.29",
+            "2400.434, 5820.285",
+            "2400.434, NaN",
+            "2400.434, 527.386",
           ],
           "correctAnswer": [
             "5762082, 76.29"
@@ -883,55 +902,65 @@
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 3,
-          "text": "<p>What is the predicted test score used in the baseline model?<br /> <br />Remember to compute this value using the training set and not the test set.<br /> <br />What is the sum of squared errors of the baseline model on the testing set?<br /> <br />HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).</p>",
+          "text": "<p>What is the predicted test score used in the baseline model?<br /> <br />Remember to compute this value using the training set and not the test set.</p>",
           "options": [
-            "497.91, 7802354",
-            "517.96, 7802354",
-            "520.205, 7802354",
-            "497.91, 14407628",
-            "517.96, 14407628",
-            "520.205 ,8275884",
-            "517.96 ,8275884"
+            "746",
+            "517.96",
+            "520.205",
+            "244.48",
+            "519.86",
+            "520.205",
+            "520.175",
+            "0.29",
+            "0.302"
           ],
           "correctAnswer": [
-            "517.96, 7802354"
+            "517.96"
           ],
-          "explanation": "<p>This can be computed with:<br /> <br />baseline = mean(pisaTrain$readingScore)<br /> <br />sum((baseline-pisaTest$readingScore)^2).</p>",
-          "attemptsOverall": 2,
+          "explanation": "<p>This can be computed with:<br /> <br />baseline = mean(pisaTrain$readingScore).</p>",
+          "attemptsOverall": 1,
           "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 4,
-          "text": "<p>What is the test-set R<sup>2</sup> value of lmScore?</p>",
+          "text": "<p>What is the sum of squared errors of the baseline model on the testing set?<br /> <br />HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).</p>",
           "options": [
-            "5762082",
-            "-0.261",
-            "1.354",
-            "7802354",
-            "0.261",
-            "-1.354"
+            "0",
+            "19253519",
+            "2793.269",
+            "-1882.372",
+            "268285.6",
+            "275355048",
+            "7802354"
           ],
           "correctAnswer": [
-            "0.261"
+            "7802354"
           ],
-          "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model.<br /> <br />For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
-          "attemptsOverall": 2,
+          "explanation": "<p>This can be computed with:<br /> <br />sum((baseline-pisaTest$readingScore)^2)</p>",
+          "attemptsOverall": 1,
           "weight": 4
         },
         {
           "Assignment": "Reading Test Scores",
           "level": 4,
           "number": 5,
-          "text": "<p>TODO</p>",
+          "text": "<p>What is the test-set R<sup>2</sup> value of lmScore?</p>",
           "options": [
-            "TODO"
+            "5762082",
+            "0.739",
+            "-0.739",
+            "-0.261",
+            "0.261",
+            "1.354",
+            "-1.354"
+            "7802354",
           ],
           "correctAnswer": [
-            "TODO"
+            "0.261"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model.<br /> <br />For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
           "attemptsOverall": 1,
           "weight": 4
         },
@@ -949,7 +978,7 @@
           "correctAnswer": [
             "Remove insignificant independent variables,Check for multicollinearity between independent variables and remove and high correlated variables,Consider alternative ways of dealing with missing values in the data"
           ],
-          "explanation": "<p>TODO</p>",
+          "explanation": "<p>A good model consists of significant, uncorrelated variables whos data is representative and of high quality.</p>",
           "attemptsOverall": 2,
           "weight": 4
         }
