@@ -151,9 +151,9 @@ func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 		qd.Score.Grade = dbAssignmentDone(db, qd)
 		fmt.Println("Users Grade Is: ", qd.Score.Grade)
 
-		return qd.Score.Grade * 100
+		return int(qd.Score.Grade * 100)
 	}
-	return 0.0
+	return 0
 }
 
 func quiz(w http.ResponseWriter, req *http.Request) {

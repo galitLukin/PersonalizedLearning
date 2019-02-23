@@ -447,7 +447,7 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	}
 	g.Grade = float32(int(g.Grade * 100)) / 100
 
-	q = fmt.Sprintf(`update test02.scores SET grade = "%d"
+	q = fmt.Sprintf(`update test02.scores SET grade = "%f"
 				WHERE username = "%s" AND assignment = "%s";`, g.Grade, qd.User.Username, qd.Question.Assignment)
 
 	stmt, err := db.Prepare(q)
