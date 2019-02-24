@@ -983,7 +983,7 @@
           "correctAnswer": [
             "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called skew right)."
           ],
-          "explanation": "<p>The histogram of ILI can be obtained with <code>hist(FluTrain$ILI)</code>.<br /> <br />Visually, the data is skewed right.</p>",
+          "explanation": "<p>The histogram of ILI can be obtained with <code>hist(FluTrain$ILI)</code>.<br /> <br />Visually, the data is skew right.</p>",
           "attemptsOverall": 1,
           "weight": 1
         },
