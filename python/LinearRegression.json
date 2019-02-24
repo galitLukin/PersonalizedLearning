@@ -1112,9 +1112,9 @@
           "number": 2,
           "text": "<p>For a single variable linear regression model, there is a direct relationship between the R<sup>2</sup> and the correlation between the independent and the dependent variables.<br /> <br />What is the relationship we infer from our problem?<br /> <br />(Don't forget that you can use the cor function to compute the correlation between two variables.)</p>",
           "options": [
-            "R<sup>2</sup> = Correlation^2",
-            "R<sup>2</sup> = log(1/Correlation)",
-            "R<sup>2</sup> = exp(-0.5*Correlation)"
+            "R^2 = Correlation^2",
+            "R^2 = log(1/Correlation)",
+            "R^2 = exp(-0.5*Correlation)"
           ],
           "correctAnswer": [
             "R<sup>2</sup> = Correlation^2"
