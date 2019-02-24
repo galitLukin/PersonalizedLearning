@@ -68,7 +68,6 @@ var tpl *template.Template
 var dbSessionsCleaned time.Time
 var qd QuestionData
 var uid string
-var purl string
 var an string
 
 const sessionLength int = 30
@@ -77,8 +76,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "2"
-	//purl = "https://nba.com"
+	//uid = "7"
 	//an = "Reading Test Scores"
 }
 
@@ -124,7 +122,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	logPostBody(req)
 	uid = req.FormValue("user_id")
 	an = req.FormValue("custom_component_display_name")
-	purl = req.FormValue("lis_outcome_service_url")
 
 	qd.Score = dbInitFetchUser(db, uid, an)
 
@@ -135,7 +132,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		Last:           "Goldberg",
 		Uid:            uid,
 		AssignmentName: an,
-		PostUrl:        purl,
 	}
 	qpd := QuizPageData{
 		UserData:     u,
@@ -194,7 +190,6 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		Last:           "Goldberg",
 		Uid:            uid,
 		AssignmentName: an,
-		PostUrl:        purl,
 	}
 
 	qpd := QuizPageData{

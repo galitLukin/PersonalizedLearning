@@ -354,7 +354,7 @@
           "Assignment": "Climate Change",
           "level": 4,
           "number": 2,
-          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R<sup>2</sup>:</p>",
+          "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R<sup>2</sup>?</p>",
           "options": [
             "0.172",
             "1.1751",
@@ -436,7 +436,7 @@
           "Assignment": "Reading Test Scores",
           "level": 1,
           "number": 1,
-          "text": "<p>Load the training and testing sets using the read.csv() function, and save them as variables with the names pisaTrain and pisaTest.<br /> <br />How many students are there in the training set?</p>",
+          "text": "<p>Load the training and testing sets using the <code>read.csv()</code> function, and save them as variables with the names pisaTrain and pisaTest.<br /> <br />How many students are there in the training set?</p>",
           "options": [
             "3663",
             "5233",
@@ -448,7 +448,7 @@
           "correctAnswer": [
             "3663"
           ],
-          "explanation": "<p>The datasets can be loaded with:<br /> <br />pisaTrain = read.csv(\"pisa2009train.csv\")<br /> <br />pisaTest = read.csv(\"pisa2009test.csv\")<br /> <br />We can then access the number of rows in the training set with str(pisaTrain) or nrow(pisaTrain).</p>",
+          "explanation": "<p>The datasets can be loaded with:<br /> <br /><code>pisaTrain = read.csv(\"pisa2009train.csv\")<br /> <br />pisaTest = read.csv(\"pisa2009test.csv\")</code><br /> <br />We can then access the number of rows in the training set with <code>str(pisaTrain)</code> or <code>nrow(pisaTrain)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1
         },
@@ -456,7 +456,7 @@
           "Assignment": "Reading Test Scores",
           "level": 1,
           "number": 2,
-          "text": "<p>Using tapply() on pisaTrain, what is the average reading test score of males? Of females?</p>",
+          "text": "<p>Using <code>tapply()</code> on pisaTrain, what is the average reading test score of males? Of females?</p>",
           "options": [
             "485.22, 509.19",
             "509.19, 485.22",
@@ -469,7 +469,7 @@
           "correctAnswer": [
             "483.5325, 512.9406"
           ],
-          "explanation": "<p>The correct invocation of tapply() here is:<br /> <br />tapply(pisaTrain$readingScore, pisaTrain$male, mean)</p>",
+          "explanation": "<p>The correct invocation of <code>tapply()</code> here is:<br /> <br /><code>tapply(pisaTrain$readingScore, pisaTrain$male, mean)</code></p>",
           "attemptsOverall": 1,
           "weight": 1
         },
@@ -507,7 +507,7 @@
           "correctAnswer": [
             "raceeth,preschool,expectBachelors,motherHS,motherBachelors,motherWork,fatherHS,fatherBachelors,fatherWork,selfBornUS,motherBornUS,fatherBornUS,englishAtHome,computerForSchoolwork,read30MinsADay,minutesPerWeekEnglish,studentsInEnglish,schoolHasLibrary,schoolSize"
           ],
-          "explanation": "<p>We can read which variables have missing values from summary(pisaTrain). Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.</p>",
+          "explanation": "<p>We can read which variables have missing values from <code>summary(pisaTrain)</code>. Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.</p>",
           "attemptsOverall": 2,
           "weight": 1
         },
@@ -566,7 +566,7 @@
           "correctAnswer": [
             "186, 266.2, 374.56, 252.69"
           ],
-          "explanation": "<p>Amount of missing values: sum(is.na(pisaTrain$minutesPerWeekEnglish))<br /> <br />Average number of minutes that a student spends in English class: mean(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />Replacing missing values with maximum value: pisaTrain$minutesPerWeekEnglish[is.na(pisaTrain$minutesPerWeekEnglish)] <- min(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />mean(pisaTrain$minutesPerWeekEnglish)</p><br /> <br />Notice that there are no longer missing values. To calculate the average when replacing NAs with the minimum value, the data pisaTrain must be read again from the beginning. Similarly, the version of the training set which includes missing values might be needed for future questions.",
+          "explanation": "<p>Amount of missing values: <code>sum(is.na(pisaTrain$minutesPerWeekEnglish))</code><br /> <br />Average number of minutes that a student spends in English class: <code>mean(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)</code><br /> <br />Replacing missing values with maximum value: <code>pisaTrain$minutesPerWeekEnglish[is.na(pisaTrain$minutesPerWeekEnglish)] <- min(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />mean(pisaTrain$minutesPerWeekEnglish)</code><br /> <br />Notice that there are no longer missing values. To calculate the average when replacing NAs with the minimum value, the data pisaTrain must be read again from the beginning. Similarly, the version of the training set which includes missing values might be needed for future questions.</p>",
           "attemptsOverall": 2,
           "weight": 1
         }
@@ -587,12 +587,12 @@
             "24, 24",
             "2414, 1570",
             "990, 2414",
-            "990, 2475",
+            "990, 2475"
           ],
           "correctAnswer": [
             "2414, 990"
           ],
-          "explanation": "<p>After running the provided commands we can use str(pisaTrain) and str(pisaTest), or nrow(pisaTrain) and nrow(pisaTest), to check the new number of rows in the datasets.</p>",
+          "explanation": "<p>After running the provided commands we can use <code>str(pisaTrain)</code> and <code>str(pisaTest)</code>, or <code>nrow(pisaTrain)</code> and <code>nrow(pisaTest)</code>, to check the new number of rows in the datasets.</p>",
           "attemptsOverall": 1,
           "weight": 2
         },
@@ -709,7 +709,7 @@
           "Assignment": "Reading Test Scores",
           "level": 3,
           "number": 1,
-          "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\").<br /> <br />Set the reference level of the factor by typing the following two lines in your R console:<br /> <br />pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\")<br />pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\")<br /> <br />Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables.<br /> <br />It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables.<br /> <br />As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation:<br /> <br /> LinReg = lm(Y ~ X1 + X2 + X3, data = Train)<br /> <br />You would use the following command to build your model:<br /> <br />LinReg = lm(Y ~ ., data = Train)<br /> <br />What is the Multiple R<sup>2</sup> value of lmScore on the training set?<br /> <br />Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
+          "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\").<br /> <br />Set the reference level of the factor by typing the following two lines in your R console:<br /> <br />pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\")<br />pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\")<br /> <br />Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables.<br /> <br />It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables.<br /> <br />As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation:<br /> <br /><code>LinReg = lm(Y ~ X1 + X2 + X3, data = Train)</code><br /> <br />You would use the following command to build your model:<br /> <br /><code>LinReg = lm(Y ~ ., data = Train)</code><br /> <br />What is the Multiple R<sup>2</sup> value of lmScore on the training set?<br /> <br />Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
           "options": [
             "0.675",
             "73.81",
@@ -723,7 +723,7 @@
           "correctAnswer": [
             "0.325"
           ],
-          "explanation": "<p>We can train the model with:<br /> <br />lmScore = lm(readingScore~., data=pisaTrain)<br /> <br />We can then read the training set R<sup>2</sup> from the \"Multiple R<sup>2</sup>\" value of summary(lmScore).</p>",
+          "explanation": "<p>We can train the model with:<br /> <br /><code>lmScore = lm(readingScore~., data=pisaTrain)</code><br /> <br />We can then read the training set R<sup>2</sup> from the \"Multiple R<sup>2</sup>\" value of <code>summary(lmScore)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 3
         },
@@ -745,7 +745,7 @@
           "correctAnswer": [
             "73.366"
           ],
-          "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br />SSE = sum(lmScore$residuals^2)<br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br />RMSE = sqrt(SSE / nrow(pisaTrain))<br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br />sqrt(mean(lmScore$residuals^2)).</p>",
+          "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br /><code>SSE = sum(lmScore$residuals^2)</code><br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br /><code>RMSE = sqrt(SSE / nrow(pisaTrain))</code><br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br /><code>sqrt(mean(lmScore$residuals^2))</code>.</p>",
           "attemptsOverall": 1,
           "weight": 3
         },
@@ -820,7 +820,7 @@
           "correctAnswer": [
             "preschool,motherHS,motherWork,fatherHS,fatherWork,selfBornUS,motherBornUS,fatherBornUS,englishAtHome,minutesPerWeekEnglish,studentsInEnglish,schoolHasLibrary,urban"
           ],
-          "explanation": "<p>From summary(lmScore), we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.</p>",
+          "explanation": "<p>From <code>summary(lmScore)</code>, we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.</p>",
           "attemptsOverall": 2,
           "weight": 3
         },
@@ -867,7 +867,7 @@
           "correctAnswer": [
             "284.5"
           ],
-          "explanation": "<p>We can obtain the predictions with:<br /> <br />predTest = predict(lmScore, newdata=pisaTest)<br /> <br />From summary(predTest), we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.</p>",
+          "explanation": "<p>We can obtain the predictions with:<br /> <br /><code>predTest = predict(lmScore, newdata=pisaTest)</code><br /> <br />From <code>summary(predTest)</code>, we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.</p>",
           "attemptsOverall": 1,
           "weight": 4
         },
@@ -894,7 +894,7 @@
           "correctAnswer": [
             "5762082, 76.29"
           ],
-          "explanation": "<p>SSE = sum((predTest-pisaTest$readingScore)^2)<br /> <br />RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))</p>",
+          "explanation": "<p><code>SSE = sum((predTest-pisaTest$readingScore)^2)<br /> <br />RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))</code></p>",
           "attemptsOverall": 2,
           "weight": 4
         },
@@ -917,7 +917,7 @@
           "correctAnswer": [
             "517.96"
           ],
-          "explanation": "<p>This can be computed with:<br /> <br />baseline = mean(pisaTrain$readingScore).</p>",
+          "explanation": "<p>This can be computed with:<br /> <br /><code>baseline = mean(pisaTrain$readingScore)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 4
         },
@@ -938,7 +938,7 @@
           "correctAnswer": [
             "7802354"
           ],
-          "explanation": "<p>This can be computed with:<br /> <br />sum((baseline-pisaTest$readingScore)^2)</p>",
+          "explanation": "<p>This can be computed with:<br /> <br /><code>sum((baseline-pisaTest$readingScore)^2)</code></p>",
           "attemptsOverall": 1,
           "weight": 4
         },
@@ -1214,7 +1214,7 @@
           "options": [
             "The model is interpretable",
             "The simplest model is always the best model.",
-            "It can prevent overfitting.",
+            "It can prevent overfitting."
           ],
           "correctAnswer": [
             "The model is interpretable,It can prevent overfitting."
