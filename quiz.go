@@ -70,7 +70,7 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(outb))
+	//fmt.Println(string(outb))
 	err = json.Unmarshal(outb, &q)
 	if err != nil {
 		fmt.Println(err)

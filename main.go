@@ -63,8 +63,6 @@ var db *sql.DB
 var err error
 var tpl *template.Template
 
-//var dbUsers = map[string]user{}       // user ID, user -> TODO: should be singular
-//var dbSessions = map[string]session{} // session ID, session
 var dbSessionsCleaned time.Time
 var qd QuestionData
 var uid string
@@ -143,9 +141,9 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 
 func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 	if qd.QuestionInstance.Status == "Done" {
-		fmt.Println("Quiz is done ...")
+		fmt.Println("Quiz is done ...",uid,an)
 		qd.Score.Grade = dbAssignmentDone(db, qd)
-		fmt.Println("Users Grade Is: ", qd.Score.Grade)
+		fmt.Println("Users Grade Is: ", qd.Score.Grade,uid,an)
 
 		return float32(int(qd.Score.Grade * 100))
 	}
@@ -156,10 +154,10 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
-			fmt.Println("Failed to parse form...")
+			fmt.Println("Failed to parse form...",uid,an)
 			return
 		}
-		fmt.Println("Continue quiz...")
+		fmt.Println("Continue quiz...",uid,an)
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
 				qd.QuestionInstance.Answer = values
@@ -174,11 +172,10 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			}
 		}
 	} else {
-		fmt.Println("Initial question...")
+		fmt.Println("Initial question...",uid,an)
 		qd.User.Username = uid
 		qd.Question.Assignment = an
 		qd.PrevLocation = dbGetUserPrevLocation(db, qd)
-		fmt.Println(qd.Question.Assignment)
 		qd = getNextQuizState(qd)
 		qd.Score.Grade = finishAssignment(db, qd)
 	}
@@ -208,27 +205,7 @@ func logPostBody(req *http.Request) {
 		fmt.Println("Failed to parse form...")
 		return
 	}
-
 	fmt.Println("Edx - CustomComponentDisplayName: " + req.FormValue("custom_component_display_name"))
-	fmt.Println("Edx - LTI Version: " + req.FormValue("lti_version"))
-	fmt.Println("Edx - Oauth nonce: " + req.FormValue("oauth_nonce"))
-	fmt.Println("Edx - Resource link id: " + req.FormValue("resource_link_id"))
-	fmt.Println("Edx - Context ID: " + req.FormValue("context_id"))
-	fmt.Println("Edx -  Oauth signature method: " + req.FormValue("oauth_signature_method"))
-	fmt.Println("Edx -  Oauth timestamp: " + req.FormValue("oauth_timestamp"))
-	fmt.Println("Edx -  Oauth version: " + req.FormValue("oauth_version"))
-	fmt.Println("Edx -  Oauth signature: " + req.FormValue("oauth_signature"))
-	fmt.Println("Edx - Context Title: " + req.FormValue("context_title"))
-	fmt.Println("Edx - LTI Message Type: " + req.FormValue("lti_message_type"))
-	fmt.Println("Edx - Launch presentation return url: " + req.FormValue("launch_presentation_return_url"))
-	fmt.Println("Edx - Context label: " + req.FormValue("context_label"))
 	fmt.Println("Edx - User ID: " + req.FormValue("user_id"))
 	fmt.Println("Edx - Roles: " + req.FormValue("roles"))
-	fmt.Println("Edx - Custom component due date: " + req.FormValue("custom_component_due_date"))
-	fmt.Println("Edx - Oauth consumer key: " + req.FormValue("oauth_consumer_key"))
-	fmt.Println("Edx - LIS result sourcedid: " + req.FormValue("lis_result_sourcedid"))
-	fmt.Println("Edx - Launch Presentation locale: " + req.FormValue("launch_presentation_locale"))
-	fmt.Println("Edx - LISOutcomeService URL: " + req.FormValue("lis_outcome_service_url"))
-	fmt.Println("Edx -  Custom component grace period: " + req.FormValue("custom_component_graceperiod"))
-	fmt.Println("Edx - Oauth callback: " + req.FormValue("oauth_callback"))
 }
