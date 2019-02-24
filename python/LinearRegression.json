@@ -1087,7 +1087,7 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 2,
           "number": 1,
-          "text": "<p>Let's call the regression model derived in a previous problem FluTrend1 and run it in R.<br /> <br />Hint: to take the logarithm of a variable Var in a regression equation, you simply use log(Var) when specifying the formula to the lm() function.<br /> <br />What is the training set R<sup>2</sup> value for FluTrend1 model (the \"Multiple R<sup>2</sup>\")?</p>",
+          "text": "<p>Let's call the regression model derived in a previous problem (log(ILI) = intercept + coefficient x Queries, where the coefficient is positive) FluTrend1 and run it in R.<br /> <br />Hint: to take the logarithm of a variable Var in a regression equation, you simply use log(Var) when specifying the formula to the lm() function.<br /> <br />What is the training set R<sup>2</sup> value for FluTrend1 model (the \"Multiple R<sup>2</sup>\")?</p>",
           "options": [
             "0.663",
             "0.662",
