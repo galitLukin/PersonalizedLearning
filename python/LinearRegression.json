@@ -543,7 +543,7 @@
             "186, NA, 374.56, 252.69",
             "34, 266.2, 374.56, 252.69",
             "34, NA, 374.56, 252.69",
-            "34, 266.2, 374.56, 252.69"
+            "34, 266.2, 374.56, 374.56"
           ],
           "correctAnswer": [
             "186, 266.2, 374.56, 252.69"
@@ -861,7 +861,7 @@
           "options": [
             "-3122.395, 76.29",
             "-3122.395, NaN",
-            "-3122.395, 76.29",
+            "-3122.395, 519.321",
             "-3122.395, 527.386",
             "5762082, 527.386",
             "5762082, 519.321",
@@ -976,12 +976,12 @@
           "number": 1,
           "text": "<p>Let us understand the data at an aggregate level.<br /> <br />Plot the histogram of the dependent variable, ILI.<br /> <br />What best describes the distribution of values of ILI?</p>",
           "options": [
-            "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called \"skew right\").",
+            "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called skew right).",
             "The ILI values are balanced, with equal numbers of unusually large and unusually small values.",
-            "Most of the ILI values are large, with a relatively small number of much smaller values (in statistics, this sort of data is called \"skew left\")."
+            "Most of the ILI values are large, with a relatively small number of much smaller values (in statistics, this sort of data is called skew left)."
           ],
           "correctAnswer": [
-            "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called \"skew right\")."
+            "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called skew right)."
           ],
           "explanation": "<p>The histogram of ILI can be obtained with <code>hist(FluTrain$ILI)</code>.<br /> <br />Visually, the data is skewed right.</p>",
           "attemptsOverall": 1,
@@ -1097,8 +1097,7 @@
             "0.2995",
             "2.961",
             "0.474",
-            "0.4598",
-            "0.663"
+            "0.4598"
           ],
           "correctAnswer": [
             "0.709"
