@@ -974,7 +974,7 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
           "number": 1,
-          "text": "<p>Let us understand the data at an aggregate level.<br /> <br />Plot the histogram of the dependent variable, ILI.<br /> <br />What best describes the distribution of values of ILI?</p>",
+          "text": "<p>Before applying analytics tools on the training set, we first need to understand the data at hand.<br /> <br />Load \"FluTrain.csv\" into a data frame called FluTrain.<br /> <br />Let us understand the data at an aggregate level.<br /> <br />Plot the histogram of the dependent variable, ILI.<br /> <br />What best describes the distribution of values of ILI?</p>",
           "options": [
             "Most of the ILI values are small, with a relatively small number of much larger values (in statistics, this sort of data is called skew right).",
             "The ILI values are balanced, with equal numbers of unusually large and unusually small values.",
@@ -1030,7 +1030,7 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 1,
           "number": 4,
-          "text": "<p>Before applying analytics tools on the training set, we first need to understand the data at hand.<br /> <br />Load \"FluTrain.csv\" into a data frame called FluTrain.<br /> <br />Looking at the time period 2004-2011, which week corresponds to the highest percentage of ILI-related physician visits?<br /> <br />Choose the correct year, month, and day. Three answers should be marked. Select the day of the month corresponding to the start of this week.</p>",
+          "text": "<p>Looking at the time period 2004-2011, which week corresponds to the highest percentage of ILI-related physician visits?<br /> <br />Choose the correct year, month, and day. Three answers should be marked. Select the day of the month corresponding to the start of this week.</p>",
           "options": [
             "January","March","April","May","August","October","December",
             "1","4","6","9","14","16","18","22","25","27","30",
@@ -1127,7 +1127,7 @@
           "Assignment": "Detecting Flu Epedemics",
           "level": 2,
           "number": 3,
-          "text": "<p>Normally, we would obtain test-set predictions from the model FluTrend1 using the code <code>PredTest1 = predict(FluTrend1, newdata=FluTest)</code><br /> <br />However, the dependent variable in our model is log(ILI), so PredTest1 would contain predictions of the log(ILI) value.<br /> <br />We are instead interested in obtaining predictions of the ILI value. We can convert from predictions of log(ILI) to predictions of ILI via exponentiation, or the exp() function.<br /> <br />The new code, which predicts the ILI value, is<br /> <br /><code>PredTest1 = exp(predict(FluTrend1, newdata=FluTest))</code><br /> <br />What is our estimate for the percentage of ILI-related physician visits for the week of March 11, 2012?<br /> <br />(HINT: You can either just output FluTest$Week to find which element corresponds to March 11, 2012, or you can use the \"which\" function in R. To learn more about the which function, type ?which in your R console.)</p>",
+          "text": "<p> Load the data from FluTest.csv into a data frame called FluTest.<br /> <br />Normally, we would obtain test-set predictions from the model FluTrend1 using the code <code>PredTest1 = predict(FluTrend1, newdata=FluTest)</code><br /> <br />However, the dependent variable in our model is log(ILI), so PredTest1 would contain predictions of the log(ILI) value.<br /> <br />We are instead interested in obtaining predictions of the ILI value. We can convert from predictions of log(ILI) to predictions of ILI via exponentiation, or the exp() function.<br /> <br />The new code, which predicts the ILI value, is<br /> <br /><code>PredTest1 = exp(predict(FluTrend1, newdata=FluTest))</code><br /> <br />What is our estimate for the percentage of ILI-related physician visits for the week of March 11, 2012?<br /> <br />(HINT: You can either just output FluTest$Week to find which element corresponds to March 11, 2012, or you can use the \"which\" function in R. To learn more about the which function, type ?which in your R console.)</p>",
           "options": [
             "2.187",
             "0.713",

@@ -32,7 +32,7 @@ end
 
 function trainTree(X, Y, T, level, depth, meu, asmt)
   lnr = OptimalTrees.OptimalTreePrescriptionMinimizer(
-    ls_num_tree_restarts=1000,
+    ls_num_tree_restarts=500,
     treatment_minbucket=50,
     prescription_factor=meu
     #regression_sparsity=:all,
