@@ -14,7 +14,7 @@ function splitData(level, asmt)
   df = readtable("data/$asmt$level-train.csv", header=true, makefactors=true)
   fix1, p1 = false,1.2
   fix2, p2 = true,1.1
-  fix3, p3 = false,1.1
+  fix3, p3 = true,0.95
   removescore4 = false
   if fix1
       for i=1:size(df)[1]
@@ -44,7 +44,7 @@ function splitData(level, asmt)
       X = df[3:end-2]
   else
       if removescore4
-          X = df[3:end-5]
+          X = df[3:end-4]
       else
           X = df[3:end-3]
       end
@@ -61,7 +61,7 @@ end
 
 function trainTree(X, Y, T, level, depth, meu, asmt)
   lnr = OptimalTrees.OptimalTreePrescriptionMinimizer(
-    ls_num_tree_restarts=300,
+    ls_num_tree_restarts=100,
     treatment_minbucket=50,
     prescription_factor=meu
     )
