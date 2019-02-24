@@ -46,7 +46,7 @@ def prequisiteSatisfied(assignment, level, number):
     elif assignment == "ReadingTestScores":
         mandatory = { 1:4, 2:2 ,3:1, 4:1 }
     else:
-        mandatory = { 1:3, 2:3, 3:5, 4:5 }
+        mandatory = { 1:3, 2:3, 3:3, 4:4 }
 
     if number < mandatory[level]:
         return False
