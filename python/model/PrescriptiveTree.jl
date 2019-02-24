@@ -24,7 +24,7 @@ function splitData(level, asmt)
   else
       outcomes = df[:, [:y1, :y2, :y3]]
       #outcomes[:y3] = df[:y3] * 0.7
-      outcomes[:y1] = df[:y1] * 0.8
+      #outcomes[:y1] = df[:y1] * 0.8
       #outcomes[:y2] = df[:y2] * 3
   end
   return stratifiedobs((X, outcomes, Y, T), p=0.75)
@@ -32,7 +32,7 @@ end
 
 function trainTree(X, Y, T, level, depth, meu, asmt)
   lnr = OptimalTrees.OptimalTreePrescriptionMinimizer(
-    ls_num_tree_restarts=300,
+    ls_num_tree_restarts=500,
     treatment_minbucket=50,
     prescription_factor=meu
     #regression_sparsity=:all,

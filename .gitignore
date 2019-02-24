@@ -1,5 +1,7 @@
 .DS_Store
 
+python/model/checkQuestions.py
+
 python/model/data/exp/
 
 python/model/data/cc1-train.csv

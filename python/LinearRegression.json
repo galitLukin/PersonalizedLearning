@@ -154,7 +154,7 @@
           ],
           "explanation": "<p>You can calculate all correlations at once using cor(train) where train is the name of the training data set.</p>",
           "attemptsOverall": 2,
-          "weight": 1
+          "weight": 2
         },
         {
           "Assignment": "Climate Change",
@@ -281,7 +281,7 @@
           ],
           "explanation": "<p>The coefficient corresponding to Aerosols is -1.54. Thus, one unit change in Aerosols, affects Temp by 1.54 units. Since the coefficient is negative, the effect is opposite. Therefore, if Aerosols increases, Temp decreases.</p>",
           "attemptsOverall": 1,
-          "weight": 2
+          "weight": 3
         },
         {
           "Assignment": "Climate Change",
@@ -374,7 +374,7 @@
         {
           "Assignment": "Climate Change",
           "level": 4,
-          "number": 2,
+          "number": 3,
           "text": "<p>Are the following statements True or False?<br /> <br />1. The out of sample R<sup>2</sup> will increase as the model includes more independent variables.<br /> <br />2. R<sup>2</sup> can be negative.</p>",
           "options": [
             "True, True",
@@ -392,7 +392,7 @@
         {
           "Assignment": "Climate Change",
           "level": 4,
-          "number": 3,
+          "number": 4,
           "text": "<p>How high does the out of sample R<sup>2</sup> have to be to consider the model acceptable?</p>",
           "options": [
             "Higher than 0.7",
@@ -404,24 +404,6 @@
             "Varies since it depends on the applied field and the other models that exist"
           ],
           "explanation": "<p>Some fields, such as medicine, require more accuracy than other fields, such as marketing.</p>",
-          "attemptsOverall": 1,
-          "weight": 4
-        },
-        {
-          "Assignment": "Climate Change",
-          "level": 4,
-          "number": 4,
-          "text": "<p>Does the model produced from the step function overfit?</p>",
-          "options": [
-            "Yes",
-            "No",
-            "It depends on how the train and test sets are created",
-            "The is insufficient information to answer this question."
-          ],
-          "correctAnswer": [
-            "Yes"
-          ],
-          "explanation": "<p>The R<sup>2</sup> from the training set is much higher than the out of sample R<sup>2</sup>. </p>",
           "attemptsOverall": 1,
           "weight": 4
         }
@@ -1072,7 +1054,7 @@
             "2004","2005","2006","2007","2008","2009","2010","2011"
           ],
           "correctAnswer": [
-            "October 18th, 2009"
+            "October,18,2009"
           ],
           "explanation": "<p>We can limit FluTrain to the observations that obtain the maximum ILI value with <code>subset(FluTrain, Queries == max(Queries))</code>.<br /> <br />From here, we can read information about the week at which the maximum was obtained.<br /> <br />Alternatively, you can use <code>which.max(FluTrain$Queries)</code> to find the row number corresponding to the observation with the maximum value of Queries, which is 303.<br /> <br />Then, you can output the corresponding week using <code>FluTrain$Week[303]</code>.</p>",
           "attemptsOverall": 1,
@@ -1202,23 +1184,6 @@
             "0.749"
           ],
           "explanation": "<p>The RMSE can be calculated by first computing the SSE:<br /> <br /><code>SSE = sum((PredTest1-FluTest$ILI)^2)</code><br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br /><code>RMSE = sqrt(SSE / nrow(FluTest))</code><br /> <br />Alternatively, you could use the following command:<br /> <br /><code>sqrt(mean((PredTest1-FluTest$ILI)^2))</code>.</p>",
-          "attemptsOverall": 1,
-          "weight": 2
-        },
-        {
-          "Assignment": "Detecting Flu Epedemics",
-          "level": 2,
-          "number": 5,
-          "text": "<p>This model has only one independant variable. Which of the following are advantages of having fewer independent variables in the model?</p>",
-          "options": [
-            "The model is interpretable",
-            "The simplest model is always the best model.",
-            "It can prevent overfitting."
-          ],
-          "correctAnswer": [
-            "The model is interpretable,It can prevent overfitting."
-          ],
-          "explanation": "<p>Having fewer independant variable allows humans to interpret models which has become very crucial lately.<br /> <br />Allowing fewer variable to predict a value can prevent overfitting.<br /> <br />However, we will see in the rest of this assignment that adding a variable to the model can improve it.</p>",
           "attemptsOverall": 1,
           "weight": 2
         },
