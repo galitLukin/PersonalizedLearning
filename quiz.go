@@ -22,6 +22,7 @@ type QuestionData struct {
 	Question         Question
 	QuestionInstance QuestionInstance
 	User             User
+	AssignmentName	 string
 	Score            scores
 	PrevLocation     response
 }

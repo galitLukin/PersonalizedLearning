@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+	"github.com/satori/go.uuid"
 )
 
 type PageData struct {
@@ -25,20 +26,12 @@ type QuizPageData struct {
 }
 
 type user struct {
-	UserName       string
-	Password       string
-	First          string
-	Last           string
-	Role           string
 	Uid            string
-	PostUrl        string
 	AssignmentName string
 }
 
 type session struct {
 	un           string
-	first        string
-	last         string
 	lastActivity time.Time
 }
 
@@ -63,19 +56,21 @@ var db *sql.DB
 var err error
 var tpl *template.Template
 
+var dbSessions = map[string]session{}
+var dbUserState = map[string]QuestionData{}
 var dbSessionsCleaned time.Time
-var qd QuestionData
-var uid string
-var an string
 
 const sessionLength int = 30
+
+var uid string
+var an string
 
 func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "1"
-	//an = "Detecting Flu Epedemics"
+	uid = "1"
+	an = "Detecting Flu Epedemics"
 }
 
 func main() {
@@ -118,32 +113,47 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	logPostBody(req)
-	uid = req.FormValue("user_id")
-	an = req.FormValue("custom_component_display_name")
+	//uid := req.FormValue("user_id")
+	//an := req.FormValue("custom_component_display_name")
 
+	var qd QuestionData
+	qd.User.Username = uid
+	qd.AssignmentName = an
 	qd.Score = dbInitFetchUser(db, uid, an)
 
 	u := user{
-		UserName:       "arieg419@gmail.com",
-		Password:       "Beatles",
-		First:          "Omer",
-		Last:           "Goldberg",
 		Uid:            uid,
 		AssignmentName: an,
 	}
+
+	if !alreadyLoggedIn(w, req) {
+		// create session
+		sID, _ := uuid.NewV4()
+		c := &http.Cookie{
+			Name:  "session",
+			Value: sID.String(),
+		}
+		c.MaxAge = sessionLength
+		http.SetCookie(w, c)
+		user_assignment := an+"+"+uid
+		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
+		dbUserState[user_assignment] = qd
+	}
+
 	qpd := QuizPageData{
 		UserData:     u,
 		QuestionData: qd,
 		PageType:     "getstarted",
 	}
+
 	tpl.ExecuteTemplate(w, "layout", qpd)
 }
 
 func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 	if qd.QuestionInstance.Status == "Done" {
-		fmt.Println("Quiz is done ...",uid,an)
+		fmt.Println("Quiz is done ...")
 		qd.Score.Grade = dbAssignmentDone(db, qd)
-		fmt.Println("Users Grade Is: ", qd.Score.Grade,uid,an)
+		fmt.Println("Users Grade Is: ", qd.Score.Grade)
 
 		return float32(int(qd.Score.Grade * 100))
 	}
@@ -151,50 +161,52 @@ func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 }
 
 func quiz(w http.ResponseWriter, req *http.Request) {
-
+	myqd := getUserAsmt(w, req)
+	user_assignment := myqd.AssignmentName + "+" + myqd.User.Username
+	if !alreadyLoggedIn(w, req) {
+		http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
+		return
+	}
+	var newqd QuestionData
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
-			fmt.Println("Failed to parse form...",uid,an)
+			fmt.Println("Failed to parse form...",myqd.User.Username,myqd.AssignmentName)
 			return
 		}
-		fmt.Println("Continue quiz...",uid,an)
+		fmt.Println("Continue quiz...",myqd.User.Username,myqd.AssignmentName)
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
-				qd.QuestionInstance.Answer = values
-				qd.PrevLocation.IsFirst = false
-				dbInsertResponse(db, qd)
-				if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
-					qd.Score = dbFetchUserInScores(db, qd)
+				myqd.QuestionInstance.Answer = values
+				myqd.PrevLocation.IsFirst = false
+				dbInsertResponse(db, myqd)
+				if myqd.QuestionInstance.Status == "Correct" || myqd.QuestionInstance.Status == "IncorrectNoAttempts" {
+					myqd.Score = dbFetchUserInScores(db, myqd)
 				}
-				qd = getNextQuizState(qd)
-				dbUpdateFinishedQuestion(db, qd)
-				qd.Score.Grade = finishAssignment(db, qd)
+				newqd = getNextQuizState(myqd)
+				dbUpdateFinishedQuestion(db, newqd)
+				newqd.Score.Grade = finishAssignment(db, newqd)
+				dbUserState[user_assignment] = newqd
 			}
 		}
 	} else {
-		fmt.Println("Initial question...",uid,an)
-		qd.User.Username = uid
-		qd.Question.Assignment = an
-		qd.PrevLocation = dbGetUserPrevLocation(db, qd)
-		qd = getNextQuizState(qd)
-		qd.Score.Grade = finishAssignment(db, qd)
+		fmt.Println("Initial question...",myqd.User.Username,myqd.AssignmentName)
+		myqd.PrevLocation = dbGetUserPrevLocation(db, myqd)
+		newqd = getNextQuizState(myqd)
+		newqd.Score.Grade = finishAssignment(db, newqd)
+		dbUserState[user_assignment] = newqd
 	}
 
 	u := user{
-		UserName:       "arieg419@gmail.com",
-		Password:       "Beatles",
-		First:          "Omer",
-		Last:           "Goldberg",
-		Uid:            uid,
-		AssignmentName: an,
+		Uid:            newqd.User.Username,
+		AssignmentName: newqd.AssignmentName,
 	}
 
 	qpd := QuizPageData{
 		UserData:               u,
-		QuestionData:           qd,
+		QuestionData:           dbUserState[user_assignment],
 		PageType:               "quiz",
-		HTMLContentText:        template.HTML(qd.Question.Text),
-		HTMLContentExplanation: template.HTML(qd.Question.Explanation),
+		HTMLContentText:        template.HTML(dbUserState[user_assignment].Question.Text),
+		HTMLContentExplanation: template.HTML(dbUserState[user_assignment].Question.Explanation),
 	}
 
 	tpl.ExecuteTemplate(w, "layout", qpd)
