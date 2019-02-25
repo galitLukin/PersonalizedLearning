@@ -64,6 +64,7 @@ func getOldState(w http.ResponseWriter, req *http.Request) string {
 	return qd.AssignmentName
 }
 
+
 func cleanActiveUsers() {
 	for k := range dbUserState {
 		delete(dbUserState, k)

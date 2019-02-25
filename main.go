@@ -60,7 +60,7 @@ var dbSessions = map[string]session{}
 var dbUserState = map[string]QuestionData{}
 var dbSessionsCleaned time.Time
 
-const sessionLength int = 3600
+const sessionLength int = 1800
 
 //var uid string
 //var an string
@@ -138,6 +138,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		c.MaxAge = sessionLength
 		http.SetCookie(w, c)
 		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
+		dbUserState[user_assignment] = qd
 	} else{
 		if getOldState(w, req) != an {
 			fmt.Println("switiching assignments")
