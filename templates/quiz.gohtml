@@ -6,15 +6,15 @@
           {{if eq .QuestionData.QuestionInstance.Status "Done"}}
                 <div class="card">
                     <h1>Your Personalized Assignment is Complete!</h1>
-                    <h3>You've Received {{.QuestionData.Score.Grade}}% on the {{.QuestionData.Question.Assignment}} Assignment.</h3>
-                    <h3>The grade will appear on edX within the next 24 hours.</h3>
+                    <p>You've Received {{.QuestionData.Score.Grade}}% on the {{.QuestionData.Question.Assignment}} Assignment.<br /><br />
+                    The grade will appear on edX within the next 24 hours.</p>
                 </div>
           {{else }}
                 <div class="card">
                     <h2>{{.QuestionData.Question.Assignment}}</h2>
-                    <h3>{{.HTMLContentText}}</h3>
-                    <h4>Attempts: {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}</h4>
-                    <h4>Weight: {{.QuestionData.Question.Weight}}</h4>
+                    {{.HTMLContentText}}
+                    <p><u>Attempts:</u> {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}<br /><br />
+                    <u>Weight:</u> {{.QuestionData.Question.Weight}}</p>
                     {{if eq .QuestionData.QuestionInstance.Status "IncorrectWithAttempts"}}
                         <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
                     {{end}}
@@ -23,12 +23,12 @@
                     {{end}}
                     {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
                         <div id="quiz-right-answer">Great job!</div>
-                        <h4>Correct Answer: {{.QuestionData.Question.CorrectAnswer}} </h4>
-                        <h4>Explanation: {{.HTMLContentExplanation}} </h4>
+                        <p><b>Correct Answer:</b></p> {{index .QuestionData.Question.CorrectAnswer 0}}
+                        <p><b>Explanation:</b></p> {{.HTMLContentExplanation}}
                     {{else if eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`}}
                         <div id="quiz-wrong-answer"> Wrong answer. Try another question. </div>
-                        <h4>Correct Answer: {{.QuestionData.Question.CorrectAnswer}} </h4>
-                        <h4>Explanation: {{.HTMLContentExplanation}} </h4>
+                        <p><b>Correct Answer:</b></p> {{index .QuestionData.Question.CorrectAnswer 0}}
+                        <p><b>Explanation:</b></p> {{.HTMLContentExplanation}}
                     {{else }}
                         {{ range .QuestionData.Question.Options }}
                             <div class="answer-choice-container">

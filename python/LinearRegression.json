@@ -1142,7 +1142,7 @@
           "correctAnswer": [
             "2.187"
           ],
-          "explanation": "<p>To obtain the predictions, we need can run<br /> <br />PredTest1 = exp(predict(FluTrend1, newdata=FluTest))<br /> <br />Next, we need to determine which element in the test set is for March 11, 2012.<br /> <br />We can determine this with:<br /> <br />which(FluTest$Week == \"2012-03-11 - 2012-03-17\")<br /> <br />Now we know we are looking for prediction number 11.<br /> <br />This can be accessed with: PredTest1[11]</p>",
+          "explanation": "<p>To obtain the predictions, we need can run<br /> <br /><code>PredTest1 = exp(predict(FluTrend1, newdata=FluTest))</code><br /> <br />Next, we need to determine which element in the test set is for March 11, 2012.<br /> <br />We can determine this with:<br /> <br /><code>which(FluTest$Week == \"2012-03-11 - 2012-03-17\")</code><br /> <br />Now we know we are looking for prediction number 11.<br /> <br />This can be accessed with: <code>PredTest1[11]</code></p>",
           "attemptsOverall": 1,
           "weight": 2
         },
