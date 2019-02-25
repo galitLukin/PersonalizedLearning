@@ -163,6 +163,7 @@ func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 func quiz(w http.ResponseWriter, req *http.Request) {
 	myqd := getUserAsmt(w, req)
 	user_assignment := myqd.AssignmentName + "+" + myqd.User.Username
+	fmt.Println(user_assignment)
 	var newqd QuestionData
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
