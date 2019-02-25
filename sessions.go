@@ -45,6 +45,7 @@ func alreadyLoggedIn(w http.ResponseWriter, req *http.Request) bool {
 	// refresh session
 	c.MaxAge = sessionLength
 	http.SetCookie(w, c)
+  cleanSessions()
 	showSessions()
 	return ok
 }
@@ -71,7 +72,7 @@ func showSessions() {
 	for k, v := range dbSessions {
 		fmt.Println(k, v.un)
 	}
-	fmt.Println("")
+	fmt.Println("********")
 }
 
 // // for demonstration purposes
