@@ -10,6 +10,7 @@ import (
 	"net/http/httputil"
 	"time"
 	"github.com/satori/go.uuid"
+	"strings"
 )
 
 type PageData struct {
@@ -184,6 +185,11 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("Continue quiz...",myqd.User.Username,myqd.AssignmentName)
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
+				if len(values[0]) > 0 && !valueinOptions(strings.Split(values[0], ",")[0], myqd.Question.Options){
+					//user did back and got to
+					fmt.Println("User went back...",myqd.User.Username,myqd.AssignmentName)
+					break;
+				}
 				myqd.QuestionInstance.Answer = values
 				myqd.PrevLocation.IsFirst = false
 				dbInsertResponse(db, myqd)
@@ -228,4 +234,13 @@ func logPostBody(req *http.Request) {
 	fmt.Println("Edx - CustomComponentDisplayName: " + req.FormValue("custom_component_display_name"))
 	fmt.Println("Edx - User ID: " + req.FormValue("user_id"))
 	fmt.Println("Edx - Roles: " + req.FormValue("roles"))
+}
+
+func valueinOptions(a string, list []string) bool {
+    for _, b := range list {
+        if strings.Split(b, ",")[0] == a {
+            return true
+        }
+    }
+    return false
 }

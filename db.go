@@ -158,7 +158,7 @@ func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 //after user presses submit and before calling python script
 //records only if user marked down an answer
 func dbInsertResponse(db *sql.DB, qd QuestionData) {
-	if qd.QuestionInstance.Answer != nil && (qd.QuestionInstance.Status == "NewQuestion" || qd.QuestionInstance.Status == "IncorrectWithAttempts") {
+	if len(qd.QuestionInstance.Answer[0]) > 0 && (qd.QuestionInstance.Status == "NewQuestion" || qd.QuestionInstance.Status == "IncorrectWithAttempts") {
 		fmt.Println("Inserting user response  ...", qd.User.Username, qd.Question.Assignment)
 		t := time.Now()
 		tf := t.Format("20060102150405")

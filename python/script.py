@@ -58,10 +58,13 @@ def main():
                 state[State.QuestionInstance.name][QInst.numAttempts.name] = questionInstance[QInst.numAttempts.name] + 1
                 if helper.isCorrect(questionInstance[QInst.answer.name][0], question['correctAnswer'][0]):
                     state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
+                    state[State.QuestionInstance.name][QInst.answer.name] = []
                 elif state[State.QuestionInstance.name][QInst.numAttempts.name] < question['attemptsOverall']:
                     state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectWithAttempts.name
+                    state[State.QuestionInstance.name][QInst.answer.name] = []
                 else:
                     state[State.QuestionInstance.name][QInst.status.name] = Status.IncorrectNoAttempts.name
+                    state[State.QuestionInstance.name][QInst.answer.name] = []
 
     print(json.dumps(state))
 
