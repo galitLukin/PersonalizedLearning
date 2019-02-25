@@ -59,7 +59,7 @@ func cleanActiveUsers() {
 
 func cleanSessions() {
 	for k, v := range dbSessions {
-		if time.Now().Sub(v.lastActivity) > (time.Second * 30) {
+		if time.Now().Sub(v.lastActivity) > (time.Second * 3600) {
 			delete(dbSessions, k)
 		}
 	}
