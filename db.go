@@ -135,13 +135,13 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 
 // get data on user's last location - if there was a previous session
 func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
-	fmt.Println("Getting users past location... ", qd.User.Username, qd.Question.Assignment)
+	fmt.Println("Getting users past location... ", qd.User.Username, qd.AssignmentName)
 	var r response
 	r.IsFirst = true
 	r.Level = 0
 	q := fmt.Sprintf(`SELECT level, numb, attempt, correctness FROM test02.responses
    WHERE username = "%s" AND assignment = "%s" ORDER BY answer_timestamp DESC
-   LIMIT 1;`, qd.User.Username, qd.Question.Assignment)
+   LIMIT 1;`, qd.User.Username, qd.AssignmentName)
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
