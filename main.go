@@ -117,6 +117,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	an := req.FormValue("custom_component_display_name")
 
 	var qd QuestionData
+	user_assignment := an+"+"+uid
 	qd.User.Username = uid
 	qd.AssignmentName = an
 	qd.Score = dbInitFetchUser(db, uid, an)
@@ -135,7 +136,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		}
 		c.MaxAge = sessionLength
 		http.SetCookie(w, c)
-		user_assignment := an+"+"+uid
 		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
 	}
 	dbUserState[user_assignment] = qd
