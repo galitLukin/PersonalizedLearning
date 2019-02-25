@@ -62,15 +62,15 @@ var dbSessionsCleaned time.Time
 
 const sessionLength int = 30
 
-var uid string
-var an string
+//var uid string
+//var an string
 
 func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	uid = "1"
-	an = "Detecting Flu Epedemics"
+	//uid = "1"
+	//an = "Detecting Flu Epedemics"
 }
 
 func main() {
@@ -113,8 +113,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	logPostBody(req)
-	//uid := req.FormValue("user_id")
-	//an := req.FormValue("custom_component_display_name")
+	uid := req.FormValue("user_id")
+	an := req.FormValue("custom_component_display_name")
 
 	var qd QuestionData
 	qd.User.Username = uid
