@@ -129,6 +129,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 
 	if !alreadyLoggedIn(w, req) {
 		// create session
+		fmt.Println("Creating session")
 		sID, _ := uuid.NewV4()
 		c := &http.Cookie{
 			Name:  "session",
@@ -139,6 +140,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
 	} else{
 		if getOldState(w, req) != an {
+			fmt.Println("switiching assignments")
 			c, err := req.Cookie("session")
 			if err != nil {
 				return
