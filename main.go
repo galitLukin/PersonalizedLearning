@@ -112,7 +112,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	d, _ := httputil.DumpRequest(req, true)
 	fmt.Println(string(d))
 
-	logPostBody(req)
+	//logPostBody(req)
 	uid := req.FormValue("user_id")
 	an := req.FormValue("custom_component_display_name")
 
@@ -137,8 +137,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		http.SetCookie(w, c)
 		user_assignment := an+"+"+uid
 		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
-		dbUserState[user_assignment] = qd
 	}
+	dbUserState[user_assignment] = qd
 
 	qpd := QuizPageData{
 		UserData:     u,
@@ -163,10 +163,6 @@ func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 func quiz(w http.ResponseWriter, req *http.Request) {
 	myqd := getUserAsmt(w, req)
 	user_assignment := myqd.AssignmentName + "+" + myqd.User.Username
-	// if !alreadyLoggedIn(w, req) {
-	// 	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
-	// 	return
-	// }
 	var newqd QuestionData
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
