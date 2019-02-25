@@ -58,6 +58,7 @@ var tpl *template.Template
 
 var dbSessions = map[string]session{}
 var dbUserState = map[string]QuestionData{}
+var dbSessionsCleaned time.Time
 
 const sessionLength int = 3600
 
@@ -67,6 +68,7 @@ const sessionLength int = 3600
 func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
+	dbSessionsCleaned = time.Now()
 	//uid = "1"
 	//an = "Detecting Flu Epedemics"
 }
