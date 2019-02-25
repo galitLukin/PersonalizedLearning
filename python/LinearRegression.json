@@ -678,7 +678,7 @@
           "correctAnswer": [
             "2, Yes"
           ],
-          "explanation": "<p>To identify outliers using the IQR method:<br /> <br />Q3 <- quantile(pisaTrain$readingScore, 0.75)<br />Q1 <- quantile(pisaTrain$readingScore, 0.25)<br />iqr = Q3 - Q1<br />upper = (iqr * 1.5) + Q3<br />lower = Q1 - (iqr * 1.5)<br />pisaTrain[ which(pisaTrain$readingScore > upper | pisaTrain$readingScore < lower), ]<br /> <br />Notice how removing outliers affects the model.</p>",
+          "explanation": "<p>To identify outliers using the IQR method:<br /> <br /><code>Q3 <- quantile(pisaTrain$readingScore, 0.75)<br />Q1 <- quantile(pisaTrain$readingScore, 0.25)<br />iqr = Q3 - Q1<br />upper = (iqr * 1.5) + Q3<br />lower = Q1 - (iqr * 1.5)<br />pisaTrain[ which(pisaTrain$readingScore > upper | pisaTrain$readingScore < lower), ]</code><br /> <br />Notice how removing outliers affects the model.</p>",
           "attemptsOverall": 1,
           "weight": 2
         }
