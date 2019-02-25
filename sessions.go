@@ -50,6 +50,20 @@ func alreadyLoggedIn(w http.ResponseWriter, req *http.Request) bool {
 	return ok
 }
 
+func getOldState(w http.ResponseWriter, req *http.Request) string {
+	c, err := req.Cookie("session")
+	if err != nil {
+		return ""
+	}
+	s, ok := dbSessions[c.Value]
+	if ok {
+		s.lastActivity = time.Now()
+		dbSessions[c.Value] = s
+	}
+	qd, ok := dbUserState[s.un]
+	return qd.AssignmentName
+}
+
 func cleanActiveUsers() {
 	for k := range dbUserState {
 		delete(dbUserState, k)

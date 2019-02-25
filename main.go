@@ -137,8 +137,16 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		c.MaxAge = sessionLength
 		http.SetCookie(w, c)
 		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
+	} else{
+		if getOldState(w, req) != an {
+			c, err := req.Cookie("session")
+			if err != nil {
+				return
+			}
+			dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
+			dbUserState[user_assignment] = qd
+		}
 	}
-	dbUserState[user_assignment] = qd
 
 	qpd := QuizPageData{
 		UserData:     u,
