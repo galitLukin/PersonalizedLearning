@@ -4,7 +4,7 @@ import math
 import json
 
 # download all of 2019 data in ./python/model/data/exp/ and replace with 2018 data1
-# do it for 3 assignments from unit 1 and for users enrolled and user userids
+# do it for 3 assignments from unit 1 and for users, userids, and grade_report
 # run script that output scores csv
 # use mysql bench to insert it into db
 
@@ -171,9 +171,14 @@ def parseAndGroup(levelQues,data,qtype):
 
 userIDs = pd.read_csv("./python/model/data/exp/users/userids.csv",header=0)
 userData = pd.read_csv("./python/model/data/exp/users/users.csv",header=0)
+gradeReport = pd.read_csv("./python/model/data/exp/users/grade_report.csv",header=0)
+gradeReport = gradeReport.loc[gradeReport['Experiment Group (Personalization in Linear Regression Assignment)'] == "Personalized"]
+personalizedUsers = gradeReport.loc[:,'Student ID'].to_frame()
+personalizedUsers.columns = ['id']
 userList = cleanUserData(userData)
 userIDs.columns = ['id', 'anonymized_id', 'user_id']
 userList = pd.merge(userList, userIDs, on='id', how='inner')
+userList = pd.merge(userList, personalizedUsers, on='id', how='inner')
 userList = insertAssignment(userList)
 cols = ["username", "user_id", "assignment", "gender","level_of_education","enrollment_mode","ageCategory"]
 users = userList[cols]

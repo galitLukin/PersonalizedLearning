@@ -71,7 +71,7 @@ func init() {
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
 	//uid = "1"
-	//an = "Detecting Flu Epedemics"
+	//an = "Detecting Flu Epidemics"
 }
 
 func main() {

@@ -71,7 +71,7 @@ if preprocess:
     climateChange.loc[:,'rtsAvg'] = climateChange.rtsAvg.apply(lambda row: row if row else 0)
     climateChange = climateChange.loc[:, ccCols + ['rtsAvg']]
 
-    #detecting flu epedemics
+    #detecting flu epidemics
     dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
     dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
     fluEpedemics = answers.parseAndGroup(levelQuesDFE,[dfe2018,dfe2017],"dfe")
