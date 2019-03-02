@@ -469,25 +469,10 @@
             "motherHS",
             "motherBachelors",
             "motherWork",
-            "fatherHS",
-            "fatherBachelors",
-            "fatherWork",
-            "selfBornUS",
-            "motherBornUS",
-            "fatherBornUS",
-            "englishAtHome",
-            "computerForSchoolwork",
-            "read30MinsADay",
-            "minutesPerWeekEnglish",
-            "studentsInEnglish",
-            "schoolHasLibrary",
-            "publicSchool",
-            "urban",
-            "schoolSize",
-            "readingScore"
+            "fatherHS"
           ],
           "correctAnswer": [
-            "raceeth,preschool,expectBachelors,motherHS,motherBachelors,motherWork,fatherHS,fatherBachelors,fatherWork,selfBornUS,motherBornUS,fatherBornUS,englishAtHome,computerForSchoolwork,read30MinsADay,minutesPerWeekEnglish,studentsInEnglish,schoolHasLibrary,schoolSize"
+            "raceeth,preschool,expectBachelors,motherHS,motherBachelors,motherWork,fatherHS"
           ],
           "explanation": "<p>We can read which variables have missing values from <code>summary(pisaTrain)</code>. Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.</p>",
           "attemptsOverall": 2,
@@ -1117,7 +1102,7 @@
             "R^2 = exp(-0.5*Correlation)"
           ],
           "correctAnswer": [
-            "R<sup>2</sup> = Correlation^2"
+            "R^2 = Correlation^2"
           ],
           "explanation": "<p>To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)).<br /> <br />This can be done with <code>Correlation = cor(FluTrain$Queries, log(FluTrain$ILI))</code><br /> <br />The values of the three expressions are then:<br /> <br />Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792.<br /> <br />It appears that Correlation^2 is equal to the R<sup>2</sup> value. It can be proved that this is always the case.<br /> <br />Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function <code>exp()</code>.</p>",
           "attemptsOverall": 1,

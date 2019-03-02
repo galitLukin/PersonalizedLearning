@@ -6,9 +6,5 @@ personalizedUsers = gradeReport.loc[:,['Student ID','Username']]
 userIDs.columns = ['id', 'anonymized_id', 'username']
 personalizedUsers.columns = ['id','nickname']
 userMap = pd.merge(userIDs, personalizedUsers, on='id', how='inner')
-#for scores
-#userMap = userMap.loc[:,['username','nickname']]
-#userMap.to_csv("./python/model/data/exp/userMap.csv", index=False)
-#for cohort
-userMap = userMap.loc[:,'nickname']
-userMap.to_csv("./python/model/data/exp/namesCohort.csv", index=False)
+userMap = userMap.loc[:,['username','nickname']]
+userMap.to_csv("./python/model/data/exp/userMap.csv", index=False)
