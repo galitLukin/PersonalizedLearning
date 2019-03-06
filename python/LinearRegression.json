@@ -1049,7 +1049,7 @@
           "Assignment": "Detecting Flu Epidemics",
           "level": 1,
           "number": 6,
-          "text": "<p>Is FluTrend1 and linear regression model?</p>",
+          "text": "<p>Denote the model FluTrend1. Is it a linear regression model?</p>",
           "options": [
             "Yes. Any model inserted into the lm() function in R is a linear regression model.",
             "Yes. By introducing the log of ILI, the model represents the linear relationship between Queries and log(ILI).",
