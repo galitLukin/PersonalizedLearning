@@ -1,11 +1,17 @@
 import pandas as pd
-start = "0226"
-today = "0306"
+today = "0312m"
+
 gradeReport = pd.read_csv("./python/model/data/exp/gradeReport/{}.csv".format(today),header=0)
 gradeReport = gradeReport.loc[gradeReport['Experiment Group (Personalization in Linear Regression Assignment)'] == "Personalized"]
-personalizedUsers = gradeReport.loc[:,'Username']
-personalizedUsers = personalizedUsers.drop_duplicates().to_frame()
-cohort = pd.read_csv("./python/model/data/exp/cohorts/{}.csv".format(start),header=0)
-df = cohort.merge(personalizedUsers, on=['Username'], how='left', indicator=True)
-df = df.loc[df['_merge'] == 'left_only']
+print(len(gradeReport))
+df = gradeReport.loc[gradeReport['Cohort Name'] != "Personalized"]
 df.to_csv("./python/model/data/exp/cohorts/{}.csv".format(today), index=False)
+
+cohort = pd.read_csv("./python/model/data/exp/cohorts/all.csv",header=0)
+df = df.loc[:,'Username']
+df = df.drop_duplicates().to_frame()
+frames = [cohort, df]
+result = pd.concat(frames)
+result = result.drop_duplicates()
+result.to_csv("./python/model/data/exp/cohorts/all.csv", index=False)
+print(len(result))
