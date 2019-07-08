@@ -406,6 +406,24 @@
           "explanation": "<p>Some fields, such as medicine, require more accuracy than other fields, such as marketing.</p>",
           "attemptsOverall": 1,
           "weight": 4
+        },
+        {
+          "Assignment": "Climate Change",
+          "level": 4,
+          "number": 5,
+          "text": "<p>What is the \"baseline\" linear regression model?</p>",
+          "options": [
+            "The mean of the test set dependent variables",
+            "When the relationship between the dependent variable and the independent variables is non-linear",
+            "The mean of the training set dependent variable",
+            "A linear model built using one independent variable that is highly-correlated with the dependent variable"
+          ],
+          "correctAnswer": [
+            "The mean of the training set dependent variable"
+          ],
+          "explanation": "<p>The baseline is a value that we can compare our model to. The mean of training set dependent variable is a basic measure to which the linear regression model can be compared.</p>",
+          "attemptsOverall": 1,
+          "weight": 4
         }
       ]
     }
