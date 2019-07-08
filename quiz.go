@@ -14,6 +14,7 @@ const (
 	SelectedAnswers    = "selectedAnswers"
 	Python             = "python3"
 	PathToPythonScript = "./python/script.py"
+	PathToPastQuestionsScript = "./python/pastQuestions.py"
 	QuizReferrer       = "http://3.16.157.40/quiz"
 )
 
@@ -85,6 +86,40 @@ func getNextQuizState(q QuestionData) QuestionData {
 		panic(err)
 	}
 	return getQuestionFromPythonScript(q, string(j))
+}
+
+func getAllPastQuestions(qd QuestionData, pqs []pastQ) []pastQ{
+	fmt.Println("Getting past questions  ...", qd.User.Username, qd.Question.Assignment)
+	j, err := json.Marshal(pqs)
+	if err != nil {
+		panic(err)
+	}
+	cmd := exec.Command(Python, PathToPastQuestionsScript, string(j))
+	outb, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(err)
+	}
+	var qs []Question
+	err = json.Unmarshal(outb, &qs)
+	if err != nil {
+		fmt.Println(err)
+	}
+	for i, q := range qs{
+		pqs[i].Question = q
+	}
+	return pqs
+}
+
+func logQuestion(q Question) {
+	fmt.Println("Question - Assignment: " + q.Assignment)
+	fmt.Println("Question - Level: " + strconv.Itoa(q.Level))
+	fmt.Println("Question - Number: " + strconv.Itoa(q.Number))
+	fmt.Println("Question - Text: " + q.Text)
+	fmt.Println("Question - Options: " + strings.Join(q.Options, " "))
+	fmt.Println("Question - CorrectAnswer: " + strings.Join(q.CorrectAnswer, " "))
+	fmt.Println("Question - Explanations: " + q.Explanation)
+	fmt.Println("Question - AttemptsOverall: " + strconv.Itoa(q.AttemptsOverall))
+	fmt.Println("Question - Weight: " + strconv.Itoa(q.Weight))
 }
 
 func logQuestionData(q QuestionData) {

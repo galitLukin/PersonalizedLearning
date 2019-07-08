@@ -1,10 +1,9 @@
 {{define "layout"}}
 <!doctype html>
 <html lang="en">
-</head>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/static/styles/main.css">
+  <link href="static/styles/main.css" rel="stylesheet" >
 </head>
 <body>
   {{ template "nav" .}}
@@ -13,6 +12,8 @@
       {{template "getstarted" .}}
     {{else if eq .PageType "quiz"}}
       {{template "quiz" .}}
+    {{else if eq .PageType "pastQuestions"}}
+      {{template "pastQuestions" .}}
     {{end}}
   </div>
   {{template "footer" .}}

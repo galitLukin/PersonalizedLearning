@@ -65,6 +65,12 @@ type response struct {
 	Timestamp   string
 }
 
+type pastQ struct {
+	Question		Question
+	Correctness bool
+	Answer			string
+}
+
 type grade struct {
 	Username      string
 	Assignment    string
@@ -166,7 +172,7 @@ func dbInsertResponse(db *sql.DB, qd QuestionData) {
 		  (username, assignment, level, numb, attempt, correctness, score_possible, answer, answer_timestamp)
 		  values ("%s", "%s", "%d", "%d", "%d", "%d", "%d", "%s", "%s");`,
 			qd.User.Username, qd.Question.Assignment, qd.Question.Level, qd.Question.Number,
-			qd.QuestionInstance.NumAttempts+1, 0, qd.Question.Weight, qd.QuestionInstance.Answer, tf)
+			qd.QuestionInstance.NumAttempts+1, 0, qd.Question.Weight, qd.QuestionInstance.Answer[0], tf)
 		stmt, err := db.Prepare(q)
 		dbCheck(err)
 		defer stmt.Close()
@@ -211,6 +217,8 @@ func dbUpdateResponse(db *sql.DB, qd QuestionData) {
 		_, err = stmt.Exec()
 		dbCheck(err)
 	}
+
+
 }
 
 //update scores table when user is done with the question
@@ -421,4 +429,41 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 func dbAssignmentDone(db *sql.DB, qd QuestionData) float32 {
 	dbCalculateScores(db, qd)
 	return dbCalculateGrade(db, qd)
+}
+
+
+//run to get the user's history for past questions
+//this is called when user wants to see their past questions
+func dbFetchUserInResponses(db *sql.DB, qd QuestionData) []pastQ {
+	fmt.Println("Getting user from responses  ...", qd.User.Username, qd.Question.Assignment)
+	q := fmt.Sprintf(`SELECT r.level, r.numb, r.correctness, r.answer
+			FROM (
+				SELECT username, assignment, level, numb, MAX(attempt) as maxattempt
+				FROM test02.responses
+				WHERE username = "%s" AND assignment = "%s" AND (level, numb) NOT IN
+				 			( SELECT DISTINCT level, numb
+								FROM test02.responses
+								WHERE level = %d AND numb = %d
+							)
+				GROUP BY level, numb
+			) as lastAttempt
+			INNER JOIN test02.responses as r on r.username = lastAttempt.username AND
+			r.assignment = lastAttempt.assignment AND r.level = lastAttempt.level AND
+			r.numb = lastAttempt.numb AND r.attempt = lastAttempt.maxattempt
+			ORDER BY r.answer_timestamp ASC;`, qd.User.Username, qd.Question.Assignment, qd.Question.Level, qd.Question.Number)
+	rows, err := db.Query(q)
+	dbCheck(err)
+	defer rows.Close()
+	var userResponses []pastQ
+	var pq pastQ
+	var ques Question
+	ques.Assignment = qd.Question.Assignment
+	for rows.Next() {
+		err = rows.Scan(&ques.Level, &ques.Number, &pq.Correctness, &pq.Answer)
+		pq.Question = ques
+		dbCheck(err)
+		userResponses = append(userResponses, pq)
+	}
+
+	return userResponses
 }

@@ -26,6 +26,24 @@ type QuizPageData struct {
 	HTMLContentExplanation template.HTML
 }
 
+type QuestionsPageData struct {
+	UserData               user
+	Questions           	 []QuizDisplay
+	PageType               string
+}
+
+type QuizDisplay struct {
+	HTMLContentText        template.HTML
+	HTMLContentExplanation template.HTML
+	Options         			 []string
+	Correctness						 bool
+	Answer								 string
+	CorrectAnswer   		   []string
+	AttemptsOverall 			 int
+	Weight          			 int
+	QUIndex								 int
+}
+
 type user struct {
 	Uid            string
 	AssignmentName string
@@ -63,15 +81,15 @@ var dbSessionsCleaned time.Time
 
 const sessionLength int = 1800
 
-//var uid string
-//var an string
+var uid string
+var an string
 
 func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "1"
-	//an = "Detecting Flu Epidemics"
+	uid = "1"
+	an = "Climate Change"
 }
 
 func main() {
@@ -79,6 +97,7 @@ func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
+	http.HandleFunc("/pastQuestions", pastQuestions)
 	http.HandleFunc("/ping", ping)
 	http.HandleFunc("/instance", instance)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
@@ -114,8 +133,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	//logPostBody(req)
-	uid := req.FormValue("user_id")
-	an := req.FormValue("custom_component_display_name")
+	//uid := req.FormValue("user_id")
+	//an := req.FormValue("custom_component_display_name")
 
 	var qd QuestionData
 	user_assignment := an+"+"+uid
@@ -221,6 +240,49 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		PageType:               "quiz",
 		HTMLContentText:        template.HTML(dbUserState[user_assignment].Question.Text),
 		HTMLContentExplanation: template.HTML(dbUserState[user_assignment].Question.Explanation),
+	}
+
+	tpl.ExecuteTemplate(w, "layout", qpd)
+}
+
+func pastQuestions(w http.ResponseWriter, req *http.Request) {
+	myqd := getUserAsmt(w, req)
+	myqd.PrevLocation = dbGetUserPrevLocation(db, myqd)
+	newqd := getNextQuizState(myqd)
+	questions := dbFetchUserInResponses(db,newqd)
+	var quizpd []QuizDisplay
+	if questions != nil {
+		pastQs := getAllPastQuestions(newqd,questions)
+		var qd QuizDisplay
+		var q Question
+		for i, pq := range pastQs{
+			q = pq.Question
+			qd = QuizDisplay{
+				HTMLContentText: template.HTML(q.Text),
+				HTMLContentExplanation: template.HTML(q.Explanation),
+				Options: q.Options,
+				Correctness: pq.Correctness,
+				Answer: pq.Answer,
+				CorrectAnswer: q.CorrectAnswer,
+				AttemptsOverall: q.AttemptsOverall,
+				Weight: q.Weight,
+				QUIndex: i+1,
+			}
+			quizpd = append(quizpd, qd)
+		}
+	} else {
+		quizpd = nil
+	}
+
+	u := user{
+		Uid:            uid,
+		AssignmentName: an,
+	}
+
+	qpd := QuestionsPageData{
+		UserData:               u,
+		Questions:              quizpd,
+		PageType:               "pastQuestions",
 	}
 
 	tpl.ExecuteTemplate(w, "layout", qpd)

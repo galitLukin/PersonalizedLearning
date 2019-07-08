@@ -35,6 +35,7 @@ a {
 
 .logo a {
   color: linear-gradient(-134deg,#3023ae 0%,#4878f7 100%);
+	float: left;
 }
 
 .main-nav {
@@ -45,7 +46,7 @@ a {
 .main-nav a {
 	padding: 10px 15px;
 	text-transform: uppercase;
-	text-align: center;
+	text-align: right;
 	display: block;
 }
 
@@ -56,8 +57,8 @@ a {
 
 .main-nav a:hover {
 	color: #718daa;
+	font-size: .99em;
 }
-
 
 
 .header {

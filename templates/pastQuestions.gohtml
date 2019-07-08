@@ -1,0 +1,34 @@
+{{define "title"}}Past Questions in the {{.UserData.AssignmentName}} Assignment{{end}}
+
+{{define "pastQuestions"}}
+    {{if .Questions}}
+        <ol>
+          {{range $i, $a :=.Questions}}
+            <p><b>Question {{.QUIndex}}:</b></p> {{.HTMLContentText}}
+            <p><u>Attempts Given:</u> {{.AttemptsOverall}}<br /><br />
+            <u>Weight:</u> {{.Weight}}</p>
+            {{ range .Options }}
+                <div class="answer-choice-container">
+                    <div class="answer-choice-radio-btn"
+                        id={{.}}
+                        name={{.}}
+                        data-selected="false">
+                    </div>
+                    <div class="answer-choice">
+                        {{.}}
+                    </div>
+                </div>
+            {{end}}
+            {{if .Correctness}}
+                <div id="quiz-right-answer">Correct!</div>
+            {{else}}
+                <div id="quiz-wrong-answer">Incorrect.</div>
+                <p><b>Your Answer:</b></p> {{.Answer}}
+            {{end}}
+            <p><b>Correct Answer:</b></p> {{index .CorrectAnswer 0}}
+            <p><b>Explanation:</b></p> {{.HTMLContentExplanation}}
+            <hr>
+          {{end}}
+        </ol>
+    {{end}}
+{{end}}
