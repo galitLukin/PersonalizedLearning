@@ -247,31 +247,30 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 
 func pastQuestions(w http.ResponseWriter, req *http.Request) {
 	myqd := getUserAsmt(w, req)
-	myqd.PrevLocation = dbGetUserPrevLocation(db, myqd)
-	newqd := getNextQuizState(myqd)
-	questions := dbFetchUserInResponses(db,newqd)
+	questions := dbFetchUserInResponses(db,myqd)
 	var quizpd []QuizDisplay
+	quizpd = nil
 	if questions != nil {
-		pastQs := getAllPastQuestions(newqd,questions)
+		pastQs := getAllPastQuestions(myqd,questions)
 		var qd QuizDisplay
 		var q Question
 		for i, pq := range pastQs{
 			q = pq.Question
-			qd = QuizDisplay{
-				HTMLContentText: template.HTML(q.Text),
-				HTMLContentExplanation: template.HTML(q.Explanation),
-				Options: q.Options,
-				Correctness: pq.Correctness,
-				Answer: pq.Answer,
-				CorrectAnswer: q.CorrectAnswer,
-				AttemptsOverall: q.AttemptsOverall,
-				Weight: q.Weight,
-				QUIndex: i+1,
+			if (pq.Correctness || q.AttemptsOverall == pq.Attempts){
+				qd = QuizDisplay{
+					HTMLContentText: template.HTML(q.Text),
+					HTMLContentExplanation: template.HTML(q.Explanation),
+					Options: q.Options,
+					Correctness: pq.Correctness,
+					Answer: pq.Answer,
+					CorrectAnswer: q.CorrectAnswer,
+					AttemptsOverall: q.AttemptsOverall,
+					Weight: q.Weight,
+					QUIndex: i+1,
+				}
+				quizpd = append(quizpd, qd)
 			}
-			quizpd = append(quizpd, qd)
 		}
-	} else {
-		quizpd = nil
 	}
 
 	u := user{

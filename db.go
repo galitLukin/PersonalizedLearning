@@ -69,6 +69,7 @@ type pastQ struct {
 	Question		Question
 	Correctness bool
 	Answer			string
+	Attempts		int
 }
 
 type grade struct {
@@ -435,31 +436,27 @@ func dbAssignmentDone(db *sql.DB, qd QuestionData) float32 {
 //run to get the user's history for past questions
 //this is called when user wants to see their past questions
 func dbFetchUserInResponses(db *sql.DB, qd QuestionData) []pastQ {
-	fmt.Println("Getting user from responses  ...", qd.User.Username, qd.Question.Assignment)
-	q := fmt.Sprintf(`SELECT r.level, r.numb, r.correctness, r.answer
+	fmt.Println("Getting user from responses  ...", qd.User.Username, qd.AssignmentName)
+	q := fmt.Sprintf(`SELECT r.level, r.numb, r.correctness, r.answer, r.attempt
 			FROM (
 				SELECT username, assignment, level, numb, MAX(attempt) as maxattempt
 				FROM test02.responses
-				WHERE username = "%s" AND assignment = "%s" AND (level, numb) NOT IN
-				 			( SELECT DISTINCT level, numb
-								FROM test02.responses
-								WHERE level = %d AND numb = %d
-							)
+				WHERE username = "%s" AND assignment = "%s"
 				GROUP BY level, numb
 			) as lastAttempt
 			INNER JOIN test02.responses as r on r.username = lastAttempt.username AND
 			r.assignment = lastAttempt.assignment AND r.level = lastAttempt.level AND
 			r.numb = lastAttempt.numb AND r.attempt = lastAttempt.maxattempt
-			ORDER BY r.answer_timestamp ASC;`, qd.User.Username, qd.Question.Assignment, qd.Question.Level, qd.Question.Number)
+			ORDER BY r.answer_timestamp ASC;`, qd.User.Username, qd.AssignmentName)
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
 	var userResponses []pastQ
 	var pq pastQ
 	var ques Question
-	ques.Assignment = qd.Question.Assignment
+	ques.Assignment = qd.AssignmentName
 	for rows.Next() {
-		err = rows.Scan(&ques.Level, &ques.Number, &pq.Correctness, &pq.Answer)
+		err = rows.Scan(&ques.Level, &ques.Number, &pq.Correctness, &pq.Answer, &pq.Attempts)
 		pq.Question = ques
 		dbCheck(err)
 		userResponses = append(userResponses, pq)

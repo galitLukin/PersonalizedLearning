@@ -26,6 +26,12 @@ a {
 	text-decoration: none;
 }
 
+pastQ {
+    margin: 20px;
+		font-size: 1.45em;
+		text-decoration: underline;
+		font-weight: bold;
+}
 
 
 .logo {

@@ -89,7 +89,7 @@ func getNextQuizState(q QuestionData) QuestionData {
 }
 
 func getAllPastQuestions(qd QuestionData, pqs []pastQ) []pastQ{
-	fmt.Println("Getting past questions  ...", qd.User.Username, qd.Question.Assignment)
+	fmt.Println("Getting past questions  ...", qd.User.Username, qd.AssignmentName)
 	j, err := json.Marshal(pqs)
 	if err != nil {
 		panic(err)
