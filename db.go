@@ -388,13 +388,14 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 
 //runs when user finishes assignment - returns grade for edX
 func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
+	fmt.Println("Getting user from responses  ...", qd.User.Username, qd.AssignmentName)
 	var g grade
 	score := 0
 	scorePossible := 0
 	q := fmt.Sprintf(`SELECT username, assignment, level, numb,
 	    MAX(correctness) AS correctness, ANY_VALUE(score_possible) AS score_possible
 	    FROM test02.responses WHERE username = "%s" AND assignment = "%s"
-	    GROUP BY username, assignment, level, numb;`, qd.User.Username, qd.Question.Assignment)
+	    GROUP BY username, assignment, level, numb;`, qd.User.Username, qd.AssignmentName)
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
