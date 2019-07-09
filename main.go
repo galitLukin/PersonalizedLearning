@@ -13,11 +13,6 @@ import (
 	"strings"
 )
 
-type PageData struct {
-	UserData user
-	PageType string
-}
-
 type QuizPageData struct {
 	UserData               user
 	QuestionData           QuestionData
