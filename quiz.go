@@ -48,6 +48,7 @@ type QuestionInstance struct {
 }
 
 // Read Question from static JSON file
+// debugging purposes
 func getQuestion() QuestionData {
 	jf, err := os.Open("static/json/simplequestion.json")
 	if err != nil {

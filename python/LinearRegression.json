@@ -1,10 +1,10 @@
 {
-  "ClimateChange": [
+  "Asmt1": [
     {
       "level": 1,
       "questions": [
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 1,
           "number": 1,
           "text": "<p>We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. <br /> <br /> Then, split the data into a <em>training set</em>, consisting of all the observations up to and including 2006, and a <em>testing set</em> consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability.<br /> <br /> Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (<em>Year</em> and <em>Month</em> should NOT be used in the model). Use the training set to build the model.<br /> <br /> What is the model R<sup>2</sup> (the Multiple R<sup>2</sup> value):</p>",
@@ -29,7 +29,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 1,
           "number": 2,
           "text": "<p>Which variables are significant in the model?<br /> <br />We will consider a variable signficant only if the p-value is below 0.05. (Select all that apply.)</p>",
@@ -49,7 +49,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 1,
           "number": 3,
           "text": "<p>What is the RMSE of the model?</p>",
@@ -70,7 +70,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 1,
           "number": 4,
           "text": "<p>The data is split into training and testing sets so that we can measure the quality of the model on unseen data.<br /> <br />How many observations are in the training set?<br /> <br />What is the average CO2 level in the training set?<br /> <br />Which year had the highest level of MEI in the training set?</p>",
@@ -96,7 +96,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 1,
           "number": 5,
           "text": "<p>What is the ”baseline” linear regression model?</p>",
@@ -119,7 +119,7 @@
       "level": 2,
       "questions": [
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 2,
           "number": 1,
           "text": "<p>Current scientific opinion is that nitrous oxide and CFC-11 are greenhouse gases: gases that are able to trap heat from the sun and contribute to the heating of the Earth.<br /> <br />However, the regression coefficients of both the N2O and CFC-11 variables are <strong>negative</strong>, indicating that increasing atmospheric concentrations of either of these two compounds is associated with lower global temperatures.<br /> <br />Which of the following is the simplest correct explanation for this contradiction?</p>",
@@ -136,7 +136,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 2,
           "number": 2,
           "text": "<p>Compute the correlations between all the variables in the training set.<br /> <br />Which of the following independent variables is N2O highly correlated with (absolute correlation greater than 0.7)? Select all that apply.</p>",
@@ -157,7 +157,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 2,
           "number": 3,
           "text": "<p>Which of the following independent variables is CFC.11 highly correlated with? Select all that apply.</p>",
@@ -178,7 +178,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 2,
           "number": 4,
           "text": "<p>Which of the following independent variables is worth more or has a greater effect on the dependent variable?</p>",
@@ -199,7 +199,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 2,
           "number": 5,
           "text": "<p>When is the log of the dependent variable used in the model instead of the dependent variable itself?</p>",
@@ -221,7 +221,7 @@
       "level": 3,
       "questions": [
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 3,
           "number": 1,
           "text": "<p>Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables.<br /> <br />Remember to use the training set to build the model.<br /> <br />What is the coefficient of N2O in this reduced model?<br /> <br />What the R<sup>2</sup>?</p>",
@@ -245,7 +245,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 3,
           "number": 2,
           "text": "<p>We have many variables in this problem, and as we have seen above, dropping some from the model does not decrease model quality.<br /> <br />R provides a function, <u><a href=\"http://stat.ethz.ch/R-manual/R-devel/library/stats/html/step.html\">step</a></u>, that will automate the procedure of trying different combinations of variables to find a good compromise of model simplicity and R<sup>2</sup>. This trade-off is formalized by the <u><a href=\"http://en.wikipedia.org/wiki/Akaike_information_criterion\">Akaike information criterion</a></u> (AIC) - it can be informally thought of as the quality of the model with a penalty for the number of variables in the model.<br /> <br />The step function has one argument - the name of the initial model. It returns a simplified model.<br /> <br />Use the step function in R to derive a new model, with the full model as the initial model<br /> <br />HINT: If your initial full model was called \"climateLM\", you could create a new model with the step function by typing <code>step(climateLM)</code>.<br /> <br />Be sure to save your new model to a variable name so that you can look at the summary. <br /> <br />For more information about the step function, type <code>?step </code> in your R console.<br /> <br />Which of the following variable(s) were eliminated from the full model by the step function? Select all that apply.</p>",
@@ -267,7 +267,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 3,
           "number": 3,
           "text": "<p>How would you interpret the coefficient of Aerosols in the model produced from the step function?</p>",
@@ -284,7 +284,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 3,
           "number": 4,
           "text": "<p>How would you interpret the coefficient of TSI in the model produced from the step function?.</p>",
@@ -303,7 +303,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 3,
           "number": 5,
           "text": "<p>How would you interpret the intercept of the model produced from the step function?</p>",
@@ -326,7 +326,7 @@
       "level": 4,
       "questions": [
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 4,
           "number": 1,
           "text": "<p>Enter the R<sup>2</sup> value of the model produced from the step function?<br /> <br />Which independent variable is not statistically significant?</p>",
@@ -351,7 +351,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 4,
           "number": 2,
           "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />What is the test set R<sup>2</sup>?</p>",
@@ -372,7 +372,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 4,
           "number": 3,
           "text": "<p>Are the following statements True or False?<br /> <br />1. The out of sample R<sup>2</sup> will increase as the model includes more independent variables.<br /> <br />2. R<sup>2</sup> can be negative.</p>",
@@ -390,7 +390,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 4,
           "number": 4,
           "text": "<p>How high does the out of sample R<sup>2</sup> have to be to consider the model acceptable?</p>",
@@ -408,7 +408,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Climate Change",
+          "Assignment": "Asmt1",
           "level": 4,
           "number": 5,
           "text": "<p>What is the \"baseline\" linear regression model?</p>",
@@ -428,12 +428,12 @@
       ]
     }
   ],
-  "ReadingTestScores": [
+  "Asmt2": [
     {
       "level": 1,
       "questions": [
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 1,
           "number": 1,
           "text": "<p>Load the training and testing sets using the <code>read.csv()</code> function, and save them as variables with the names pisaTrain and pisaTest.<br /> <br />How many students are there in the training set?</p>",
@@ -453,7 +453,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 1,
           "number": 2,
           "text": "<p>Using <code>tapply()</code> on pisaTrain, what is the average reading test score of males? Of females?</p>",
@@ -474,7 +474,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 1,
           "number": 3,
           "text": "<p>Which variables are missing data in at least one observation in the training set? Select all that apply.</p>",
@@ -497,7 +497,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 1,
           "number": 4,
           "text": "<p>Factor variables are variables that take on a discrete set of values, like the \"Region\" variable in the WHO dataset from the second lecture of Unit 1.<br /> <br />This is an unordered factor because there isn't any natural ordering between the levels.<br /> <br />An ordered factor has a natural ordering between the levels (an example would be the classifications \"large,\" \"medium,\" and \"small\").<br /> <br />Which of the following variables is an unordered factor with at least 3 levels? (Select all that apply.)</p>",
@@ -514,7 +514,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 1,
           "number": 5,
           "text": "<p>Which of the following variables is an ordered factor with at least 3 levels? (Select all that apply.)</p>",
@@ -531,7 +531,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 1,
           "number": 6,
           "text": "<p>How many missing values are there in the training set for minutesPerWeekEnglish?<br /> <br />What is the average number of minutes that a student spends in English class?<br /> <br />If all missing values were to be replaced with the maximum value, what would be the average number of minutes that a student spends in English class?<br /> <br />What would it be if all the missing values were replaced with the minimum value?</p>",
@@ -561,7 +561,7 @@
       "level": 2,
       "questions": [
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 2,
           "number": 1,
           "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets.<br /> <br />Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest:<br /> <br /><code>pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest)</code><br /> <br />If you have replaced missing values in a previous question, return to the original data set that includes all missing values before running this command.<br /> <br />How many observations are now in the training set?<br /> <br />How many observations are now in the testing set?</p>",
@@ -582,7 +582,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 2,
           "number": 2,
           "text": "<p>To include unordered factors in a linear regression model, we define one level as the \"reference level\" and add a binary variable for each of the remaining levels. In this way, a factor with n levels is replaced by n-1 binary variables. The reference level is typically selected to be the most frequently occurring level in the dataset.<br /> <br />As an example, consider the unordered factor variable \"color\", with levels \"red\", \"green\", and \"blue\". If \"green\" were the reference level, then we would add binary variables \"colorred\" and \"colorblue\" to a linear regression problem. All red examples would have colorred=1 and colorblue=0. All blue examples would have colorred=0 and colorblue=1. All green examples would have colorred=0 and colorblue=0.<br /> <br />Now, consider the variable \"raceeth\" in our problem, which has levels \"American Indian/Alaska Native\", \"Asian\", \"Black\", \"Hispanic\", \"More than one race\", \"Native Hawaiian/Other Pacific Islander\", and \"White\".<br /> <br />Because it is the most common in our population, we will select White as the reference level.<br /> <br />Which binary variables will be included in the regression model? (Select all that apply.)</p>",
@@ -603,7 +603,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 2,
           "number": 3,
           "text": "<p>Consider again adding our unordered factor race to the regression model with reference level \"White\".<br /> <br />For a student who is Asian, which binary variables would be set to 0?<br /> <br />All remaining variables will be set to 1. (Select all that apply.)</p>",
@@ -623,7 +623,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 2,
           "number": 4,
           "text": "<p>Consider the addition of our unordered factor race to the regression model with reference level \"White\".<br /> <br />For a student who is white, which binary variables would be set to 0?<br /> <br />All remaining variables will be set to 1. (Select all that apply.)</p>",
@@ -643,7 +643,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 2,
           "number": 5,
           "text": "<p>There are x races. Instead of creating x-1 more variables, we could give each race a number, 1 through x, and keep one variable that receives values 1 through x.<br /> <br />Why is this incorrect?</p>",
@@ -660,7 +660,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 2,
           "number": 6,
           "text": "<p>In the training set, check for outliers in the variable readingScore using the IQR method.<br /> <br />How many outliers are there?<br /> <br />Is linear regression sensitive to outliers?</p>",
@@ -691,7 +691,7 @@
       "level": 3,
       "questions": [
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 3,
           "number": 1,
           "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\").<br /> <br />Set the reference level of the factor by typing the following two lines in your R console:<br /> <br /><code>pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\")<br />pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\")</code><br /> <br />Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables.<br /> <br />It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables.<br /> <br />As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation:<br /> <br /><code>LinReg = lm(Y ~ X1 + X2 + X3, data = Train)</code><br /> <br />You would use the following command to build your model:<br /> <br /><code>LinReg = lm(Y ~ ., data = Train)</code><br /> <br />What is the Multiple R<sup>2</sup> value of lmScore on the training set?<br /> <br />Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
@@ -713,7 +713,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 3,
           "number": 2,
           "text": "<p>What is the training-set root-mean squared error (RMSE) of lmScore?</p>",
@@ -735,7 +735,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 3,
           "number": 3,
           "text": "<p>Consider two students A and B. They have all variable values the same, except that student A is in grade 11 and student B is in grade 9.<br /> <br />What is the predicted reading score of student A minus the predicted reading score of student B?</p>",
@@ -755,7 +755,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 3,
           "number": 4,
           "text": "<p>What is the meaning of the coefficient associated with variable raceethAsian?</p>",
@@ -773,7 +773,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 3,
           "number": 5,
           "text": "<p>Based on the significance codes, which variables are candidates for removal from the model? Select all that apply. (We'll assume that the factor variable raceeth should only be removed if none of its levels are significant.)</p>",
@@ -810,7 +810,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 3,
           "number": 6,
           "text": "<p>There is a hypothesis that the number of students in a student's school has a large positive affect on the student's reading score.<br /> <br />What are your thoughts about this statement? </p>",
@@ -835,7 +835,7 @@
       "level": 4,
       "questions": [
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 4,
           "number": 1,
           "text": "<p>Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest.<br /> <br />Call this vector of predictions \"predTest\".<br /> <br />Do not change the variables in the model (for example, do not remove variables that we found were not significant in a previous part of this assignment).<br /> <br />Use the summary function to describe the test set predictions.<br /> <br />What is the range between the maximum and minimum predicted reading score on the test set?</p>",
@@ -857,7 +857,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 4,
           "number": 2,
           "text": "<p>What is the sum of squared errors (SSE) of lmScore on the testing set?<br /> <br />What is the root-mean squared error (RMSE) of lmScore on the testing set?</p>",
@@ -884,7 +884,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 4,
           "number": 3,
           "text": "<p>What is the predicted test score used in the baseline model?<br /> <br />Remember to compute this value using the training set and not the test set.</p>",
@@ -906,7 +906,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 4,
           "number": 4,
           "text": "<p>What is the sum of squared errors of the baseline model on the testing set?<br /> <br />HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).</p>",
@@ -927,7 +927,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 4,
           "number": 5,
           "text": "<p>What is the test-set R<sup>2</sup> value of lmScore?</p>",
@@ -949,7 +949,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Reading Test Scores",
+          "Assignment": "Asmt2",
           "level": 4,
           "number": 6,
           "text": "<p>How can the model be improved (Select all that apply)</p>",
@@ -969,12 +969,12 @@
       ]
     }
   ],
-  "DetectingFluEpidemics": [
+  "Asmt3": [
     {
       "level": 1,
       "questions": [
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 1,
           "number": 1,
           "text": "<p>Before applying analytics tools on the training set, we first need to understand the data at hand.<br /> <br />Load \"FluTrain.csv\" into a data frame called FluTrain.<br /> <br />Let us understand the data at an aggregate level.<br /> <br />Plot the histogram of the dependent variable, ILI.<br /> <br />What best describes the distribution of values of ILI?</p>",
@@ -991,7 +991,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 1,
           "number": 2,
           "text": "<p>When handling a skewed dependent variable, it is often useful to predict the logarithm of the dependent variable instead of the dependent variable itself -- this prevents the small number of unusually large or small observations from having an undue influence on the sum of squared errors of predictive models.<br /> <br />In this problem, we will predict the natural log of the ILI variable, which can be computed in R using the <code>log()</code> function.<br /> <br />Plot the natural logarithm of ILI versus Queries.<br /> <br />What does the plot suggest?.</p>",
@@ -1008,7 +1008,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 1,
           "number": 3,
           "text": "<p>Based on the plot we just made, it seems that a linear regression model could be a good modeling choice.<br /> <br />Based on our understanding of the data from the previous subproblem, which model best describes our estimation problem?</p>",
@@ -1030,7 +1030,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 1,
           "number": 4,
           "text": "<p>Looking at the time period 2004-2011, which week corresponds to the highest percentage of ILI-related physician visits?<br /> <br />Choose the correct year, month, and day. Three answers should be marked. Select the day of the month corresponding to the start of this week.</p>",
@@ -1047,7 +1047,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 1,
           "number": 5,
           "text": "<p>Which week corresponds to the highest percentage of ILI-related query fraction?<br /> <br />Choose the correct year, month, and day. Three answers should be marked. Select the day of the month corresponding to the start of this week.</p>",
@@ -1064,7 +1064,7 @@
           "weight": 1
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 1,
           "number": 6,
           "text": "<p>Denote the model FluTrend1. Is it a linear regression model?</p>",
@@ -1087,7 +1087,7 @@
       "level": 2,
       "questions": [
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 2,
           "number": 1,
           "text": "<p>Let's call the regression model derived in a previous problem (log(ILI) = intercept + coefficient x Queries, where the coefficient is positive) FluTrend1 and run it in R.<br /> <br />Hint: to take the logarithm of a variable Var in a regression equation, you simply use log(Var) when specifying the formula to the lm() function.<br /> <br />What is the training set R<sup>2</sup> value for FluTrend1 model (the \"Multiple R<sup>2</sup>\")?</p>",
@@ -1110,7 +1110,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 2,
           "number": 2,
           "text": "<p>For a single variable linear regression model, there is a direct relationship between the R<sup>2</sup> and the correlation between the independent and the dependent variables.<br /> <br />What is the relationship we infer from our problem?<br /> <br />(Don't forget that you can use the cor function to compute the correlation between two variables.)</p>",
@@ -1127,7 +1127,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 2,
           "number": 3,
           "text": "<p> Load the data from FluTest.csv into a data frame called FluTest.<br /> <br />Normally, we would obtain test-set predictions from the model FluTrend1 using the code <code>PredTest1 = predict(FluTrend1, newdata=FluTest)</code><br /> <br />However, the dependent variable in our model is log(ILI), so PredTest1 would contain predictions of the log(ILI) value.<br /> <br />We are instead interested in obtaining predictions of the ILI value. We can convert from predictions of log(ILI) to predictions of ILI via exponentiation, or the exp() function.<br /> <br />The new code, which predicts the ILI value, is<br /> <br /><code>PredTest1 = exp(predict(FluTrend1, newdata=FluTest))</code><br /> <br />What is our estimate for the percentage of ILI-related physician visits for the week of March 11, 2012?<br /> <br />(HINT: You can either just output FluTest$Week to find which element corresponds to March 11, 2012, or you can use the \"which\" function in R. To learn more about the which function, type ?which in your R console.)</p>",
@@ -1150,7 +1150,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 2,
           "number": 4,
           "text": "<p>What is the relative error betweeen the estimate for the percentage of ILI-related physician visits for the week of March 11, 2012 (our prediction) and the observed value for the week of March 11, 2012?<br /> <br />Note that the relative error is calculated as<br /> <br />(Observed ILI - Estimated ILI)/Observed ILI</p>",
@@ -1169,7 +1169,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 2,
           "number": 5,
           "text": "<p>What is the Root Mean Square Error (RMSE) between our estimates and the actual observations for the percentage of ILI-related physician visits, on the test set?</p>",
@@ -1190,7 +1190,7 @@
           "weight": 2
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 2,
           "number": 6,
           "text": "<p>What does it mean when an independent variable has a high p-value?</p>",
@@ -1213,7 +1213,7 @@
       "level": 3,
       "questions": [
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 3,
           "number": 1,
           "text": "<p>The observations in this dataset are consecutive weekly measurements of the dependent and independent variables. This sort of dataset is called a \"time series.\"<br /> <br />Often, statistical models can be improved by predicting the current value of the dependent variable using the value of the dependent variable from earlier weeks.<br /> <br />In our models, this means we will predict the ILI variable in the current week using values of the ILI variable from previous weeks.<br /> <br />What should be the amount of time to lag the observations?<br /> <br />HINT: The answer lies within the data. Read about the data in the assignment's directions.</p>",
@@ -1233,7 +1233,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 3,
           "number": 2,
           "text": "<p>We will build a variable called ILILag2 that contains the ILI value from 2 weeks before the current observation.<br /> <br />To do so, we will use the \"zoo\" package, which provides a number of helpful methods for time series models. While many functions are built into R, you need to add new packages to use some functions. New packages can be installed and loaded easily in R, and we will do this many times in this class. Run the following two commands to install and load the zoo package. In the first command, you will be prompted to select a CRAN mirror to use for your download. Select a mirror near you geographically..<br /> <br /><code>install.packages(\"zoo\").<br /> <br />library(zoo)</code><br /> <br />After installing and loading the zoo package, run the following commands to create the ILILag2 variable in the training set:<br /> <br /><code>ILILag2 = lag(zoo(FluTrain$ILI), -2, na.pad=TRUE)<br /> <br />FluTrain$ILILag2 = coredata(ILILag2)</code><br /> <br />In these commands, the value of -2 passed to lag means to return 2 observations before the current one; a positive value would have returned future observations. The parameter <code>na.pad=TRUE</code> means to add missing values for the first two weeks of our dataset, where we can't compute the data from 2 weeks earlier.<br /> <br />How many values are missing in the new ILILag2 variable?</p>",
@@ -1256,7 +1256,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 3,
           "number": 3,
           "text": "<p>Train a linear regression model on the FluTrain dataset to predict the log of the ILI variable using the Queries variable as well as the log of the ILILag2 variable.<br /> <br />Call this model FluTrend2 (This model may be used for future questions).<br /> <br />Which coefficients are significant at the p=0.05 level in this regression model? (Select all that apply.)</p>",
@@ -1273,7 +1273,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 3,
           "number": 4,
           "text": "<p>Use the <code>plot()</code> function to plot the log of ILILag2 against the log of ILI.<br /> <br />Which best describes the relationship between these two variables?</p>",
@@ -1290,7 +1290,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 3,
           "number": 5,
           "text": "<p>What is the R<sup>2</sup> value of the FluTrend2 model?</p>",
@@ -1310,7 +1310,7 @@
           "weight": 3
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 3,
           "number": 6,
           "text": "<p>On the basis of R<sup>2</sup> value and significance of coefficients, which statement is the most accurate?</p>",
@@ -1332,7 +1332,7 @@
       "level": 4,
       "questions": [
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 4,
           "number": 1,
           "text": "<p>So far, we have only added the ILILag2 variable to the FluTrain data frame.<br /> <br />To make predictions with our FluTrend2 model, we will also need to add ILILag2 to the FluTest data frame (note that adding variables before splitting into a training and testing set can prevent this duplication of effort).<br /> <br />Modify the code from the previous problem to add an ILILag2 variable to the FluTest data frame.<br /> <br />How many missing values are there in this new variable?</p>",
@@ -1355,7 +1355,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 4,
           "number": 2,
           "text": "<p>In this problem, the training and testing sets are split sequentially -- the training set contains all observations from 2004-2011 and the testing set contains all observations from 2012. There is no time gap between the two datasets, meaning the first observation in FluTest was recorded one week after the last observation in FluTrain.<br /> <br />From this, we can identify how to fill in the missing values for the ILILag2 variable in FluTest.<br /> <br />Which value should be used to fill in the ILILag2 variable for the first observation in FluTest?</p>",
@@ -1373,7 +1373,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 4,
           "number": 3,
           "text": "<p>Which value should be used to fill in the ILILag2 variable for the second observation in FluTest?</p>",
@@ -1391,7 +1391,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 4,
           "number": 4,
           "text": "<p>Fill in the missing values for ILILag2 in FluTest. In terms of syntax, you could set the value of ILILag2 in row \"x\" of the FluTest data frame to the value of ILI in row \"y\" of the FluTrain data frame with<br /> <br />\"<code>FluTest$ILILag2[x] = FluTrain$ILI[y]</code>\"<br /> <br />Use the answer to the previous questions to determine the appropriate values of \"x\" and \"y\".<br /> <br />It may be helpful to check the total number of rows in FluTrain using <code>str(FluTrain)</code> or <code>nrow(FluTrain)</code>.<br /> <br />What is the new value of the ILILag2 variable in the first row of FluTest?<br /> <br />What is the new value of the ILILag2 variable in the second row of FluTest?</p>",
@@ -1414,7 +1414,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 4,
           "number": 5,
           "text": "<p>Obtain test set predictions of the ILI variable from the FluTrend2 model, again remembering to call the <code>exp()</code> function on the result of the <code>predict()</code> function to obtain predictions for ILI instead of log(ILI). What is the test-set RMSE of the FluTrend2 model?</p>",
@@ -1436,7 +1436,7 @@
           "weight": 4
         },
         {
-          "Assignment": "Detecting Flu Epidemics",
+          "Assignment": "Asmt3",
           "level": 4,
           "number": 6,
           "text": "<p>Which model obtained the best test-set RMSE?</p>",

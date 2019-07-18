@@ -70,7 +70,7 @@ func init() {
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
 	uid = "2"
-	an = "Climate Change"
+	an = "Asmt1"
 }
 
 func main() {

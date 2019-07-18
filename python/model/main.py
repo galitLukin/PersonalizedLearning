@@ -41,21 +41,21 @@ if preprocess:
     de2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/DemographicsEmployment/DemographicsEmployment{}_{}.csv"
     demographicsEmployment = answers.parseAndGroup(levelQuesDE,[de2018,de2017],"de")
 
-    #climateChange
-    cc2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ClimateChange/ClimateChange{}_{}.csv"
-    cc2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ClimateChange/ClimateChange{}_{}.csv"
-    climateChange = answers.parseAndGroup(levelQuesCC,[cc2018,cc2017],"cc")
-    ccCols = list(climateChange)
+    #asmt1
+    cc2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt1/Asmt1{}_{}.csv"
+    cc2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt1/Asmt1{}_{}.csv"
+    asmt1 = answers.parseAndGroup(levelQuesCC,[cc2018,cc2017],"cc")
+    ccCols = list(asmt1)
 
-    climateChangeGrades = climateChange.copy()
+    asmt1Grades = asmt1.copy()
     for i in range(1,5):
-        climateChangeGrades.loc[:,'cc{}'.format(i)] = climateChange.apply(lambda row: answers.calcScore(row, "cc", i, levelQuesCC[i-1]+1),axis=1)
+        asmt1Grades.loc[:,'cc{}'.format(i)] = asmt1.apply(lambda row: answers.calcScore(row, "cc", i, levelQuesCC[i-1]+1),axis=1)
 
-    climateChangeGrades = climateChangeGrades.loc[:,['username','courseYear','cc1','cc2','cc3','cc4']]
+    asmt1Grades = asmt1Grades.loc[:,['username','courseYear','cc1','cc2','cc3','cc4']]
 
     #reading test scores
-    rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
-    rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/ReadingTestScores/ReadingTestScores{}_{}.csv"
+    rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt2/Asmt2{}_{}.csv"
+    rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt2/Asmt2{}_{}.csv"
     testScores = answers.parseAndGroup(levelQuesRTS,[rts2018,rts2017],"rts")
     tsCols = list(testScores)
 
@@ -65,15 +65,15 @@ if preprocess:
 
     testScoresGrades = testScoresGrades.loc[:,['username','courseYear','rts1','rts2','rts3','rts4']]
 
-    climateChange = pd.merge(climateChange, testScores, on=['username','courseYear'], how='left')
-    climateChange.loc[:,'rtsAvg'] = climateChange.apply(lambda row: [answers.calcScore(row, "rts", i, levelQuesRTS[i-1]) for i in range(1,5)],axis=1)
-    climateChange.loc[:,'rtsAvg'] = climateChange.rtsAvg.apply(lambda row: float(sum(row))/len(row) if row else 0)
-    climateChange.loc[:,'rtsAvg'] = climateChange.rtsAvg.apply(lambda row: row if row else 0)
-    climateChange = climateChange.loc[:, ccCols + ['rtsAvg']]
+    asmt1 = pd.merge(asmt1, testScores, on=['username','courseYear'], how='left')
+    asmt1.loc[:,'rtsAvg'] = asmt1.apply(lambda row: [answers.calcScore(row, "rts", i, levelQuesRTS[i-1]) for i in range(1,5)],axis=1)
+    asmt1.loc[:,'rtsAvg'] = asmt1.rtsAvg.apply(lambda row: float(sum(row))/len(row) if row else 0)
+    asmt1.loc[:,'rtsAvg'] = asmt1.rtsAvg.apply(lambda row: row if row else 0)
+    asmt1 = asmt1.loc[:, ccCols + ['rtsAvg']]
 
     #detecting flu epidemics
-    dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
-    dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/DetectingFluEpedemics/DetectingFluEpedemics{}_{}.csv"
+    dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt3/Asmt3{}_{}.csv"
+    dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt3/Asmt3{}_{}.csv"
     fluEpedemics = answers.parseAndGroup(levelQuesDFE,[dfe2018,dfe2017],"dfe")
 
     testScores = pd.merge(testScores, fluEpedemics, on=['username','courseYear'], how='left')
@@ -97,11 +97,11 @@ if preprocess:
     exam2018 = exam2018[cols]
     exam = pd.concat([exam2017, exam2018])
 
-    personalizedAssignmentData = [climateChange, testScores, fluEpedemics]
+    personalizedAssignmentData = [asmt1, testScores, fluEpedemics]
     personalizedAssignmentNames = ["cc", "rts", "dfe"]
     personalizedMaxAttempts = [maxAttemptsCC, maxAttemptsRTS, maxAttemptsDFE]
     personalizedLevelQues = [levelQuesCC, levelQuesRTS, levelQuesDFE]
-    previousAssignments = [climateChangeGrades,testScoresGrades]
+    previousAssignments = [asmt1Grades,testScoresGrades]
 
     assignmentData = [anyticalDetective,stockDynamics,demographicsEmployment]
     assignmentNames = ["ad","sd", "de"]

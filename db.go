@@ -269,7 +269,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 	//save user's score in each level in all three of the user's rows (one row per assignment)
 	var q string
 	var ss scores
-	if qd.User.AssignmentName == "Climate Change" {
+	if qd.User.AssignmentName == "Asmt1" {
 		q = fmt.Sprintf(`update test02.scores SET cc1 = CASE
 			WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
 			   ELSE 0
@@ -317,7 +317,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 			dbCheck(err)
 
 		}
-	} else if qd.User.AssignmentName == "Reading Test Scores" {
+	} else if qd.User.AssignmentName == "Asmt2" {
 		q = fmt.Sprintf(`update test02.scores SET rts1 = CASE
 				WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
 				   ELSE 0

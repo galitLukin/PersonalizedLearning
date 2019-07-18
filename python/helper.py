@@ -44,8 +44,8 @@ def getNextNode(history,lnr,curr):
 
 def getNextQuestion(assignment, level, number, score):
 	assignment = assignment.replace(" ", "")
-	map={"ClimateChange": "cc", "ReadingTestScores": "rts", "DetectingFluEpidemics": "dfe"}
-	mapQues={"ClimateChange":5,"ReadingTestScores":6,"DetectingFluEpidemics":6}
+	map={"Asmt1": "cc", "Asmt2": "rts", "Asmt3": "dfe"}
+	mapQues={"Asmt1":5,"Asmt2":6,"Asmt3":6}
 	asmt = map[assignment];
 	lowerIt = lambda s: s[:1].lower() + s[1:] if s else ''
 	for key in score:

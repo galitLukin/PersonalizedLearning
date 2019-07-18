@@ -1,4 +1,4 @@
-ClimateChange = {
+Asmt1 = {
     1.1: [1.1],
     1.2: [1.2],
     2.1: [2.1],
@@ -8,7 +8,7 @@ ClimateChange = {
     5.0: [4.2]
 }
 
-ReadingTestScores = {
+Asmt2 = {
     1.1: [1.1],
     1.2: [1.2],
     1.3: [1.3],
@@ -27,7 +27,7 @@ ReadingTestScores = {
     4.4: [4.4]
 }
 
-DetectingFluEpidemics = {
+Asmt3 = {
     1.1: [1.1, 1.2],
     1.2: [1.3],
     1.3: [1.4],
