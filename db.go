@@ -64,16 +64,6 @@ type pastQ struct {
 	Attempts    int
 }
 
-type grade struct {
-	Username      string
-	Assignment    string
-	Level         int
-	Number        int
-	Correctness   int
-	ScorePossible int
-	Grade         float32
-}
-
 func dbCheck(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -380,7 +370,15 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 //runs when user finishes assignment - returns grade for edX
 func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	fmt.Println("Getting user from responses  ...", qd.User.Uid, qd.User.AssignmentName)
-	var g grade
+	var g struct {
+		Username      string
+		Assignment    string
+		Level         int
+		Number        int
+		Correctness   int
+		ScorePossible int
+		Grade         float32
+	}
 	score := 0
 	scorePossible := 0
 	q := fmt.Sprintf(`SELECT username, assignment, level, numb,

@@ -47,11 +47,6 @@ type QuestionInstance struct {
 	NumAttempts int      `json:"numAttempts"`
 }
 
-// User : Current user doing the quiz
-type User struct {
-	Username string `json:"username"`
-}
-
 // Read Question from static JSON file
 func getQuestion() QuestionData {
 	jf, err := os.Open("static/json/simplequestion.json")

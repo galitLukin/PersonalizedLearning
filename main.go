@@ -13,19 +13,6 @@ import (
 	"time"
 )
 
-type QuizPageData struct {
-	QuestionData           QuestionData
-	PageType               string
-	HTMLContentText        template.HTML
-	HTMLContentExplanation template.HTML
-}
-
-type QuestionsPageData struct {
-	UserData  user
-	Questions []QuizDisplay
-	PageType  string
-}
-
 type QuizDisplay struct {
 	HTMLContentText        template.HTML
 	HTMLContentExplanation template.HTML
@@ -162,7 +149,10 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	qpd := QuizPageData{
+	qpd := struct {
+		QuestionData QuestionData
+		PageType     string
+	}{
 		QuestionData: qd,
 		PageType:     "getstarted",
 	}
@@ -219,7 +209,12 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		dbUserState[user_assignment] = newqd
 	}
 
-	qpd := QuizPageData{
+	qpd := struct {
+		QuestionData           QuestionData
+		PageType               string
+		HTMLContentText        template.HTML
+		HTMLContentExplanation template.HTML
+	}{
 		QuestionData:           dbUserState[user_assignment],
 		PageType:               "quiz",
 		HTMLContentText:        template.HTML(dbUserState[user_assignment].Question.Text),
@@ -262,7 +257,11 @@ func pastQuestions(w http.ResponseWriter, req *http.Request) {
 		AssignmentName: an,
 	}
 
-	qpd := QuestionsPageData{
+	qpd := struct {
+		UserData  user
+		Questions []QuizDisplay
+		PageType  string
+	}{
 		UserData:  u,
 		Questions: quizpd,
 		PageType:  "pastQuestions",
