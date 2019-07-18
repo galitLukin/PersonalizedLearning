@@ -42,8 +42,8 @@ if preprocess:
     demographicsEmployment = answers.parseAndGroup(levelQuesDE,[de2018,de2017],"de")
 
     #asmt1
-    cc2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt1/Asmt1{}_{}.csv"
-    cc2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt1/Asmt1{}_{}.csv"
+    cc2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt1/ClimateChange{}_{}.csv"
+    cc2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt1/ClimateChange{}_{}.csv"
     asmt1 = answers.parseAndGroup(levelQuesCC,[cc2018,cc2017],"cc")
     ccCols = list(asmt1)
 
@@ -54,8 +54,8 @@ if preprocess:
     asmt1Grades = asmt1Grades.loc[:,['username','courseYear','cc1','cc2','cc3','cc4']]
 
     #reading test scores
-    rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt2/Asmt2{}_{}.csv"
-    rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt2/Asmt2{}_{}.csv"
+    rts2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt2/ReadingTestScores{}_{}.csv"
+    rts2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt2/ReadingTestScores{}_{}.csv"
     testScores = answers.parseAndGroup(levelQuesRTS,[rts2018,rts2017],"rts")
     tsCols = list(testScores)
 
@@ -72,8 +72,8 @@ if preprocess:
     asmt1 = asmt1.loc[:, ccCols + ['rtsAvg']]
 
     #detecting flu epidemics
-    dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt3/Asmt3{}_{}.csv"
-    dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt3/Asmt3{}_{}.csv"
+    dfe2018 = "../../../../../Desktop/Fall2018/PL/2018Data/Assignment/Asmt3/DetectingFluEpedemics{}_{}.csv"
+    dfe2017 = "../../../../../Desktop/Fall2018/PL/2017Data/Assignment/Asmt3/DetectingFluEpedemics{}_{}.csv"
     fluEpedemics = answers.parseAndGroup(levelQuesDFE,[dfe2018,dfe2017],"dfe")
 
     testScores = pd.merge(testScores, fluEpedemics, on=['username','courseYear'], how='left')
