@@ -1,10 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/satori/go.uuid"
 	"net/http"
 	"time"
-  "fmt"
 )
 
 func getUserAsmt(w http.ResponseWriter, req *http.Request) QuestionData {
@@ -45,7 +45,7 @@ func alreadyLoggedIn(w http.ResponseWriter, req *http.Request) bool {
 	// refresh session
 	c.MaxAge = sessionLength
 	http.SetCookie(w, c)
-  cleanSessions()
+	cleanSessions()
 	showSessions()
 	return ok
 }
@@ -61,9 +61,8 @@ func getOldState(w http.ResponseWriter, req *http.Request) string {
 		dbSessions[c.Value] = s
 	}
 	qd, ok := dbUserState[s.un]
-	return qd.AssignmentName
+	return qd.User.AssignmentName
 }
-
 
 func cleanActiveUsers() {
 	for k := range dbUserState {

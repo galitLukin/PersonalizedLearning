@@ -4,17 +4,16 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/satori/go.uuid"
 	"html/template"
 	"io"
 	"net/http"
 	"net/http/httputil"
-	"time"
-	"github.com/satori/go.uuid"
 	"strings"
+	"time"
 )
 
 type QuizPageData struct {
-	UserData               user
 	QuestionData           QuestionData
 	PageType               string
 	HTMLContentText        template.HTML
@@ -22,21 +21,21 @@ type QuizPageData struct {
 }
 
 type QuestionsPageData struct {
-	UserData               user
-	Questions           	 []QuizDisplay
-	PageType               string
+	UserData  user
+	Questions []QuizDisplay
+	PageType  string
 }
 
 type QuizDisplay struct {
 	HTMLContentText        template.HTML
 	HTMLContentExplanation template.HTML
-	Options         			 []string
-	Correctness						 bool
-	Answer								 string
-	CorrectAnswer   		   []string
-	AttemptsOverall 			 int
-	Weight          			 int
-	QUIndex								 int
+	Options                []string
+	Correctness            bool
+	Answer                 string
+	CorrectAnswer          []string
+	AttemptsOverall        int
+	Weight                 int
+	QUIndex                int
 }
 
 type user struct {
@@ -83,7 +82,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	uid = "1"
+	uid = "2"
 	an = "Climate Change"
 }
 
@@ -132,15 +131,12 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	//an := req.FormValue("custom_component_display_name")
 
 	var qd QuestionData
-	user_assignment := an+"+"+uid
-	qd.User.Username = uid
-	qd.AssignmentName = an
-	qd.Score = dbInitFetchUser(db, uid, an)
-
-	u := user{
+	user_assignment := an + "+" + uid
+	qd.User = user{
 		Uid:            uid,
 		AssignmentName: an,
 	}
+	qd.Score = dbInitFetchUser(db, uid, an)
 
 	if !alreadyLoggedIn(w, req) {
 		// create session
@@ -154,7 +150,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		http.SetCookie(w, c)
 		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
 		dbUserState[user_assignment] = qd
-	} else{
+	} else {
 		if getOldState(w, req) != an {
 			fmt.Println("switiching assignments")
 			c, err := req.Cookie("session")
@@ -167,7 +163,6 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	}
 
 	qpd := QuizPageData{
-		UserData:     u,
 		QuestionData: qd,
 		PageType:     "getstarted",
 	}
@@ -188,21 +183,21 @@ func finishAssignment(db *sql.DB, qd QuestionData) float32 {
 
 func quiz(w http.ResponseWriter, req *http.Request) {
 	myqd := getUserAsmt(w, req)
-	user_assignment := myqd.AssignmentName + "+" + myqd.User.Username
+	user_assignment := myqd.User.AssignmentName + "+" + myqd.User.Uid
 	fmt.Println(user_assignment)
 	var newqd QuestionData
 	if req.Method == http.MethodPost {
 		if err := req.ParseForm(); err != nil {
-			fmt.Println("Failed to parse form...",myqd.User.Username,myqd.AssignmentName)
+			fmt.Println("Failed to parse form...", user_assignment)
 			return
 		}
-		fmt.Println("Continue quiz...",myqd.User.Username,myqd.AssignmentName)
+		fmt.Println("Continue quiz...", user_assignment)
 		for key, values := range req.PostForm {
 			if key == SelectedAnswers {
-				if len(values[0]) > 0 && !valueinOptions(strings.Split(values[0], ",")[0], myqd.Question.Options){
+				if len(values[0]) > 0 && !valueinOptions(strings.Split(values[0], ",")[0], myqd.Question.Options) {
 					//user did back and got to
-					fmt.Println("User went back...",myqd.User.Username,myqd.AssignmentName)
-					break;
+					fmt.Println("User went back...", user_assignment)
+					break
 				}
 				myqd.QuestionInstance.Answer = values
 				myqd.PrevLocation.IsFirst = false
@@ -217,20 +212,14 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			}
 		}
 	} else {
-		fmt.Println("Initial question...",myqd.User.Username,myqd.AssignmentName)
+		fmt.Println("Initial question...", user_assignment)
 		myqd.PrevLocation = dbGetUserPrevLocation(db, myqd)
 		newqd = getNextQuizState(myqd)
 		newqd.Score.Grade = finishAssignment(db, newqd)
 		dbUserState[user_assignment] = newqd
 	}
 
-	u := user{
-		Uid:            newqd.User.Username,
-		AssignmentName: newqd.AssignmentName,
-	}
-
 	qpd := QuizPageData{
-		UserData:               u,
 		QuestionData:           dbUserState[user_assignment],
 		PageType:               "quiz",
 		HTMLContentText:        template.HTML(dbUserState[user_assignment].Question.Text),
@@ -242,26 +231,26 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 
 func pastQuestions(w http.ResponseWriter, req *http.Request) {
 	myqd := getUserAsmt(w, req)
-	questions := dbFetchUserInResponses(db,myqd)
+	questions := dbFetchUserInResponses(db, myqd)
 	var quizpd []QuizDisplay
 	quizpd = nil
 	if questions != nil {
-		pastQs := getAllPastQuestions(myqd,questions)
+		pastQs := getAllPastQuestions(myqd, questions)
 		var qd QuizDisplay
 		var q Question
-		for i, pq := range pastQs{
+		for i, pq := range pastQs {
 			q = pq.Question
-			if (pq.Correctness || q.AttemptsOverall == pq.Attempts){
+			if pq.Correctness || q.AttemptsOverall == pq.Attempts {
 				qd = QuizDisplay{
-					HTMLContentText: template.HTML(q.Text),
+					HTMLContentText:        template.HTML(q.Text),
 					HTMLContentExplanation: template.HTML(q.Explanation),
-					Options: q.Options,
-					Correctness: pq.Correctness,
-					Answer: pq.Answer,
-					CorrectAnswer: q.CorrectAnswer,
-					AttemptsOverall: q.AttemptsOverall,
-					Weight: q.Weight,
-					QUIndex: i+1,
+					Options:                q.Options,
+					Correctness:            pq.Correctness,
+					Answer:                 pq.Answer,
+					CorrectAnswer:          q.CorrectAnswer,
+					AttemptsOverall:        q.AttemptsOverall,
+					Weight:                 q.Weight,
+					QUIndex:                i + 1,
 				}
 				quizpd = append(quizpd, qd)
 			}
@@ -274,9 +263,9 @@ func pastQuestions(w http.ResponseWriter, req *http.Request) {
 	}
 
 	qpd := QuestionsPageData{
-		UserData:               u,
-		Questions:              quizpd,
-		PageType:               "pastQuestions",
+		UserData:  u,
+		Questions: quizpd,
+		PageType:  "pastQuestions",
 	}
 
 	tpl.ExecuteTemplate(w, "layout", qpd)
@@ -293,10 +282,10 @@ func logPostBody(req *http.Request) {
 }
 
 func valueinOptions(a string, list []string) bool {
-    for _, b := range list {
-        if strings.Split(b, ",")[0] == a {
-            return true
-        }
-    }
-    return false
+	for _, b := range list {
+		if strings.Split(b, ",")[0] == a {
+			return true
+		}
+	}
+	return false
 }

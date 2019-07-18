@@ -11,19 +11,18 @@ import (
 )
 
 const (
-	SelectedAnswers    = "selectedAnswers"
-	Python             = "python3"
-	PathToPythonScript = "./python/script.py"
+	SelectedAnswers           = "selectedAnswers"
+	Python                    = "python3"
+	PathToPythonScript        = "./python/script.py"
 	PathToPastQuestionsScript = "./python/pastQuestions.py"
-	QuizReferrer       = "http://3.16.157.40/quiz"
+	QuizReferrer              = "http://3.16.157.40/quiz"
 )
 
 // Question Data
 type QuestionData struct {
 	Question         Question
 	QuestionInstance QuestionInstance
-	User             User
-	AssignmentName	 string
+	User             user
 	Score            scores
 	PrevLocation     response
 }
@@ -88,8 +87,8 @@ func getNextQuizState(q QuestionData) QuestionData {
 	return getQuestionFromPythonScript(q, string(j))
 }
 
-func getAllPastQuestions(qd QuestionData, pqs []pastQ) []pastQ{
-	fmt.Println("Getting past questions  ...", qd.User.Username, qd.AssignmentName)
+func getAllPastQuestions(qd QuestionData, pqs []pastQ) []pastQ {
+	fmt.Println("Getting past questions  ...", qd.User.Uid, qd.User.AssignmentName)
 	j, err := json.Marshal(pqs)
 	if err != nil {
 		panic(err)
@@ -104,7 +103,7 @@ func getAllPastQuestions(qd QuestionData, pqs []pastQ) []pastQ{
 	if err != nil {
 		fmt.Println(err)
 	}
-	for i, q := range qs{
+	for i, q := range qs {
 		pqs[i].Question = q
 	}
 	return pqs
@@ -123,7 +122,7 @@ func logQuestion(q Question) {
 }
 
 func logQuestionData(q QuestionData) {
-	fmt.Println("Question - Assignment: " + q.Question.Assignment)
+	fmt.Println("Question - Assignment: " + q.User.AssignmentName)
 	fmt.Println("Question - Level: " + strconv.Itoa(q.Question.Level))
 	fmt.Println("Question - Number: " + strconv.Itoa(q.Question.Number))
 	fmt.Println("Question - Text: " + q.Question.Text)
@@ -135,5 +134,5 @@ func logQuestionData(q QuestionData) {
 	fmt.Println("Question Instance - Status: " + q.QuestionInstance.Status)
 	fmt.Println("Question Instance - Answer: " + strings.Join(q.QuestionInstance.Answer, " "))
 	fmt.Println("Question Instance - Num attempts: " + strconv.Itoa(q.QuestionInstance.NumAttempts))
-	fmt.Println("User - Username: " + q.User.Username)
+	fmt.Println("User - Username: " + q.User.Uid)
 }
