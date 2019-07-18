@@ -34,7 +34,7 @@ type Question struct {
 	Number          int      `json:"number"`
 	Text            string   `json:"text"`
 	Options         []string `json:"options"`
-	CorrectAnswer   []string `json:"correctAnswer"`
+	CorrectAnswer   string 	 `json:"correctAnswer"`
 	Explanation     string   `json:"explanation"`
 	AttemptsOverall int      `json:"attemptsOverall"`
 	Weight          int      `json:"weight"`
@@ -111,7 +111,7 @@ func logQuestion(q Question) {
 	fmt.Println("Question - Number: " + strconv.Itoa(q.Number))
 	fmt.Println("Question - Text: " + q.Text)
 	fmt.Println("Question - Options: " + strings.Join(q.Options, " "))
-	fmt.Println("Question - CorrectAnswer: " + strings.Join(q.CorrectAnswer, " "))
+	fmt.Println("Question - CorrectAnswer: " + q.CorrectAnswer)
 	fmt.Println("Question - Explanations: " + q.Explanation)
 	fmt.Println("Question - AttemptsOverall: " + strconv.Itoa(q.AttemptsOverall))
 	fmt.Println("Question - Weight: " + strconv.Itoa(q.Weight))
@@ -123,7 +123,7 @@ func logQuestionData(q QuestionData) {
 	fmt.Println("Question - Number: " + strconv.Itoa(q.Question.Number))
 	fmt.Println("Question - Text: " + q.Question.Text)
 	fmt.Println("Question - Options: " + strings.Join(q.Question.Options, " "))
-	fmt.Println("Question - CorrectAnswer: " + strings.Join(q.Question.CorrectAnswer, " "))
+	fmt.Println("Question - CorrectAnswer: " + q.Question.CorrectAnswer)
 	fmt.Println("Question - Explanations: " + q.Question.Explanation)
 	fmt.Println("Question - AttemptsOverall: " + strconv.Itoa(q.Question.AttemptsOverall))
 	fmt.Println("Question - Weight: " + strconv.Itoa(q.Question.Weight))

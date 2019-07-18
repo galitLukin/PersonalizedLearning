@@ -19,7 +19,7 @@ type QuizDisplay struct {
 	Options                []string
 	Correctness            bool
 	Answer                 string
-	CorrectAnswer          []string
+	CorrectAnswer          string
 	AttemptsOverall        int
 	Weight                 int
 	QUIndex                int

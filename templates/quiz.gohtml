@@ -22,11 +22,11 @@
                     {{end}}
                     {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
                         <div id="quiz-right-answer">Great job!</div>
-                        <p><b>Correct Answer:</b></p> {{index .QuestionData.Question.CorrectAnswer 0}}
+                        <p><b>Correct Answer:</b></p> {{.QuestionData.Question.CorrectAnswer}}
                         <p><b>Explanation:</b></p> {{.HTMLContentExplanation}}
                     {{else if eq .QuestionData.QuestionInstance.Status `IncorrectNoAttempts`}}
                         <div id="quiz-wrong-answer"> Wrong answer. Try another question. </div>
-                        <p><b>Correct Answer:</b></p> {{index .QuestionData.Question.CorrectAnswer 0}}
+                        <p><b>Correct Answer:</b></p> {{.QuestionData.Question.CorrectAnswer}}
                         <p><b>Explanation:</b></p> {{.HTMLContentExplanation}}
                     {{else }}
                         {{ range .QuestionData.Question.Options }}
