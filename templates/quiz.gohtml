@@ -10,7 +10,7 @@
                 </div>
           {{else }}
                 <div class="card">
-                    <h2>{{.QuestionData.Question.Assignment}}</h2>
+                    <h2>{{map .QuestionData.Question.Assignment}}</h2>
                     {{.HTMLContentText}}
                     <p><u>Attempts:</u> {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}<br /><br />
                     <u>Weight:</u> {{.QuestionData.Question.Weight}}</p>
