@@ -4,14 +4,12 @@ import re
 import default
 
 def isCorrect(answer, correctAnswer):
-	if len(answer) is not len(correctAnswer):
-		return False
-	answer = answer.split(",")
-	correctAnswer = correctAnswer.split(",")
-	if set(answer)^set(correctAnswer):
-		return False
-	else:
+	answer = answer.replace(' ','').split(",")
+	correctAnswer = correctAnswer.replace(' ','').split(",")
+	if set(answer) == set(correctAnswer):
 		return True
+	else:
+		return False
 
 def getNextNode(history,lnr,curr):
 	root_exp = nx.get_node_attributes(lnr,'label')[curr]

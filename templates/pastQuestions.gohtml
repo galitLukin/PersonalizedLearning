@@ -19,12 +19,18 @@
                     </div>
                 </div>
             {{end}}
-            {{if .Correctness}}
-                <div id="quiz-right-answer">Correct!</div>
+            {{if isIn "true" .Correctness}}
+              <div id="quiz-right-answer">Correct!</div>
             {{else}}
-                <div id="quiz-wrong-answer">Incorrect.</div>
-                <p><b>Your Answer:</b></p> {{.Answer}}
+              <div id="quiz-wrong-answer">Incorrect</div>
             {{end}}
+            <p><b>Your Answer(s):</b><br />
+            {{$times := .AnswerTime}}
+            {{$attempts := .Attempts}}
+            {{range $i, $a := .Answer}}
+              {{$t := index $times $i}}
+              {{index $attempts $i}}. {{$a}} ({{ft $t}})<br />
+            {{end}}</p>
             <p><b>Correct Answer:</b></p> {{.CorrectAnswer}}
             <p><b>Explanation:</b></p> {{.HTMLContentExplanation}}
             <hr>

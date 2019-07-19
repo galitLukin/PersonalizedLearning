@@ -59,9 +59,10 @@ type response struct {
 
 type pastQ struct {
 	Question    Question
-	Correctness bool
-	Answer      string
-	Attempts    int
+	Correctness []bool
+	Answer      []string
+	AnswerTime  []string
+	Attempts    []int
 }
 
 func dbCheck(err error) {
@@ -149,7 +150,7 @@ func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 func dbInsertResponse(db *sql.DB, qd QuestionData) {
 	if len(qd.QuestionInstance.Answer[0]) > 0 && (qd.QuestionInstance.Status == "NewQuestion" || qd.QuestionInstance.Status == "IncorrectWithAttempts") {
 		fmt.Println("Inserting user response  ...", qd.User.Uid, qd.User.AssignmentName)
-		t := time.Now()
+		t := time.Now().UTC()
 		tf := t.Format("20060102150405")
 		q := fmt.Sprintf(`insert into test02.responses
 		  (username, assignment, level, numb, attempt, correctness, score_possible, answer, answer_timestamp)
@@ -426,30 +427,42 @@ func dbAssignmentDone(db *sql.DB, qd QuestionData) float32 {
 //this is called when user wants to see their past questions
 func dbFetchUserInResponses(db *sql.DB, qd QuestionData) []pastQ {
 	fmt.Println("Getting user from responses  ...", qd.User.Uid, qd.User.AssignmentName)
-	q := fmt.Sprintf(`SELECT r.level, r.numb, r.correctness, r.answer, r.attempt
-			FROM (
-				SELECT username, assignment, level, numb, MAX(attempt) as maxattempt
-				FROM test02.responses
-				WHERE username = "%s" AND assignment = "%s"
-				GROUP BY level, numb
-			) as lastAttempt
-			INNER JOIN test02.responses as r on r.username = lastAttempt.username AND
-			r.assignment = lastAttempt.assignment AND r.level = lastAttempt.level AND
-			r.numb = lastAttempt.numb AND r.attempt = lastAttempt.maxattempt
-			ORDER BY r.answer_timestamp ASC;`, qd.User.Uid, qd.User.AssignmentName)
+	q := fmt.Sprintf(`SELECT level, numb, correctness, answer, attempt, answer_timestamp
+			FROM test02.responses
+			WHERE username = "%s" AND assignment = "%s"
+			ORDER BY answer_timestamp ASC;`, qd.User.Uid, qd.User.AssignmentName)
 	rows, err := db.Query(q)
 	dbCheck(err)
 	defer rows.Close()
 	var userResponses []pastQ
 	var pq pastQ
 	var ques Question
+	var level int
+	var number int
+	var correctness bool
+	var answer string
+	var attempt int
+	var answertime string
 	ques.Assignment = qd.User.AssignmentName
 	for rows.Next() {
-		err = rows.Scan(&ques.Level, &ques.Number, &pq.Correctness, &pq.Answer, &pq.Attempts)
+		err = rows.Scan(&ques.Level, &ques.Number, &correctness, &answer, &attempt, &answertime)
+		dbCheck(err)
+		if ques.Level == level && ques.Number == number {
+			pq.Correctness = append(pq.Correctness, correctness)
+			pq.Answer = append(pq.Answer, answer)
+			pq.AnswerTime = append(pq.AnswerTime, answertime)
+			pq.Attempts = append(pq.Attempts, attempt)
+		} else {
+			level = ques.Level
+			number = ques.Number
+			pq.Correctness = []bool {correctness}
+			pq.Answer = []string {answer}
+			pq.AnswerTime = []string {answertime}
+			pq.Attempts =[]int {attempt}
+		}
 		pq.Question = ques
 		dbCheck(err)
 		userResponses = append(userResponses, pq)
 	}
-
 	return userResponses
 }

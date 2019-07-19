@@ -11,14 +11,17 @@ import (
 	"net/http/httputil"
 	"strings"
 	"time"
+	"strconv"
 )
 
 type QuizDisplay struct {
 	HTMLContentText        template.HTML
 	HTMLContentExplanation template.HTML
 	Options                []string
-	Correctness            bool
-	Answer                 string
+	Correctness            []bool
+	Answer                 []string
+	AnswerTime             []string
+	Attempts							 []int
 	CorrectAnswer          string
 	AttemptsOverall        int
 	Weight                 int
@@ -65,7 +68,7 @@ const sessionLength int = 1800
 var uid string
 var an string
 
-func mapAssignment(s string) string{
+func mapAssignment(s string) string {
 	mapping := map[string]string{
 		"Asmt1": "Climate Change",
 		"Asmt2": "Reading Tect Scores",
@@ -74,8 +77,28 @@ func mapAssignment(s string) string{
 	return mapping[s]
 }
 
+func contains(val string, sl []bool) bool {
+	for _, v := range sl {
+		if strconv.FormatBool(v) == val {
+			return true
+		}
+	}
+	return false
+}
+
+func formatTime(t string) string {
+	tt,err := time.Parse("20060102150405",t)
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	return tt.Format(time.ANSIC)
+}
+
 var fm = template.FuncMap{
-	"map": mapAssignment,
+	"map":  mapAssignment,
+	"isIn": contains,
+	"ft": formatTime,
 }
 
 func init() {
@@ -246,19 +269,23 @@ func pastQuestions(w http.ResponseWriter, req *http.Request) {
 		pastQs := getAllPastQuestions(myqd, questions)
 		var qd QuizDisplay
 		var q Question
-		for i, pq := range pastQs {
+		i  := 0
+		for _, pq := range pastQs {
 			q = pq.Question
-			if pq.Correctness || q.AttemptsOverall == pq.Attempts {
+			if contains("true",pq.Correctness) || q.AttemptsOverall == len(pq.Attempts) {
+				i = i + 1
 				qd = QuizDisplay{
 					HTMLContentText:        template.HTML(q.Text),
 					HTMLContentExplanation: template.HTML(q.Explanation),
 					Options:                q.Options,
 					Correctness:            pq.Correctness,
 					Answer:                 pq.Answer,
+					AnswerTime:             pq.AnswerTime,
+					Attempts:								pq.Attempts,
 					CorrectAnswer:          q.CorrectAnswer,
 					AttemptsOverall:        q.AttemptsOverall,
 					Weight:                 q.Weight,
-					QUIndex:                i + 1,
+					QUIndex:                i,
 				}
 				quizpd = append(quizpd, qd)
 			}

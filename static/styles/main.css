@@ -146,6 +146,13 @@ pastQ {
   cursor: pointer;
 }
 
+input[type="text"]#written-answer{
+    -webkit-appearance: none!important;
+    border: 1px solid gray;
+    border-right: 0px;
+    outline: none;
+}
+
 #quiz-must-select {
   font-size: 22px;
   color: #B00020;

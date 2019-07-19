@@ -34,7 +34,7 @@ type Question struct {
 	Number          int      `json:"number"`
 	Text            string   `json:"text"`
 	Options         []string `json:"options"`
-	CorrectAnswer   string 	 `json:"correctAnswer"`
+	CorrectAnswer   string   `json:"correctAnswer"`
 	Explanation     string   `json:"explanation"`
 	AttemptsOverall int      `json:"attemptsOverall"`
 	Weight          int      `json:"weight"`
@@ -62,6 +62,7 @@ func getQuestion() QuestionData {
 }
 
 func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
+	fmt.Println(s)
 	cmd := exec.Command(Python, PathToPythonScript, s)
 	outb, err := cmd.CombinedOutput()
 	if err != nil {
