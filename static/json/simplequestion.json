@@ -17,12 +17,11 @@
             "0.77",
             "0.2"
         ],
-        "correctAnswer": [
-            "0.75"
-        ],
+        "correctAnswer": "0.75",
         "explanation": "First, read in the data and split it using the subset command: climate = read.csv(climate_change.csv) train = subset(climate, Year <= 2006) test = subset(climate, Year > 2006) Then, you can create the model using the command: climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train) Lastly, look at the model using summary(climatelm). The Multiple R-squared value is 0.7509.",
         "attemptsOverall": 2,
-        "weight": 0
+        "weight": 0,
+        "answerType": 1
     },
     "QuestionInstance": {
         "status": "newQuestion",
@@ -32,6 +31,7 @@
         "numAttempts": 0
     },
     "User": {
-        "username": "omer"
+        "UserId": "omer",
+        "Assignment": "Asmt1"
     }
 }

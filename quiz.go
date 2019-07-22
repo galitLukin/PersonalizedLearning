@@ -38,6 +38,7 @@ type Question struct {
 	Explanation     string   `json:"explanation"`
 	AttemptsOverall int      `json:"attemptsOverall"`
 	Weight          int      `json:"weight"`
+	AnswerType      int      `json:"answerType"`
 }
 
 // QuestionInstance : Meta data on current question
@@ -115,6 +116,7 @@ func logQuestion(q Question) {
 	fmt.Println("Question - Explanations: " + q.Explanation)
 	fmt.Println("Question - AttemptsOverall: " + strconv.Itoa(q.AttemptsOverall))
 	fmt.Println("Question - Weight: " + strconv.Itoa(q.Weight))
+	fmt.Println("Question - AnswerType: " + strconv.Itoa(q.AnswerType))
 }
 
 func logQuestionData(q QuestionData) {
@@ -127,6 +129,7 @@ func logQuestionData(q QuestionData) {
 	fmt.Println("Question - Explanations: " + q.Question.Explanation)
 	fmt.Println("Question - AttemptsOverall: " + strconv.Itoa(q.Question.AttemptsOverall))
 	fmt.Println("Question - Weight: " + strconv.Itoa(q.Question.Weight))
+	fmt.Println("Question - AnswerType: " + strconv.Itoa(q.Question.AnswerType))
 	fmt.Println("Question Instance - Status: " + q.QuestionInstance.Status)
 	fmt.Println("Question Instance - Answer: " + strings.Join(q.QuestionInstance.Answer, " "))
 	fmt.Println("Question Instance - Num attempts: " + strconv.Itoa(q.QuestionInstance.NumAttempts))
