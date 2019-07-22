@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/satori/go.uuid"
 	"html/template"
-	"io"
+	//"io"
 	"net/http"
 	"net/http/httputil"
 	"strings"
@@ -115,9 +115,9 @@ func main() {
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
 	http.HandleFunc("/pastQuestions", pastQuestions)
-	http.HandleFunc("/ping", ping)
-	http.HandleFunc("/instance", instance)
-	http.Handle("/favicon.ico", http.NotFoundHandler())
+	//http.HandleFunc("/ping", ping)
+	//http.HandleFunc("/instance", instance)
+	//http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":80", nil)
 }
 
@@ -125,25 +125,25 @@ func index(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, "/getstarted", http.StatusSeeOther)
 }
 
-func ping(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, "OK")
-}
-
-func instance(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("instace route hit")
-	resp, err := http.Get("http://3.16.157.40/latest/meta-data/instance-id")
-	if err != nil {
-		io.WriteString(w, "Couldn't fetch meta data "+err.Error())
-		fmt.Println(err)
-		return
-	}
-
-	bs := make([]byte, resp.ContentLength)
-	resp.Body.Read(bs)
-	resp.Body.Close()
-	io.WriteString(w, string(bs))
-	fmt.Println("instance end" + string(bs))
-}
+// func ping(w http.ResponseWriter, req *http.Request) {
+// 	io.WriteString(w, "OK")
+// }
+//
+// func instance(w http.ResponseWriter, req *http.Request) {
+// 	fmt.Println("instace route hit")
+// 	resp, err := http.Get("http://3.16.157.40/latest/meta-data/instance-id")
+// 	if err != nil {
+// 		io.WriteString(w, "Couldn't fetch meta data "+err.Error())
+// 		fmt.Println(err)
+// 		return
+// 	}
+//
+// 	bs := make([]byte, resp.ContentLength)
+// 	resp.Body.Read(bs)
+// 	resp.Body.Close()
+// 	io.WriteString(w, string(bs))
+// 	fmt.Println("instance end" + string(bs))
+// }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
 	d, _ := httputil.DumpRequest(req, true)
