@@ -334,7 +334,7 @@
           "explanation": "<p>From the model created by the step function, you can see that the R<sup>2</sup> value is 0.75 and that N2O has a high p-value.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 1
         },
         {
           "Assignment": "Asmt1",
