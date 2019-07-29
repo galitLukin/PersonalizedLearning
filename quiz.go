@@ -73,7 +73,6 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 	if err != nil {
 		fmt.Println(err)
 	}
-	logQuestionData(q)
 	return q
 }
 

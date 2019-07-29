@@ -105,7 +105,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	uid = "2"
+	uid = "4"
 	an = "Asmt1"
 }
 
@@ -240,6 +240,9 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 	} else {
 		fmt.Println("Initial question...", user_assignment)
 		myqd.PrevLocation = dbGetUserPrevLocation(db, myqd)
+		if myqd.QuestionInstance.Status == "Correct" || myqd.QuestionInstance.Status == "IncorrectNoAttempts" {
+			myqd.Score = dbFetchUserInScores(db, myqd)
+		}
 		newqd = getNextQuizState(myqd)
 		newqd.Score.Grade = finishAssignment(db, newqd)
 		dbUserState[user_assignment] = newqd
