@@ -7,17 +7,19 @@
             <p><b>Question {{.QUIndex}}:</b></p> {{.HTMLContentText}}
             <p><u>Attempts Given:</u> {{.AttemptsOverall}}<br /><br />
             <u>Weight:</u> {{.Weight}}</p>
-            {{ range .Options }}
-                <div class="answer-choice-container">
-                    <div class="answer-choice-radio-btn"
-                        id={{.}}
-                        name={{.}}
-                        data-selected="false">
-                    </div>
-                    <div class="answer-choice">
-                        {{.}}
-                    </div>
-                </div>
+            {{if ne .AnswerType 0}}
+              {{ range .Options }}
+                  <div class="answer-choice-container">
+                      <div class="answer-choice-radio-btn"
+                          id={{.}}
+                          name={{.}}
+                          data-selected="false">
+                      </div>
+                      <div class="answer-choice">
+                          {{.}}
+                      </div>
+                  </div>
+              {{end}}
             {{end}}
             {{if isIn "true" .Correctness}}
               <div id="quiz-right-answer">Correct!</div>

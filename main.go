@@ -25,6 +25,7 @@ type QuizDisplay struct {
 	CorrectAnswer          string
 	AttemptsOverall        int
 	Weight                 int
+	AnswerType             int
 	QUIndex                int
 }
 
@@ -105,7 +106,7 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	uid = "4"
+	uid = "24"
 	an = "Asmt1"
 }
 
@@ -219,12 +220,16 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 		}
 		fmt.Println("Continue quiz...", user_assignment)
 		for key, values := range req.PostForm {
-			if key == SelectedAnswers {
-				if len(values[0]) > 0 && !valueinOptions(strings.Split(values[0], ",")[0], myqd.Question.Options) {
+			if key == "quesId" {
+				strs := []string{myqd.User.AssignmentName, "/", strconv.Itoa(myqd.Question.Level), "/", strconv.Itoa(myqd.Question.Number)}
+				qid := strings.Join(strs, "")
+				if values[0] != qid {
 					//user did back and got to
 					fmt.Println("User went back...", user_assignment)
 					break
 				}
+			}
+			if key == SelectedAnswers {
 				myqd.QuestionInstance.Answer = values
 				myqd.PrevLocation.IsFirst = false
 				dbInsertResponse(db, myqd)
@@ -288,6 +293,7 @@ func pastQuestions(w http.ResponseWriter, req *http.Request) {
 					CorrectAnswer:          q.CorrectAnswer,
 					AttemptsOverall:        q.AttemptsOverall,
 					Weight:                 q.Weight,
+					AnswerType:							q.AnswerType,
 					QUIndex:                i,
 				}
 				quizpd = append(quizpd, qd)

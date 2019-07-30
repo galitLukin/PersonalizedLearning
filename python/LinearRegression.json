@@ -9,23 +9,12 @@
           "number": 1,
           "text": "<p>We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. <br /> <br /> Then, split the data into a <em>training set</em>, consisting of all the observations up to and including 2006, and a <em>testing set</em> consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability.<br /> <br /> Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (<em>Year</em> and <em>Month</em> should NOT be used in the model). Use the training set to build the model.<br /> <br /> What is the model R<sup>2</sup> (the Multiple R<sup>2</sup> value):</p>",
           "options": [
-            "1",
-            "0.09",
-            "0.42",
-            "0.74",
-            "0.75",
-            "103.6",
-            "0",
-            "-1",
-            "-0.62",
-            "-0.75",
-            "-0.74"
           ],
           "correctAnswer": "0.75",
           "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br /><code>climate = read.csv(climate_change.csv)<br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)</code><br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R<sup>2</sup> value is 0.7509.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 1
+          "answerType": 0
         },
         {
           "Assignment": "Asmt1",

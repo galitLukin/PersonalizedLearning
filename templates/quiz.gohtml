@@ -9,7 +9,8 @@
                     The grade will appear on edX within the next 24 hours.</p>
                 </div>
           {{else }}
-                <div class="card">
+                {{$ID := printf "%s/%d/%d" .QuestionData.Question.Assignment .QuestionData.Question.Level .QuestionData.Question.Number }}
+                <div class="card" id= {{$ID}}>
                     <h2>{{map .QuestionData.Question.Assignment}}</h2>
                     {{.HTMLContentText}}
                     <p><u>Attempts:</u> {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}<br /><br />
@@ -56,10 +57,11 @@
                               </div>
                           </div>
                         {{end}}
+                    {{else if eq .QuestionData.Question.AnswerType 0}}
+                      <label for="subdomain">Write you answer below:</label>
+                      <input id="text_answer" type="text" placeholder="It is always preffered to copy and paste from any code outputted" />
                     {{else}}
                         <b>ERROR</b> </p>
-                        {{/* <label for="subdomain">Subdomain:</label>
-                        <input type="text" placeholder="ExampleDomain" id="subdomain" /> */}}
                     {{end}}
 
                     <div class="quiz-submit-container">
@@ -112,12 +114,6 @@
                         }
                     }
 
-                    const clearStatus = () => {
-                        document.getElementById("quiz-right-answer").style.display = "none";
-                        document.getElementById("quiz-wrong-answer").style.display = "none";
-                        document.getElementById("quiz-must-select").style.display = "none";
-                    }
-
                     const post = (path, params, method) => {
                         method = method || "post";
 
@@ -139,41 +135,35 @@
                     }
 
                     const onSubmit = (e) => {
-                        // Clear Previous Answer State
-                        {{/* clearStatus(); */}}
 
+                      const quesId
+                          = document.getElementsByClassName("card")[0].id;
                         // Fetch All Radio Buttons
                         const radioButtons
                             = document.getElementsByClassName("answer-choice-radio-btn");
 
+                        if(radioButtons.length > 0){
                         // Fetch Selected Answer
-                        const selectedAnswersNodes = [];
-                        for (let i = 0; i < radioButtons.length; i++) {
-                            const state = radioButtons[i].getAttribute("data-selected");
-                            if (state === "true") {
-                                selectedAnswersNodes.push(radioButtons[i]);
-                            }
+                          const selectedAnswersNodes = [];
+                          for (let i = 0; i < radioButtons.length; i++) {
+                              const state = radioButtons[i].getAttribute("data-selected");
+                              if (state === "true") {
+                                  selectedAnswersNodes.push(radioButtons[i]);
+                              }
+                          }
+
+                          const selectedAnswers = selectedAnswersNodes.map(el => el.id);
+                          // POST Request to server
+                          post('/quiz', {quesId,selectedAnswers})
+                        } else{
+                          const selectedAnswersNodes = document.getElementById("text_answer");
+                          var answer = '';
+                          if(selectedAnswersNodes){
+                            answer = selectedAnswersNodes.value;
+                          }
+                          var selectedAnswers = [answer];
+                          post('/quiz', {quesId,selectedAnswers})
                         }
-
-                        // Check Answer
-                        {{/* if (selectedAnswersNodes.length === 0) {
-                            document.getElementById("quiz-must-select").style.display = "block";
-                            return;
-                        } */}}
-
-                        const selectedAnswers = selectedAnswersNodes.map(el => el.id);
-                        {{/* for (let i = 0; i < selectedAnswers.length; i++) {
-                            if (selectedAnswers[i] === "MEI") { // check real answer
-                                document.getElementById("quiz-right-answer").style.display = "block";
-                                document.getElementById("quiz-submit-btn").innerHTML = "Next";
-                                post('/quiz', {selectedAnswers})
-                                return;
-                            }
-                        }
-                        document.getElementById("quiz-wrong-answer").style.display = "block";  */}}
-
-                        // POST Request to server
-                        post('/quiz', {selectedAnswers})
                     }
                 </script>
             {{end}}
