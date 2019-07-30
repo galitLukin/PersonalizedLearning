@@ -56,7 +56,7 @@ def main():
             else:
                 # user answered question
                 state[State.QuestionInstance.name][QInst.numAttempts.name] = questionInstance[QInst.numAttempts.name] + 1
-                if helper.isCorrect(questionInstance[QInst.answer.name][0], question['correctAnswer']):
+                if helper.isCorrect(questionInstance[QInst.answer.name][0], question['correctAnswer'], question['answerType']):
                     state[State.QuestionInstance.name][QInst.status.name] = Status.Correct.name
                     state[State.QuestionInstance.name][QInst.answer.name] = []
                 elif state[State.QuestionInstance.name][QInst.numAttempts.name] < question['attemptsOverall']:

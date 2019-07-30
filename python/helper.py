@@ -3,13 +3,36 @@ import networkx as nx
 import re
 import default
 
-def isCorrect(answer, correctAnswer):
+def isCorrect(answer, correctAnswer, answerType):
 	answer = answer.replace(' ','').split(",")
 	correctAnswer = correctAnswer.replace(' ','').split(",")
-	if set(answer) == set(correctAnswer):
-		return True
+	if answerType > 0 :
+		if set(answer) == set(correctAnswer):
+			return True
+		else:
+			return False
 	else:
-		return False
+		if set(answer) == set(correctAnswer):
+			return True
+		for ca in correctAnswer:
+			try:
+				caf = float(ca)
+				notInAnswer = True
+				for a in answer:
+					try:
+						af = float(a)
+						if abs(caf-af) <= 0.01*abs(caf):
+							notInAnswer = False
+					except:
+						continue
+				if notInAnswer:
+					return False
+			except:
+				if ca not in answer:
+					return False
+		return True
+
+
 
 def getNextNode(history,lnr,curr):
 	root_exp = nx.get_node_attributes(lnr,'label')[curr]
