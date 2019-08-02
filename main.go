@@ -72,7 +72,7 @@ var an string
 func mapAssignment(s string) string {
 	mapping := map[string]string{
 		"Asmt1": "Climate Change",
-		"Asmt2": "Reading Tect Scores",
+		"Asmt2": "Reading Test Scores",
 		"Asmt3": "Detecting Flu Epidemics",
 	}
 	return mapping[s]
@@ -106,8 +106,8 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	uid = "25"
-	an = "Asmt1"
+	uid = "1"
+	an = "Asmt2"
 }
 
 func main() {
