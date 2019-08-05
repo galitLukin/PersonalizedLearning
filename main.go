@@ -106,8 +106,8 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	uid = "1"
-	an = "Asmt2"
+	//uid = "2"
+	//an = "Asmt2"
 }
 
 func main() {
@@ -151,8 +151,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	//logPostBody(req)
-	//uid := req.FormValue("user_id")
-	//an := req.FormValue("custom_component_display_name")
+	uid := req.FormValue("user_id")
+	an := req.FormValue("custom_component_display_name")
 
 	var qd QuestionData
 	user_assignment := an + "+" + uid
