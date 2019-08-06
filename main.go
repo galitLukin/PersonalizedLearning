@@ -151,8 +151,8 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(string(d))
 
 	//logPostBody(req)
-	uid = req.FormValue("user_id")
-	an = req.FormValue("custom_component_display_name")
+	uid := req.FormValue("user_id")
+	an := req.FormValue("custom_component_display_name")
 
 	var qd QuestionData
 	user_assignment := an + "+" + uid
@@ -302,8 +302,8 @@ func pastQuestions(w http.ResponseWriter, req *http.Request) {
 	}
 
 	u := user{
-		Uid:            uid,
-		AssignmentName: mapAssignment(an),
+		Uid:            myqd.User.Uid,
+		AssignmentName: myqd.User.AssignmentName,
 	}
 
 	qpd := struct {
