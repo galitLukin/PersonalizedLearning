@@ -1,4 +1,6 @@
-FROM golang:1.8-onbuild
+FROM golang:1.11
+WORKDIR /PersonalizedLearning
+COPY . .
 RUN apt-get update && apt-get install -y python3 python3-pip
 RUN pip3 install --upgrade pip
 RUN pip3 install graphviz
