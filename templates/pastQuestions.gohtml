@@ -1,6 +1,6 @@
 {{define "pastQuestions"}}
    </br>
-    <pastQ>Your Past Questions in the {{map .UserData.AssignmentName}} Assignment</pastQ>
+    <pastQ>Your Past Questions in the {{.UserData.AssignmentName}} Assignment</pastQ>
     {{if .Questions}}
         <ol>
           {{range $i, $a :=.Questions}}
