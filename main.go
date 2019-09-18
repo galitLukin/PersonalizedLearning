@@ -126,6 +126,12 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 	uid = req.FormValue("user_id")
 	an = req.FormValue("custom_component_display_name")
 
+	if an == ""{
+		fmt.Println("DID NOT COME FROM EDX")
+		uid = "1111111"
+		an = "Asmt3"
+	}
+
 	var qd QuestionData
 	user_assignment := an + "+" + uid
 	qd.User = user{
