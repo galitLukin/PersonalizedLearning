@@ -63,7 +63,7 @@ def getNextNode(history,lnr,curr):
 			return str(max(children))
 	return
 
-def getNextQuestion(assignment, level, number, score):
+def getNextQuestion(assignment, level, number, score, status):
 	assignment = assignment.replace(" ", "")
 	map={"Asmt1": "cc", "Asmt2": "rts", "Asmt3": "dfe"}
 	mapQues={"Asmt1":5,"Asmt2":6,"Asmt3":6}
