@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const (
@@ -46,6 +47,9 @@ type QuestionInstance struct {
 	Status      string   `json:"status"`
 	Answer      []string `json:"answer"`
 	NumAttempts int      `json:"numAttempts"`
+	StartTime 	time     `json:"startTime"`
+	EndTime 		time     `json:"endTime"`
+	Duration 		int      `json:"duration"`
 }
 
 // Read Question from static JSON file
