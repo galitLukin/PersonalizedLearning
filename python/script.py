@@ -32,7 +32,7 @@ def main():
     state = json.loads(sys.argv[1])
     if state[State.PrevLocation.name]['IsFirst']:
         state[State.Question.name], attempts = \
-        helper.getFirstQuestion(state[State.Score.name],state[State.PrevLocation.name])
+        helper.getFirstQuestion(state[State.Score.name],state[State.PrevLocation.name],state[State.QuestionInstance.name])
         state[State.QuestionInstance.name] = {
             QInst.status.name: Status.NewQuestion.name if state[State.Question.name] else Status.Done.name,
             QInst.answer.name: [],
@@ -46,7 +46,7 @@ def main():
 
         if status == Status.Correct.name or status == Status.IncorrectNoAttempts.name:
             state[State.Question.name] = helper.getNextQuestion(
-                question['Assignment'], question['level'], question['number'], state[State.Score.name], status)
+                question['Assignment'], question['level'], question['number'], state[State.Score.name], state[State.QuestionInstance.name])
             state[State.QuestionInstance.name] = {
                 QInst.status.name: Status.NewQuestion.name if state[State.Question.name] else Status.Done.name,
                 QInst.answer.name: [],
