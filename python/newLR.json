@@ -9,12 +9,14 @@
           "number": 1,
           "text": "<p>We are interested in how changes in these variables affect future temperatures, as well as how well these variables explain temperature changes so far. To do this, first read the dataset climate_change.csv into R. <br /> <br /> Then, split the data into a <em>training set</em>, consisting of all the observations up to and including 2006, and a <em>testing set</em> consisting of the remaining years (hint: use subset). A training set refers to the data that will be used to build the model (this is the data we give to the lm() function), and a testing set refers to the data we will use to test our predictive ability.<br /> <br /> Next, build a linear regression model to predict the dependent variable Temp, using MEI, CO2, CH4, N2O, CFC.11, CFC.12, TSI, and Aerosols as independent variables (<em>Year</em> and <em>Month</em> should NOT be used in the model). Use the training set to build the model.<br /> <br /> Enter the model R<sup>2</sup> (the Multiple R<sup>2</sup> value).</p>",
           "options": [
+
           ],
           "correctAnswer": "0.75",
           "explanation": "<p>First, read in the data and split it using the subset command:<br /> <br /><code>climate = read.csv(climate_change.csv)<br /> <br />train = subset(climate, Year <= 2006)<br /> <br />test = subset(climate, Year > 2006)</code><br /> <br />Then, you can create the model using the command:<br /> <br />climatelm = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data=train)<br /> <br />Lastly, look at the model using summary(climatelm). The Multiple R<sup>2</sup> value is 0.7509.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 10101
         },
         {
           "Assignment": "Asmt1",
@@ -35,7 +37,8 @@
           "explanation": "<p>If you look at the model we created in the previous problem using <code>summary(climatelm)</code>, all of the variables have at least one star except for CH4 and N2O. So MEI, CO2, CFC.11, CFC.12, TSI, and Aerosols are all significant.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 10102
         },
         {
           "Assignment": "Asmt1",
@@ -43,12 +46,14 @@
           "number": 3,
           "text": "<p>Enter the RMSE of the model.</p>",
           "options": [
+
           ],
           "correctAnswer": "0.0902",
           "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br /><code>SSE = sum(climatelm$residuals^2)</code><br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br /><code>RMSE = sqrt(SSE / nrow(train))</code><br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br /><code>sqrt(mean(climatelm$residuals^2))</code>.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 10103
         },
         {
           "Assignment": "Asmt1",
@@ -56,18 +61,20 @@
           "number": 4,
           "text": "<p>The data is split into training and testing sets so that we can measure the quality of the model on unseen data.<br /> <br />How many observations are in the training set?<br /> <br />What is the average CO2 level in the training set?<br /> <br />Which year had the highest level of MEI in the training set?<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "284, 361.4, 1997",
           "explanation": "<p>The amount of observations in the trainging set can be calculated by running:<br /> <br /><code>nrow(train)</code><br /> <br />The average CO2 level is calculated using:<br /> <br /><code>mean(train$CO2)</code><br /> <br />The year with the highest level of MEI is calculated using:<br /> <br /><code>train[which.max(train$MEI),]$Year</code></p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 10104
         },
         {
           "Assignment": "Asmt1",
           "level": 1,
           "number": 5,
-          "text": "<p>What is the ”baseline” linear regression model?</p>",
+          "text": "<p>What is the \u201dbaseline\u201d linear regression model?</p>",
           "options": [
             "The mean of the test set dependent variables",
             "When the relationship between the dependent variable and the independent variables is non-linear",
@@ -78,7 +85,8 @@
           "explanation": "<p>In linear regression, the baseline prediction is the average value of the dependent variable.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10105
         }
       ]
     },
@@ -99,7 +107,8 @@
           "explanation": "<p>The linear correlation of N2O and CFC.11 with other variables in the data set is quite large. The first explanation does not seem correct, as the warming effect of nitrous oxide and CFC-11 are well documented, and our regression analysis is not enough to disprove it. The second explanation is unlikely, as we have estimated eight coefficients and the intercept from 284 observations.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10201
         },
         {
           "Assignment": "Asmt1",
@@ -119,7 +128,8 @@
           "explanation": "<p>You can calculate all correlations at once using cor(train) where train is the name of the training data set.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 10202
         },
         {
           "Assignment": "Asmt1",
@@ -139,7 +149,8 @@
           "explanation": "<p>You can calculate all correlations at once using <code>cor(train)</code> where train is the name of the training data set.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 10203
         },
         {
           "Assignment": "Asmt1",
@@ -159,7 +170,8 @@
           "explanation": "<p>The independent variable with the greatest effect on the dependent variable is that with the corresponding coefficient whose absolute value is the largest.<br /> <br />-1.538 is the coefficient with the largest absolute value.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 10204
         },
         {
           "Assignment": "Asmt1",
@@ -175,7 +187,8 @@
           "explanation": "<p>It is possible that the real relationship between the dependent and independent variables may not be linear. This means that one unit change in an independent varialbe does not leas to a constant unit change in the dependent variable.<br /> <br />It is possible that a unit change in an independent vaiable leads to a constant percent change in the dependent variable. Taking the log of the dependent variable allows to estimate this relationship instead.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10205
         }
       ]
     },
@@ -188,12 +201,14 @@
           "number": 1,
           "text": "<p>Given that the correlations are so high, let us focus on the N2O variable and build a model with only MEI, TSI, Aerosols and N2O as independent variables.<br /> <br />Remember to use the training set to build the model.<br /> <br />Enter the coefficient of N2O in this reduced model.<br /> <br />Enter the R<sup>2</sup>.<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "0.025, 0.726",
           "explanation": "<p>We can create this simplified model with the command:<br /> <br /><code>LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train)</code><br /> <br />You can get the coefficient for N2O and the model R<sup>2</sup> by typing <code>summary(LinReg)</code>.<br /> <br />We have observed that, for this problem, when we remove many variables,the sign of N2O flips.<br /> <br />The model has not lost a lot of explanatory power (the model R<sup>2</sup> is 0.7261 compared to 0.7509 previously) despite removing many variables.<br /> <br />As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other.<br /> <br />In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 10301
         },
         {
           "Assignment": "Asmt1",
@@ -214,7 +229,8 @@
           "explanation": "<p>You can create a model using the step function by typing:<br /> <br /><code>StepModel = step(climateLM)</code> where \"climateLM\" is the name of the full model.<br /> <br />If you look at the summary of the model with <code>summary(StepModel)</code>, only CH4 was removed.<br /> <br />It is interesting to note that the step function does not address the collinearity of the variables, except that adding highly correlated variables will not improve the R<sup>2</sup> significantly.<br /> <br />The consequence of this is that the step function will not necessarily produce a very interpretable model - just a model that has balanced quality and simplicity for a particular weighting of quality and simplicity (AIC).</p>",
           "attemptsOverall": 3,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 10302
         },
         {
           "Assignment": "Asmt1",
@@ -230,7 +246,8 @@
           "explanation": "<p>The coefficient corresponding to Aerosols is -1.54. Thus, one unit change in Aerosols, affects Temp by 1.54 units. Since the coefficient is negative, the effect is opposite. Therefore, if Aerosols increases, Temp decreases.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10303
         },
         {
           "Assignment": "Asmt1",
@@ -248,7 +265,8 @@
           "explanation": "<p>The coefficient corresponding to TSI is 0.093. Thus, one unit change in TSI, affects Temp by 0.093 units. Since the coefficient is positive, if TSI increases, Temp increases.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10304
         },
         {
           "Assignment": "Asmt1",
@@ -265,7 +283,8 @@
           "explanation": "<p>The constant is defined as the mean of the dependent variable when all of the independent variables in the model are set to zero.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10305
         }
       ]
     },
@@ -278,12 +297,14 @@
           "number": 1,
           "text": "<p>Enter the R<sup>2</sup> value of the model produced from the step function.<br /> <br />Out of the independant variables N2O, CO2, and CFC.12, enter the independent variable that is not statistically significant?<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "0.751, N2O",
           "explanation": "<p>From the model created by the step function, you can see that the R<sup>2</sup> value is 0.75 and that N2O has a high p-value.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 10401
         },
         {
           "Assignment": "Asmt1",
@@ -291,12 +312,14 @@
           "number": 2,
           "text": "<p>We have developed an understanding of how well we can fit a linear regression to the training data, but does the model quality hold when applied to unseen data?<br /> <br />Using the model produced from the step function, calculate temperature predictions for the testing data set, using the predict function.<br /> <br />Enter the test set R<sup>2</sup>.</p>",
           "options": [
+
           ],
           "correctAnswer": "0.629",
           "explanation": "<p>The R code to calculate the R<sup>2</sup> can be written as follows (your variable names may be different): <code>tempPredict = predict(climateStep, newdata = test) SSE = sum((tempPredict - test$Temp)^2) SST = sum( (mean(train$Temp) - test$Temp)^2) R<sup>2</sup> = 1 - SSE/SST</code></p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 10402
         },
         {
           "Assignment": "Asmt1",
@@ -313,7 +336,8 @@
           "explanation": "<p>The in-sample R<sup>2</sup> will improve, but not necessarily the out of sample R<sup>2</sup>.<br /> <br />R<sup>2</sup> is negative when the model fits the data worse than the horizontal line (the baseline model).</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10403
         },
         {
           "Assignment": "Asmt1",
@@ -330,7 +354,8 @@
           "explanation": "<p>Some fields, such as medicine, require more accuracy than other fields, such as marketing.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10404
         },
         {
           "Assignment": "Asmt1",
@@ -347,7 +372,8 @@
           "explanation": "<p>The baseline is a value that we can compare our model to. The mean of training set dependent variable is a basic measure to which the linear regression model can be compared.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 10405
         }
       ]
     }
@@ -362,12 +388,14 @@
           "number": 1,
           "text": "<p>Load the training and testing sets using the <code>read.csv()</code> function, and save them as variables with the names pisaTrain and pisaTest.<br /> <br />How many students are there in the training set?</p>",
           "options": [
+
           ],
           "correctAnswer": "3663",
           "explanation": "<p>The datasets can be loaded with:<br /> <br /><code>pisaTrain = read.csv(\"pisa2009train.csv\")<br /> <br />pisaTest = read.csv(\"pisa2009test.csv\")</code><br /> <br />We can then access the number of rows in the training set with <code>str(pisaTrain)</code> or <code>nrow(pisaTrain)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20101
         },
         {
           "Assignment": "Asmt2",
@@ -375,12 +403,14 @@
           "number": 2,
           "text": "<p>Using <code>tapply()</code> on pisaTrain, enter the average reading test score of males. Enter the average reading score of females.<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "483.5325, 512.9406",
           "explanation": "<p>The correct invocation of <code>tapply()</code> here is:<br /> <br /><code>tapply(pisaTrain$readingScore, pisaTrain$male, mean)</code></p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20102
         },
         {
           "Assignment": "Asmt2",
@@ -402,7 +432,8 @@
           "explanation": "<p>We can read which variables have missing values from <code>summary(pisaTrain)</code>. Because most variables are collected from study participants via survey, it is expected that most questions will have at least one missing value.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20103
         },
         {
           "Assignment": "Asmt2",
@@ -418,7 +449,8 @@
           "explanation": "<p>Male only has 2 levels (1 and 0). There is no natural ordering between the different values of raceeth, so it is an unordered factor</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20104
         },
         {
           "Assignment": "Asmt2",
@@ -434,7 +466,8 @@
           "explanation": "<p>We can order grades (8, 9, 10, 11, 12), so it is an ordered factor.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20105
         },
         {
           "Assignment": "Asmt2",
@@ -442,12 +475,14 @@
           "number": 6,
           "text": "<p>Enter the amount of missing values in the training set for minutesPerWeekEnglish.<br /> <br />Enter the average number of minutes that a student spends in English class.<br /> <br />If all missing values are replaced with the maximum value, enter the average number of minutes that a student spends in English class.<br /> <br />Enter what it would be if all the missing values were replaced with the minimum value.<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "186, 266.2, 374.56, 252.69",
           "explanation": "<p>Amount of missing values: <code>sum(is.na(pisaTrain$minutesPerWeekEnglish))</code><br /> <br />Average number of minutes that a student spends in English class: <code>mean(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)</code><br /> <br />Replacing missing values with maximum value: <code>pisaTrain$minutesPerWeekEnglish[is.na(pisaTrain$minutesPerWeekEnglish)] <- min(pisaTrain$minutesPerWeekEnglish, na.rm=TRUE)<br /> <br />mean(pisaTrain$minutesPerWeekEnglish)</code><br /> <br />Notice that there are no longer missing values. To calculate the average when replacing NAs with the minimum value, the data pisaTrain must be read again from the beginning. Similarly, the version of the training set which includes missing values might be needed for future questions.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20106
         }
       ]
     },
@@ -460,12 +495,14 @@
           "number": 1,
           "text": "<p>Linear regression discards observations with missing data, so we will remove all such observations from the training and testing sets.<br /> <br />Later in the course, we will learn about imputation, which deals with missing data by filling in missing values with plausible information. Type the following commands into your R console to remove observations with any missing value from pisaTrain and pisaTest:<br /> <br /><code>pisaTrain = na.omit(pisaTrain) pisaTest = na.omit(pisaTest)</code><br /> <br />If you have replaced missing values in a previous question, return to the original data set that includes all missing values before running this command.<br /> <br />Enter the amount of observations that are now in the training set.<br /> <br />Enter the amount of observations that are now in the testing set.<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "2414, 990",
           "explanation": "<p>After running the provided commands we can use <code>str(pisaTrain)</code> and <code>str(pisaTest)</code>, or <code>nrow(pisaTrain)</code> and <code>nrow(pisaTest)</code>, to check the new number of rows in the datasets.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20201
         },
         {
           "Assignment": "Asmt2",
@@ -485,7 +522,8 @@
           "explanation": "<p>We create a binary variable for each level except the reference level, so we would create all these variables except for raceethWhite.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20202
         },
         {
           "Assignment": "Asmt2",
@@ -504,7 +542,8 @@
           "explanation": "<p>An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20203
         },
         {
           "Assignment": "Asmt2",
@@ -523,7 +562,8 @@
           "explanation": "<p>An Asian student will have raceethAsian set to 1 and all other raceeth binary variables set to 0</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20204
         },
         {
           "Assignment": "Asmt2",
@@ -539,7 +579,8 @@
           "explanation": "<p>The idea is to keep the variables categorical and not give them a numeric value.<br /> <br />Once numeric values are given to each race, the races can be mistakenly compared numericly.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 20205
         },
         {
           "Assignment": "Asmt2",
@@ -547,12 +588,14 @@
           "number": 6,
           "text": "<p>In the training set, check for outliers in the variable readingScore using the IQR method.<br /> <br />Enter the amount of outliers.</p>",
           "options": [
+
           ],
           "correctAnswer": "2",
           "explanation": "<p>To identify outliers using the IQR method:<br /> <br /><code>Q3 <- quantile(pisaTrain$readingScore, 0.75)<br />Q1 <- quantile(pisaTrain$readingScore, 0.25)<br />iqr = Q3 - Q1<br />upper = (iqr * 1.5) + Q3<br />lower = Q1 - (iqr * 1.5)<br />pisaTrain[ which(pisaTrain$readingScore > upper | pisaTrain$readingScore < lower), ]</code><br /> <br />Notice how removing outliers affects the model.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20206
         }
       ]
     },
@@ -565,12 +608,14 @@
           "number": 1,
           "text": "<p>Because the race variable takes on text values, it was loaded as a factor variable when we read in the dataset with read.csv() -- you can see this when you run str(pisaTrain) or str(pisaTest). However, by default R selects the first level alphabetically (\"American Indian/Alaska Native\") as the reference level of our factor instead of the most common level (\"White\").<br /> <br />Set the reference level of the factor by typing the following two lines in your R console:<br /> <br /><code>pisaTrain$raceeth = relevel(pisaTrain$raceeth, \"White\")<br />pisaTest$raceeth = relevel(pisaTest$raceeth, \"White\")</code><br /> <br />Now, build a linear regression model (call it lmScore) using the training set to predict readingScore using all the remaining variables.<br /> <br />It would be time-consuming to type all the variables, but R provides the shorthand notation \"readingScore ~ .\" to mean \"predict readingScore using all the other variables in the data frame.\" The period is used to replace listing out all of the independent variables.<br /> <br />As an example, if your dependent variable is called \"Y\", your independent variables are called \"X1\", \"X2\", and \"X3\", and your training data set is called \"Train\", instead of the regular notation:<br /> <br /><code>LinReg = lm(Y ~ X1 + X2 + X3, data = Train)</code><br /> <br />You would use the following command to build your model:<br /> <br /><code>LinReg = lm(Y ~ ., data = Train)</code><br /> <br />Enter the Multiple R<sup>2</sup> value of lmScore on the training set.<br /> <br />Note that this R<sup>2</sup> is lower than the ones for the models we saw in the lectures and recitation. This does not necessarily imply that the model is of poor quality. More often than not, it simply means that the prediction problem at hand (predicting a student's test score based on demographic and school-related variables) is more difficult than other prediction problems (like predicting a team's number of wins from their runs scored and allowed, or predicting the quality of wine from weather conditions).</p>",
           "options": [
+
           ],
           "correctAnswer": "0.325",
           "explanation": "<p>We can train the model with:<br /> <br /><code>lmScore = lm(readingScore~., data=pisaTrain)</code><br /> <br />We can then read the training set R<sup>2</sup> from the \"Multiple R<sup>2</sup>\" value of <code>summary(lmScore)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20301
         },
         {
           "Assignment": "Asmt2",
@@ -578,12 +623,14 @@
           "number": 2,
           "text": "<p>Enter the training-set root-mean squared error (RMSE) of lmScore.</p>",
           "options": [
+
           ],
           "correctAnswer": "73.366",
           "explanation": "<p>The training-set RMSE can be computed by first computing the SSE:<br /> <br /><code>SSE = sum(lmScore$residuals^2)</code><br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br /><code>RMSE = sqrt(SSE / nrow(pisaTrain))</code><br /> <br />An alternative way of getting this answer would be with the following command:<br /> <br /><code>sqrt(mean(lmScore$residuals^2))</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20302
         },
         {
           "Assignment": "Asmt2",
@@ -602,7 +649,8 @@
           "explanation": "<p>The coefficient 29.54 on grade is the difference in reading score between two students who are identical other than having a difference in grade of 1.<br /> <br />Because A and B have a difference in grade of 2, the model predicts that student A has a reading score that is 2*29.54 larger.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 20303
         },
         {
           "Assignment": "Asmt2",
@@ -619,7 +667,8 @@
           "explanation": "<p>The only difference between an Asian student and white student with otherwise identical variables is that the former has raceethAsian=1 and the latter has raceethAsian=0. The predicted reading score for these two students will differ by the coefficient on the variable raceethAsian.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 20304
         },
         {
           "Assignment": "Asmt2",
@@ -655,7 +704,8 @@
           "explanation": "<p>From <code>summary(lmScore)</code>, we can see which variables were significant at the 0.05 level. Because several of the binary variables generated from the race factor variable are significant, we should not remove this variable.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20305
         },
         {
           "Assignment": "Asmt2",
@@ -674,7 +724,8 @@
           "explanation": "<p>Due to the ow coefficient that the model has given to schoolSize, it can be learned from the model that schoolSize does not have a large affect on the variable being predicted. The effect is positive since the coefficient is positive, but not large.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 20306
         }
       ]
     },
@@ -687,12 +738,14 @@
           "number": 1,
           "text": "<p>Using the \"predict\" function and supplying the \"newdata\" argument, use the lmScore model to predict the reading scores of students in pisaTest.<br /> <br />Call this vector of predictions \"predTest\".<br /> <br />Do not change the variables in the model (for example, do not remove variables that we found were not significant in a previous part of this assignment).<br /> <br />Use the summary function to describe the test set predictions.<br /> <br />Enter the range between the maximum and minimum predicted reading score on the test set.</p>",
           "options": [
+
           ],
           "correctAnswer": "284.5",
           "explanation": "<p>We can obtain the predictions with:<br /> <br /><code>predTest = predict(lmScore, newdata=pisaTest)</code><br /> <br />From <code>summary(predTest)</code>, we see that the maximum predicted reading score is 637.7, and the minimum predicted score is 353.2. Therefore, the range is 284.5.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20401
         },
         {
           "Assignment": "Asmt2",
@@ -700,12 +753,14 @@
           "number": 2,
           "text": "<p>Enter the sum of squared errors (SSE) of lmScore on the testing set.<br /> <br />Enter the root-mean squared error (RMSE) of lmScore on the testing set.</p>",
           "options": [
+
           ],
           "correctAnswer": "5762082, 76.29",
           "explanation": "<p><code>SSE = sum((predTest-pisaTest$readingScore)^2)<br /> <br />RMSE = sqrt(mean((predTest-pisaTest$readingScore)^2))</code></p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20402
         },
         {
           "Assignment": "Asmt2",
@@ -713,12 +768,14 @@
           "number": 3,
           "text": "<p>Enter the predicted test score used in the baseline model.<br /> <br />Remember to compute this value using the training set and not the test set.</p>",
           "options": [
+
           ],
           "correctAnswer": "517.96",
           "explanation": "<p>This can be computed with:<br /> <br /><code>baseline = mean(pisaTrain$readingScore)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20403
         },
         {
           "Assignment": "Asmt2",
@@ -726,12 +783,14 @@
           "number": 4,
           "text": "<p>Enter the sum of squared errors of the baseline model on the testing set.<br /> <br />HINT: We call the sum of squared errors for the baseline model the total sum of squares (SST).</p>",
           "options": [
+
           ],
           "correctAnswer": "7802354",
           "explanation": "<p>This can be computed with:<br /> <br /><code>sum((baseline-pisaTest$readingScore)^2)</code></p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20404
         },
         {
           "Assignment": "Asmt2",
@@ -739,12 +798,14 @@
           "number": 5,
           "text": "<p>Enter the test-set R<sup>2</sup> value of lmScore.</p>",
           "options": [
+
           ],
           "correctAnswer": "0.261",
           "explanation": "<p>The test-set R<sup>2</sup> is defined as 1-SSE/SST, where SSE is the sum of squared errors of the model on the test set and SST is the sum of squared errors of the baseline model.<br /> <br />For this model, the R<sup>2</sup> is then computed to be 1-5762082/7802354.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 20405
         },
         {
           "Assignment": "Asmt2",
@@ -761,7 +822,8 @@
           "explanation": "<p>A good model consists of significant, uncorrelated variables whos data is representative and of high quality.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 2
+          "answerType": 2,
+          "qid": 20406
         }
       ]
     }
@@ -784,7 +846,8 @@
           "explanation": "<p>The histogram of ILI can be obtained with <code>hist(FluTrain$ILI)</code>.<br /> <br />Visually, the data is skewed right.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30101
         },
         {
           "Assignment": "Asmt3",
@@ -800,7 +863,8 @@
           "explanation": "<p>The plot can be obtained with <code>plot(FluTrain$Queries, log(FluTrain$ILI))</code>.<br /> <br />Visually, there is a positive, linear relationship between <code>log(ILI)</code> and Queries.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30102
         },
         {
           "Assignment": "Asmt3",
@@ -821,7 +885,8 @@
           "explanation": "<p>From the previous subproblem, we are predicting <code>log(ILI)</code> using the Queries variable.<br /> <br />From the plot in the previous subproblem, we expect the coefficient on Queries to be positive.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30103
         },
         {
           "Assignment": "Asmt3",
@@ -829,12 +894,14 @@
           "number": 4,
           "text": "<p>Looking at the time period 2004-2011, which week corresponds to the highest percentage of ILI-related physician visits?<br /> <br />Enter the correct month, day, year. Enter the answer in the format MM,DD,YYYY. For example, February 1st, 2004 should be inserted as \"02,01,2004\".</p>",
           "options": [
+
           ],
           "correctAnswer": "10,18,2009",
           "explanation": "<p>We can limit FluTrain to the observations that obtain the maximum ILI value with <code>subset(FluTrain, ILI == max(ILI))</code>.<br /> <br />From here, we can read information about the week at which the maximum was obtained.<br /> <br />Alternatively, you can use <code>which.max(FluTrain$ILI)</code> to find the row number corresponding to the observation with the maximum value of ILI, which is 303.<br /> <br />Then, you can output the corresponding week using <code>FluTrain$Week[303]</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30104
         },
         {
           "Assignment": "Asmt3",
@@ -842,12 +909,14 @@
           "number": 5,
           "text": "<p>Which week corresponds to the highest percentage of ILI-related query fraction?<br /> <br />Enter the correct month, day, year. Enter the answer in the format MM,DD,YYYY. For example, February 1st, 2004 should be inserted as \"02,01,2004\".</p>",
           "options": [
+
           ],
           "correctAnswer": "10,18,2009",
           "explanation": "<p>We can limit FluTrain to the observations that obtain the maximum ILI value with <code>subset(FluTrain, Queries == max(Queries))</code>.<br /> <br />From here, we can read information about the week at which the maximum was obtained.<br /> <br />Alternatively, you can use <code>which.max(FluTrain$Queries)</code> to find the row number corresponding to the observation with the maximum value of Queries, which is 303.<br /> <br />Then, you can output the corresponding week using <code>FluTrain$Week[303]</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30105
         },
         {
           "Assignment": "Asmt3",
@@ -864,7 +933,8 @@
           "explanation": "<p>Although log is not a linear function, the relationships between the independant variables are linear.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30106
         }
       ]
     },
@@ -877,12 +947,14 @@
           "number": 1,
           "text": "<p>Let's call the regression model derived in a previous problem (log(ILI) = intercept + coefficient x Queries, where the coefficient is positive) FluTrend1 and run it in R.<br /> <br />Hint: to take the logarithm of a variable Var in a regression equation, you simply use log(Var) when specifying the formula to the lm() function.<br /> <br />Enter the training set R<sup>2</sup> value for FluTrend1 model (the \"Multiple R<sup>2</sup>\").</p>",
           "options": [
+
           ],
           "correctAnswer": "0.709",
           "explanation": "<p>The model can be trained with:<br /> <br /><code>FluTrend1 = lm(log(ILI)~Queries, data=FluTrain)</code><br /> <br />From <code>summary(FluTrend1)</code>, we read that the R<sup>2</sup> value is 0.709.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30201
         },
         {
           "Assignment": "Asmt3",
@@ -898,7 +970,8 @@
           "explanation": "<p>To test these hypotheses, we first need to compute the correlation between the independent variable used in the model (Queries) and the dependent variable (log(ILI)).<br /> <br />This can be done with <code>Correlation = cor(FluTrain$Queries, log(FluTrain$ILI))</code><br /> <br />The values of the three expressions are then:<br /> <br />Correlation^2 = 0.7090201, log(1/Correlation) = 0.1719357, exp(-0.5*Correlation) = 0.6563792.<br /> <br />It appears that Correlation^2 is equal to the R<sup>2</sup> value. It can be proved that this is always the case.<br /> <br />Note that the \"exp\" function stands for the exponential function. The exponential can be computed in R using the function <code>exp()</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30202
         },
         {
           "Assignment": "Asmt3",
@@ -906,12 +979,14 @@
           "number": 3,
           "text": "<p> Load the data from FluTest.csv into a data frame called FluTest.<br /> <br />Normally, we would obtain test-set predictions from the model FluTrend1 using the code <code>PredTest1 = predict(FluTrend1, newdata=FluTest)</code><br /> <br />However, the dependent variable in our model is log(ILI), so PredTest1 would contain predictions of the log(ILI) value.<br /> <br />We are instead interested in obtaining predictions of the ILI value. We can convert from predictions of log(ILI) to predictions of ILI via exponentiation, or the exp() function.<br /> <br />The new code, which predicts the ILI value, is<br /> <br /><code>PredTest1 = exp(predict(FluTrend1, newdata=FluTest))</code><br /> <br />Enter the estimate for the percentage of ILI-related physician visits for the week of March 11, 2012.<br /> <br />(HINT: You can either just output FluTest$Week to find which element corresponds to March 11, 2012, or you can use the \"which\" function in R. To learn more about the which function, type ?which in your R console.)</p>",
           "options": [
+
           ],
           "correctAnswer": "2.187",
           "explanation": "<p>To obtain the predictions, we need can run<br /> <br /><code>PredTest1 = exp(predict(FluTrend1, newdata=FluTest))</code><br /> <br />Next, we need to determine which element in the test set is for March 11, 2012.<br /> <br />We can determine this with:<br /> <br /><code>which(FluTest$Week == \"2012-03-11 - 2012-03-17\")</code><br /> <br />Now we know we are looking for prediction number 11.<br /> <br />This can be accessed with: <code>PredTest1[11]</code></p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30203
         },
         {
           "Assignment": "Asmt3",
@@ -919,12 +994,14 @@
           "number": 4,
           "text": "<p>Enter the relative error betweeen the estimate for the percentage of ILI-related physician visits for the week of March 11, 2012 (our prediction) and the observed value for the week of March 11, 2012.<br /> <br />Note that the relative error is calculated as<br /> <br />(Observed ILI - Estimated ILI)/Observed ILI</p>",
           "options": [
+
           ],
           "correctAnswer": "0.046",
           "explanation": "<p>From a previous problem, we know the predicted value is 2.187. The actual value is the 11th testing set ILI value or FluTest$ILI[11], which has value 2.293422.<br /> <br />Finally we compute the relative error to be (2.293422 - 2.187378)/2.293422.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30204
         },
         {
           "Assignment": "Asmt3",
@@ -932,12 +1009,14 @@
           "number": 5,
           "text": "<p>Enter the Root Mean Square Error (RMSE) between our estimates and the actual observations for the percentage of ILI-related physician visits, on the test set.</p>",
           "options": [
+
           ],
           "correctAnswer": "0.749",
           "explanation": "<p>The RMSE can be calculated by first computing the SSE:<br /> <br /><code>SSE = sum((PredTest1-FluTest$ILI)^2)</code><br /> <br />and then dividing by the number of observations and taking the square root:<br /> <br /><code>RMSE = sqrt(SSE / nrow(FluTest))</code><br /> <br />Alternatively, you could use the following command:<br /> <br /><code>sqrt(mean((PredTest1-FluTest$ILI)^2))</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30205
         },
         {
           "Assignment": "Asmt3",
@@ -946,15 +1025,16 @@
           "text": "<p>What does it mean when an independent variable has a high p-value?</p>",
           "options": [
             "It is a variable that should be kept in the model.",
-            "The variable’s coefficient is not statistically different than zero.",
-            "The coefficient can be changed to improve the variable’s p-value.",
-            "The absolute value of the estimate of the variable’s coefficient divided by the standard error is large."
+            "The variable\u2019s coefficient is not statistically different than zero.",
+            "The coefficient can be changed to improve the variable\u2019s p-value.",
+            "The absolute value of the estimate of the variable\u2019s coefficient divided by the standard error is large."
           ],
-          "correctAnswer": "The variable’s coefficient is not statistically different than zero.",
-          "explanation": "<p>The variable’s coefficient is not statistically different than zero.</p>",
+          "correctAnswer": "The variable\u2019s coefficient is not statistically different than zero.",
+          "explanation": "<p>The variable\u2019s coefficient is not statistically different than zero.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30206
         }
       ]
     },
@@ -978,7 +1058,8 @@
           "explanation": "<p>Because the ILI variable is reported with a 1- or 2-week lag, a decision maker cannot rely on the previous week's ILI value to predict the current week's value.<br /> <br />Instead, the decision maker will only have data available from 2 or more weeks ago.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30301
         },
         {
           "Assignment": "Asmt3",
@@ -986,12 +1067,14 @@
           "number": 2,
           "text": "<p>We will build a variable called ILILag2 that contains the ILI value from 2 weeks before the current observation.<br /> <br />To do so, we will use the \"zoo\" package, which provides a number of helpful methods for time series models. While many functions are built into R, you need to add new packages to use some functions. New packages can be installed and loaded easily in R, and we will do this many times in this class. Run the following two commands to install and load the zoo package. In the first command, you will be prompted to select a CRAN mirror to use for your download. Select a mirror near you geographically..<br /> <br /><code>install.packages(\"zoo\").<br /> <br />library(zoo)</code><br /> <br />After installing and loading the zoo package, run the following commands to create the ILILag2 variable in the training set:<br /> <br /><code>ILILag2 = lag(zoo(FluTrain$ILI), -2, na.pad=TRUE)<br /> <br />FluTrain$ILILag2 = coredata(ILILag2)</code><br /> <br />In these commands, the value of -2 passed to lag means to return 2 observations before the current one; a positive value would have returned future observations. The parameter <code>na.pad=TRUE</code> means to add missing values for the first two weeks of our dataset, where we can't compute the data from 2 weeks earlier.<br /> <br />How many values are missing in the new ILILag2 variable?</p>",
           "options": [
+
           ],
           "correctAnswer": "2",
           "explanation": "<p>This can be read from the output of <code>summary(FluTrain$ILILag2)</code>.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30302
         },
         {
           "Assignment": "Asmt3",
@@ -1007,7 +1090,8 @@
           "explanation": "<p>The following code builds and summarizes the FluTrend2 model:<br /> <br /><code>FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain)<br /> <br />summary(FluTrend2)</code><br /> <br />As can be seen, all three coefficients are highly significant.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30303
         },
         {
           "Assignment": "Asmt3",
@@ -1023,7 +1107,8 @@
           "explanation": "<p>From <code>plot(log(FluTrain$ILILag2), log(FluTrain$ILI))</code>, we observe a strong positive relationship.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30304
         },
         {
           "Assignment": "Asmt3",
@@ -1031,12 +1116,14 @@
           "number": 5,
           "text": "<p>Enter the R<sup>2</sup> value of the FluTrend2 model.</p>",
           "options": [
+
           ],
           "correctAnswer": "0.9063",
           "explanation": "<p>The following code builds and summarizes the FluTrend2 model:<br /> <br /><code>FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain)<br /> <br />summary(FluTrend2)</code><br /> <br />As can be seen, the R<sup>2</sup> value is 0.9063.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30305
         },
         {
           "Assignment": "Asmt3",
@@ -1052,7 +1139,8 @@
           "explanation": "<p>Moving from FluTrend1 to FluTrend2, in-sample R<sup>2</sup> improved from 0.709 to 0.9063, and the new variable is highly significant. As a result, there is no sign of overfitting, and FluTrend2 is superior to FluTrend1 on the training set.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30306
         }
       ]
     },
@@ -1065,12 +1153,14 @@
           "number": 1,
           "text": "<p>So far, we have only added the ILILag2 variable to the FluTrain data frame.<br /> <br />To make predictions with our FluTrend2 model, we will also need to add ILILag2 to the FluTest data frame (note that adding variables before splitting into a training and testing set can prevent this duplication of effort).<br /> <br />Modify the code from the previous problem to add an ILILag2 variable to the FluTest data frame.<br /> <br />How many missing values are there in this new variable?</p>",
           "options": [
+
           ],
           "correctAnswer": "2",
           "explanation": "<p>We can add the new variable with:<br /> <br /><code>ILILag2 = lag(zoo(FluTest$ILI), -2, na.pad=TRUE)<br /> <br />FluTest$ILILag2 = coredata(ILILag2)</code><br /> <br />From <code>summary(FluTest$ILILag2)</code>, we can see that we're missing two values of the new variable.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30401
         },
         {
           "Assignment": "Asmt3",
@@ -1087,7 +1177,8 @@
           "explanation": "<p>The time two weeks before the first week of 2012 is the second-to-last week of 2011. This corresponds to the second-to-last observation in FluTrain.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30402
         },
         {
           "Assignment": "Asmt3",
@@ -1100,12 +1191,12 @@
             "The ILI value of the first observation in the FluTest data frame.",
             "The ILI value of the second observation in the FluTest data frame."
           ],
-          "correctAnswer":
-            "The ILI value of the last observation in the FluTrain data frame.",
+          "correctAnswer": "The ILI value of the last observation in the FluTrain data frame.",
           "explanation": "<p>The time two weeks before the second week of 2012 is the last week of 2011. This corresponds to the last observation in FluTrain.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30403
         },
         {
           "Assignment": "Asmt3",
@@ -1113,12 +1204,14 @@
           "number": 4,
           "text": "<p>Fill in the missing values for ILILag2 in FluTest. In terms of syntax, you could set the value of ILILag2 in row \"x\" of the FluTest data frame to the value of ILI in row \"y\" of the FluTrain data frame with<br /> <br />\"<code>FluTest$ILILag2[x] = FluTrain$ILI[y]</code>\"<br /> <br />Use the answer to the previous questions to determine the appropriate values of \"x\" and \"y\".<br /> <br />It may be helpful to check the total number of rows in FluTrain using <code>str(FluTrain)</code> or <code>nrow(FluTrain)</code>.<br /> <br />What is the new value of the ILILag2 variable in the first row of FluTest?<br /> <br />What is the new value of the ILILag2 variable in the second row of FluTest?<br /> <br />Divide the answers using commas. For example, if there are two answers which are \"Answer1\" and \"Answer2\", then enter \"Answer1,Answer2\".</p>",
           "options": [
+
           ],
           "correctAnswer": "1.853, 2.124",
           "explanation": "<p>From <code>nrow(FluTrain)</code>, we see that there are 417 observations in the training set. Therefore, we need to run the following two commands:<br /> <br /><code>FluTest$ILILag2[1] = FluTrain$ILI[416]<br /> <br />FluTest$ILILag2[2] = FluTrain$ILI[417]</code><br /> <br />This can be read from <code>FluTest$ILILag2[1], FluTest$ILILag2[2]</code>.</p>",
           "attemptsOverall": 2,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30404
         },
         {
           "Assignment": "Asmt3",
@@ -1126,12 +1219,14 @@
           "number": 5,
           "text": "<p>Obtain test set predictions of the ILI variable from the FluTrend2 model, again remembering to call the <code>exp()</code> function on the result of the <code>predict()</code> function to obtain predictions for ILI instead of log(ILI). Enter the test-set RMSE of the FluTrend2 model.</p>",
           "options": [
+
           ],
           "correctAnswer": "0.294",
           "explanation": "<p>We can obtain the test-set predictions with:<br /> <br /><code>PredTest2 = exp(predict(FluTrend2, newdata=FluTest))</code><br /> <br />And then we can compute the RMSE with the following commands:<br /> <br /><code>SSE = sum((PredTest2-FluTest$ILI)^2)<br /> <br />RMSE = sqrt(SSE / nrow(FluTest))</code><br /> <br />Alternatively, you could use the following command to compute the RMSE:<br /> <br /><code>sqrt(mean((PredTest2-FluTest$ILI)^2))</code>.<br /> <br />The test-set RMSE of FluTrend2 is 0.294</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 0
+          "answerType": 0,
+          "qid": 30405
         },
         {
           "Assignment": "Asmt3",
@@ -1146,7 +1241,8 @@
           "explanation": "<p>The test-set RMSE of FluTrend2 is 0.294, as opposed to the 0.749 value obtained by the FluTrend1 model.<br /> <br />In this problem, we used a simple time series model with a single lag term.<br /> <br />ARIMA models are a more general form of the model we built, which can include multiple lag terms as well as more complicated combinations of previous values of the dependent variable.<br /> <br />If you're interested in learning more, check out ?arima or the available online tutorials for these sorts of models.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1
+          "answerType": 1,
+          "qid": 30406
         }
       ]
     }
