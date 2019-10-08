@@ -105,7 +105,7 @@ var fm = template.FuncMap{
 func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
-	dbSessionsCleaned = time.Now()
+	dbSessionsCleaned = time.Now().UTC()
 	//uid = "2"
 	//an = "Asmt1"
 }
@@ -150,7 +150,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 		}
 		c.MaxAge = sessionLength
 		http.SetCookie(w, c)
-		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
+		dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now().UTC()}
 		dbUserState[user_assignment] = qd
 	} else {
 		if getOldState(w, req) != an {
@@ -159,7 +159,7 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 			if err != nil {
 				return
 			}
-			dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now()}
+			dbSessions[c.Value] = session{un: user_assignment, lastActivity: time.Now().UTC()}
 			dbUserState[user_assignment] = qd
 		}
 	}

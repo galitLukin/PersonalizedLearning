@@ -3,7 +3,7 @@ import json
 
 def main():
     pastQuestions = json.loads(sys.argv[1])
-    with open('./python/LinearRegression.json', encoding='utf-8') as f:
+    with open('./python/newLR.json', encoding='utf-8') as f:
 	    questions = json.load(f)
     pastQuestionsData = []
     a = pastQuestions[0]['Question']['Assignment'].replace(" ","")

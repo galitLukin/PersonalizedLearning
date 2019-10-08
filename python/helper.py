@@ -51,11 +51,11 @@ def decide(userFeat, centroids, decisions):
 	userFeat = np.array(userFeat)
 	minDist = np.inf
 	for i,clst in enumerate(centroids):
-		dist = np.linalg.norm(userFeat-np.array(centroids))
+		dist = np.linalg.norm(userFeat-np.array(clst))
 		if dist < minDist:
 			minDist = dist
 			bestCluster = i
-	return decisions[i]
+	return decisions[bestCluster]
 
 
 def getNextQuestion(assignment, level, number, score, qi):
@@ -67,18 +67,20 @@ def getNextQuestion(assignment, level, number, score, qi):
 	for key in score:
 		score[lowerIt(key)] = score.pop(key)
 
-	with open('./python/newLR.json', encoding='utf-8') as f:
+	with open('newLR.json', encoding='utf-8') as f:
 	    questions = json.load(f)
 
-	with open('./python/clustering.json', encoding='utf-8') as fc:
-	    clusteringData = json.load(f)
+	with open('clustering.json', encoding='utf-8') as fc:
+	    clusteringData = json.load(fc)
 
 	qid = questions[assignment][level - 1]['questions'][number - 1]["qid"]
-	qClusteringData = clusteringData[quid]
+	keyQid = str(qid)
+	qClusteringData = clusteringData[str(qid)]
 	featMap = prepareFeatures(score, qi)
+	userFeat = []
 	for feat in qClusteringData["features"]:
 		userFeat.append(standardizeFeat(feat, featMap, qClusteringData["meu"][feat], qClusteringData["sigma"][feat]))
-	treatment = decide(userFeat, clusteringData[quid]["centroids"], clusteringData[quid]["decisions"])
+	treatment = decide(userFeat, clusteringData[keyQid]["centroids"], clusteringData[keyQid]["decisions"])
 
 	lastQues = mapQues[assignment]
 	prevLevelFull = False
@@ -109,11 +111,11 @@ def getFirstQuestion(score, location, qi):
 	assignment = score['Assignment'].replace(" ", "")
 	level = location['Level']
 	numb = location['Number']
-	with open('./python/LinearRegression.json', encoding='utf-8') as f:
+	with open('./python/newLR.json', encoding='utf-8') as f:
 		questions = json.load(f)
 	if level == 0:
-		return questions[assignment][0]['questions'][0], 0, datetime.datetime.utcnow()
+		return questions[assignment][0]['questions'][0], 0, datetime.datetime.utcnow().strftime("%m/%d/%Y %H:%M:%S")
 	attemptsOverall = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
 	if location['Correctness'] == 1 or location['Attempt'] >= attemptsOverall:
-		return getNextQuestion(assignment, level, numb, score, qi), 0, datetime.datetime.utcnow()
+		return getNextQuestion(assignment, level, numb, score, qi), 0, datetime.datetime.utcnow().strftime("%m/%d/%Y %H:%M:%S")
 	return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt'], qi["startTime"]
