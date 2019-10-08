@@ -1,6 +1,7 @@
 import json
 import re
 import default
+import numpy as np
 
 def isCorrect(answer, correctAnswer, answerType):
 	answer = answer.replace(' ','').split(",")
@@ -31,6 +32,31 @@ def isCorrect(answer, correctAnswer, answerType):
 					return False
 		return True
 
+def prepareFeatures(score, qi):
+	featMap = {
+		"attempt": qi["numAttempts"],
+		"correctness": 1 if qi["status"] == "Correct" else 0,
+		"t": qi["duration"],
+		"enrollment_mode": score["enrollment_mode"]
+	}
+	return featMap
+
+
+def standardizeFeat(feat, featMap, meu, sigma):
+	return (featMap[feat] - meu)/sigma
+
+
+def decide(userFeat, centroids, decisions):
+	userFeat = np.array(userFeat)
+	minDist = np.inf
+	for i,clst in enumerate(centroids):
+		dist = np.linalg.norm(userFeat-np.array(centroids))
+		if dist < minDist:
+			minDist = dist
+			bestCluster = i
+	return decisions[i]
+
+
 def getNextQuestion(assignment, level, number, score, qi):
 	assignment = assignment.replace(" ", "")
 	map={"Asmt1": "cc", "Asmt2": "rts", "Asmt3": "dfe"}
@@ -40,11 +66,18 @@ def getNextQuestion(assignment, level, number, score, qi):
 	for key in score:
 		score[lowerIt(key)] = score.pop(key)
 
-	with open('./python/LinearRegression.json', encoding='utf-8') as f:
+	with open('./python/newLR.json', encoding='utf-8') as f:
 	    questions = json.load(f)
 
-	#find person's cluster based on features
-	#give the tratment of that cluster
+	with open('./python/clustering.json', encoding='utf-8') as fc:
+	    clusteringData = json.load(f)
+
+	qid = questions[assignment][level - 1]['questions'][number - 1]["qid"]
+	qClusteringData = clusteringData[quid]
+	featMap = prepareFeatures(score, qi)
+	for feat in qClusteringData["features"]:
+		userFeat.append(standardizeFeat(feat, featMap, qClusteringData["meu"][feat], qClusteringData["sigma"][feat]))
+	treatment = decide(userFeat, clusteringData[quid]["centroids"], clusteringData[quid]["decisions"])
 
 	lastQues = mapQues[assignment]
 	prevLevelFull = False
