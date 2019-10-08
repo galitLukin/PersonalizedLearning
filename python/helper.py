@@ -2,6 +2,7 @@ import json
 import re
 import default
 import numpy as np
+import datetime as dt
 
 def isCorrect(answer, correctAnswer, answerType):
 	answer = answer.replace(' ','').split(",")
@@ -111,8 +112,8 @@ def getFirstQuestion(score, location, qi):
 	with open('./python/LinearRegression.json', encoding='utf-8') as f:
 		questions = json.load(f)
 	if level == 0:
-		return questions[assignment][0]['questions'][0], 0
+		return questions[assignment][0]['questions'][0], 0, dt.datetime.utcnow()
 	attemptsOverall = questions[assignment][level - 1]['questions'][numb - 1]['attemptsOverall']
 	if location['Correctness'] == 1 or location['Attempt'] >= attemptsOverall:
-		return getNextQuestion(assignment, level, numb, score, qi), 0
-	return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt']
+		return getNextQuestion(assignment, level, numb, score, qi), 0, dt.datetime.utcnow()
+	return questions[assignment][level - 1]['questions'][numb - 1], location['Attempt'], qi["startTime"]

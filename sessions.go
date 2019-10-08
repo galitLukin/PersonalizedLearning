@@ -24,7 +24,7 @@ func getUserAsmt(w http.ResponseWriter, req *http.Request) QuestionData {
 	// if the user exists already, get user
 	var qd QuestionData
 	if s, ok := dbSessions[c.Value]; ok {
-		s.lastActivity = time.Now()
+		s.lastActivity = time.Now().UTC()
 		dbSessions[c.Value] = s
 		qd = dbUserState[s.un]
 	}
@@ -38,7 +38,7 @@ func alreadyLoggedIn(w http.ResponseWriter, req *http.Request) bool {
 	}
 	s, ok := dbSessions[c.Value]
 	if ok {
-		s.lastActivity = time.Now()
+		s.lastActivity = time.Now().UTC()
 		dbSessions[c.Value] = s
 	}
 	_, ok = dbUserState[s.un]
@@ -57,7 +57,7 @@ func getOldState(w http.ResponseWriter, req *http.Request) string {
 	}
 	s, ok := dbSessions[c.Value]
 	if ok {
-		s.lastActivity = time.Now()
+		s.lastActivity = time.Now().UTC()
 		dbSessions[c.Value] = s
 	}
 	qd, ok := dbUserState[s.un]
@@ -68,16 +68,16 @@ func cleanActiveUsers() {
 	for k := range dbUserState {
 		delete(dbUserState, k)
 	}
-	dbSessionsCleaned = time.Now()
+	dbSessionsCleaned = time.Now().UTC()
 }
 
 func cleanSessions() {
 	for k, v := range dbSessions {
-		if time.Now().Sub(v.lastActivity) > (time.Second * 3600) {
+		if time.Now().UTC().Sub(v.lastActivity) > (time.Second * 3600) {
 			delete(dbSessions, k)
 		}
 	}
-	dbSessionsCleaned = time.Now()
+	dbSessionsCleaned = time.Now().UTC()
 }
 
 // for demonstration purposes
