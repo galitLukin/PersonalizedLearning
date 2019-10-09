@@ -3,6 +3,7 @@ import re
 import default
 import numpy as np
 import datetime
+import ast
 
 def isCorrect(answer, correctAnswer, answerType):
 	answer = answer.replace(' ','').split(",")
@@ -60,52 +61,59 @@ def decide(userFeat, centroids, decisions):
 
 def getNextQuestion(assignment, level, number, score, qi):
 	assignment = assignment.replace(" ", "")
-	map={"Asmt1": "cc", "Asmt2": "rts", "Asmt3": "dfe"}
-	mapQues={"Asmt1":5,"Asmt2":6,"Asmt3":6}
-	asmt = map[assignment];
-	lowerIt = lambda s: s[:1].lower() + s[1:] if s else ''
-	for key in score:
-		score[lowerIt(key)] = score.pop(key)
-
 	with open('newLR.json', encoding='utf-8') as f:
-	    questions = json.load(f)
+		questions = json.load(f)
+	with open('staticusers.txt', 'r') as su:
+	    staticUsers = ast.literal_eval(su.read())
+	if score["Username"] in staticUsers:
+		newLevel,q = default.static(assignment,score,level)
+		if level is not -1:
+			return questions[assignment][newLevel]['questions'][q]
+		return
+	else:
+		map={"Asmt1": "cc", "Asmt2": "rts", "Asmt3": "dfe"}
+		mapQues={"Asmt1":5,"Asmt2":6,"Asmt3":6}
+		asmt = map[assignment];
+		lowerIt = lambda s: s[:1].lower() + s[1:] if s else ''
+		for key in score:
+			score[lowerIt(key)] = score.pop(key)
 
-	with open('clustering.json', encoding='utf-8') as fc:
-	    clusteringData = json.load(fc)
+		with open('clustering.json', encoding='utf-8') as fc:
+		    clusteringData = json.load(fc)
 
-	qid = questions[assignment][level - 1]['questions'][number - 1]["qid"]
-	keyQid = str(qid)
-	qClusteringData = clusteringData[str(qid)]
-	featMap = prepareFeatures(score, qi)
-	userFeat = []
-	for feat in qClusteringData["features"]:
-		userFeat.append(standardizeFeat(feat, featMap, qClusteringData["meu"][feat], qClusteringData["sigma"][feat]))
-	treatment = decide(userFeat, clusteringData[keyQid]["centroids"], clusteringData[keyQid]["decisions"])
+		qid = questions[assignment][level - 1]['questions'][number - 1]["qid"]
+		keyQid = str(qid)
+		qClusteringData = clusteringData[str(qid)]
+		featMap = prepareFeatures(score, qi)
+		userFeat = []
+		for feat in qClusteringData["features"]:
+			userFeat.append(standardizeFeat(feat, featMap, qClusteringData["meu"][feat], qClusteringData["sigma"][feat]))
+		treatment = decide(userFeat, clusteringData[keyQid]["centroids"], clusteringData[keyQid]["decisions"])
 
-	lastQues = mapQues[assignment]
-	prevLevelFull = False
+		lastQues = mapQues[assignment]
+		prevLevelFull = False
 
-	if treatment == 1:
-		q = score["next{}".format(level - 1)] - 1
-		if q < lastQues:
-			return questions[assignment][level - 2]['questions'][q]
-		prevLevelFull = True
-	if treatment == 2 or prevLevelFull:
-		q = score["next{}".format(level)] - 1
-		if q < lastQues:
-			return questions[assignment][level - 1]['questions'][q]
-		prevLevelFull = True
-	if treatment == 3 or prevLevelFull:
-		if default.prequisiteSatisfied(assignment, level, number):
-			while level < 4:
-				q = score["next{}".format(level + 1)] - 1
-				if q < lastQues:
-					return questions[assignment][level]['questions'][q]
-				level += 1
-			return
-		#finish prequisites on this level
-		else:
-			return questions[assignment][level-1]['questions'][number]
+		if treatment == 1:
+			q = score["next{}".format(level - 1)] - 1
+			if q < lastQues:
+				return questions[assignment][level - 2]['questions'][q]
+			prevLevelFull = True
+		if treatment == 2 or prevLevelFull:
+			q = score["next{}".format(level)] - 1
+			if q < lastQues:
+				return questions[assignment][level - 1]['questions'][q]
+			prevLevelFull = True
+		if treatment == 3 or prevLevelFull:
+			if default.prequisiteSatisfied(assignment, level, number):
+				while level < 4:
+					q = score["next{}".format(level + 1)] - 1
+					if q < lastQues:
+						return questions[assignment][level]['questions'][q]
+					level += 1
+				return
+			#finish prequisites on this level
+			else:
+				return questions[assignment][level-1]['questions'][number]
 
 def getFirstQuestion(score, location, qi):
 	assignment = score['Assignment'].replace(" ", "")
