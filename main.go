@@ -27,6 +27,7 @@ type QuizDisplay struct {
 	Weight                 int
 	AnswerType             int
 	QUIndex                int
+	Qid										 int
 }
 
 type user struct {
@@ -273,6 +274,7 @@ func pastQuestions(w http.ResponseWriter, req *http.Request) {
 					Weight:                 q.Weight,
 					AnswerType:							q.AnswerType,
 					QUIndex:                i,
+					Qid:										q.Qid,
 				}
 				quizpd = append(quizpd, qd)
 			}

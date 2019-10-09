@@ -12,6 +12,7 @@
                 {{$ID := printf "%s/%d/%d" .QuestionData.Question.Assignment .QuestionData.Question.Level .QuestionData.Question.Number }}
                 <div class="card" id= {{$ID}}>
                     <h2>{{map .QuestionData.Question.Assignment}}</h2>
+                    <u>Question ID:</u> {{.QuestionData.Question.Qid}}</p>
                     {{.HTMLContentText}}
                     <p><u>Attempts:</u> {{.QuestionData.QuestionInstance.NumAttempts}} / {{.QuestionData.Question.AttemptsOverall}}<br /><br />
                     <u>Weight:</u> {{.QuestionData.Question.Weight}}</p>

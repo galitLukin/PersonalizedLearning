@@ -40,6 +40,7 @@ type Question struct {
 	AttemptsOverall int      `json:"attemptsOverall"`
 	Weight          int      `json:"weight"`
 	AnswerType      int      `json:"answerType"`
+	Qid							int		 	 `json:"qid"`
 }
 
 // QuestionInstance : Meta data on current question
