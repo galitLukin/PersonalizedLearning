@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 	"strconv"
+	"math/rand"
 )
 
 type QuizDisplay struct {
@@ -126,9 +127,10 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 
 	if an == ""{
 		fmt.Println("DID NOT COME FROM EDX")
-		r := rand.New()
-		uid = r.Uint32(9999)
-		a := r.Uint32(3)
+		s1 := rand.NewSource(time.Now().UnixNano())
+    r1 := rand.New(s1)
+		uid = strconv.Itoa(r1.Intn(9999))
+		a := r1.Intn(3)
 		an = fmt.Sprintf("Asmt%d",a+1)
 	}
 

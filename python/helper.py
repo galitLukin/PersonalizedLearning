@@ -43,11 +43,6 @@ def prepareFeatures(score, qi):
 	}
 	return featMap
 
-
-def standardizeFeat(feat, featMap, meu, sigma):
-	return (featMap[feat] - meu)/sigma
-
-
 def decide(userFeat, centroids, decisions):
 	userFeat = np.array(userFeat)
 	minDist = np.inf
@@ -61,9 +56,9 @@ def decide(userFeat, centroids, decisions):
 
 def getNextQuestion(assignment, level, number, score, qi):
 	assignment = assignment.replace(" ", "")
-	with open('newLR.json', encoding='utf-8') as f:
+	with open('./python/newLR.json', encoding='utf-8') as f:
 		questions = json.load(f)
-	with open('staticusers.txt', 'r') as su:
+	with open('./python/staticusers.txt', 'r') as su:
 	    staticUsers = ast.literal_eval(su.read())
 	if score["Username"] in staticUsers:
 		newLevel,q = default.static(assignment,score,level)
@@ -78,7 +73,7 @@ def getNextQuestion(assignment, level, number, score, qi):
 		for key in score:
 			score[lowerIt(key)] = score.pop(key)
 
-		with open('clustering.json', encoding='utf-8') as fc:
+		with open('./python/clustering.json', encoding='utf-8') as fc:
 		    clusteringData = json.load(fc)
 
 		qid = questions[assignment][level - 1]['questions'][number - 1]["qid"]
@@ -87,7 +82,7 @@ def getNextQuestion(assignment, level, number, score, qi):
 		featMap = prepareFeatures(score, qi)
 		userFeat = []
 		for feat in qClusteringData["features"]:
-			userFeat.append(standardizeFeat(feat, featMap, qClusteringData["meu"][feat], qClusteringData["sigma"][feat]))
+			userFeat.append(featMap[feat])
 		treatment = decide(userFeat, clusteringData[keyQid]["centroids"], clusteringData[keyQid]["decisions"])
 
 		lastQues = mapQues[assignment]

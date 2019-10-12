@@ -47,8 +47,7 @@ type QuestionInstance struct {
 	Status      string   `json:"status"`
 	Answer      []string `json:"answer"`
 	NumAttempts int      `json:"numAttempts"`
-	StartTime 	string     `json:"startTime"`
-	EndTime 		string     `json:"endTime"`
+	StartTime 	string   `json:"startTime"`
 	Duration 		int      `json:"duration"`
 }
 
@@ -72,7 +71,7 @@ func getQuestionFromPythonScript(q QuestionData, s string) QuestionData {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//fmt.Println(string(outb))
+	// fmt.Println(string(outb))
 	err = json.Unmarshal(outb, &q)
 	if err != nil {
 		fmt.Println(err)
