@@ -154,7 +154,7 @@ func dbFetchUserInScores(db *sql.DB, qd QuestionData) scores {
 
 //////////////AFTER RECEIVING RESPONSE FROM PYTHON SCRIPT////////////
 
-//if correct, this saves last response as the correct one - ow does nothing
+//if correct, this saves last response as the correct one - or does nothing
 func dbUpdateResponse(db *sql.DB, qd QuestionData) {
 	fmt.Println("Updating user response  ...", qd.User.Uid, qd.User.AssignmentName)
 	if qd.QuestionInstance.Status == "Correct" {
@@ -175,25 +175,27 @@ func dbUpdateResponse(db *sql.DB, qd QuestionData) {
 func dbUpdateScores(db *sql.DB, qd QuestionData) {
 	var q string
 	fmt.Println("Updating user scores  ...", qd.User.Uid, qd.User.AssignmentName)
-	if qd.Question.Level == 1 {
-		q = fmt.Sprintf(`update test02.scores SET next1 = next1 + 1 WHERE username = "%s" AND assignment = "%s";`,
-			qd.User.Uid, qd.User.AssignmentName)
-	} else if qd.Question.Level == 2 {
-		q = fmt.Sprintf(`update test02.scores SET next2 = next2 + 1 WHERE username = "%s" AND assignment = "%s";`,
-			qd.User.Uid, qd.User.AssignmentName)
-	} else if qd.Question.Level == 3 {
-		q = fmt.Sprintf(`update test02.scores SET next3 = next3 + 1 WHERE username = "%s" AND assignment = "%s";`,
-			qd.User.Uid, qd.User.AssignmentName)
-	} else {
-		q = fmt.Sprintf(`update test02.scores SET next4 = next4 + 1 WHERE username = "%s" AND assignment = "%s";`,
-			qd.User.Uid, qd.User.AssignmentName)
-	}
-	stmt, err := db.Prepare(q)
-	dbCheck(err)
-	defer stmt.Close()
+	if qd.QuestionInstance.Status == "Correct" || qd.QuestionInstance.Status == "IncorrectNoAttempts" {
+		if qd.Question.Level == 1 {
+			q = fmt.Sprintf(`update test02.scores SET next1 = next1 + 1 WHERE username = "%s" AND assignment = "%s";`,
+				qd.User.Uid, qd.User.AssignmentName)
+		} else if qd.Question.Level == 2 {
+			q = fmt.Sprintf(`update test02.scores SET next2 = next2 + 1 WHERE username = "%s" AND assignment = "%s";`,
+				qd.User.Uid, qd.User.AssignmentName)
+		} else if qd.Question.Level == 3 {
+			q = fmt.Sprintf(`update test02.scores SET next3 = next3 + 1 WHERE username = "%s" AND assignment = "%s";`,
+				qd.User.Uid, qd.User.AssignmentName)
+		} else {
+			q = fmt.Sprintf(`update test02.scores SET next4 = next4 + 1 WHERE username = "%s" AND assignment = "%s";`,
+				qd.User.Uid, qd.User.AssignmentName)
+		}
+		stmt, err := db.Prepare(q)
+		dbCheck(err)
+		defer stmt.Close()
 
-	_, err = stmt.Exec()
-	dbCheck(err)
+		_, err = stmt.Exec()
+		dbCheck(err)
+	}
 }
 
 // run when user after question is received from python script
