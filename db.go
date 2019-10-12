@@ -57,7 +57,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	i := 0
 	for rows.Next() {
 		i++
-		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Attempts, &s.Correctness, &s.T, &s.Next1, &s.Next2, &s.Next3, &s.Next4, &s.Grade)
+		err = rows.Scan(&s.Username, &s.Assignment, &s.Gender, &s.Level_of_education, &s.Enrollment_mode, &s.AgeCategory, &s.Next1, &s.Next2, &s.Next3, &s.Next4, &s.Grade)
 		dbCheck(err)
 	}
 	if i == 0 {
@@ -306,7 +306,7 @@ func dbUpdateFinishedQuestion(db *sql.DB, qd QuestionData) {
 // 			dbCheck(err)
 // 		}
 // 	}
-}
+//}
 
 //runs when user finishes assignment - returns grade for edX
 func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {

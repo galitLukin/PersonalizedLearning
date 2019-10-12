@@ -1,5 +1,8 @@
 .DS_Store
 
+python/fixjson.py
+oldclustering.json
+
 python/model/checkQuestions.py
 
 python/model/data/exp/
