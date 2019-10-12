@@ -6,7 +6,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/satori/go.uuid"
 	"html/template"
-	//"io"
 	"net/http"
 	"net/http/httputil"
 	"strings"
@@ -107,8 +106,6 @@ func init() {
 	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now().UTC()
-	//uid = "2"
-	//an = "Asmt1"
 }
 
 func main() {
@@ -129,8 +126,10 @@ func getStarted(w http.ResponseWriter, req *http.Request) {
 
 	if an == ""{
 		fmt.Println("DID NOT COME FROM EDX")
-		uid = "1111111"
-		an = "Asmt3"
+		r := rand.New()
+		uid = r.Uint32(9999)
+		a := r.Uint32(3)
+		an = fmt.Sprintf("Asmt%d",a+1)
 	}
 
 	var qd QuestionData
