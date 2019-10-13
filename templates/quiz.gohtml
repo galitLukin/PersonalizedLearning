@@ -20,7 +20,7 @@
                         <div id="quiz-wrong-answer">Wrong Answer. Please try again.</div>
                     {{end}}
                     {{if eq .QuestionData.QuestionInstance.Status "Incomplete"}}
-                        <div id="quiz-must-select">Please select an answer before you submit.</div>
+                        <div id="quiz-must-select">Please insert an answer before you submit.</div>
                     {{end}}
                     {{if eq .QuestionData.QuestionInstance.Status `Correct`}}
                         <div id="quiz-right-answer">Great job!</div>

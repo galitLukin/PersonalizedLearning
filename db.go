@@ -68,7 +68,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 			(username, assignment, gender, level_of_education, enrollment_mode, ageCategory,
  			next1, next2, next3, next4, grade)
 			values ("%s", "%s", "%s", "%s", "%s", "%s", "%d", "%d", "%d", "%d", "%f");`,
-			user, assignment, "None", "None", "audit", "Null", 1, 1, 1, 1, 0.0)
+			user, assignment, "None", "None", 0, "Null", 1, 1, 1, 1, 0.0)
 
 		stmt, err := db.Prepare(q)
 		dbCheck(err)

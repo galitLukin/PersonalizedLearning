@@ -62,7 +62,7 @@ def getNextQuestion(assignment, level, number, score, qi):
 	    staticUsers = ast.literal_eval(su.read())
 	if score["Username"] in staticUsers:
 		newLevel,q = default.static(assignment,score,level)
-		if level is not -1:
+		if newLevel is not -1:
 			return questions[assignment][newLevel]['questions'][q]
 		return
 	else:
