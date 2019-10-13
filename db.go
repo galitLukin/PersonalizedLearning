@@ -9,10 +9,10 @@ import (
 type scores struct {
 	Username           string
 	Assignment         string
-	Gender             string
-	Level_of_education string
-	Enrollment_mode    string
-	AgeCategory        string
+	Gender             int
+	Level_of_education int
+	Enrollment_mode    int
+	AgeCategory        int
 	Next1              int
 	Next2              int
 	Next3              int
