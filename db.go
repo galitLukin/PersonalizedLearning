@@ -115,7 +115,7 @@ func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 //after user presses submit and before calling python script
 //records only if user marked down an answer
 func dbInsertResponse(db *sql.DB, qd QuestionData) {
-	if len(qd.QuestionInstance.Answer[0]) > 0 && (qd.QuestionInstance.Status == "NewQuestion" || qd.QuestionInstance.Status == "IncorrectWithAttempts") {
+	if len(qd.QuestionInstance.Answer[0]) > 0 && (qd.QuestionInstance.Status == "NewQuestion" || qd.QuestionInstance.Status == "IncorrectWithAttempts" || qd.QuestionInstance.Status == "Incomplete") {
 		fmt.Println("Inserting user response  ...", qd.User.Uid, qd.User.AssignmentName)
 		t := time.Now().UTC()
 		tf := t.Format("20060102150405")
@@ -206,109 +206,6 @@ func dbUpdateFinishedQuestion(db *sql.DB, qd QuestionData) {
 }
 
 /////////////////END OF ASSIGNMENT//////////////////
-
-// // end of assignment happens when the user closes the tab or finishes the assignment
-// func dbCalculateScores(db *sql.DB, qd QuestionData) {
-// 	//save user's score in each level in all three of the user's rows (one row per assignment)
-// 	var q string
-// 	var ss scores
-// 	if qd.User.AssignmentName == "Asmt1" {
-// 		q = fmt.Sprintf(`update test02.scores SET cc1 = CASE
-// 			WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
-// 			   ELSE 0
-// 			END,
-// 			cc2 = CASE
-// 			   WHEN score2_attempts > 0 THEN score2_correct/score2_attempts
-// 			   ELSE 0
-// 			END,
-// 			cc3 = CASE
-// 			   WHEN score3_attempts > 0 THEN score3_correct/score3_attempts
-// 			   ELSE 0
-// 			END,
-// 			cc4 = CASE
-// 			   WHEN score4_attempts > 0 THEN score4_correct/score4_attempts
-// 			   ELSE 0
-// 			END
-// 			WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
-//
-// 		stmt, err := db.Prepare(q)
-// 		dbCheck(err)
-// 		defer stmt.Close()
-//
-// 		_, err = stmt.Exec()
-// 		dbCheck(err)
-//
-// 		q = fmt.Sprintf(`SELECT cc1, cc2, cc3, cc4
-// 			    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
-//
-// 		rows, err := db.Query(q)
-// 		dbCheck(err)
-// 		defer rows.Close()
-//
-// 		// the primary key of the table is username, assignment, so there will only be one row
-// 		for rows.Next() {
-// 			err := rows.Scan(&ss.Cc1, &ss.Cc2, &ss.Cc3, &ss.Cc4)
-// 			dbCheck(err)
-// 			q := fmt.Sprintf(`update test02.scores SET cc1 = "%f", cc2 = "%f", cc3 = "%f", cc4 = "%f"
-// 			    WHERE username = "%s";`, ss.Cc1, ss.Cc2, ss.Cc3, ss.Cc4, qd.User.Uid)
-//
-// 			stmt, err := db.Prepare(q)
-// 			dbCheck(err)
-// 			defer stmt.Close()
-//
-// 			_, err = stmt.Exec()
-// 			dbCheck(err)
-//
-// 		}
-// 	} else if qd.User.AssignmentName == "Asmt2" {
-// 		q = fmt.Sprintf(`update test02.scores SET rts1 = CASE
-// 				WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
-// 				   ELSE 0
-// 				END,
-// 				rts2 = CASE
-// 				   WHEN score2_attempts > 0 THEN score2_correct/score2_attempts
-// 				   ELSE 0
-// 				END,
-// 				rts3 = CASE
-// 				   WHEN score3_attempts > 0 THEN score3_correct/score3_attempts
-// 				   ELSE 0
-// 				END,
-// 				rts4 = CASE
-// 				   WHEN score4_attempts > 0 THEN score4_correct/score4_attempts
-// 				   ELSE 0
-// 				END
-// 				WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
-//
-// 		stmt, err := db.Prepare(q)
-// 		dbCheck(err)
-// 		defer stmt.Close()
-//
-// 		_, err = stmt.Exec()
-// 		dbCheck(err)
-//
-// 		q = fmt.Sprintf(`SELECT rts1, rts2, rts3, rts4
-// 				    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
-//
-// 		rows, err := db.Query(q)
-// 		dbCheck(err)
-// 		defer rows.Close()
-//
-// 		// the primary key of the table is username, assignment, so there will only be one row
-// 		for rows.Next() {
-// 			err := rows.Scan(&ss.Rts1, &ss.Rts2, &ss.Rts3, &ss.Rts4)
-// 			dbCheck(err)
-// 			q := fmt.Sprintf(`update test02.scores SET rts1 = "%f", rts2 = "%f", rts3 = "%f", rts4 = "%f"
-// 				    WHERE username = "%s";`, ss.Rts1, ss.Rts2, ss.Rts3, ss.Rts4, qd.User.Uid)
-//
-// 			stmt, err := db.Prepare(q)
-// 			dbCheck(err)
-// 			defer stmt.Close()
-//
-// 			_, err = stmt.Exec()
-// 			dbCheck(err)
-// 		}
-// 	}
-//}
 
 //runs when user finishes assignment - returns grade for edX
 func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
