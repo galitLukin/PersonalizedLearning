@@ -211,6 +211,10 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			}
 			if key == SelectedAnswers {
 				myqd.QuestionInstance.Answer = values
+				for index, _ := range myqd.QuestionInstance.Answer {
+					myqd.QuestionInstance.Answer[index] = strings.Replace(myqd.QuestionInstance.Answer[index], "\"", "", -1)
+					myqd.QuestionInstance.Answer[index] = strings.Replace(myqd.QuestionInstance.Answer[index], "'", "", -1)
+				}
 				myqd.PrevLocation.IsFirst = false
 				dbInsertResponse(db, myqd)
 				if myqd.QuestionInstance.Status == "Correct" || myqd.QuestionInstance.Status == "IncorrectNoAttempts" {

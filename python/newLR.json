@@ -1045,7 +1045,7 @@
           "Assignment": "Asmt3",
           "level": 3,
           "number": 1,
-          "text": "<p>The observations in this dataset are consecutive weekly measurements of the dependent and independent variables. This sort of dataset is called a \"time series.\"<br /> <br />Often, statistical models can be improved by predicting the current value of the dependent variable using the value of the dependent variable from earlier weeks.<br /> <br />In our models, this means we will predict the ILI variable in the current week using values of the ILI variable from previous weeks.<br /> <br />What should be the amount of time to lag the observations?<br /> <br />HINT: The answer lies within the data. Read about the data in the assignment's directions.</p>",
+          "text": "<p>The observations in this dataset are consecutive weekly measurements of the dependent and independent variables. This sort of dataset is called a \"time series\".<br /> <br />Often, statistical models can be improved by predicting the current value of the dependent variable using the value of the dependent variable from earlier weeks.<br /> <br />In our models, this means we will predict the ILI variable in the current week using values of the ILI variable from previous weeks.<br /> <br />What should be the amount of time to lag the observations?<br /> <br />HINT: The answer lies within the data. Read about the data in the assignment's directions.</p>",
           "options": [
             "1 day",
             "2 days",
@@ -1090,7 +1090,7 @@
           "explanation": "<p>The following code builds and summarizes the FluTrend2 model:<br /> <br /><code>FluTrend2 = lm(log(ILI)~Queries+log(ILILag2), data=FluTrain)<br /> <br />summary(FluTrend2)</code><br /> <br />As can be seen, all three coefficients are highly significant.</p>",
           "attemptsOverall": 1,
           "weight": 1,
-          "answerType": 1,
+          "answerType": 2,
           "qid": 30303
         },
         {
