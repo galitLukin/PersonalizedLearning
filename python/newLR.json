@@ -203,7 +203,7 @@
           "options": [
 
           ],
-          "correctAnswer": "0.025, 0.726",
+          "correctAnswer": "0.0253, 0.726",
           "explanation": "<p>We can create this simplified model with the command:<br /> <br /><code>LinReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data=train)</code><br /> <br />You can get the coefficient for N2O and the model R<sup>2</sup> by typing <code>summary(LinReg)</code>.<br /> <br />We have observed that, for this problem, when we remove many variables,the sign of N2O flips.<br /> <br />The model has not lost a lot of explanatory power (the model R<sup>2</sup> is 0.7261 compared to 0.7509 previously) despite removing many variables.<br /> <br />As discussed in lecture, this type of behavior is typical when building a model where many of the independent variables are highly correlated with each other.<br /> <br />In this particular problem many of the variables (CO2, CH4, N2O, CFC.11 and CFC.12) are highly correlated, since they are all driven by human industrial development.</p>",
           "attemptsOverall": 2,
           "weight": 1,
