@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/satori/go.uuid"
 	"html/template"
-	//"io"
+	"io"
 	"net/http"
 	"net/http/httputil"
 	"strings"
@@ -103,19 +103,25 @@ var fm = template.FuncMap{
 }
 
 func init() {
-	db, _ = sql.Open("mysql", "arieg419:Nyknicks4191991!@tcp(mydbinstance.cmsj8sgg5big.us-east-2.rds.amazonaws.com:3306)/test02?charset=utf8")
+	db, _ = sql.Open("mysql", "lukingalit_db:0Polikujm!@tcp(mydb.cypz2hwigdnq.us-east-2.rds.amazonaws.com:3306)/pl?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	//uid = "2"
-	//an = "Asmt1"
+	// uid = "2"
+	// an = "Asmt1"
 }
 
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.HandleFunc("/ping", ping)
 	http.HandleFunc("/getstarted", getStarted)
 	http.HandleFunc("/quiz", quiz)
 	http.HandleFunc("/pastQuestions", pastQuestions)
-	http.ListenAndServe(":80", nil)
+	http.ListenAndServe(":8080", nil)
+}
+
+
+func ping(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, "OK")
 }
 
 func getStarted(w http.ResponseWriter, req *http.Request) {
@@ -227,6 +233,7 @@ func quiz(w http.ResponseWriter, req *http.Request) {
 			myqd.Score = dbFetchUserInScores(db, myqd)
 		}
 		newqd = getNextQuizState(myqd)
+		fmt.Println("next q", newqd.User)
 		newqd.Score.Grade = finishAssignment(db, newqd)
 		dbUserState[user_assignment] = newqd
 	}

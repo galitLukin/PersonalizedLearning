@@ -1,15 +1,8 @@
-# Golang Webserver
-The following are instructions for running the web server
+# PLOpt -  Personalized Learning Optimized
 
-## Prerequisities
-Install Golang. You can do it with "brew" if you have it installed or via the official website.
+This web app orginally integrated with an edX course to serve students dynamic assignments. 
 
-### Started the web server
-Navigate to the directory of the web server. Run `go run *.go`.
-In your browser navigate to localhost/quiz. You should see the UI.
+It was my master's thesis, built with love and very quickly =) 
 
-# ssh into machine A
-ssh -i ~/.ssh/kp-3-1-2019.pem ec2-user@ec2-3-16-157-40.us-east-2.compute.amazonaws.com
-
-# ssh into machine B
-ssh -i ~/.ssh/kp-3-1-2019.pem ec2-user@ec2-52-15-94-65.us-east-2.compute.amazonaws.com
+A prerequisite to run this locally is to have the DB up and running.
+Feel free to reach out with any questions!

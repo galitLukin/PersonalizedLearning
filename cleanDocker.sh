@@ -6,5 +6,5 @@ for id in $(docker images -q);
 do
   docker rmi $id -f;
 done
-docker build . -t  arieg419/quiz-app:latest
-docker run -d -p 80:80 arieg419/quiz-app:latest
+docker build . -t  lukingalit/personalized-learning:latest
+docker run -d -p 80:80 lukingalit/personalized-learning:latest

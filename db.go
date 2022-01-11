@@ -77,7 +77,7 @@ func dbCheck(err error) {
 func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 	var s scores
 	fmt.Println("Getting user from scores  ...", user, assignment)
-	q := fmt.Sprintf(`SELECT * FROM test02.scores
+	q := fmt.Sprintf(`SELECT * FROM pl.scores
 	WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 	rows, err := db.Query(q)
 	dbCheck(err)
@@ -92,7 +92,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 		fmt.Println("User does not exist ...", user, assignment)
 		//if rows is empty - this should not occur but if it does, it means we dont have past data on the user
 		//so insert it with these default values
-		q := fmt.Sprintf(`insert into test02.scores
+		q := fmt.Sprintf(`insert into pl.scores
 			(username, assignment, gender, level_of_education, enrollment_mode, ageCategory, ad1, ad2, ad3, ad4,
 			sd1, sd2, sd3, sd4, de1, de2, de3, de4, cc1, cc2, cc3, cc4, rts1, rts2, rts3, rts4,
 			score1_correct, score1_attempts, score2_correct, score2_attempts, score3_correct, score3_attempts,
@@ -110,7 +110,7 @@ func dbInitFetchUser(db *sql.DB, user string, assignment string) scores {
 		_, err = stmt.Exec()
 		dbCheck(err)
 
-		q = fmt.Sprintf(`SELECT * FROM test02.scores
+		q = fmt.Sprintf(`SELECT * FROM pl.scores
 				WHERE username = "%s" AND assignment = "%s";`, user, assignment)
 		rows, err := db.Query(q)
 		dbCheck(err)
@@ -129,7 +129,7 @@ func dbGetUserPrevLocation(db *sql.DB, qd QuestionData) response {
 	var r response
 	r.IsFirst = true
 	r.Level = 0
-	q := fmt.Sprintf(`SELECT level, numb, attempt, correctness FROM test02.responses
+	q := fmt.Sprintf(`SELECT level, numb, attempt, correctness FROM pl.responses
    WHERE username = "%s" AND assignment = "%s" ORDER BY answer_timestamp DESC
    LIMIT 1;`, qd.User.Uid, qd.User.AssignmentName)
 	rows, err := db.Query(q)
@@ -152,7 +152,7 @@ func dbInsertResponse(db *sql.DB, qd QuestionData) {
 		fmt.Println("Inserting user response  ...", qd.User.Uid, qd.User.AssignmentName)
 		t := time.Now().UTC()
 		tf := t.Format("20060102150405")
-		q := fmt.Sprintf(`insert into test02.responses
+		q := fmt.Sprintf(`insert into pl.responses
 		  (username, assignment, level, numb, attempt, correctness, score_possible, answer, answer_timestamp)
 		  values ("%s", "%s", "%d", "%d", "%d", "%d", "%d", "%s", "%s");`,
 			qd.User.Uid, qd.User.AssignmentName, qd.Question.Level, qd.Question.Number,
@@ -172,7 +172,7 @@ func dbInsertResponse(db *sql.DB, qd QuestionData) {
 func dbFetchUserInScores(db *sql.DB, qd QuestionData) scores {
 	fmt.Println("Getting user from scores  ...", qd.User.Uid, qd.User.AssignmentName)
 	var s scores
-	q := fmt.Sprintf(`SELECT * FROM test02.scores WHERE username = "%s" AND assignment = "%s";`,
+	q := fmt.Sprintf(`SELECT * FROM pl.scores WHERE username = "%s" AND assignment = "%s";`,
 		qd.User.Uid, qd.User.AssignmentName)
 	rows, err := db.Query(q)
 	dbCheck(err)
@@ -191,7 +191,7 @@ func dbFetchUserInScores(db *sql.DB, qd QuestionData) scores {
 func dbUpdateResponse(db *sql.DB, qd QuestionData) {
 	fmt.Println("Updating user response  ...", qd.User.Uid, qd.User.AssignmentName)
 	if qd.QuestionInstance.Status == "Correct" {
-		q := fmt.Sprintf(`update test02.responses SET correctness = 1
+		q := fmt.Sprintf(`update pl.responses SET correctness = 1
 		  WHERE username="%s" AND assignment="%s" AND level="%d" AND numb="%d" AND attempt="%d";`,
 			qd.User.Uid, qd.User.AssignmentName, qd.Question.Level, qd.Question.Number, qd.QuestionInstance.NumAttempts)
 		stmt, err := db.Prepare(q)
@@ -210,19 +210,19 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) {
 	fmt.Println("Updating user scores  ...", qd.User.Uid, qd.User.AssignmentName)
 	if qd.QuestionInstance.Status == "Correct" {
 		if qd.Question.Level == 1 {
-			q = fmt.Sprintf(`update test02.scores SET next1 = next1 + 1, score1_attempts = score1_attempts + "%d",
+			q = fmt.Sprintf(`update pl.scores SET next1 = next1 + 1, score1_attempts = score1_attempts + "%d",
 			  score1_correct = score1_correct + 1 WHERE username = "%s" AND assignment = "%s";`,
 				qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		} else if qd.Question.Level == 2 {
-			q = fmt.Sprintf(`update test02.scores SET next2 = next2 + 1, score2_attempts = score2_attempts + "%d",
+			q = fmt.Sprintf(`update pl.scores SET next2 = next2 + 1, score2_attempts = score2_attempts + "%d",
 			  score2_correct = score2_correct + 1 WHERE username = "%s" AND assignment = "%s";`,
 				qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		} else if qd.Question.Level == 3 {
-			q = fmt.Sprintf(`update test02.scores SET next3 = next3 + 1, score3_attempts = score3_attempts + "%d",
+			q = fmt.Sprintf(`update pl.scores SET next3 = next3 + 1, score3_attempts = score3_attempts + "%d",
 			  score3_correct = score3_correct + 1 WHERE username = "%s" AND assignment = "%s";`,
 				qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		} else {
-			q = fmt.Sprintf(`update test02.scores SET next4 = next4 + 1, score4_attempts = score4_attempts + "%d",
+			q = fmt.Sprintf(`update pl.scores SET next4 = next4 + 1, score4_attempts = score4_attempts + "%d",
 			  score4_correct = score4_correct + 1 WHERE username = "%s" AND assignment = "%s";`,
 				qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		}
@@ -235,16 +235,16 @@ func dbUpdateScores(db *sql.DB, qd QuestionData) {
 
 	} else if qd.QuestionInstance.Status == "IncorrectNoAttempts" {
 		if qd.Question.Level == 1 {
-			q = fmt.Sprintf(`update test02.scores SET next1 = next1 + 1, score1_attempts = score1_attempts + "%d"
+			q = fmt.Sprintf(`update pl.scores SET next1 = next1 + 1, score1_attempts = score1_attempts + "%d"
 					WHERE username = "%s" AND assignment = "%s";`, qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		} else if qd.Question.Level == 2 {
-			q = fmt.Sprintf(`update test02.scores SET next2 = next2 + 1, score2_attempts = score2_attempts + "%d"
+			q = fmt.Sprintf(`update pl.scores SET next2 = next2 + 1, score2_attempts = score2_attempts + "%d"
 					WHERE username = "%s" AND assignment = "%s";`, qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		} else if qd.Question.Level == 3 {
-			q = fmt.Sprintf(`update test02.scores SET next3 = next3 + 1, score3_attempts = score3_attempts + "%d"
+			q = fmt.Sprintf(`update pl.scores SET next3 = next3 + 1, score3_attempts = score3_attempts + "%d"
 					WHERE username = "%s" AND assignment = "%s";`, qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		} else {
-			q = fmt.Sprintf(`update test02.scores SET next4 = next4 + 1, score4_attempts = score4_attempts + "%d"
+			q = fmt.Sprintf(`update pl.scores SET next4 = next4 + 1, score4_attempts = score4_attempts + "%d"
 					WHERE username = "%s" AND assignment = "%s";`, qd.QuestionInstance.NumAttempts, qd.User.Uid, qd.User.AssignmentName)
 		}
 		stmt, err := db.Prepare(q)
@@ -271,7 +271,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 	var q string
 	var ss scores
 	if qd.User.AssignmentName == "Asmt1" {
-		q = fmt.Sprintf(`update test02.scores SET cc1 = CASE
+		q = fmt.Sprintf(`update pl.scores SET cc1 = CASE
 			WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
 			   ELSE 0
 			END,
@@ -297,7 +297,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 		dbCheck(err)
 
 		q = fmt.Sprintf(`SELECT cc1, cc2, cc3, cc4
-			    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
+			    FROM pl.scores WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
 
 		rows, err := db.Query(q)
 		dbCheck(err)
@@ -307,7 +307,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 		for rows.Next() {
 			err := rows.Scan(&ss.Cc1, &ss.Cc2, &ss.Cc3, &ss.Cc4)
 			dbCheck(err)
-			q := fmt.Sprintf(`update test02.scores SET cc1 = "%f", cc2 = "%f", cc3 = "%f", cc4 = "%f"
+			q := fmt.Sprintf(`update pl.scores SET cc1 = "%f", cc2 = "%f", cc3 = "%f", cc4 = "%f"
 			    WHERE username = "%s";`, ss.Cc1, ss.Cc2, ss.Cc3, ss.Cc4, qd.User.Uid)
 
 			stmt, err := db.Prepare(q)
@@ -319,7 +319,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 
 		}
 	} else if qd.User.AssignmentName == "Asmt2" {
-		q = fmt.Sprintf(`update test02.scores SET rts1 = CASE
+		q = fmt.Sprintf(`update pl.scores SET rts1 = CASE
 				WHEN score1_attempts > 0 THEN score1_correct/score1_attempts
 				   ELSE 0
 				END,
@@ -345,7 +345,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 		dbCheck(err)
 
 		q = fmt.Sprintf(`SELECT rts1, rts2, rts3, rts4
-				    FROM test02.scores WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
+				    FROM pl.scores WHERE username = "%s" AND assignment = "%s";`, qd.User.Uid, qd.User.AssignmentName)
 
 		rows, err := db.Query(q)
 		dbCheck(err)
@@ -355,7 +355,7 @@ func dbCalculateScores(db *sql.DB, qd QuestionData) {
 		for rows.Next() {
 			err := rows.Scan(&ss.Rts1, &ss.Rts2, &ss.Rts3, &ss.Rts4)
 			dbCheck(err)
-			q := fmt.Sprintf(`update test02.scores SET rts1 = "%f", rts2 = "%f", rts3 = "%f", rts4 = "%f"
+			q := fmt.Sprintf(`update pl.scores SET rts1 = "%f", rts2 = "%f", rts3 = "%f", rts4 = "%f"
 				    WHERE username = "%s";`, ss.Rts1, ss.Rts2, ss.Rts3, ss.Rts4, qd.User.Uid)
 
 			stmt, err := db.Prepare(q)
@@ -384,7 +384,7 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	scorePossible := 0
 	q := fmt.Sprintf(`SELECT username, assignment, level, numb,
 	    MAX(correctness) AS correctness, ANY_VALUE(score_possible) AS score_possible
-	    FROM test02.responses WHERE username = "%s" AND assignment = "%s"
+	    FROM pl.responses WHERE username = "%s" AND assignment = "%s"
 	    GROUP BY username, assignment, level, numb;`, qd.User.Uid, qd.User.AssignmentName)
 	rows, err := db.Query(q)
 	dbCheck(err)
@@ -404,7 +404,7 @@ func dbCalculateGrade(db *sql.DB, qd QuestionData) float32 {
 	}
 	g.Grade = float32(int(g.Grade*100)) / 100
 
-	q = fmt.Sprintf(`update test02.scores SET grade = "%f"
+	q = fmt.Sprintf(`update pl.scores SET grade = "%f"
 				WHERE username = "%s" AND assignment = "%s";`, g.Grade, qd.User.Uid, qd.User.AssignmentName)
 
 	stmt, err := db.Prepare(q)
@@ -428,7 +428,7 @@ func dbAssignmentDone(db *sql.DB, qd QuestionData) float32 {
 func dbFetchUserInResponses(db *sql.DB, qd QuestionData) []pastQ {
 	fmt.Println("Getting user from responses  ...", qd.User.Uid, qd.User.AssignmentName)
 	q := fmt.Sprintf(`SELECT level, numb, correctness, answer, attempt, answer_timestamp
-			FROM test02.responses
+			FROM pl.responses
 			WHERE username = "%s" AND assignment = "%s"
 			ORDER BY answer_timestamp ASC;`, qd.User.Uid, qd.User.AssignmentName)
 	rows, err := db.Query(q)
