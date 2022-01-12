@@ -103,11 +103,9 @@ var fm = template.FuncMap{
 }
 
 func init() {
-	db, _ = sql.Open("mysql", "lukingalit_db:0Polikujm!@tcp(mydb.cypz2hwigdnq.us-east-2.rds.amazonaws.com:3306)/pl?charset=utf8")
+	db, _ = sql.Open("mysql", "<username>:<password>@tcp<endpoint>:port/db_name>?charset=utf8")
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("./templates/*"))
 	dbSessionsCleaned = time.Now()
-	// uid = "2"
-	// an = "Asmt1"
 }
 
 func main() {
